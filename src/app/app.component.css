@@ -1,0 +1,30 @@
+@import '../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+.container {
+    top: 10%;
+    width: 100%;
+    position: fixed;
+    align-content: stretch;
+    display: flex;
+}
+
+.welcome{
+    text-align: center;
+    color: #636161;
+    font-family:'Open Sans', sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.login {
+    width: -webkit-fill-available;
+    text-align:center;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.register{
+    width: -webkit-fill-available;
+    text-align:center;
+    border-radius: 12px;
+    padding: 1em;
+}
