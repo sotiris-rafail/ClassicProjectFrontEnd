@@ -16,10 +16,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { ClanComponent } from './clan/clan.component';
+import { MatListModule } from '@angular/material/list';
+import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.component';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -29,14 +34,16 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     MatInputModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
   ],
   exports : [
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
   ], 
   entryComponents : [LoginComponent, RegisterComponent],
   providers: [  ],

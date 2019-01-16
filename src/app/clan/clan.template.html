@@ -1,0 +1,23 @@
+<div *ngFor="let clan of clans">
+    <div>
+        <span>
+            <b>Clan Name:</b> {{clan.name}} <br/>
+            <b>Members:</b> {{clan.numberOfMembers}}
+    </span>
+    </div>
+    <mat-list>
+        <mat-list-item *ngFor="let member of clan.members">
+            <i *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'LEADER'" class="fas fa-crown"></i>
+            <div>
+                <span>
+                    <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
+                    <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} {{member.typeOfUser}}
+                </span>
+            </div>
+            <button mat-icon-button (click)="showInfo(member.characterId)">
+                <mat-icon>info</mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-list>
+    <mat-divider *ngIf="clans.length > 1" [vertical]="false"></mat-divider>
+</div>
