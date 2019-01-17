@@ -1,3 +1,57 @@
-<p>
-  member works!
-</p>
+<div>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div style="padding: 2%">
+        <span><b>User: </b>{{email}} </span>
+      </div>
+      <div style="padding: 5%">
+        <span><b>CP:</b> {{cp}} </span>
+      </div>
+      <div style = "position:fixed;left: 80%">
+          <button mat-stroked-button color="basic">
+            <mat-icon>add</mat-icon>
+            Add a character
+          </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+<div>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="level">
+          <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="classOfCharacter">
+          <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.classOfCharacter}} </mat-cell>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="clanName">
+          <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.clanName}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="typeOfCharacter">
+          <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.typeOfCharacter}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="More">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element"><button mat-raised-button color="warn" (click)="handleRowClick(element.name)">Delete</button></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

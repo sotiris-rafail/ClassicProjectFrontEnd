@@ -19,7 +19,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ClanComponent } from './clan/clan.component';
 import { MatListModule } from '@angular/material/list';
 import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.component';
-
+import { MatTreeModule  } from '@angular/material/tree';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -35,7 +37,10 @@ import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.compon
     MatInputModule,
     MatDividerModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatTreeModule,
+    MatTableModule,
+    MatToolbarModule
   ],
   exports : [
     MatFormFieldModule,
@@ -43,7 +48,10 @@ import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.compon
     MatInputModule,
     MatDividerModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatTreeModule,
+    MatTableModule,
+    MatToolbarModule
   ], 
   entryComponents : [LoginComponent, RegisterComponent],
   providers: [  ],

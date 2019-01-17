@@ -14,6 +14,6 @@ export class ClanComponent implements OnInit {
   }
 
   showInfo(link: any){
-    console.log(this.clans.length);
+    console.log(link);
   }
 }
