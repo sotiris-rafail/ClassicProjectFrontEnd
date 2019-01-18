@@ -1,58 +1,60 @@
 <div>
     <mat-toolbar color="primary">
-      <mat-toolbar-row>
-        <div style="padding: 5%">
-          <span><b>CP:</b> {{cp}} </span>
-        </div>
-        <div style="padding: 5%">
-            <span><b>CP Leader:</b> {{cpLeader}} </span>
-        </div>
-        <div style = "position:fixed;left: 80%">
-            <button mat-stroked-button color="basic" (click)="openDialog()">
+        <mat-toolbar-row>
+            <div style="padding: 5%">
+                <span><b>CP:</b> {{cp}} </span>
+            </div>
+            <div style="padding: 5%">
+                <span><b>CP Leader:</b> {{cpLeader}} </span>
+            </div>
+            <div style="position:fixed;left: 80%">
+                <button mat-stroked-button color="basic" (click)="openDialog()">
               <mat-icon>add</mat-icon>
               Add a member
             </button>
-        </div>
-      </mat-toolbar-row>
+            </div>
+        </mat-toolbar-row>
     </mat-toolbar>
-  <div>
-      <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
-          <!-- Position Column -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element2"> {{element2.name}} </mat-cell>
-          </ng-container>
-        
-          <!-- Name Column -->
-          <ng-container matColumnDef="level">
-            <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
-            <mat-cell *matCellDef="let element2"> {{element2.level}} </mat-cell>
-          </ng-container>
-        
-          <!-- Weight Column -->
-          <ng-container matColumnDef="classOfCharacter">
-            <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-            <mat-cell *matCellDef="let element2"> {{element2.classOfCharacter}} </mat-cell>
-          </ng-container>
-        
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="clanName">
-            <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
-            <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
-        </ng-container>
-  
-        <ng-container matColumnDef="typeOfCharacter">
-            <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
-            <mat-cell *matCellDef="let element2"> {{element2.typeOfCharacter}} </mat-cell>
-        </ng-container>
-  
-        <ng-container matColumnDef="More">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let element2"><button mat-raised-button color="warn" (click)="handleRowClick(element.name)">Delete</button></mat-cell>
-        </ng-container>
-  
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-  </div>
-  
+    <div>
+        <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element2"> {{element2.name}} </mat-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="level">
+                <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
+                <mat-cell *matCellDef="let element2"> {{element2.level}} </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="classOfCharacter">
+                <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+                <mat-cell *matCellDef="let element2"> {{element2.classOfCharacter}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="clanName">
+                <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
+                <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="typeOfCharacter">
+                <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
+                <mat-cell *matCellDef="let element2"> {{element2.typeOfCharacter}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="More">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element2">
+                    <button mat-raised-button color="primary" (click)="handleUpdate(element2.name)">Update</button>
+                    <button mat-raised-button color="warn" (click)="handleDelete(element2.name)">Delete</button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>

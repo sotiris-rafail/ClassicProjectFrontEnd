@@ -1,3 +1,4 @@
+import { DeletePanelComponent } from './../../delete-panel/delete-panel.component';
 import { AdditionMemberPanelComponent } from './../../addition-member-panel/addition-member-panel.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -57,8 +58,16 @@ export class LeaderComponent implements OnInit {
     return cpLeader;
   }
 
-  handleRowClick(charId : string) {
+  handleUpdate(charId : string) {
+    const dialogRef = this.dialog.open(AdditionMemberPanelComponent);
 
+  }
+
+  handleDelete(charId : string) {
+    const dialogRef = this.dialog.open(DeletePanelComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
+    });
   }
   
 }

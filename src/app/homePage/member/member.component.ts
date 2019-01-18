@@ -1,3 +1,5 @@
+import { DeletePanelComponent } from './../../delete-panel/delete-panel.component';
+import { UpdateCharacterComponent } from './../../update-character/update-character.component';
 import { MemberService } from './memberService/member.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,5 +40,13 @@ export class MemberComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  updateCharacter(){
+    const dialogRef = this.dialog.open(UpdateCharacterComponent)
+  }
+
+  deleteCharacter(){
+    const dialogRef = this.dialog.open(DeletePanelComponent)
   }
 }

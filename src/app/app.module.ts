@@ -26,11 +26,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { AdditionCharacterPanelComponent } from './addition-character-panel/addition-character-panel.component';
 import { AdditionMemberPanelComponent } from './addition-member-panel/addition-member-panel.component';
+import { RaidBossComponent } from './raid-boss/raid-boss.component';
+import { RegisterRaidBossComponent } from './raid-boss/register-raid-boss/register-raid-boss.component';
+import { UpdateCPMemberComponent } from './update-cpmember/update-cpmember.component';
+import { UpdateCharacterComponent } from './update-character/update-character.component';
+import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,7 @@ import { AdditionMemberPanelComponent } from './addition-member-panel/addition-m
     MatDialogModule,
     MatSelectModule
   ], 
-  entryComponents : [LoginComponent, RegisterComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent],
+  entryComponents : [RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
   providers: [  ],
   bootstrap: [AppComponent]
 })

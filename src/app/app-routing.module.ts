@@ -5,11 +5,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundPageComponent } from './notFoundPage/notFoundPage.component';
 import { MemberComponent } from './homePage/member/member.component';
+import { RaidBossComponent } from './raid-boss/raid-boss.component';
 
 const routes: Routes = [
   { path: '',  component: WelcomePageComponent },
   { path: 'user/:userId', component: MemberComponent},
   { path :'clan' ,component: ClanComponent },
+  { path : 'raidboss', component: RaidBossComponent},
   { path: '**', component : NotFoundPageComponent }
 ];
 
