@@ -22,11 +22,15 @@ import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.compon
 import { MatTreeModule  } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { AdditionCharacterPanelComponent } from './addition-character-panel/addition-character-panel.component';
+import { AdditionMemberPanelComponent } from './addition-member-panel/addition-member-panel.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatListModule,
     MatTreeModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule,
+    MatSelectModule
   ],
   exports : [
     MatFormFieldModule,
@@ -51,9 +57,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatListModule,
     MatTreeModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule,
+    MatSelectModule
   ], 
-  entryComponents : [LoginComponent, RegisterComponent],
+  entryComponents : [LoginComponent, RegisterComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent],
   providers: [  ],
   bootstrap: [AppComponent]
 })

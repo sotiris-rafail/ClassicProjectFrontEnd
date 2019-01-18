@@ -7,8 +7,11 @@
       <div style="padding: 5%">
         <span><b>CP:</b> {{cp}} </span>
       </div>
+      <div style="padding: 5%">
+        <span><b>Type Of User:</b> {{typeOfUser}} </span>
+      </div>
       <div style = "position:fixed;left: 80%">
-          <button mat-stroked-button color="basic">
+          <button mat-stroked-button color="basic" (click)="openDIalog()">
             <mat-icon>add</mat-icon>
             Add a character
           </button>
@@ -54,4 +57,10 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
+  <div *ngIf = "typeOfUser == 'LEADER'">
+    <leader></leader>
+  </div>
+  <div *ngIf = "typeOfUser == 'SUPERUSER'">
+    <superuser></superuser>
+  </div>
 </div>

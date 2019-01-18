@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-superuser',
+  selector: 'superuser',
   templateUrl: './superuser.template.html',
   styleUrls: ['./superuser.style.css']
 })
