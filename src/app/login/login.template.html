@@ -1,19 +1,30 @@
-<div>
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" type="email" required="true">
-        <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
-</div>
-<div>
-    <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" type="password" required="true">
-        <mat-icon matSuffix>
-            <i class="fas fa-lock"></i>
-        </mat-icon>
-    </mat-form-field>
-</div>
-<div>
-    <button mat-raised-button color="primary">Login</button>
+<form [formGroup]="logInGroup" class="container">
+    <div class="usernameDiv">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" type="email" required="true" [formControl]="userNameControl">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="(userNameControl.hasError('pattern') || userNameControl.hasError('email'))">
+                <strong><i class="material-icons">error_outline</i>{{enterEmail}}</strong>
+            </mat-error>
+            <mat-error *ngIf="userNameControl.hasError('required')">
+                <strong><i class="material-icons">error_outline</i>{{emptyFieldError}}</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="passwordDiv">
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" type="password" required="true" [formControl]="passwordControl">
+            <mat-icon matSuffix>
+                <i class="fas fa-lock"></i>
+            </mat-icon>
+            <mat-error *ngIf="passwordControl.hasError('required')">
+                <strong><i class="material-icons">error_outline</i>{{emptyFieldError}}</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</form>
+<div class="buttonDiv">
+    <button mat-raised-button color="primary" (click)="login()" [disabled]="!logInGroup.valid">Login</button>
 </div>

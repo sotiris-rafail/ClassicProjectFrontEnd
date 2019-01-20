@@ -1,28 +1,54 @@
-<div>
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" type="email" required="true">
-        <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
-</div>
-<div>
-    <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" type="password" required="true">
-        <mat-icon matSuffix>
-            <i class="fas fa-lock"></i>
-        </mat-icon>
-    </mat-form-field>
-</div>
-<div>
-    <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" type="password" required="true">
-        <mat-icon matSuffix>
-            <i class="fas fa-lock"></i>
-        </mat-icon>
-    </mat-form-field>
-</div>
-<div>
-    <button mat-raised-button color="primary">Register</button>
+<form [formGroup]="registerGroup" class="container">
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" type="email" required="true" [formControl]="userNameControl">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="(userNameControl.hasError('pattern') || userNameControl.hasError('email'))">
+                <strong><i class="material-icons">error_outline</i>{{enterEmail}}</strong>
+            </mat-error>
+            <mat-error *ngIf="userNameControl.hasError('required')">
+                <strong><i class="material-icons">error_outline</i>{{emptyFieldError}}</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="passwordDiv">
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [placeholder]="Password" minlength="8" required="true" [formControl]="passwordFormControl">
+            <mat-icon matSuffix>
+                <i class="fas fa-lock"></i>
+            </mat-icon>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+                <strong><i class="material-icons">error_outline</i>{{emptyFieldError}}</strong>
+            </mat-error>
+            <mat-error *ngIf="!(this.passwordFormControl.value.length > 8)">
+                <strong><i class="material-icons">error_outline</i>{{noLessCharacters}}</strong>
+            </mat-error>
+            <mat-error *ngIf="!this.repasswordFormControl.hasError('passwordValidation')">
+                <strong><i class="material-icons">error_outline</i>{{wrongPassword}}</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="repasswordDiv">
+        <mat-form-field appearance="outline">
+            <mat-label>{{rePassword}}</mat-label>
+            <input type="password" matInput [placeholder]="rePassword" minlength="8" required="true" [formControl]="repasswordFormControl">
+            <mat-icon matSuffix>
+                <i class="fas fa-lock"></i>
+            </mat-icon>
+            <mat-error *ngIf="repasswordFormControl.hasError('required')">
+                <strong><i class="material-icons">error_outline</i>{{emptyFieldError}}</strong>
+            </mat-error>
+            <mat-error *ngIf="!(this.repasswordFormControl.value.length > 8)">
+                <strong><i class="material-icons">error_outline</i>{{noLessCharacters}}</strong>
+            </mat-error>
+            <mat-error *ngIf="!this.repasswordFormControl.hasError('passwordValidation')">
+                <strong><i class="material-icons">error_outline</i>{{wrongPassword}}</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</form>
+<div class="buttonDiv">
+    <button mat-raised-button color="primary" [disabled]="!registerGroup.valid" (click)="register()">Register</button>
 </div>

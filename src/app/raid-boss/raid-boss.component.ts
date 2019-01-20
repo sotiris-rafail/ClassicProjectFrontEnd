@@ -4,33 +4,12 @@ import { RegisterRaidBossComponent } from './register-raid-boss/register-raid-bo
 
 
 const data = [
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
+  {"name": "Baium", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
   {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
-  {"name": "orfen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
+  {"name": "core", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
+  {"name": "Ant Queen", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true},
+  {"name": "Decar", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : false},
+  {"name": "Ipos", "level": "52", "timeOfDeath" : "", "windowStart" : "" , "windowEnd" : "", "isAlive" : true}
 ]
 
 @Component({
@@ -44,7 +23,7 @@ export class RaidBossComponent implements OnInit {
   constructor(private dialog : MatDialog) { }
 
   ngOnInit() {
-    this.dataSource = data;
+     this.dataSource = data.sort((a,b) => (a.windowStart.localeCompare(b.windowStart)));
   }
 
 

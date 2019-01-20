@@ -31,18 +31,18 @@
             <!-- Weight Column -->
             <ng-container matColumnDef="timeOfDeath">
                 <mat-header-cell *matHeaderCellDef> Time Of Death </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.classOfCharacter}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.timeOfDeath}} </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="windowStart">
                 <mat-header-cell *matHeaderCellDef> Window Start </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.clanName}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowStart}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="windowEnd">
                 <mat-header-cell *matHeaderCellDef> Window End </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.typeOfCharacter}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowEnd}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="more">

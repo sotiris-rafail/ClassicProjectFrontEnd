@@ -31,6 +31,7 @@ import { RegisterRaidBossComponent } from './raid-boss/register-raid-boss/regist
 import { UpdateCPMemberComponent } from './update-cpmember/update-cpmember.component';
 import { UpdateCharacterComponent } from './update-character/update-character.component';
 import { DeletePanelComponent } from './delete-panel/delete-panel.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { DeletePanelComponent } from './delete-panel/delete-panel.component';
     MatTableModule,
     MatToolbarModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   exports : [
     MatFormFieldModule,
@@ -64,7 +66,8 @@ import { DeletePanelComponent } from './delete-panel/delete-panel.component';
     MatTableModule,
     MatToolbarModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ], 
   entryComponents : [RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
   providers: [  ],
