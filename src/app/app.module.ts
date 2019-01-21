@@ -32,11 +32,12 @@ import { UpdateCPMemberComponent } from './update-cpmember/update-cpmember.compo
 import { UpdateCharacterComponent } from './update-character/update-character.component';
 import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConstantpartyComponent } from './constantparty/constantparty.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+import { ConstantpartyComponent } from './constantparty/constantparty.component';
 import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.component';
 import { AppComponent } from './app.component';
 import { ClanComponent } from './clan/clan.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: '',  component: WelcomePageComponent },
   { path: 'user/:userId', component: MemberComponent},
   { path :'clan' ,component: ClanComponent },
+  { path : 'cp/:cpId', component : ConstantpartyComponent},
   { path : 'raidboss', component: RaidBossComponent},
   { path: '**', component : NotFoundPageComponent }
 ];

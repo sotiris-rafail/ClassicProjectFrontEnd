@@ -12,6 +12,7 @@ const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPo
 })
 export class LeaderComponent implements OnInit {
 
+  isUserAleader : boolean = false;
   cp : string;
   dataSource2 = []
   cpLeader : string;
@@ -19,10 +20,10 @@ export class LeaderComponent implements OnInit {
   constructor(private dialog : MatDialog) { }
 
   ngOnInit() {
+    this.UserPartyLeader(data.members);
     this.cpLeader = LeaderComponent.getCPLeader(data.members);
     this.cp = data.cpName;
     this.dataSource2 = LeaderComponent.getCPChars(data.members);
-    console.log(this.dataSource2);
   }
 
   openDialog(){
@@ -44,7 +45,7 @@ export class LeaderComponent implements OnInit {
         cpChars.push(member.chars[0])
       }
     });
-    console.log(cpChars)
+
     return cpChars;
   }
 
@@ -52,10 +53,24 @@ export class LeaderComponent implements OnInit {
     let cpLeader;
     members.forEach(member =>{
       if(member.typeOfUser === "CPLEADER"){
-        cpLeader =  member.chars[0].name;
+        member.chars.forEach(char => {
+          if(char.typeOfCharacter === "MAIN"){
+            cpLeader =  char.name;
+          }
+        })
       }
     });
     return cpLeader;
+  }
+
+  UserPartyLeader(members : any) : void {
+    let cpLeader;
+    members.forEach(member =>{
+      if(member.typeOfUser === "CPLEADER"){
+        //an to mail kai id einai idia me auta sto store tote exoume ton leader
+      }
+    });
+    return;
   }
 
   handleUpdate(charId : string) {

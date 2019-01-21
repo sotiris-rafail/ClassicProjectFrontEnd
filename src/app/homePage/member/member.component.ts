@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AdditionCharacterPanelComponent } from 'src/app/addition-character-panel/addition-character-panel.component';
 
-const data = {"email":"e@e.e","typeOfUser":"LEADER","chars":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"BOX","typeOfUser":"CPMEMBER"},{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"},{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":{"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPoints":0,"corePoints":0,"aqPoints":0}}
+const data = {"email":"e@e.e","typeOfUser":"LEADER","chars":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"BOX","typeOfUser":"CPMEMBER"},{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"},{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":{"cpId": 1,"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPoints":0,"corePoints":0,"aqPoints":0}}
 
 @Component({
   selector: 'app-member',
@@ -18,6 +18,7 @@ export class MemberComponent implements OnInit {
   displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
   email : string;
   cp : string;
+  cpId : number;
   typeOfUser : string;
   constructor(private memberService : MemberService, public dialog: MatDialog) {
 
@@ -25,6 +26,7 @@ export class MemberComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = data.email;
+    this.cpId = data.responseConstantParty.cpId;
     this.cp = data.responseConstantParty.cpName
     this.dataSource = data.chars;
     this.typeOfUser = data.typeOfUser
