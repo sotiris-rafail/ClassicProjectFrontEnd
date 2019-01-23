@@ -13,7 +13,7 @@ const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPo
 })
 export class ConstantpartyComponent implements OnInit {
 
-  isUserAleader : boolean = false;
+  isUserAleader : boolean = true;
   cp : string;
   dataSource2 = []
   cpLeader : string;
