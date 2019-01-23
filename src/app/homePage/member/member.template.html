@@ -62,10 +62,5 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
-        <div *ngIf="typeOfUser == 'LEADER'">
-            <leader></leader>
-        </div>
-        <div *ngIf="typeOfUser == 'SUPERUSER'">
-            <superuser></superuser>
         </div>
     </div>

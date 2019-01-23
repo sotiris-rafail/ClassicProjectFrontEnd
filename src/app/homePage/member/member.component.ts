@@ -43,12 +43,4 @@ export class MemberComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
-  updateCharacter(){
-    const dialogRef = this.dialog.open(UpdateCharacterComponent)
-  }
-
-  deleteCharacter(){
-    const dialogRef = this.dialog.open(DeletePanelComponent)
-  }
 }
