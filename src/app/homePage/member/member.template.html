@@ -1,25 +1,5 @@
 <div>
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>
-            <div style="padding: 2%">
-                <span><b>User: </b>{{email}} </span>
-            </div>
-            <div style="padding: 5%">
-                <span><b>CP:</b> 
-                    <a href= "/cp/{{cpId}}"> {{cp}}</a>
-                </span>
-            </div>
-            <div style="padding: 5%">
-                <span><b>Type Of User:</b> {{typeOfUser}} </span>
-            </div>
-            <div style="position:fixed;left: 80%">
-                <button mat-stroked-button color="basic" (click)="openDIalog()">
-            <mat-icon>add</mat-icon>
-            Add a character
-          </button>
-            </div>
-        </mat-toolbar-row>
-    </mat-toolbar>
+    <topbar [cp]="cp" [email]="email" [typeOfUser]="typeOfUser" [cpId]="cpId" [sidenav]="sidenav" [whichToPrint]="whichToPrint" [previusUrl]="previusUrl"></topbar>
     <div>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Position Column -->
@@ -54,8 +34,7 @@
             <ng-container matColumnDef="More">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="primary" (click)="updateCharacter(element.name)">Update</button>
-                    <button mat-raised-button color="warn" (click)="deleteCharacter(element.name)">Delete</button>
+                    <leader></leader>
                 </mat-cell>
             </ng-container>
 

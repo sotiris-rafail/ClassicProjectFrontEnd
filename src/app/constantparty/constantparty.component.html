@@ -1,20 +1,5 @@
 <div>
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <div style="padding: 5%">
-                    <span><b>CP:</b> {{cp}} </span>
-                </div>
-                <div style="padding: 5%">
-                    <span><b>CP Leader:</b> {{cpLeader}} </span>
-                </div>
-                <div style="position:fixed;left: 80%" >
-                    <button [disabled]="!isUserAleader" mat-stroked-button color="basic" (click)="openDialog()">
-                  <mat-icon>add</mat-icon>
-                  Add a member
-                </button>
-                </div>
-            </mat-toolbar-row>
-        </mat-toolbar>
+        <topbar [whichToPrint]="whichToPrint" [cp]="cp" [cpLeader]="cpLeader" [isUserAleader]="isUserAleader"></topbar>
         <div>
             <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
                 <!-- Position Column -->

@@ -12,7 +12,7 @@ const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPo
   styleUrls: ['./constantparty.component.css']
 })
 export class ConstantpartyComponent implements OnInit {
-
+  whichToPrint = "CP"
   isUserAleader : boolean = true;
   cp : string;
   dataSource2 = []

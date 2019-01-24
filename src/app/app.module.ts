@@ -33,11 +33,13 @@ import { UpdateCharacterComponent } from './update-character/update-character.co
 import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConstantpartyComponent } from './constantparty/constantparty.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { TopbarComponent } from './topbar/topbar.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { ConstantpartyComponent } from './constantparty/constantparty.component'
     MatToolbarModule,
     MatDialogModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule
   ],
   exports : [
     MatFormFieldModule,
@@ -68,7 +71,8 @@ import { ConstantpartyComponent } from './constantparty/constantparty.component'
     MatToolbarModule,
     MatDialogModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSidenavModule
   ], 
   entryComponents : [RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
   providers: [  ],
