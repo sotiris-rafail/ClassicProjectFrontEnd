@@ -1,3 +1,4 @@
+<topbar></topbar>
 <div *ngFor="let clan of clans" class="clan">
     <div matLine>
         <span>
@@ -6,20 +7,20 @@
     </span>
     </div>
     <div>
-    <mat-list >
-        <mat-list-item *ngFor="let member of clan.members">
-            <div matLine>
-                <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'LEADER'" class="fas fa-crown"></i>
-                <span>
+        <mat-list>
+            <mat-list-item *ngFor="let member of clan.members">
+                <div matLine>
+                    <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'LEADER'" class="fas fa-crown"></i>
+                    <span>
                     <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
                     <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} <b>Type Of Member:</b> {{member.typeOfUser}}
                 </span>
-                <button mat-icon-button (click)="showInfo(member)">
+                    <button mat-icon-button (click)="showInfo(member)">
                     <mat-icon matListIcon>info</mat-icon>
                 </button>
-            </div>
-        </mat-list-item>
-    </mat-list>
+                </div>
+            </mat-list-item>
+        </mat-list>
     </div>
     <mat-divider *ngIf="clans.length > 1" [vertical]="false" style="border: 2px solid grey;"></mat-divider>
 </div>

@@ -1,17 +1,5 @@
 <div>
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>
-            <div style="padding: 2%">
-                <span><b>Raid Boss Tracker</b></span>
-            </div>
-            <div style="position:fixed;left: 80%">
-                <button mat-stroked-button color="basic" (click)="openDIalog()">
-            <mat-icon>add</mat-icon>
-            Add a Raid Bosss
-          </button>
-            </div>
-        </mat-toolbar-row>
-    </mat-toolbar>
+    <topbar [whichToPrint]="whichToPrint" [previusUrl]="previusUrl"></topbar>
     <div>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Position Column -->

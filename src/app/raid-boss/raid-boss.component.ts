@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
-import { RegisterRaidBossComponent } from './register-raid-boss/register-raid-boss.component';
+import { Router } from '@angular/router';
 
 
 const data = [
@@ -18,16 +18,15 @@ const data = [
   styleUrls: ['./raid-boss.component.css']
 })
 export class RaidBossComponent implements OnInit {
+
+  whichToPrint : String = "RAIDS"
   dataSource =[];
-  displayedColumns =['name', 'level', 'timeOfDeath', 'windowStart', 'windowEnd', 'more']
-  constructor(private dialog : MatDialog) { }
+  previusUrl : String = "/user/1";
+  displayedColumns =['name', 'level', 'timeOfDeath', 'windowStart', 'windowEnd', 'more'];
+  
+  constructor(private dialog : MatDialog, private router : Router) {}
 
   ngOnInit() {
      this.dataSource = data.sort((a,b) => (a.windowStart.localeCompare(b.windowStart)));
-  }
-
-
-  openDIalog(){
-    const dialogRef = this.dialog.open(RegisterRaidBossComponent)
   }
 }

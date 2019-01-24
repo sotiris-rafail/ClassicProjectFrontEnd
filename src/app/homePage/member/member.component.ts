@@ -19,7 +19,7 @@ export class MemberComponent implements OnInit {
   displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
   email : string;
   cp : string;
-  @Output() cpId : number;
+  cpId : number;
   typeOfUser : string;
   constructor(private memberService : MemberService, public dialog: MatDialog, private router : Router) {
 

@@ -1,46 +1,82 @@
 <div>
     <div *ngIf="whichToPrint === 'MEMBER'">
-<mat-toolbar color="warn">
-  <mat-toolbar-row>
-    <div style="padding: 2%">
-          <span><b>User: </b>{{email}} </span>
-      </div>
-      <div style="padding: 5%">
-          <span><b>CP:</b> 
-              <a href= "/cp/{{cpId}}"> {{cp}}</a>
-          </span>
-      </div>
-      <div style="padding: 5%">
-          <span><b>Type Of User:</b> {{typeOfUser}} </span>
-      </div>
-      <div style="position:fixed;left: 80%">
-          <button mat-stroked-button color="basic" (click)="openDIalog()">
-      <mat-icon>add</mat-icon>
-      Add a character
-    </button>
-      </div>
-  </mat-toolbar-row>
-</mat-toolbar>
-</div>
-<div *ngIf="whichToPrint === 'CP'">
-<mat-toolbar color="primary">
-        <mat-toolbar-row>
-            <div>
-               <a [href]="previusUrl" mat-button><mat-icon>home</mat-icon></a>
-            </div>
-            <div style="padding: 5%">
-                <span><b>CP:</b> {{cp}} </span>
-            </div>
-            <div style="padding: 5%">
-                <span><b>CP Leader:</b> {{cpLeader}} </span>
-            </div>
-            <div style="position:fixed;left: 80%" >
-                <button [disabled]="!isUserAleader" mat-stroked-button color="basic" (click)="openDialog()">
+        <mat-toolbar color="warn">
+            <mat-toolbar-row>
+                <div style="position:fixed; padding: 2%;left: 4%;">
+                    <span><b>User: </b>{{email}} </span>
+                </div>
+                <div style="position:fixed;left: 15%; padding: 5%;">
+                    <span><b> CP: </b> 
+                        <a href= "/cp/{{cpId}}"> {{cp}}</a>
+                    </span>
+                </div>
+                <div style="position:fixed;left: 30%; padding: 5%;">
+                    <span><b>Type Of User:</b> {{typeOfUser}} </span>
+                </div>
+                <div style="position:fixed;left: 80%">
+                    <button mat-stroked-button color="basic" (click)="openDialogCharacter()"><mat-icon>add</mat-icon>Add a character</button>
+                </div>
+                <div style="position:fixed;left: 60%">
+                    <a href="/raidboss">Raid Tracker</a>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+    <div *ngIf="whichToPrint === 'CP'">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <div style="position:fixed;left: 1%">
+                    <a [href]="previusUrl" mat-button>
+                        <mat-icon>home</mat-icon>
+                    </a>
+                </div>
+                <div style="position:fixed; padding: 5%;left: 8%;">
+                    <span><b>CP:</b> {{cp}} </span>
+                </div>
+                <div style="position:fixed; padding: 5%;left: 20%;">
+                    <span><b>CP Leader:</b> {{cpLeader}} </span>
+                </div>
+                <div style="position:fixed;left: 80%">
+                    <button [disabled]="!isUserAleader" mat-stroked-button color="basic" (click)="openDialogMember()">
               <mat-icon>add</mat-icon>
               Add a member
             </button>
-            </div>
-        </mat-toolbar-row>
-    </mat-toolbar>
-</div>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+    <div *ngIf="whichToPrint === 'CLAN'">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <div>
+                    <a [href]="previusUrl" mat-button>
+                        <mat-icon>home</mat-icon>
+                    </a>
+                </div>
+                <div style="padding: 5%">
+                    <span><b>Clan List</b></span>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+    <div *ngIf="whichToPrint === 'RAIDS'">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <div>
+                    <a [href]="previusUrl" mat-button>
+                        <mat-icon>home</mat-icon>
+                    </a>
+                </div>
+                <div style="padding: 5%">
+                    <span><b>Raid Boss Tracker</b></span>
+                </div>
+                <div style="position:fixed;left: 80%">
+                    <button mat-stroked-button color="basic" (click)="openRaidDialog()">
+                        <mat-icon>add</mat-icon>
+                        Add a Raid Bosss
+                    </button>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
 </div>
