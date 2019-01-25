@@ -18,9 +18,11 @@ export class ConstantpartyComponent implements OnInit {
   dataSource2 = []
   cpLeader : string;
   displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
+  previusUrl : String;
   constructor(private dialog : MatDialog) { }
 
   ngOnInit() {
+    this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.UserPartyLeader(data.members);
     this.cpLeader = ConstantpartyComponent.getCPLeader(data.members);
     this.cp = data.cpName;

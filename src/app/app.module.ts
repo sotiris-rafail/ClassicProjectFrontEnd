@@ -35,7 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConstantpartyComponent } from './constantparty/constantparty.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { TopbarComponent } from './topbar/topbar.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    HttpClientModule
   ],
   exports : [
     MatFormFieldModule,
@@ -72,10 +73,11 @@ import { TopbarComponent } from './topbar/topbar.component';
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    HttpClientModule
   ], 
   entryComponents : [RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
-  providers: [  ],
+  providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

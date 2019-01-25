@@ -21,12 +21,13 @@ export class RaidBossComponent implements OnInit {
 
   whichToPrint : String = "RAIDS"
   dataSource =[];
-  previusUrl : String = "/user/1";
+  previusUrl : String;
   displayedColumns =['name', 'level', 'timeOfDeath', 'windowStart', 'windowEnd', 'more'];
   
   constructor(private dialog : MatDialog, private router : Router) {}
 
   ngOnInit() {
+    this.previusUrl = "/user/"+sessionStorage.getItem("userId");
      this.dataSource = data.sort((a,b) => (a.windowStart.localeCompare(b.windowStart)));
   }
 }

@@ -1,16 +1,22 @@
+import { OAuth2Token } from './../tokens';
+import { MemberService } from './../homePage/member/memberService/member.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as globals from "../utils/globals"
 import { PasswordValidator } from '../utils/PasswordValidator';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'register',
   templateUrl: './register.template.html',
-  styleUrls: ['./register.style.css']
+  styleUrls: ['./register.style.css'],
+  providers : [MemberService]
 })
 export class RegisterComponent implements OnInit {
 
-
+  token : OAuth2Token;
   enterEmail = globals.enterEmail;
   emptyFieldError = globals.emptyFieldError;
   onlyNumberError = globals.onlyNumberError;
@@ -18,9 +24,10 @@ export class RegisterComponent implements OnInit {
   wrongPassword = globals.wrongPassword;
   rePassword = globals.rePassword;
 
-  constructor() { }
+  constructor(private registerUserService : MemberService, private router : Router) { }
 
   ngOnInit() {
+   
   }
 
   userNameControl = new FormControl("", [
@@ -46,7 +53,18 @@ export class RegisterComponent implements OnInit {
   })
 
   register(){
-    console.log(this.registerGroup.getRawValue())
+    let user = { 
+      "email" : this.registerGroup.getRawValue().userNameControl, 
+      "password" : this.registerGroup.getRawValue().passwordFormControl,
+      "typeOfUser" : 1
+    }
+    this.registerUserService.registeUserService(user).subscribe(response => {
+      this.registerUserService.loginUserService(user.email, user.password).subscribe(loginResponse => {
+        console.log(loginResponse)
+        this.token = new OAuth2Token(loginResponse as OAuth2Token);
+        this.token.setTokenToStorage();
+      }, loginError => console.log(loginError))
+      this.router.navigateByUrl(response)
+    },error  => console.log(error));
   }
-
 }
