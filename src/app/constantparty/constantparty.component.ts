@@ -3,6 +3,8 @@ import { AdditionMemberPanelComponent } from '../addition-member-panel/addition-
 import { DeletePanelComponent } from '../delete-panel/delete-panel.component';
 import { LeaderComponent } from '../homePage/leader/leader.component';
 import { MatDialog } from '@angular/material/dialog';
+import { OAuth2Token } from '../tokens';
+import { Router } from '@angular/router';
 
 const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPoints":0,"corePoints":0,"aqPoints":0,"members":[{"email":"e@e1.e","typeOfUser":"CPLEADER","chars":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPLEADER"}],"responseConstantParty":null},{"email":"e@e2.e","typeOfUser":"CPMEMBER","chars":[{"name":"manolis","level":22,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null},{"email":"e@e3.e","typeOfUser":"CPMEMBER","chars":[{"name":"ganis","level":33,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null}]};
 
@@ -17,16 +19,22 @@ export class ConstantpartyComponent implements OnInit {
   cp : string;
   dataSource2 = []
   cpLeader : string;
+  token : OAuth2Token = new OAuth2Token();
   displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
   previusUrl : String;
-  constructor(private dialog : MatDialog) { }
+  constructor(private dialog : MatDialog, private router : Router) { }
 
   ngOnInit() {
-    this.previusUrl = "/user/" + sessionStorage.getItem("userId");
-    this.UserPartyLeader(data.members);
-    this.cpLeader = ConstantpartyComponent.getCPLeader(data.members);
-    this.cp = data.cpName;
-    this.dataSource2 = ConstantpartyComponent.getCPChars(data.members);
+    this.token.getTokensFromStorage();
+    if(this.token.isAccessTokenValid()) {
+      this.previusUrl = "/user/" + sessionStorage.getItem("userId");
+      this.UserPartyLeader(data.members);
+      this.cpLeader = ConstantpartyComponent.getCPLeader(data.members);
+      this.cp = data.cpName;
+      this.dataSource2 = ConstantpartyComponent.getCPChars(data.members);
+    } else {
+      this.router.navigateByUrl("/");
+    }
   }
 
   openDialog(){

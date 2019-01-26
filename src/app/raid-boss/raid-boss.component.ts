@@ -1,6 +1,7 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OAuth2Token } from '../tokens';
 
 
 const data = [
@@ -20,6 +21,7 @@ const data = [
 export class RaidBossComponent implements OnInit {
 
   whichToPrint : String = "RAIDS"
+  token : OAuth2Token = new OAuth2Token();
   dataSource =[];
   previusUrl : String;
   displayedColumns =['name', 'level', 'timeOfDeath', 'windowStart', 'windowEnd', 'more'];
@@ -27,7 +29,12 @@ export class RaidBossComponent implements OnInit {
   constructor(private dialog : MatDialog, private router : Router) {}
 
   ngOnInit() {
-    this.previusUrl = "/user/"+sessionStorage.getItem("userId");
-     this.dataSource = data.sort((a,b) => (a.windowStart.localeCompare(b.windowStart)));
+    this.token.getTokensFromStorage();
+    if(this.token.isAccessTokenValid()) {
+      this.previusUrl = "/user/"+sessionStorage.getItem("userId");
+      this.dataSource = data.sort((a,b) => (a.windowStart.localeCompare(b.windowStart)));
+    } else {
+      this.router.navigateByUrl("/");
+    }
   }
 }
