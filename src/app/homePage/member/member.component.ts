@@ -34,7 +34,7 @@ export class MemberComponent implements OnInit {
         this.cp = this.data.responseConstantParty.cpName
         this.dataSource = this.data.chars;
         this.typeOfUser = this.data.typeOfUser
-      })
+      }, error => console.log(error.error.message))
     } else {
       this.router.navigateByUrl("/");
     }
