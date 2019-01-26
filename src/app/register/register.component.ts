@@ -60,9 +60,9 @@ export class RegisterComponent implements OnInit {
     }
     this.registerUserService.registeUserService(user).subscribe(response => {
       this.registerUserService.loginUserService(user.email, user.password).subscribe(loginResponse => {
-        console.log(loginResponse)
         this.token = new OAuth2Token(loginResponse as OAuth2Token);
         this.token.setTokenToStorage();
+        this.router.navigateByUrl("/user/"+ this.token.getUser)
       }, loginError => console.log(loginError))
       this.router.navigateByUrl(response)
     },error  => console.log(error));
