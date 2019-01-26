@@ -11,7 +11,7 @@ export class RegisterCharacterService {
             'Authorization' : 'Bearer  ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get('http://localhost:8080/character/getInfoForRegister/'+userId, {headers : this.headers});
+        return this.http.get('http://83.212.102.61:8080/character/getInfoForRegister/'+userId, {headers : this.headers});
     }
 
 }
