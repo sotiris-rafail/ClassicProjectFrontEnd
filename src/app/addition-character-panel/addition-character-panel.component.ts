@@ -62,9 +62,23 @@ export class AdditionCharacterPanelComponent implements OnInit {
   }
 
   registerCharacter(){
-    console.log(this.registerGroup.getRawValue());
-    this.closeDialog();
-    window.location.reload();
+    let character : RegisterCharacter = {
+      'inGameName' : this.registerGroup.getRawValue().charNameControl,
+      'level' : this.registerGroup.getRawValue().levelControl,
+      'clanId' : this.registerGroup.getRawValue().clanControl,
+      'classOfCharacter' : this.registerGroup.getRawValue().classControl,
+      'typeOfCharacter' : this.registerGroup.getRawValue().typeControl,
+      'userId' : 1
+    }
+    console.log(character);
+    this.registerCharacterService.registerCharacter(character, this.token.getAccessToken).subscribe(
+      response => {
+        console.log(response)
+        this.closeDialog();
+        window.location.reload();
+      },
+      error => {console.log(error)}
+    );
   }
 
  
@@ -83,4 +97,13 @@ export interface Clazz {
 export interface TypeOfCharacter {
   'value' : number,
   'viewValue' : String
+}
+
+export interface RegisterCharacter {
+  'inGameName' : string,
+  'level' : number,
+  'clanId' : number,
+  'classOfCharacter' : number,
+  'typeOfCharacter' : number,
+  'userId' : number
 }
