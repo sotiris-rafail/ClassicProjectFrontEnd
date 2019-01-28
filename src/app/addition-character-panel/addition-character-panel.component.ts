@@ -68,12 +68,11 @@ export class AdditionCharacterPanelComponent implements OnInit {
       'clanId' : this.registerGroup.getRawValue().clanControl,
       'classOfCharacter' : this.registerGroup.getRawValue().classControl,
       'typeOfCharacter' : this.registerGroup.getRawValue().typeControl,
-      'userId' : 1
+      'userId' : this.token.getUser
     }
     console.log(character);
     this.registerCharacterService.registerCharacter(character, this.token.getAccessToken).subscribe(
       response => {
-        console.log(response)
         this.closeDialog();
         window.location.reload();
       },

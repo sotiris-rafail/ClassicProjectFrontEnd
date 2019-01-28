@@ -16,7 +16,7 @@ export class RegisterCharacterService {
 
     public registerCharacter(character : any, access_token : string){
         this.headers = new HttpHeaders({
-            //'Authorization' : 'Bearer ' + access_token,
+            'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
         return this.http.post('http://83.212.102.61:8080/character/register', JSON.stringify(character) , {headers : this.headers});
