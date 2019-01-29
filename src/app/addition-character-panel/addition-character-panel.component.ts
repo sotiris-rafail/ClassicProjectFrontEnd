@@ -50,6 +50,9 @@ export class AdditionCharacterPanelComponent implements OnInit {
         });
         count = 0;
         this.data.HasMain.forEach(hasMain => {
+          if(this.data.HasMain.length == 1) {
+            count = 1;
+          }
           this.types.push({value : count, viewValue : hasMain});
           count++;
         });

@@ -19,11 +19,14 @@ export class TopbarComponent implements OnInit {
   @Input() whichToPrint : String = 'RAIDS';
   @Input() cpLeader : String;
   @Input() isUserAleader : boolean;
-  @Input() previusUrl : String = "/user/1";
+  @Input() previusUrl : String ;
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+    if(this.cpId == -1){
+      this.cpId = NaN;
+    }
   }
 
   openDialogCharacter(){
