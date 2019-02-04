@@ -30,14 +30,25 @@ export class AdditionMemberPanelComponent implements OnInit {
     let usersToUpdate = [];
     this.shoes.selectedOptions.selected.forEach(select => {
       usersToUpdate.push(select.value)
-      let updateObject : Map<String, String[]> = new Map<String, String[]>();
-      updateObject.set("cpId", this.data.cpId);
-      updateObject.set("usersToUpdate", usersToUpdate);
-      console.log(updateObject);
-    })
+    });
+    let updateObject : UpdatableUser = {
+      cpId : this.data.cpId,
+      usersToUpdate : usersToUpdate
+    };
+    this.cpService.addUsersToCP(this.tokken.getAccessToken, updateObject).subscribe(
+      response => response,
+      error => console.log(error),
+      () => {
+        window.setTimeout(function(){this.close();location.reload();},1000);
+    });
   }
 
   close(){
     this.dialogRef.close();
   }
+}
+
+export interface UpdatableUser {
+  cpId : number,
+  usersToUpdate : Array<Number>;
 }

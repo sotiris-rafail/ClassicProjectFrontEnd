@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   noLessCharacters = globals.noLessCharacters;
   wrongPassword = globals.wrongPassword;
   rePassword = globals.rePassword;
+  registerResponse : any;
 
   constructor(private registerUserService : MemberService, private router : Router) { }
 
@@ -62,9 +63,11 @@ export class RegisterComponent implements OnInit {
       this.registerUserService.loginUserService(user.email, user.password).subscribe(loginResponse => {
         this.token = new OAuth2Token(loginResponse as OAuth2Token);
         this.token.setTokenToStorage();
-        this.router.navigateByUrl("/user/"+ this.token.getUser)
+        this.registerResponse = response;
       }, loginError => console.log(loginError))
-      this.router.navigateByUrl(response)
+      window.setTimeout(() => {
+        this.router.navigateByUrl(response);
+      }, 1000)
     },error  => console.log(error));
   }
 }

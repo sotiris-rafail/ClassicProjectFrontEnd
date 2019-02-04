@@ -75,15 +75,14 @@ export class AdditionCharacterPanelComponent implements OnInit {
     }
     console.log(character);
     this.registerCharacterService.registerCharacter(character, this.token.getAccessToken).subscribe(
-      response => {
+      response => {},
+      error => {console.log(error)},
+      () => {
         this.closeDialog();
-        window.location.reload();
-      },
-      error => {console.log(error)}
+        window.setTimeout(function(){this.close();location.reload();},1000);
+      }
     );
   }
-
- 
 }
 
 export interface Clan {

@@ -20,6 +20,7 @@ const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPo
 })
 export class ConstantpartyComponent implements OnInit {
   responseData : any;
+  cpId : number;
   whichToPrint = "CP"
   isUserAleader : boolean = true;
   cp : string;
@@ -33,8 +34,8 @@ export class ConstantpartyComponent implements OnInit {
   ngOnInit() {
     this.token.getTokensFromStorage();
     if(this.token.isAccessTokenValid()) {
-      let cpId = this.router.url.split("/")[2];
-      this.cpService.getCpById(cpId, this.token.getAccessToken).subscribe(response => {
+      this.cpId = Number(this.router.url.split("/")[2]);
+      this.cpService.getCpById(this.cpId, this.token.getAccessToken).subscribe(response => {
         this.responseData = response;
         this.UserPartyLeader(this.responseData.members);
         this.cpLeader = ConstantpartyComponent.getCPLeader(this.responseData.members);
@@ -89,7 +90,7 @@ export class ConstantpartyComponent implements OnInit {
     let cpLeader;
     members.forEach(member =>{
       if(member.typeOfUser === "CPLEADER"){
-        //this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
+        this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
       }
     });
     return;
