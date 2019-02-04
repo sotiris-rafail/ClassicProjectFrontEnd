@@ -6,12 +6,24 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Character's Name</mat-label>
                     <input matInput placeholder="Character's Name" required="true" [formControl]="charNameControl">
+                    <mat-error *ngIf="charNameControl.hasError('required')">
+                            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
+                        </mat-error>
                 </mat-form-field>
             </div>
             <div class="charlevelInput">
                 <mat-form-field appearance="outline">
                     <mat-label>Character's Level</mat-label>
-                    <input matInput placeholder="Character's Level" required="true" [formControl]="levelControl">
+                    <input matInput placeholder="Character's Level" required="true" [formControl]="levelControl" type="number" min="1" max="85">
+                    <mat-error *ngIf="levelControl.hasError('min')">
+                        <strong><i class="material-icons">error_outline</i>Minimun level is 1</strong>
+                    </mat-error>
+                    <mat-error *ngIf="levelControl.hasError('max')">
+                            <strong><i class="material-icons">error_outline</i>Maximun level is 85</strong>
+                        </mat-error>
+                    <mat-error *ngIf="levelControl.hasError('required')">
+                            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
+                        </mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -23,6 +35,9 @@
                             {{clan.viewValue}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="clanControl.hasError('required')">
+                            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
+                        </mat-error>
                 </mat-form-field>
             </div>
             <div class="classSelection">
@@ -32,6 +47,9 @@
                             {{clazz.viewValue}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="classControl.hasError('required')">
+                            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
+                        </mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -43,6 +61,9 @@
                             {{type.viewValue}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="typeControl.hasError('required')">
+                            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
+                        </mat-error>
                 </mat-form-field>
             </div>
         </div>

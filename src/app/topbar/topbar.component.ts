@@ -21,7 +21,9 @@ export class TopbarComponent implements OnInit {
   @Input() isUserAleader : boolean;
   @Input() previusUrl : String ;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
+    console.log(this.cpId)
+   }
 
   ngOnInit() {
     if(this.cpId == -1){
@@ -38,7 +40,8 @@ export class TopbarComponent implements OnInit {
   }
 
   openDialogMember(){
-    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, {width : "530px", height : "530px"});
+    console.log(this.cpId)
+    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, {width : "630px", height : "530px", data : {cpId : this.cpId}});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

@@ -21,7 +21,7 @@ export class AdditionCharacterPanelComponent implements OnInit {
   types : TypeOfCharacter[] = []
 
   charNameControl = new FormControl("",[Validators.required]);
-  levelControl = new FormControl("",[Validators.required]);
+  levelControl = new FormControl("",[Validators.required,Validators.max(85),Validators.min(1)]);
   clanControl = new FormControl("",[Validators.required]);
   classControl = new FormControl("",[Validators.required]);
   typeControl = new FormControl("",[Validators.required]);

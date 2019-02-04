@@ -5,15 +5,21 @@ import { LeaderComponent } from '../homePage/leader/leader.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OAuth2Token } from '../tokens';
 import { Router } from '@angular/router';
+import { ConstantPartyService } from './constantPartyService/constantParty.service';
 
-const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPoints":0,"corePoints":0,"aqPoints":0,"members":[{"email":"e@e1.e","typeOfUser":"CPLEADER","chars":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPLEADER"}],"responseConstantParty":null},{"email":"e@e2.e","typeOfUser":"CPMEMBER","chars":[{"name":"manolis","level":22,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null},{"email":"e@e3.e","typeOfUser":"CPMEMBER","chars":[{"name":"ganis","level":33,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null}]};
+const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPoints":0,"corePoints":0,"aqPoints":0,"members":
+[{"userId":"1","email":"e@e1.e","typeOfUser":"CPMEMBER","chars":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPLEADER"}],"responseConstantParty":null},
+{"userId":"2","email":"e@e2.e","typeOfUser":"CPMEMBER","chars":[{"name":"manolis","level":22,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null},
+{"userId":"9","email":"e@e3.e","typeOfUser":"CPLEADER","chars":[{"name":"ganis","level":33,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null}]};
 
 @Component({
   selector: 'app-constantparty',
   templateUrl: './constantparty.component.html',
-  styleUrls: ['./constantparty.component.css']
+  styleUrls: ['./constantparty.component.css'],
+  providers : [ConstantPartyService]
 })
 export class ConstantpartyComponent implements OnInit {
+  responseData : any;
   whichToPrint = "CP"
   isUserAleader : boolean = true;
   cp : string;
@@ -22,16 +28,21 @@ export class ConstantpartyComponent implements OnInit {
   token : OAuth2Token = new OAuth2Token();
   displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
   previusUrl : String;
-  constructor(private dialog : MatDialog, private router : Router) { }
+  constructor(private dialog : MatDialog, private router : Router, private cpService : ConstantPartyService) { }
 
   ngOnInit() {
     this.token.getTokensFromStorage();
     if(this.token.isAccessTokenValid()) {
+      let cpId = this.router.url.split("/")[2];
+      this.cpService.getCpById(cpId, this.token.getAccessToken).subscribe(response => {
+        this.responseData = response;
+        this.UserPartyLeader(this.responseData.members);
+        this.cpLeader = ConstantpartyComponent.getCPLeader(this.responseData.members);
+        this.cp = this.responseData.cpName;
+        this.dataSource2 = ConstantpartyComponent.getCPChars(this.responseData.members);
+
+      })
       this.previusUrl = "/user/" + sessionStorage.getItem("userId");
-      this.UserPartyLeader(data.members);
-      this.cpLeader = ConstantpartyComponent.getCPLeader(data.members);
-      this.cp = data.cpName;
-      this.dataSource2 = ConstantpartyComponent.getCPChars(data.members);
     } else {
       this.router.navigateByUrl("/");
     }
@@ -78,7 +89,7 @@ export class ConstantpartyComponent implements OnInit {
     let cpLeader;
     members.forEach(member =>{
       if(member.typeOfUser === "CPLEADER"){
-        //an to mail kai id einai idia me auta sto store tote exoume ton leader
+        //this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
       }
     });
     return;

@@ -56,3 +56,10 @@
     border-radius: 12px;
     padding: 1em;
 }
+
+.material-icons {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    font-size: 125%;
+}
