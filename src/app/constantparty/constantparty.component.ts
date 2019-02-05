@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { AdditionMemberPanelComponent } from '../addition-member-panel/addition-member-panel.component';
 import { DeletePanelComponent } from '../delete-panel/delete-panel.component';
 import { LeaderComponent } from '../homePage/leader/leader.component';
@@ -19,6 +19,8 @@ const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPo
   providers : [ConstantPartyService]
 })
 export class ConstantpartyComponent implements OnInit {
+
+  private isMember : boolean;
   responseData : any;
   cpId : number;
   whichToPrint = "CP"
@@ -28,22 +30,25 @@ export class ConstantpartyComponent implements OnInit {
   cpLeader : string;
   token : OAuth2Token = new OAuth2Token();
   displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
-  previusUrl : String;
-  constructor(private dialog : MatDialog, private router : Router, private cpService : ConstantPartyService) { }
+  previusUrl : string;
+  constructor(private dialog : MatDialog, private router : Router, private cpService : ConstantPartyService) {
+   }
 
   ngOnInit() {
+    this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
+    this.cpId = Number(this.router.url.split("/")[2]);
     if(this.token.isAccessTokenValid()) {
-      this.cpId = Number(this.router.url.split("/")[2]);
-      this.cpService.getCpById(this.cpId, this.token.getAccessToken).subscribe(response => {
+      this.cpService.getCpById(this.cpId, this.token.getAccessToken, this.token.getUser).subscribe(response => {
         this.responseData = response;
         this.UserPartyLeader(this.responseData.members);
         this.cpLeader = ConstantpartyComponent.getCPLeader(this.responseData.members);
         this.cp = this.responseData.cpName;
         this.dataSource2 = ConstantpartyComponent.getCPChars(this.responseData.members);
 
+      }, error => {
+        this.router.navigateByUrl(this.previusUrl)
       })
-      this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     } else {
       this.router.navigateByUrl("/");
     }

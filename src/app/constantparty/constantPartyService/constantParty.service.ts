@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { UpdatableUser } from 'src/app/addition-member-panel/addition-member-panel.component';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Injectable()
@@ -9,12 +11,12 @@ export class ConstantPartyService {
     constructor(private http : HttpClient){}
     headers: any;
 
-    public getCpById(cpId : number, access_token : string) {
+    public getCpById(cpId : number, access_token : string, userId : number) {
         this.headers = new HttpHeaders({
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get('http://localhost:8080/cp/'+cpId, {headers : this.headers});
+        return this.http.get('http://localhost:8080/cp/'+cpId +"/" + userId, {headers : this.headers});
     }
 
     public getUsersWithoutCp(access_token : string) {
