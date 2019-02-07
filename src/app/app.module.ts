@@ -36,10 +36,11 @@ import { ConstantpartyComponent } from './constantparty/constantparty.component'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { TopbarComponent } from './topbar/topbar.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { UpdateTODComponent } from './raid-boss/update-tod/update-tod.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     ReactiveFormsModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule
   ],
   exports : [
     MatFormFieldModule,
@@ -74,9 +76,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     ReactiveFormsModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule
   ], 
-  entryComponents : [RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
+  entryComponents : [UpdateTODComponent,RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
   providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })
