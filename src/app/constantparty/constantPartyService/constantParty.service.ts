@@ -16,7 +16,7 @@ export class ConstantPartyService {
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get('http://localhost:8080/cp/'+cpId +"/" + userId, {headers : this.headers});
+        return this.http.get('http://83.212.102.61:8080/cp/'+cpId +"/" + userId, {headers : this.headers});
     }
 
     public getUsersWithoutCp(access_token : string) {
@@ -24,7 +24,7 @@ export class ConstantPartyService {
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get('http://localhost:8080/user/noCpPeople', {headers : this.headers});
+        return this.http.get('http://83.212.102.61:8080/user/noCpPeople', {headers : this.headers});
     }
 
     public addUsersToCP(access_token : string, updateObject: UpdatableUser) {
@@ -32,6 +32,6 @@ export class ConstantPartyService {
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.put('http://localhost:8080/user/addPeopleToCp', updateObject ,{headers : this.headers});
+        return this.http.put('http://83.212.102.61:8080/user/addPeopleToCp', updateObject ,{headers : this.headers});
     }
 }
