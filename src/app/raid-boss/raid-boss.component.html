@@ -19,12 +19,12 @@
             <!-- Symbol Column -->
             <ng-container matColumnDef="windowStart">
                 <mat-header-cell *matHeaderCellDef> Window Start </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowStarts | date: 'medium'}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowStarts | date: 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="windowEnd">
                 <mat-header-cell *matHeaderCellDef> Window End </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowEnds | date : 'medium'}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowEnds | date : 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="more">
