@@ -24,7 +24,7 @@ export class ConstantpartyComponent implements OnInit {
   responseData : any;
   cpId : number;
   whichToPrint = "CP"
-  isUserAleader : boolean = true;
+  isUserAleader : boolean = false;
   cp : string;
   dataSource2 = []
   cpLeader : string;
@@ -91,14 +91,12 @@ export class ConstantpartyComponent implements OnInit {
     return cpLeader;
   }
 
-  UserPartyLeader(members : any) : void {
-    let cpLeader;
+  private UserPartyLeader(members : any) : void {
     members.forEach(member =>{
       if(member.typeOfUser === "CPLEADER"){
         this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
       }
     });
-    return;
   }
 
   handleUpdate(charId : string) {
