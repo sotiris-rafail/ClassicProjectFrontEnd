@@ -1,0 +1,33 @@
+<div>
+    <form [formGroup]="addClanGroup">
+        <h3>Add A New Clan</h3>
+        <div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Clan Name" [formControl]="clanName" required>
+                    <mat-error *ngIf="clanName.hasError('required')">
+                        The field can not be empty
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Clan Level" type="number" [formControl]="clanLevel" [max]="maxLevel" [min]="minLevel">
+                    <mat-error *ngIf="clanLevel.hasError('max')">
+                        Max level is {{maxLevel}}
+                    </mat-error>
+                    <mat-error *ngIf="clanLevel.hasError('min')">
+                        Min level is {{minLevel}}
+                    </mat-error>
+                    <mat-error *ngIf="clanLevel.hasError('required')">
+                        The field can not be empty
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div>
+        <button mat-raised-button [disabled]="!addClanGroup.valid" color="warn" (click)="addNewClan()">
+          <mat-icon>add</mat-icon><b>Add Clan</b></button>
+    </div>
+</div>

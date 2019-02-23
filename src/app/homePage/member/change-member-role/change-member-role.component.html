@@ -1,0 +1,14 @@
+<div>
+    <div>
+        <mat-form-field>
+            <mat-select placeholder="Select a role" [(value)]="selectedValue">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                    {{role.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <button [disabled]="!selectedValue" mat-raised-button color="warn" (click)="updateUser()">Update user's role</button>
+    </div>
+</div>

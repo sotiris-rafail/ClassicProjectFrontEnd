@@ -1,3 +1,4 @@
+import { MemberService } from './../homePage/member/memberService/member.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { RaidBossService } from './raidBossService/raidBoss.service';
   selector: 'app-raid-boss',
   templateUrl: './raid-boss.component.html',
   styleUrls: ['./raid-boss.component.css'],
-  providers : [RaidBossService]
+  providers : [RaidBossService, MemberService]
 })
 export class RaidBossComponent implements OnInit {
 
@@ -20,7 +21,9 @@ export class RaidBossComponent implements OnInit {
   previusUrl : String;
   displayedColumns =['name', 'level', 'windowStart', 'windowEnd', 'more'];
   actualDisplay :Array<RaidBoss> = []
-  constructor(private dialog : MatDialog, private router : Router, private raidBossService : RaidBossService) {
+  typeOfUser : any;
+  raidBosser : boolean = false;
+  constructor(private dialog : MatDialog, private router : Router, private raidBossService : RaidBossService, private memberService : MemberService) {
     
   }
 
@@ -28,6 +31,15 @@ export class RaidBossComponent implements OnInit {
     this.previusUrl = "/user/"+sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
     if(this.token.isAccessTokenValid()) {
+      this.memberService.getRoleOfUser(Number(this.token.getUser), this.token.getAccessToken).subscribe(
+        roleOfUser => {
+          this.typeOfUser = roleOfUser;
+          this.showButton();
+      },
+        error => {
+          console.log(error)
+        }
+      )
       this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
         response => {
           this.dataSource = response;
@@ -78,6 +90,13 @@ export class RaidBossComponent implements OnInit {
         acces_tokken : this.token.getAccessToken
       }
     });
+  }
+
+  showButton(){
+    if(this.typeOfUser === "SUPERUSER") {
+      this.raidBosser = true;
+    }
+    console.log(this.typeOfUser);
   }
 }
 

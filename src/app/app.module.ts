@@ -38,9 +38,11 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdateTODComponent } from './raid-boss/update-tod/update-tod.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ChangeMemberRoleComponent } from './homePage/member/change-member-role/change-member-role.component';
+import { AddClanComponent } from './clan/add-clan/add-clan.component';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     HttpClientModule,
     MatDatepickerModule
   ], 
-  entryComponents : [UpdateTODComponent,RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
+  entryComponents : [AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
   providers: [ HttpClientModule ],
   bootstrap: [AppComponent]
 })

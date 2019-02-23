@@ -15,14 +15,14 @@
 }
 
 .login {
-    width: -webkit-fill-available;
+    width: 50%;
     text-align: center;
     border-radius: 12px;
     padding: 1em;
 }
 
 .register {
-    width: -webkit-fill-available;
+    width: 50%;
     text-align: center;
     border-radius: 12px;
     padding: 1em;

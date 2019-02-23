@@ -56,6 +56,11 @@
                 <div style="padding: 5%">
                     <span><b>Clan List</b></span>
                 </div>
+                <div style="position: relative;left: 60%">
+                    <button [disabled]="!isSuperUser" mat-stroked-button color="basic" (click)="openAddClanDialog()">
+                        <mat-icon>add</mat-icon>Add a Clan
+                    </button>
+                </div>
             </mat-toolbar-row>
         </mat-toolbar>
     </div>
@@ -70,7 +75,7 @@
                 <div style="padding: 5%">
                     <span><b>Raid Boss Tracker</b></span>
                 </div>
-                <div style="position: relative;left: 60%">
+                <div style="position: relative;left: 40%">
                     <button mat-stroked-button color="basic" (click)="openRaidDialog()">
                         <mat-icon>add</mat-icon>
                         Add a Raid Bosss

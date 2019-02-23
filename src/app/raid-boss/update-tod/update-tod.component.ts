@@ -38,7 +38,7 @@ export class UpdateTODComponent implements OnInit {
   hour = new FormControl('00',[ Validators.max(23), Validators.min(0), Validators.required]);
   mins = new FormControl('00',[ Validators.max(59), Validators.min(0), Validators.required]);
 
-  constructor( public dialogRef: MatDialogRef<UpdateTODComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private raidBossService : RaidBossService) {}
+  constructor(public dialogRef: MatDialogRef<UpdateTODComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private raidBossService : RaidBossService) {}
 
   formGroup = new FormGroup({
    date : this.date,

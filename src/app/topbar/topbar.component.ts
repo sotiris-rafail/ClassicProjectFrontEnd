@@ -4,6 +4,7 @@ import { AdditionCharacterPanelComponent } from '../addition-character-panel/add
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RegisterRaidBossComponent } from '../raid-boss/register-raid-boss/register-raid-boss.component';
+import { AddClanComponent } from '../clan/add-clan/add-clan.component';
 
 @Component({
   selector: 'topbar',
@@ -20,7 +21,7 @@ export class TopbarComponent implements OnInit {
   @Input() cpLeader : String;
   @Input() isUserAleader : boolean;
   @Input() previusUrl : String ;
-
+  @Input() isSuperUser : boolean;
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -46,7 +47,15 @@ export class TopbarComponent implements OnInit {
   }
 
   openRaidDialog(){
-    const dialogRef = this.dialog.open(RegisterRaidBossComponent, {width : "530px", height : "530px"});
+    const dialogRef = this.dialog.open(RegisterRaidBossComponent, {width : "330px", height : "430px"});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openAddClanDialog(){
+    const dialogRef = this.dialog.open(AddClanComponent, {width : "330px", height : "300px"});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

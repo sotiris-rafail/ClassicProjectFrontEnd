@@ -30,7 +30,7 @@
             <ng-container matColumnDef="more">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="primary" (click)="handleRowClick(element.raidBossId)">Update TOD</button>
+                    <button [disabled]="!raidBosser" mat-raised-button color="primary" (click)="handleRowClick(element.raidBossId)">Update TOD</button>
                 </mat-cell>
             </ng-container>
 

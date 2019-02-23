@@ -1,4 +1,4 @@
-<topbar [previusUrl] = "previusUrl" [whichToPrint]="whichToPrint"></topbar>
+<topbar [previusUrl]="previusUrl" [whichToPrint]="whichToPrint" [isSuperUser]="isSuperUser"></topbar>
 <div *ngFor="let clan of clans" class="clan">
     <div matLine>
         <span>
@@ -15,7 +15,7 @@
                     <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
                     <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} <b>Type Of Member:</b> {{member.typeOfUser}}
                 </span>
-                    <button mat-icon-button (click)="showInfo(member)">
+                    <button [disabled]="!isSuperUser" mat-icon-button (click)="showInfo(member)">
                     <mat-icon matListIcon>info</mat-icon>
                 </button>
                 </div>

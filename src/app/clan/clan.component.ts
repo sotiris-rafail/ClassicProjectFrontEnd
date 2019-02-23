@@ -1,28 +1,43 @@
+import { ChangeMemberRoleComponent } from './../homePage/member/change-member-role/change-member-role.component';
+import { MemberService } from './../homePage/member/memberService/member.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { ClanService } from './clanService/clan.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-clan',
   templateUrl: './clan.template.html',
   styleUrls: ['./clan.style.css'],
-  providers : [ClanService]
+  providers : [ClanService, MemberService]
 })
 export class ClanComponent implements OnInit {
   previusUrl : String;
   whichToPrint : String = "CLAN"
   token : OAuth2Token = new OAuth2Token();
-  clans=[{"name":"Perkunas1","numberOfMembers":3,"members":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"BOX","typeOfUser":"CPMEMBER"},{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"},{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"LEADER"}]},{"name":"Perkunas2","numberOfMembers":0,"members":[]},{"name":"Perkunas3","numberOfMembers":0,"members":[]}]
-  constructor(private router : Router, private clanService : ClanService) { }
+  clans : any =[];
+  typeOfUser : any;
+  isSuperUser : boolean = false;
+  constructor(private router : Router, private clanService : ClanService, private memberService : MemberService, private dialog : MatDialog) { }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
+    this.memberService.getRoleOfUser(Number(sessionStorage.getItem("userId")), this.token.getAccessToken).subscribe(
+      roleOfUser => {
+        this.typeOfUser = roleOfUser;
+        this.showButton();
+    },
+      error => {
+        console.log(error)
+      }
+    )
     if(this.token.isAccessTokenValid()) {
       this.clanService.getAllClansInfo(this.token.getAccessToken).subscribe(
         response =>{
           console.log(response)
+          this.clans = response;
         },
         error => {
           console.log(error)
@@ -33,7 +48,15 @@ export class ClanComponent implements OnInit {
     }
   }
 
-  showInfo(link: any){
-    console.log(link);
+  showButton(){
+    if(this.typeOfUser === "SUPERUSER") {
+      this.isSuperUser = true;
+    }
+    console.log(this.typeOfUser);
+  }
+
+  showInfo(member: any){
+    let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
+      {data : {member : member}});
   }
 }
