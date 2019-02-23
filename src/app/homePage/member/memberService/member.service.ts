@@ -30,7 +30,7 @@ export class MemberService {
 
   public getRoleOfUser(userId : number, token : string) {
     this.headers = new HttpHeaders({
-      //'Authorization' : 'Bearer  ' + token,
+      'Authorization' : 'Bearer  ' + token,
       'Content-Type' : 'application/json',
     });
     return this.http.get('http:///83.212.102.61:8080/user/role/'+userId, {headers : this.headers})
@@ -38,7 +38,7 @@ export class MemberService {
 
   public updateUserRole(characterId : string, typeOfuser : string, token : string) {
     this.headers = new HttpHeaders({
-      //'Authorization' : 'Bearer  ' + token,
+      'Authorization' : 'Bearer  ' + token,
       'Content-Type' : 'application/json',
     });
     return this.http.put('http:///83.212.102.61:8080/user/updateRole', "", {headers : this.headers, 

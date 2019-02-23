@@ -28,7 +28,7 @@ export class RaidBossService{
 
     public addNewRaid(access_token :string ,  raidBoss : RaidBoss) {
         this.headers = new HttpHeaders({
-            //'Authorization' : 'Bearer ' + access_token,
+            'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
         return this.http.post('http:///83.212.102.61:8080/raidboss/add', raidBoss, {headers : this.headers});
