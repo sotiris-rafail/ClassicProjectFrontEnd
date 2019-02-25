@@ -10,10 +10,10 @@ export class RaidBossService{
 
     public getALlBosses(access_token : string) {
         this.headers = new HttpHeaders({
-            // 'Authorization' : 'Bearer ' + access_token,
+            'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get('http://localhost:8080/raidboss/getInfo', {headers : this.headers});
+        return this.http.get('http://83.212.102.61:8080/raidboss/getInfo', {headers : this.headers});
     }
 
     public updateTOD(access_token : string, raidId : string, time : string) {
