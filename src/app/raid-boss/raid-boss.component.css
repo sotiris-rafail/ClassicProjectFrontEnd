@@ -1,13 +1,20 @@
-.red {
+.DEAD {
     background-color: red;
     font-family: 'Times New Roman', Times, serif;
     font-size: 120%;
     color: black;
 }
 
-.green {
+.ALIVE {
     background-color: green;
     font-family: 'Times New Roman', Times, serif;
     font-size: 120%;
     color: white;
+}
+
+.ONWINDOW {
+    background-color: orange;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 120%;
+    color: black;
 }

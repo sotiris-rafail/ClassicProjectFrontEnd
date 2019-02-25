@@ -43,7 +43,7 @@ export class RaidBossComponent implements OnInit {
       this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
         response => {
           this.dataSource = response;
-          console.log(this.dataSource)
+          console.log(response)
           this.actualDisplay = this.fixOutput(this.dataSource);
         },
         error => {
@@ -60,11 +60,12 @@ export class RaidBossComponent implements OnInit {
     let date = new Date().getTimezoneOffset();
     datasource.forEach(
       raidboss =>{
+        console.log(raidboss)
         let raid : RaidBoss = {
           raidBossId : raidboss.raidBossId,
           level : raidboss.level,
           name : raidboss.name,
-          isAlive : raidboss.alive,
+          isAlive : raidboss.raidBossState,
           whereItLives : raidboss.whereItLives,
           windowStarts : new Date (raidboss.windowStarts),
           windowEnds : new Date (raidboss.windowEnds)
@@ -104,7 +105,7 @@ export interface RaidBoss {
   raidBossId : number,
   level : number,
   name : string;
-  isAlive : boolean,
+  isAlive : string,
   whereItLives : string,
   windowStarts : Date,
   windowEnds : Date

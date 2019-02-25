@@ -5,7 +5,7 @@
             <!-- Position Column -->
             <ng-container matColumnDef="name">
                 <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}">
+                <mat-cell *matCellDef="let element" [ngClass]="element.isAlive">
                     {{element.name}}
                 </mat-cell>
             </ng-container>
@@ -13,18 +13,18 @@
             <!-- Name Column -->
             <ng-container matColumnDef="level">
                 <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.level}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.level}} </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="windowStart">
                 <mat-header-cell *matHeaderCellDef> Window Start </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowStarts | date: 'MMM d, y, HH:mm:ss'}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.windowStarts | date: 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="windowEnd">
                 <mat-header-cell *matHeaderCellDef> Window End </mat-header-cell>
-                <mat-cell *matCellDef="let element" [ngClass]="{'red': !element.isAlive , 'green' : element.isAlive}"> {{element.windowEnds | date : 'MMM d, y, HH:mm:ss'}} </mat-cell>
+                <mat-cell *matCellDef="let element"  [ngClass]="element.isAlive"> {{element.windowEnds | date : 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="more">
