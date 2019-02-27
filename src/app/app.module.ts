@@ -40,6 +40,7 @@ import { UpdateTODComponent } from './raid-boss/update-tod/update-tod.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChangeMemberRoleComponent } from './homePage/member/change-member-role/change-member-role.component';
 import { AddClanComponent } from './clan/add-clan/add-clan.component';
+import { MatSortModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent
@@ -62,7 +63,8 @@ import { AddClanComponent } from './clan/add-clan/add-clan.component';
     ReactiveFormsModule,
     MatSidenavModule,
     HttpClientModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSortModule
   ],
   exports : [
     MatFormFieldModule,
@@ -79,7 +81,8 @@ import { AddClanComponent } from './clan/add-clan/add-clan.component';
     ReactiveFormsModule,
     MatSidenavModule,
     HttpClientModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSortModule
   ], 
   entryComponents : [AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
   providers: [ HttpClientModule ],

@@ -93,8 +93,11 @@ export class ConstantpartyComponent implements OnInit {
 
   private UserPartyLeader(members : any) : void {
     members.forEach(member =>{
-      if(member.typeOfUser === "CPLEADER"){
-        this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
+      console.log(member)
+      if(member.typeOfUser === "CPLEADER" || member.typeOfUser === "SUPERUSER") {
+        if(!this.isUserAleader) {
+          this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
+        }
       }
     });
   }

@@ -18,3 +18,7 @@
     font-size: 120%;
     color: black;
 }
+
+.example-container {
+    overflow: auto;
+  }

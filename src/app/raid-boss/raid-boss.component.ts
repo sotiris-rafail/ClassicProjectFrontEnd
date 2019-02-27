@@ -1,10 +1,12 @@
 import { MemberService } from './../homePage/member/memberService/member.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { UpdateTODComponent } from './update-tod/update-tod.component';
 import { RaidBossService } from './raidBossService/raidBoss.service';
+import { MatSort } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -14,13 +16,13 @@ import { RaidBossService } from './raidBossService/raidBoss.service';
   providers : [RaidBossService, MemberService]
 })
 export class RaidBossComponent implements OnInit {
-
+  @ViewChild(MatSort) sort: MatSort;
   whichToPrint : String = "RAIDS"
   token : OAuth2Token = new OAuth2Token();
   dataSource : any;
   previusUrl : String;
-  displayedColumns =['name', 'level', 'windowStart', 'windowEnd', 'more'];
-  actualDisplay :Array<RaidBoss> = []
+  displayedColumns =['name', 'level', 'windowStart', 'windowEnd', 'state', 'more'];
+  actualDisplay :MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
   typeOfUser : any;
   raidBosser : boolean = false;
   constructor(private dialog : MatDialog, private router : Router, private raidBossService : RaidBossService, private memberService : MemberService) {
@@ -43,8 +45,8 @@ export class RaidBossComponent implements OnInit {
       this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
         response => {
           this.dataSource = response;
-          console.log(response)
-          this.actualDisplay = this.fixOutput(this.dataSource);
+          this.actualDisplay.data = this.fixOutput(this.dataSource);
+          this.actualDisplay.sort = this.sort;
         },
         error => {
 
@@ -60,7 +62,6 @@ export class RaidBossComponent implements OnInit {
     let date = new Date().getTimezoneOffset();
     datasource.forEach(
       raidboss =>{
-        console.log(raidboss)
         let raid : RaidBoss = {
           raidBossId : raidboss.raidBossId,
           level : raidboss.level,
@@ -77,7 +78,7 @@ export class RaidBossComponent implements OnInit {
 
   handleRowClick(id : number) {
     let clickedRaid : RaidBoss;
-    this.actualDisplay.forEach(
+    this.actualDisplay.data.forEach(
       raid => {
         if(raid.raidBossId == id) {
           clickedRaid = raid;
@@ -94,10 +95,14 @@ export class RaidBossComponent implements OnInit {
   }
 
   showButton(){
-    if(this.typeOfUser === "SUPERUSER") {
+    if(this.typeOfUser === "SUPERUSER" || this.typeOfUser === "RAIDBOSSER") {
       this.raidBosser = true;
     }
     console.log(this.typeOfUser);
+  }
+
+  applyFilter(filterValue: string) {
+    this.actualDisplay.filter = filterValue.trim().toLowerCase();
   }
 }
 

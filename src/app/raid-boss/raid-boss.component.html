@@ -1,10 +1,13 @@
 <div>
     <topbar [whichToPrint]="whichToPrint" [previusUrl]="previusUrl"></topbar>
     <div>
-        <mat-table [dataSource]="actualDisplay" class="mat-elevation-z8">
+        <mat-form-field style="padding:0em 1em;">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by name or level">
+        </mat-form-field>
+        <mat-table [dataSource]="actualDisplay" class="example-container mat-elevation-z8" matSort>
             <!-- Position Column -->
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="element.isAlive">
                     {{element.name}}
                 </mat-cell>
@@ -12,25 +15,30 @@
 
             <!-- Name Column -->
             <ng-container matColumnDef="level">
-                <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Level </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.level}} </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="windowStart">
-                <mat-header-cell *matHeaderCellDef> Window Start </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Window Start </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.windowStarts | date: 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="windowEnd">
-                <mat-header-cell *matHeaderCellDef> Window End </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef > Window End </mat-header-cell>
                 <mat-cell *matCellDef="let element"  [ngClass]="element.isAlive"> {{element.windowEnds | date : 'MMM d, y, HH:mm:ss'}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="state">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
+                <mat-cell *matCellDef="let element"  [ngClass]="element.isAlive"> {{element.isAlive}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="more">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button [disabled]="!raidBosser" mat-raised-button color="primary" (click)="handleRowClick(element.raidBossId)">Update TOD</button>
+                    <button [disabled]="!raidBosser" mat-raised-button style="overflow: hidden;" color="primary" (click)="handleRowClick(element.raidBossId)">Update TOD</button>
                 </mat-cell>
             </ng-container>
 
