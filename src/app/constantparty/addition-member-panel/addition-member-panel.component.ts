@@ -1,6 +1,6 @@
-import { ConstantPartyService } from './../constantparty/constantPartyService/constantParty.service';
+import { ConstantPartyService } from './../constantPartyService/constantParty.service';
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
-import { OAuth2Token } from '../tokens';
+import { OAuth2Token } from '../../tokens';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatListOption, MatSelectionList } from '@angular/material/list';
 

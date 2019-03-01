@@ -1,0 +1,7 @@
+<p>
+  Would you like to delete member {{data.member.name}} from your CP?
+</p>
+<div style="text-align: center">
+  <button mat-button color="primary" (click)="handleYes(data.member.characterId)">Yes</button>
+  <button mat-button color="warn" (click)="handleCancel()">Cancel</button>
+</div>

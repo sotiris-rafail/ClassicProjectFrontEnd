@@ -1,0 +1,7 @@
+<p>
+  Would you like to delete your char {{data.character.name}} ??
+</p>
+<div style="text-align: center;">
+    <button mat-button color="primary" (click)="handleYes(data.character.characterId)">Yes</button>
+    <button mat-button color="warn" (click)="handleCancel()">Cancel</button>
+</div>

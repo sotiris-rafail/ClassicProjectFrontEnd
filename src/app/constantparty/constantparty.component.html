@@ -1,44 +1,47 @@
 <div>
-    <topbar [whichToPrint]="whichToPrint" [cp]="cp" [cpLeader]="cpLeader" [isUserAleader]="isUserAleader" [previusUrl]="previusUrl" [cpId]="cpId"></topbar>
-    <div>
-        <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
-            <!-- Position Column -->
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element2"> {{element2.name}} </mat-cell>
-            </ng-container>
+  <topbar [whichToPrint]="whichToPrint" [cp]="cp" [cpLeader]="cpLeader" [isUserAleader]="isUserAleader" [previusUrl]="previusUrl"
+    [cpId]="cpId"></topbar>
+  <div>
+    <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element2"> {{element2.name}} </mat-cell>
+      </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="level">
-                <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
-                <mat-cell *matCellDef="let element2"> {{element2.level}} </mat-cell>
-            </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="level">
+        <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
+        <mat-cell *matCellDef="let element2"> {{element2.level}} </mat-cell>
+      </ng-container>
 
-            <!-- Weight Column -->
-            <ng-container matColumnDef="classOfCharacter">
-                <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-                <mat-cell *matCellDef="let element2"> {{element2.classOfCharacter}} </mat-cell>
-            </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="classOfCharacter">
+        <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+        <mat-cell *matCellDef="let element2"> {{element2.classOfCharacter}} </mat-cell>
+      </ng-container>
 
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="clanName">
-                <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
-                <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
-            </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="clanName">
+        <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
+        <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="typeOfCharacter">
-                <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
-                <mat-cell *matCellDef="let element2"> {{element2.typeOfCharacter}} </mat-cell>
-            </ng-container>
+      <ng-container matColumnDef="typeOfCharacter">
+        <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
+        <mat-cell *matCellDef="let element2"> {{element2.typeOfCharacter}} </mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="More">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element2">
-                    <leader [isUserAleader]="isUserAleader"></leader>
-                </mat-cell>
-            </ng-container>
+      <ng-container matColumnDef="More">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element2">
+          <leader [isUserAleader]="isUserAleader" [member]="element2"></leader>
+        </mat-cell>
+      </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-    </div>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <contastparty-epic-points [corePoints]="responseData.corePoints" [orfenPoints]="responseData.orfenPoints"  [aqPoints]="responseData.aqPoints" [cpId]="responseData.cpId"></contastparty-epic-points>
+</div>

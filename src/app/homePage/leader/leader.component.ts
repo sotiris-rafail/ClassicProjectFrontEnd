@@ -1,5 +1,4 @@
-import { DeletePanelComponent } from './../../delete-panel/delete-panel.component';
-import { AdditionMemberPanelComponent } from './../../addition-member-panel/addition-member-panel.component';
+import { DeleteMemberComponent } from './../../constantparty/delete-member/delete-member.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -14,17 +13,17 @@ export class LeaderComponent implements OnInit {
 
   constructor(private dialog : MatDialog) { }
 
-
   @Input() isUserAleader : boolean
+  @Input() member : any;
   ngOnInit() {
   }
 
-  handleUpdate(charId) {
-    console.log(this.isUserAleader)
-  }
-
-  handleDalate(charId) {
-    
+  handleDelete(member : any ) {
+    const dialogRef = this.dialog.open(DeleteMemberComponent, {
+      data : {
+        'member' : member
+      }
+    });
   }
   
 }

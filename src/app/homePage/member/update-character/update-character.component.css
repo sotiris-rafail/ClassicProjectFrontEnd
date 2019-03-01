@@ -1,0 +1,65 @@
+.container {
+    top: 10%;
+    width: 100%;
+    position: relative;
+    align-content: stretch;
+    display: flex;
+}
+
+.charNameInput {
+    width: -webkit-fill-available;
+    text-align: left;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.charlevelInput {
+    width: -webkit-fill-available;
+    text-align: right;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.selections {
+    top: 25%;
+    width: 100%;
+    position: relative;
+    align-content: stretch;
+    display: flex;
+}
+
+.selection2 {
+    top: 40%;
+    width: 100%;
+    position: relative;
+    align-content: stretch;
+    display: flex;
+}
+
+.clanSelection {
+    width: -webkit-fill-available;
+    text-align: left;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.classSelection {
+    width: -webkit-fill-available;
+    text-align: right;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.typeSelection , .addButton{
+    width: -webkit-fill-available;
+    text-align: center;
+    border-radius: 12px;
+    padding: 1em;
+}
+
+.material-icons {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    font-size: 125%;
+}

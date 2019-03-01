@@ -2,7 +2,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RegisterCharacterService } from './registerCharacterService/registerCharacterService';
-import { OAuth2Token } from '../tokens';
+import { OAuth2Token } from '../../../tokens';
 
 @Component({
   selector: 'addition-character-panel',

@@ -1,7 +1,6 @@
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,18 +18,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { ClanComponent } from './clan/clan.component';
 import { MatListModule } from '@angular/material/list';
 import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.component';
-import { MatTreeModule  } from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { AdditionCharacterPanelComponent } from './addition-character-panel/addition-character-panel.component';
-import { AdditionMemberPanelComponent } from './addition-member-panel/addition-member-panel.component';
+import { AdditionCharacterPanelComponent } from './homePage/member/addition-character-panel/addition-character-panel.component';
 import { RaidBossComponent } from './raid-boss/raid-boss.component';
 import { RegisterRaidBossComponent } from './raid-boss/register-raid-boss/register-raid-boss.component';
-import { UpdateCPMemberComponent } from './update-cpmember/update-cpmember.component';
-import { UpdateCharacterComponent } from './update-character/update-character.component';
-import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConstantpartyComponent } from './constantparty/constantparty.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,14 +36,21 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChangeMemberRoleComponent } from './homePage/member/change-member-role/change-member-role.component';
 import { AddClanComponent } from './clan/add-clan/add-clan.component';
 import { MatSortModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { ContastpartyEpicPointsComponent } from './constantparty/contastparty-epic-points/contastparty-epic-points.component';
+import { FormsModule } from '@angular/forms';
+import { DeleteMemberComponent } from './constantparty/delete-member/delete-member.component';
+import { DeletePanelComponent } from './homePage/member/delete-panel/delete-panel.component';
+import { AdditionMemberPanelComponent } from './constantparty/addition-member-panel/addition-member-panel.component';
+import { UpdateCharacterComponent } from './homePage/member/update-character/update-character.component';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, UpdateCharacterComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule ,
+    BrowserAnimationsModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -64,9 +66,11 @@ import { MatSortModule } from '@angular/material';
     MatSidenavModule,
     HttpClientModule,
     MatDatepickerModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+    FormsModule
   ],
-  exports : [
+  exports: [
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -82,10 +86,12 @@ import { MatSortModule } from '@angular/material';
     MatSidenavModule,
     HttpClientModule,
     MatDatepickerModule,
-    MatSortModule
-  ], 
-  entryComponents : [AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, UpdateCPMemberComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, UpdateCharacterComponent, DeletePanelComponent],
-  providers: [ HttpClientModule ],
+    MatSortModule,
+    MatCardModule,
+    FormsModule
+  ],
+  entryComponents: [AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

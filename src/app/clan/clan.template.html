@@ -1,26 +1,35 @@
 <topbar [previusUrl]="previusUrl" [whichToPrint]="whichToPrint" [isSuperUser]="isSuperUser"></topbar>
 <div *ngFor="let clan of clans" class="clan">
-    <div matLine>
-        <span>
-            <b>Clan Name:</b> {{clan.name}} <br/>
-            <b>Members:</b> {{clan.numberOfMembers}}
+  <div matLine>
+    <span>
+      <b>Clan Name:</b> {{clan.name}} <br />
+      <b>Members:</b> {{clan.numberOfMembers}}
     </span>
-    </div>
-    <div>
-        <mat-list>
-            <mat-list-item *ngFor="let member of clan.members">
-                <div matLine>
-                    <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'LEADER'" class="fas fa-crown"></i>
-                    <span>
-                    <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
-                    <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} <b>Type Of Member:</b> {{member.typeOfUser}}
-                </span>
-                    <button [disabled]="!isSuperUser" mat-icon-button (click)="showInfo(member)">
-                    <mat-icon matListIcon>info</mat-icon>
-                </button>
-                </div>
-            </mat-list-item>
-        </mat-list>
-    </div>
-    <mat-divider *ngIf="clans.length > 1" [vertical]="false" style="border: 2px solid grey;"></mat-divider>
+  </div>
+  <div>
+    <mat-list>
+      <mat-list-item *ngFor="let member of clan.members">
+        <div matLine style="vertical-align: middle">
+          <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'CPLEADER'" class="fas fa-crown"></i>
+          <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'SUPERUSER'" class="material-icons">supervisor_account</i>
+          <i matListAvatar *ngIf="member.typeOfUser == 'CPMEMBER'" class="material-icons">account_box</i>
+          <i matListAvatar *ngIf="member.typeOfCharacter == 'BOX'" class="material-icons">
+            <img src="https://img.icons8.com/material/24/000000/box-logo.png">
+          </i>
+          <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'RAIDBOSSER'" class="material-icons">
+            <img src="https://img.icons8.com/color/24/000000/approve-and-update.png">
+          </i>
+          <span>
+            <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
+            <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} <b>Type Of Member:</b>
+            {{member.typeOfUser}}
+          </span>
+          <button [disabled]="!isSuperUser" mat-icon-button (click)="showInfo(member)">
+            <mat-icon matListIcon>info</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <mat-divider *ngIf="clans.length > 1" [vertical]="false" style="border: 2px solid grey;"></mat-divider>
 </div>

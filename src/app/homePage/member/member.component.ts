@@ -1,3 +1,5 @@
+import { DeletePanelComponent } from './delete-panel/delete-panel.component';
+import { UpdateCharacterComponent } from './update-character/update-character.component';
 
 import { MemberService } from './memberService/member.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
@@ -12,24 +14,24 @@ import { OAuth2Token } from 'src/app/tokens';
   providers: [MemberService]
 })
 export class MemberComponent implements OnInit {
-  previusUrl : String = this.router.url;
-  whichToPrint : String = "MEMBER"
+  previusUrl: String = this.router.url;
+  whichToPrint: String = "MEMBER"
   dataSource = []
-  displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
-  email : string;
-  cp : string;
-  cpId : number;
-  typeOfUser : string;
-  token : OAuth2Token = new OAuth2Token();
-  data : any;
-  constructor(private memberService : MemberService, public dialog: MatDialog, private router : Router) {}
+  displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName', 'typeOfCharacter', 'More'];
+  email: string;
+  cp: string;
+  cpId: number;
+  typeOfUser: string;
+  token: OAuth2Token = new OAuth2Token();
+  data: any;
+  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
     this.token.getTokensFromStorage();
-    if(this.token.isAccessTokenValid()){
-      this.memberService.fetchloggedUser(this.token.getUser, this.token.getAccessToken).subscribe(fetchedUser =>{
-       this.data = fetchedUser
-       this.email = this.data.email;
+    if (this.token.isAccessTokenValid()) {
+      this.memberService.fetchloggedUser(this.token.getUser, this.token.getAccessToken).subscribe(fetchedUser => {
+        this.data = fetchedUser
+        this.email = this.data.email;
         this.cpId = this.data.responseConstantParty.cpId;
         this.cp = this.data.responseConstantParty.cpName
         this.dataSource = this.data.chars;
@@ -38,5 +40,21 @@ export class MemberComponent implements OnInit {
     } else {
       this.router.navigateByUrl("/");
     }
+  }
+
+  handleUpdate(character: any) {
+    const dialogRef = this.dialog.open(UpdateCharacterComponent, {
+      data: {
+        'character': character
+      }
+    })
+  }
+
+  handleDelete(character: any) {
+    const dialogRef = this.dialog.open(DeletePanelComponent, {
+      data: {
+        'character': character
+      }
+    })
   }
 }

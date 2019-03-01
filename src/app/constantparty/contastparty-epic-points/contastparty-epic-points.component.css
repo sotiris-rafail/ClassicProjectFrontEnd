@@ -1,0 +1,9 @@
+.example-card {
+  max-width: 400px;
+  border: 1px solid grey;
+}
+
+
+.example-form-field {
+    width: 120px;
+  }

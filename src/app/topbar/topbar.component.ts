@@ -1,6 +1,6 @@
-import { AdditionMemberPanelComponent } from './../addition-member-panel/addition-member-panel.component';
+import { AdditionMemberPanelComponent } from '../constantparty/addition-member-panel/addition-member-panel.component';
 import { Component, OnInit, Input } from '@angular/core';
-import { AdditionCharacterPanelComponent } from '../addition-character-panel/addition-character-panel.component';
+import { AdditionCharacterPanelComponent } from '../homePage/member/addition-character-panel/addition-character-panel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { RegisterRaidBossComponent } from '../raid-boss/register-raid-boss/register-raid-boss.component';

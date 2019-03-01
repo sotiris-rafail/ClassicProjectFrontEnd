@@ -34,8 +34,8 @@
             <ng-container matColumnDef="More">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="primary" (click)="handleUpdate()">Update</button>
-                    <button mat-raised-button color="warn" (click)="handleDelete()">Delete</button>
+                    <button mat-raised-button color="primary" (click)="handleUpdate(element)">Update</button>
+                    <button mat-raised-button color="warn" (click)="handleDelete(element)">Delete</button>
                 </mat-cell>
             </ng-container>
 

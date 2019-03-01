@@ -1,16 +1,10 @@
 import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
-import { AdditionMemberPanelComponent } from '../addition-member-panel/addition-member-panel.component';
-import { DeletePanelComponent } from '../delete-panel/delete-panel.component';
-import { LeaderComponent } from '../homePage/leader/leader.component';
+import { AdditionMemberPanelComponent } from './addition-member-panel/addition-member-panel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OAuth2Token } from '../tokens';
 import { Router } from '@angular/router';
 import { ConstantPartyService } from './constantPartyService/constantParty.service';
-
-const data = {"cpName":"KamiKaze","numberOfActives":0,"numberOfBoxes":0,"orfenPoints":0,"corePoints":0,"aqPoints":0,"members":
-[{"userId":"1","email":"e@e1.e","typeOfUser":"CPMEMBER","chars":[{"name":"DrEnigma","level":77,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPLEADER"}],"responseConstantParty":null},
-{"userId":"2","email":"e@e2.e","typeOfUser":"CPMEMBER","chars":[{"name":"manolis","level":22,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null},
-{"userId":"9","email":"e@e3.e","typeOfUser":"CPLEADER","chars":[{"name":"ganis","level":33,"cpName":"KamiKaze","classOfCharacter":"EVA'S Saint","clanName":"Perkunas1","typeOfCharacter":"MAIN","typeOfUser":"CPMEMBER"}],"responseConstantParty":null}]};
+import { DeleteMemberComponent } from './delete-member/delete-member.component';
 
 @Component({
   selector: 'app-constantparty',
@@ -93,24 +87,11 @@ export class ConstantpartyComponent implements OnInit {
 
   private UserPartyLeader(members : any) : void {
     members.forEach(member =>{
-      console.log(member)
       if(member.typeOfUser === "CPLEADER" || member.typeOfUser === "SUPERUSER") {
         if(!this.isUserAleader) {
           this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
         }
       }
-    });
-  }
-
-  handleUpdate(charId : string) {
-    const dialogRef = this.dialog.open(AdditionMemberPanelComponent);
-
-  }
-
-  handleDelete(charId : string) {
-    const dialogRef = this.dialog.open(DeletePanelComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      window.location.reload();
     });
   }
 
