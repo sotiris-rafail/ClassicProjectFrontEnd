@@ -14,6 +14,7 @@ export class ChangeMemberRoleComponent implements OnInit {
   selectedValue : string;
   roles = [
     {value: '0', viewValue: 'CP Leader'},
+    {value: '1', viewValue: 'CP Member'},
     {value: '2', viewValue: 'Super User'},
     {value: '3', viewValue: 'Raid Bosser'}
   ];

@@ -5,25 +5,15 @@
       <div class="charNameInput">
         <mat-form-field appearance="outline">
           <mat-label>Character's Name</mat-label>
-          <input matInput placeholder="Character's Name" required="true" [formControl]="charNameControl">
-          <mat-error *ngIf="charNameControl.hasError('required')">
-            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
-          </mat-error>
+          <input matInput placeholder="Character's Name" [formControl]="charNameControl">
         </mat-form-field>
       </div>
       <div class="charlevelInput">
         <mat-form-field appearance="outline">
           <mat-label>Character's Level</mat-label>
-          <input matInput placeholder="Character's Level" required="true" [formControl]="levelControl" type="number"
-            min="1" max="85">
-          <mat-error *ngIf="levelControl.hasError('required')">
-            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
-          </mat-error>
-          <mat-error *ngIf="levelControl.hasError('min')">
-            <strong><i class="material-icons">error_outline</i>Minimun level is 1</strong>
-          </mat-error>
-          <mat-error *ngIf="levelControl.hasError('max')">
-            <strong><i class="material-icons">error_outline</i>Maximun level is 85</strong>
+          <input matInput placeholder="Character's Level" [formControl]="levelControl" type="number" min="1" max="85">
+          <mat-error *ngIf="levelControl.invalid">
+            <strong><i class="material-icons">error_outline</i>Minimun level is 1 - Maximum level is 85 </strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -31,46 +21,37 @@
     <div class="selections">
       <div class="clanSelection">
         <mat-form-field [formControl]="clanNameControl">
-          <mat-select placeholder="Select Clan" required="true" [(value)]="selectedClan" [formControl]="clanControl">
-            <mat-option *ngFor="let clan of clans" [value]="clan.value">
+          <mat-select placeholder="Select Clan" [(value)]="selectedClan" [formControl]="clanControl">
+            <mat-option *ngFor="let clan of clans" [(value)]="clan.value">
               {{clan.viewValue}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="clanControl.hasError('required')">
-            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
-          </mat-error>
         </mat-form-field>
       </div>
       <div class="classSelection">
         <mat-form-field>
-          <mat-select placeholder="Select Class" required="true" [(value)]="selectedClass" [formControl]="classControl">
-            <mat-option *ngFor="let clazz of classess" [value]="clazz.value">
+          <mat-select placeholder="Select Class" [(value)]="selectedClass" [formControl]="classControl">
+            <mat-option *ngFor="let clazz of classess" [(value)]="clazz.value">
               {{clazz.viewValue}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="classControl.hasError('required')">
-            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
-          </mat-error>
         </mat-form-field>
       </div>
     </div>
     <div class="selections">
       <div class="typeSelection">
         <mat-form-field>
-          <mat-select placeholder="Type Of Character" required="true" [(value)]="selectedType" [formControl]="typeControl">
+          <mat-select placeholder="Type Of Character" [(value)]="selectedType" [formControl]="typeControl">
             <mat-option *ngFor="let type of types" [value]="type.value">
               {{type.viewValue}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="typeControl.hasError('required')">
-            <strong><i class="material-icons">error_outline</i>Field can not be empty</strong>
-          </mat-error>
         </mat-form-field>
       </div>
     </div>
   </form>
   <div class="addButton">
-    <button mat-raised-button color="primary" [disabled]="!registerGroup.valid" (click)="UpdateCharacter()">Add
+    <button mat-raised-button color="primary" [disabled]="!registerGroup.valid||!registerGroup.dirty" (click)="updateCharacter()">Add
       Character</button>
   </div>
   <div class="addButton">

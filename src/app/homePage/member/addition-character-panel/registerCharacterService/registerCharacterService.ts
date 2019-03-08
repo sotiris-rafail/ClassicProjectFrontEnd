@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CharacterUpdate } from '../../update-character/update-character.component';
 
 @Injectable()
 export class RegisterCharacterService {
@@ -27,12 +28,21 @@ export class RegisterCharacterService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://83.212.102.61:8080/character/getInfoForRegister/', {
+    return this.http.delete('http://83.212.102.61:8080/character/delete/', {
       headers: this.headers,
       params: {
         'characterId': String(characterId)
       }
     });
   }
+
+  updateCharacer(updateChar: CharacterUpdate, access_token: string) {
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put('http://83.212.102.61:8080/character/update', JSON.stringify(updateChar), { headers: this.headers });
+  }
+  
 
 }

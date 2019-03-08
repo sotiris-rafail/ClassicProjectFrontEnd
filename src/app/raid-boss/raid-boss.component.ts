@@ -98,7 +98,6 @@ export class RaidBossComponent implements OnInit {
     if(this.typeOfUser === "SUPERUSER" || this.typeOfUser === "RAIDBOSSER") {
       this.raidBosser = true;
     }
-    console.log(this.typeOfUser);
   }
 
   applyFilter(filterValue: string) {

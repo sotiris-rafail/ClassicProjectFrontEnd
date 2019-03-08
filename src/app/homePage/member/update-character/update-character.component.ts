@@ -12,18 +12,19 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 })
 export class UpdateCharacterComponent implements OnInit {
   
-  selectedClan = "Perkuanas";
+  response: any;
+  selectedClan;
   selectedClass;
   selectedType;
   clans : Clan[] = [];
   classess : Clazz[]= []
   types : TypeOfCharacter[] = []
 
-  charNameControl = new FormControl("",[Validators.required]);
-  levelControl = new FormControl("",[Validators.required,Validators.max(85),Validators.min(1)]);
-  clanControl = new FormControl("",[Validators.required]);
-  classControl = new FormControl("",[Validators.required]);
-  typeControl = new FormControl({value : this.data.character.typeOfCharacter},[Validators.required]);
+  charNameControl = new FormControl();
+  levelControl = new FormControl({value :this.data.character.level, onlySelf: true}, [Validators.max(85),Validators.min(1)]);
+  clanControl = new FormControl();
+  classControl = new FormControl();
+  typeControl = new FormControl();
 
   registerGroup = new FormGroup({
     charNameControl : this.charNameControl,
@@ -33,28 +34,59 @@ export class UpdateCharacterComponent implements OnInit {
     typeControl : this.typeControl
   });
   constructor(private dialogRef: MatDialogRef<UpdateCharacterComponent>,  @Inject(MAT_DIALOG_DATA) public data : any, private charService : RegisterCharacterService) { 
-    this.charNameControl.setValue(this.data.character.name);
-    this.levelControl.setValue(this.data.character.level);
-    this.clanControl.setValue(this.data.character.clanName);
-    this.classControl.setValue(this.data.character.classOfCharacter);
-    this.typeControl.setValue(this.data.character.typeOfCharacter);
   }
 
   ngOnInit() {
-    this.clans.push({value : 1, viewValue :  this.data.character.clanName});
-    this.classess.push({value : 1 , viewValue : this.data.character.classOfCharacter});
-    this.types.push({value :1 , viewValue : this.data.character.typeOfCharacter});
-    this.selectedClan = this.data.character.clanName;
-    this.selectedClass = this.data.character.classOfCharacter;
-    this.selectedType = this.data.character.typeOfCharacter;
+    this.charService.getInfoToRegisterCharacter(Number(sessionStorage.getItem("userId")), sessionStorage.getItem("access_token")).subscribe(infoResponse => {
+      this.response = infoResponse
+      this.response.Clan.forEach(clan => {
+        this.clans.push({value : clan.clanId, viewValue : clan.name});
+      });
+      let count = 0
+      this.response.Classes.forEach(clazz => {
+        this.classess.push({value : count, viewValue : clazz});
+        count++;
+      });
+      count = 0;
+      this.response.HasMain.forEach(hasMain => {
+        if(this.response.HasMain.length == 1) {
+          count = 1;
+        }
+        this.types.push({value : count, viewValue : hasMain});
+        count++;
+      });
+    })
   }
 
   closeDialog(){
     this.dialogRef.close();
   }
 
-  UpdateCharacter(){
-
+  updateCharacter(){
+    let updateChar : CharacterUpdate ={
+      'charId' : this.data.character.character_id,
+      'inGameName' : this.charNameControl.value,
+      'level' : this.levelControl.value,
+      'clanId' : this.selectedClan,
+      'classOfCharacter' : this.selectedClass,
+      'typeOfCharacter' : this.selectedType,
+    }
+    this.charService.updateCharacer(updateChar, sessionStorage.getItem("access_token")).subscribe(
+      response => {
+        window.location.reload();
+      },
+      error => {
+        console.log(error)
+      })
   }
-
 }
+
+export interface CharacterUpdate {
+  'charId': number,
+  'inGameName' : string,
+  'level' : number,
+  'clanId' : number,
+  'classOfCharacter' : number,
+  'typeOfCharacter' : number,
+}
+
