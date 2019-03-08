@@ -22,7 +22,7 @@ export class ContastpartyEpicPointsComponent implements OnInit {
   }
 
   updatePoints(rb : string, pointsToAdd : number){
-    this.constantPartyService.updateEpicPoints(sessionStorage.getItem("access_token"), rb, pointsToAdd).subscribe(
+    this.constantPartyService.updateEpicPoints(sessionStorage.getItem("access_token"), rb, pointsToAdd, this.cpId).subscribe(
       response =>{
 
       },

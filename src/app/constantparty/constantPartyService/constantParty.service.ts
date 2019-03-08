@@ -33,7 +33,7 @@ export class ConstantPartyService {
     return this.http.put('http://83.212.102.61:8080/user/addPeopleToCp', updateObject, { headers: this.headers });
   }
 
-  public updateEpicPoints(access_token: string, rb: string, pointsToAdd: number) {
+  public updateEpicPoints(access_token: string, rb: string, pointsToAdd: number, cpId : number) {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
@@ -42,7 +42,8 @@ export class ConstantPartyService {
       headers: this.headers,
       params: {
         'rbName': rb,
-        'pointsToAdd': String(pointsToAdd)
+        'pointsToAdd': String(pointsToAdd),
+        'cpId' : String(cpId)
       }
     });
   }
@@ -52,7 +53,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.delete('http://83.212.102.61:8080/cp/updateEpicPoints', {
+    return this.http.delete('http://83.212.102.61:8080/cp/delete', {
       headers: this.headers,
       params: {
         'characterId': String(characterId)

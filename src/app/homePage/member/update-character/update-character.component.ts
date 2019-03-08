@@ -34,6 +34,7 @@ export class UpdateCharacterComponent implements OnInit {
     typeControl : this.typeControl
   });
   constructor(private dialogRef: MatDialogRef<UpdateCharacterComponent>,  @Inject(MAT_DIALOG_DATA) public data : any, private charService : RegisterCharacterService) { 
+    console.log(data)
   }
 
   ngOnInit() {
@@ -63,14 +64,16 @@ export class UpdateCharacterComponent implements OnInit {
   }
 
   updateCharacter(){
+    console.log(this.selectedClass)
     let updateChar : CharacterUpdate ={
-      'charId' : this.data.character.character_id,
+      'charId' : this.data.character.characterId,
       'inGameName' : this.charNameControl.value,
-      'level' : this.levelControl.value,
-      'clanId' : this.selectedClan,
-      'classOfCharacter' : this.selectedClass,
-      'typeOfCharacter' : this.selectedType,
+      'level' : this.levelControl.value === undefined ? -1 : this.levelControl.value,
+      'clanId' : this.selectedClan === undefined ? -1 : this.selectedClan,
+      'classOfCharacter' : this.selectedClass === undefined ? -1 : this.selectedClass,
+      'typeOfCharacter' : this.selectedType === undefined ? -1 : this.selectedType,
     }
+    console.log(JSON.stringify(updateChar))
     this.charService.updateCharacer(updateChar, sessionStorage.getItem("access_token")).subscribe(
       response => {
         window.location.reload();
