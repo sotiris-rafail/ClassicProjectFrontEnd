@@ -21,18 +21,18 @@
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="windowStart">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Window Start </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Window Start </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.windowStarts | date: 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="windowEnd">
-                <mat-header-cell *matHeaderCellDef > Window End </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [ngClass]="element.isAlive"> {{element.windowEnds | date : 'MMM d, y, HH:mm:ss'}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> Window End </mat-header-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.windowEnds | date : 'MMM d, y, HH:mm:ss'}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="state">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> State </mat-header-cell>
-                <mat-cell *matCellDef="let element"  [ngClass]="element.isAlive"> {{element.isAlive}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef> State </mat-header-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> {{element.isAlive}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="more">
