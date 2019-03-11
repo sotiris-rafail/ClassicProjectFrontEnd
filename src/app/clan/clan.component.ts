@@ -10,32 +10,32 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-clan',
   templateUrl: './clan.template.html',
   styleUrls: ['./clan.style.css'],
-  providers : [ClanService, MemberService]
+  providers: [ClanService, MemberService]
 })
 export class ClanComponent implements OnInit {
-  previusUrl : String;
-  whichToPrint : String = "CLAN"
-  token : OAuth2Token = new OAuth2Token();
-  clans : any =[];
-  typeOfUser : any;
-  isSuperUser : boolean = false;
-  constructor(private router : Router, private clanService : ClanService, private memberService : MemberService, private dialog : MatDialog) { }
+  previusUrl: String;
+  whichToPrint: String = "CLAN"
+  token: OAuth2Token = new OAuth2Token();
+  clans: any = [];
+  typeOfUser: any;
+  isSuperUser: boolean = false;
+  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
-    this.memberService.getRoleOfUser(Number(sessionStorage.getItem("userId")), this.token.getAccessToken).subscribe(
-      roleOfUser => {
-        this.typeOfUser = roleOfUser;
-        this.showButton();
-    },
-      error => {
-        console.log(error)
-      }
-    )
-    if(this.token.isAccessTokenValid()) {
+    if (this.token.isAccessTokenValid()) {
+      this.memberService.getRoleOfUser(Number(sessionStorage.getItem("userId")), this.token.getAccessToken).subscribe(
+        roleOfUser => {
+          this.typeOfUser = roleOfUser;
+          this.showButton();
+        },
+        error => {
+          console.log(error)
+        }
+      )
       this.clanService.getAllClansInfo(this.token.getAccessToken).subscribe(
-        response =>{
+        response => {
           console.log(response)
           this.clans = response;
         },
@@ -48,15 +48,15 @@ export class ClanComponent implements OnInit {
     }
   }
 
-  showButton(){
-    if(this.typeOfUser === "SUPERUSER") {
+  showButton() {
+    if (this.typeOfUser === "SUPERUSER") {
       this.isSuperUser = true;
     }
     console.log(this.typeOfUser);
   }
 
-  showInfo(member: any){
+  showInfo(member: any) {
     let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
-      {data : {member : member}});
+      { data: { member: member } });
   }
 }

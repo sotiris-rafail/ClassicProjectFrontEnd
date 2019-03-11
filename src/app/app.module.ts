@@ -43,9 +43,14 @@ import { DeleteMemberComponent } from './constantparty/delete-member/delete-memb
 import { DeletePanelComponent } from './homePage/member/delete-panel/delete-panel.component';
 import { AdditionMemberPanelComponent } from './constantparty/addition-member-panel/addition-member-panel.component';
 import { UpdateCharacterComponent } from './homePage/member/update-character/update-character.component';
+import { AuctionComponent } from './auction/auction.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { SoldItemsComponent } from './auction/sold-items/sold-items.component';
+import { UnSoldItemsComponent } from './auction/un-sold-items/un-sold-items.component';
+import { AddNewItemPanelComponent } from './auction/add-new-item-panel/add-new-item-panel.component';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,8 @@ import { UpdateCharacterComponent } from './homePage/member/update-character/upd
     MatDatepickerModule,
     MatSortModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule
   ],
   exports: [
     MatFormFieldModule,
@@ -88,9 +94,10 @@ import { UpdateCharacterComponent } from './homePage/member/update-character/upd
     MatDatepickerModule,
     MatSortModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    MatExpansionModule
   ],
-  entryComponents: [AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
+  entryComponents: [AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })

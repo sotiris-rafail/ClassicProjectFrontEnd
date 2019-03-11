@@ -1,3 +1,4 @@
+import { AuctionComponent } from './auction/auction.component';
 import { ConstantpartyComponent } from './constantparty/constantparty.component';
 import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.component';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path :'clan' ,component: ClanComponent },
   { path : 'cp/:cpId', component : ConstantpartyComponent},
   { path : 'raidboss', component: RaidBossComponent},
+  { path : 'auction', component : AuctionComponent},
   { path: '**', component : NotFoundPageComponent }
 ];
 

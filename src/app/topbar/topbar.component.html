@@ -14,8 +14,8 @@
                     <span><b>Type Of User:</b> {{typeOfUser}} </span>
                 </div>
                 <div *ngIf="cpId != -1" style="position:sticky;left: 60%;padding: 0 0.1em 0 0.5em">
-                        <a href="/raidboss">Raid Tracker</a>
-                    </div>
+                    <a href="/raidboss">Raid Tracker</a>
+                </div>
                 <div style="position:sticky;left: 100%">
                     <button mat-stroked-button color="basic" (click)="openDialogCharacter()"><mat-icon>add</mat-icon>Add a character</button>
                 </div>
@@ -80,6 +80,23 @@
                         <mat-icon>add</mat-icon>
                         Add a Raid Bosss
                     </button>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+    <div *ngIf="whichToPrint === 'AUCTION'">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <div>
+                    <a [href]="previusUrl" mat-button>
+                        <mat-icon>home</mat-icon>
+                    </a>
+                </div>
+                <div style="padding: 5%">
+                    <span><b>Auction</b></span>
+                </div>
+                <div>
+                    <button mat-stroked-button (click)="addNewItem()">Add a new Item</button>
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>

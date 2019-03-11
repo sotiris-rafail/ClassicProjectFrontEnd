@@ -1,0 +1,48 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="itemId">
+        <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.itemId}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="typeOfItem">
+        <mat-header-cell *matHeaderCellDef> Type Of Item </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.typeOfItem}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="grade">
+        <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.grade}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stateOfitem">
+        <mat-header-cell *matHeaderCellDef> State Of Item </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.stateOfitem}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="whoBoughtIt">
+        <mat-header-cell *matHeaderCellDef> Who Bought It </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.whoBoughtIt}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="boughtPrice">
+        <mat-header-cell *matHeaderCellDef> Bought Price </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.boughtPrice}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
