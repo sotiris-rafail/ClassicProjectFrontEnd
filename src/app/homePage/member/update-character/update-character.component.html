@@ -1,60 +1,60 @@
 <span style="font-style: oblique">Update Character <b>{{data.character.name}}</b></span>
 <div style="position:relative;width: 100%">
-  <form [formGroup]="registerGroup">
-    <div class="container">
-      <div class="charNameInput">
-        <mat-form-field appearance="outline">
-          <mat-label>Character's Name</mat-label>
-          <input matInput placeholder="Character's Name" [formControl]="charNameControl">
-        </mat-form-field>
-      </div>
-      <div class="charlevelInput">
-        <mat-form-field appearance="outline">
-          <mat-label>Character's Level</mat-label>
-          <input matInput placeholder="Character's Level" [formControl]="levelControl" type="number" min="1" max="85">
-          <mat-error *ngIf="levelControl.invalid">
-            <strong><i class="material-icons">error_outline</i>Minimun level is 1 - Maximum level is 85 </strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="selections">
-      <div class="clanSelection">
-        <mat-form-field [formControl]="clanNameControl">
-          <mat-select placeholder="Select Clan" [(value)]="selectedClan" [formControl]="clanControl">
-            <mat-option *ngFor="let clan of clans" [(value)]="clan.value">
-              {{clan.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="classSelection">
-        <mat-form-field>
-          <mat-select placeholder="Select Class" [(value)]="selectedClass" [formControl]="classControl">
-            <mat-option *ngFor="let clazz of classess" [(value)]="clazz.value">
-              {{clazz.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="selections">
-      <div class="typeSelection">
-        <mat-form-field>
-          <mat-select placeholder="Type Of Character" [(value)]="selectedType" [formControl]="typeControl">
-            <mat-option *ngFor="let type of types" [value]="type.value">
-              {{type.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-  </form>
-  <div class="addButton">
-    <button mat-raised-button color="primary" [disabled]="!registerGroup.valid||!registerGroup.dirty" (click)="updateCharacter()">Add
+    <form [formGroup]="registerGroup">
+        <div class="container">
+            <div class="charNameInput">
+                <mat-form-field appearance="outline">
+                    <mat-label>Character's Name</mat-label>
+                    <input matInput placeholder="Character's Name" [formControl]="charNameControl">
+                </mat-form-field>
+            </div>
+            <div class="charlevelInput">
+                <mat-form-field appearance="outline">
+                    <mat-label>Character's Level</mat-label>
+                    <input matInput placeholder="Character's Level" [formControl]="levelControl" type="number" min="1" max="85">
+                    <mat-error *ngIf="levelControl.invalid">
+                        <strong><i class="material-icons">error_outline</i>Minimun level is 1 - Maximum level is 85 </strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="selections">
+            <div class="clanSelection">
+                <mat-form-field [formControl]="clanNameControl">
+                    <mat-select placeholder="Select Clan" [(value)]="selectedClan" [formControl]="clanControl">
+                        <mat-option *ngFor="let clan of clans" [(value)]="clan.value">
+                            {{clan.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="classSelection">
+                <mat-form-field>
+                    <mat-select placeholder="Select Class" [(value)]="selectedClass" [formControl]="classControl">
+                        <mat-option *ngFor="let clazz of classess" [(value)]="clazz.value">
+                            {{clazz.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="selections">
+            <div class="typeSelection">
+                <mat-form-field>
+                    <mat-select placeholder="Type Of Character" [(value)]="selectedType" [formControl]="typeControl">
+                        <mat-option *ngFor="let type of types" [value]="type.value">
+                            {{type.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div class="addButton">
+        <button mat-raised-button color="primary" [disabled]="!registerGroup.valid||!registerGroup.dirty" (click)="updateCharacter()">Update
       Character</button>
-  </div>
-  <div class="addButton">
-    <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
-  </div>
+    </div>
+    <div class="addButton">
+        <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
+    </div>
 </div>
