@@ -22,27 +22,42 @@ export class UnSoldItemsComponent implements OnInit {
     'name' : 'Demon Dagger' ,
     'typeOfItem' : 'Weapon' ,
     'stateOfitem' : 'UNSOLD',
-    'price' : '10 millions',
+    'maxPrice' : 100,
     'itemId' : 45,
-    'grade' : "B"
-  },
+    'grade' : "B",
+    'startingPrice' : 20,
+    'numberOfDays' : new Date().toISOString(),
+    'bidStep' : 5,
+    'currentValue' : 30,
+    'lastBidder' : 'DrEnigma'
+   },
   {
     'name' : 'Demon Dagger' ,
     'typeOfItem' : 'Weapon' ,
     'stateOfitem' : 'UNSOLD',
-    'price' : '10 millions',
+    'maxPrice' : 100,
     'itemId' : 46,
-    'grade' : "B"
+    'grade' : "B",
+    'startingPrice' : 20,
+    'numberOfDays' : new Date().toISOString(),
+    'bidStep' : 5,
+    'currentValue' : 30,
+    'lastBidder' : 'DrEnigma'
   },
   {
     'name' : 'Demon Dagger' ,
     'typeOfItem' : 'Weapon' ,
     'stateOfitem' : 'UNSOLD',
-    'price' : '10 millions',
+    'maxPrice' : 100,
     'itemId' : 47,
-    'grade' : "B"
+    'grade' : "B",
+    'startingPrice' : 20,
+    'numberOfDays' : new Date().toISOString(),
+    'bidStep' : 5,
+    'currentValue' : 30,
+    'lastBidder' : 'DrEnigma'
   }];
-  columnsToDisplay = ['itemId', 'name', 'grade', 'typeOfItem', 'stateOfitem', 'price'];
+  columnsToDisplay = ['itemId', 'name', 'grade', 'typeOfItem', 'stateOfitem', 'startingPrice', 'maxPrice', 'numberOfDays'];
  displayingView = [];
 
   constructor() {
@@ -51,13 +66,19 @@ export class UnSoldItemsComponent implements OnInit {
     this.displayingView['grade'] = "Grade";
     this.displayingView['typeOfItem'] = "Type Of Item";
     this.displayingView['stateOfitem'] = "State Of Item";
-    this.displayingView['price'] = "Price";
+    this.displayingView['maxPrice'] = "Max Price";
+    this.displayingView['startingPrice'] = "Starting Price";
+    this.displayingView['numberOfDays'] = "Expiration Date";
    }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.data);
   }
   simpleBid(item : UnSoldItems){
+    let index = this.dataSource.data.indexOf(item);
+    let currentValue = this.dataSource.data[index].currentValue + this.dataSource.data[index].bidStep;
+    this.dataSource.data[index].currentValue = currentValue;
+    this.dataSource._updateChangeSubscription();
   }
 
   maxBid(item : UnSoldItems){

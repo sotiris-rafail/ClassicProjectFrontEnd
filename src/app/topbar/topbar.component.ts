@@ -64,7 +64,7 @@ export class TopbarComponent implements OnInit {
   }
 
   addNewItem(){
-    const dialogRef = this.dialog.open(AddNewItemPanelComponent, {width : "330px", height : "300px"});
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, {width : "550px", height : "600px"});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

@@ -36,9 +36,14 @@ export interface UnSoldItems {
   'itemId' : number,
   'grade' : String,
   'typeOfItem' : String,
-  'price' : String,
+  'maxPrice' : number,
+  'startingPrice' : number,
   'stateOfitem' : String,
-  'name' : String
+  'name' : String,
+  'numberOfDays' : String,
+  'bidStep' : number,
+  'currentValue' : number,
+  'lastBidder' : String
 }
 
 export interface SoldItems {

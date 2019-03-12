@@ -1,3 +1,86 @@
-<p>
-  add-new-item-panel works!
-</p>
+<div>
+    <h2>Add a new item for sale</h2>
+    <form [formGroup]="addItemForm">
+        <div style="display: inline-flex;">
+            <div style="padding: 0.5em 0.7em;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Item Name</mat-label>
+                    <input matInput type="text" [formControl]="nameControl" required>
+                </mat-form-field>
+            </div>
+            <div style="padding: 0.5em 0.7em 0.5em 2em;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Amount of item(s)</mat-label>
+                    <input matInput type="number" [formControl]="amoundOfItemControl" required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: inline-flex;">
+            <div style="padding: 0.1em 0.7em;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Starting Price</mat-label>
+                    <input matInput type="number" [formControl]="startingPriceControl" required [(ngModel)]="startingPrice" (ngModelChange)="changeStartingValue()">
+                    <mat-icon matSuffix>
+                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                  <path fill="#000000" d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
+              </svg>
+                    </mat-icon>
+                    <mat-hint>Minimum value starts from 100k. <b>(0.1 is equals to 100k. 1 is equals to 1kk)</b></mat-hint>
+                </mat-form-field>
+            </div>
+            <div style="padding: 0.1em 0.7em;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Max Price</mat-label>
+                    <input matInput type="number" [formControl]="maxPriceControl" required [(ngModel)]="maxPrice" (ngModelChange)="changeMaxPriceValue()">
+                    <mat-icon matSuffix>
+                        <svg style=" width:24px;height:24px" viewBox="0 0 24 24">
+                  <path fill="#000000" d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
+              </svg>
+                    </mat-icon>
+                    <mat-hint>Maximum value should be equals or greater than the starting value. <b>(0.1 is equals to 100k. 1 is equals to 1kk)</b></mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: inline-flex;">
+            <div style="padding: 2em 0.7em 1em 0.7em;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Bid Step</mat-label>
+                    <input matInput type="number" [formControl]="bidPriceControl" required>
+                    <mat-hint>Bid Step starts for 100k</mat-hint>
+                </mat-form-field>
+            </div>
+            <div style="padding: 2em 0.7em 1em 2.4em; ">
+                <mat-form-field appearance="outline">
+                    <mat-label>Number of days</mat-label>
+                    <input matInput type="number" [formControl]="numberOfDayControl" required>
+                    <mat-hint>The number of days item will remain unsold</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="display: inline-flex;">
+            <div style="padding: 0em 0.7em;">
+                <mat-form-field>
+                    <mat-select [(value)]="grade" placeholder="Grade" [formControl]="gradeControl" required>
+                        <mat-option value="A">A</mat-option>
+                        <mat-option value="B">B</mat-option>
+                        <mat-option value="C">C</mat-option>
+                        <mat-option value="D">D</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="padding: 0em 0.7em 0em 4em;">
+                <mat-form-field>
+                    <mat-select [(value)]="typeOfItem" placeholder="Type Of Item" [formControl]="typeOfItemControl" required>
+                        <mat-option value="weapon">Weapon</mat-option>
+                        <mat-option value="armor">Armor</mat-option>
+                        <mat-option value="jewell">Jewell</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div style="padding: 0.7em;text-align: center;">
+        <button mat-stroked-button color="primary" (click)="addItem()" [disabled]="!addItemForm.valid">Add Item</button>
+        <button style="margin-left:0.5em;" mat-stroked-button color="warn" (click)="handleCancel()">Cancel</button>
+    </div>
+</div>
