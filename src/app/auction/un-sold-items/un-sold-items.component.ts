@@ -76,8 +76,11 @@ export class UnSoldItemsComponent implements OnInit {
   }
   simpleBid(item : UnSoldItems){
     let index = this.dataSource.data.indexOf(item);
-    let currentValue = this.dataSource.data[index].currentValue + this.dataSource.data[index].bidStep;
+    let currentValue : number = this.dataSource.data[index].currentValue + this.dataSource.data[index].bidStep;
     this.dataSource.data[index].currentValue = currentValue;
+    if(this.dataSource.data[index].currentValue >= this.dataSource.data[index].maxPrice) {
+      this.dataSource.data.splice(index, 1);
+    }
     this.dataSource._updateChangeSubscription();
   }
 

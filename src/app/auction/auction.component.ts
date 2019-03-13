@@ -54,5 +54,6 @@ export interface SoldItems {
   'stateOfitem' : String,
   'whoBoughtIt' : String,
   'boughtPrice' : String,
-  'name' : String
+  'name' : String,
+  'delivered' : boolean
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
 import { SoldItems } from '../auction.component';
 import { Subject } from 'rxjs';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'sold-items',
@@ -11,8 +12,8 @@ import { Subject } from 'rxjs';
 })
 export class SoldItemsComponent implements OnInit {
   @Input() panelState: Subject<any>;
-  dataSource : SoldItems[] = [];
-  displayedColumns = ['itemId', 'name', 'typeOfItem', 'grade', 'stateOfitem', 'price', 'whoBoughtIt', 'boughtPrice'];
+  dataSource : MatTableDataSource<SoldItems>;
+  displayedColumns = ['itemId', 'name', 'typeOfItem', 'grade', 'stateOfitem', 'price', 'whoBoughtIt', 'boughtPrice' , 'delivered', 'more'];
   //expandedElement: PeriodicElement | null;
   constructor() { }
 
@@ -22,7 +23,7 @@ export class SoldItemsComponent implements OnInit {
 
   openSoldPanel(){
     if(this.panelState){
-      this.dataSource = [{
+      let data = [{
         'name' : 'Demon Dagger' ,
         'typeOfItem' : 'Weapon' ,
         'stateOfitem' : 'SOLD',
@@ -30,7 +31,8 @@ export class SoldItemsComponent implements OnInit {
         'itemId' : 45,
         'grade' : "B",
         'whoBoughtIt' : 'DrENigma',
-        'boughtPrice' : '10 millions'
+        'boughtPrice' : '10 millions',
+        'delivered' : false
       },
       {
         'name' : 'Demon Dagger' ,
@@ -40,7 +42,8 @@ export class SoldItemsComponent implements OnInit {
         'itemId' : 45,
         'grade' : "B",
         'whoBoughtIt' : 'DrENigma',
-        'boughtPrice' : '10 millions'
+        'boughtPrice' : '10 millions',
+        'delivered' : false
       },
       {
         'name' : 'Demon Dagger' ,
@@ -50,11 +53,19 @@ export class SoldItemsComponent implements OnInit {
         'itemId' : 45,
         'grade' : "B",
         'whoBoughtIt' : 'DrENigma',
-        'boughtPrice' : '10 millions'
+        'boughtPrice' : '10 millions',
+        'delivered' : false
       }]
+      this.dataSource = new MatTableDataSource<SoldItems>(data);
     } else {
-      this.dataSource = [];
+      this.dataSource = new MatTableDataSource<SoldItems>([]);
     }
+  }
+
+  deliveryIt(item : SoldItems) {
+    let index = this.dataSource.data.indexOf(item, 0);
+    this.dataSource.data[index].delivered = true;
+    this.dataSource._updateChangeSubscription();
   }
 
 }
