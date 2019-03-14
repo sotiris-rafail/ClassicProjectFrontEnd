@@ -46,7 +46,8 @@ export class MemberComponent implements OnInit {
     const dialogRef = this.dialog.open(UpdateCharacterComponent, {
       data: {
         'character': character
-      }
+      },
+      disableClose : true
     })
   }
 
@@ -54,7 +55,8 @@ export class MemberComponent implements OnInit {
     const dialogRef = this.dialog.open(DeletePanelComponent, {
       data: {
         'character': character
-      }
+      },
+      disableClose : true
     })
   }
 }

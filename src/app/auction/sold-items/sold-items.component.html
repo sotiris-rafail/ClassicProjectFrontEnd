@@ -5,6 +5,11 @@
     <mat-cell *matCellDef="let element"> {{element.itemId}} </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="photoPath">
+      <mat-header-cell *matHeaderCellDef> Photo. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> <img [src]="element.photoPath"/> </mat-cell>
+    </ng-container>
+
   <!-- Name Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
@@ -25,7 +30,7 @@
 
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.price | number:'1.0-0'}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="stateOfitem">
@@ -40,7 +45,7 @@
 
   <ng-container matColumnDef="boughtPrice">
     <mat-header-cell *matHeaderCellDef> Bought Price </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.boughtPrice}}</mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.boughtPrice | number:'1.0-0'}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="delivered">

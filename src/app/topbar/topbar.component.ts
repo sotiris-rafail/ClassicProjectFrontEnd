@@ -32,7 +32,7 @@ export class TopbarComponent implements OnInit {
   }
 
   openDialogCharacter(){
-    const dialogRef = this.dialog.open(AdditionCharacterPanelComponent, {width : "530px", height : "530px"});
+    const dialogRef = this.dialog.open(AdditionCharacterPanelComponent, {width : "530px", height : "530px", disableClose : true});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -40,7 +40,7 @@ export class TopbarComponent implements OnInit {
   }
 
   openDialogMember(){
-    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, {width : "630px", height : "530px", data : {cpId : this.cpId}});
+    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, {width : "630px", height : "530px", data : {cpId : this.cpId}, disableClose : true});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -48,7 +48,7 @@ export class TopbarComponent implements OnInit {
   }
 
   openRaidDialog(){
-    const dialogRef = this.dialog.open(RegisterRaidBossComponent, {width : "330px", height : "430px"});
+    const dialogRef = this.dialog.open(RegisterRaidBossComponent, {width : "330px", height : "430px", disableClose : true});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -56,7 +56,7 @@ export class TopbarComponent implements OnInit {
   }
 
   openAddClanDialog(){
-    const dialogRef = this.dialog.open(AddClanComponent, {width : "330px", height : "300px"});
+    const dialogRef = this.dialog.open(AddClanComponent, {width : "330px", height : "300px", disableClose : true});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -64,7 +64,7 @@ export class TopbarComponent implements OnInit {
   }
 
   addNewItem(){
-    const dialogRef = this.dialog.open(AddNewItemPanelComponent, {width : "550px", height : "600px"});
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, {width : "550px", height : "600px", disableClose : true});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

@@ -1,6 +1,7 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { RaidBossService } from '../raidBossService/raidBoss.service';
+import { MatDialogRef } from '@angular/material';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class RegisterRaidBossComponent implements OnInit {
     windowStart : this.windowStart,
     windowEnd : this.windowEnd
   });
-  constructor(private raidService : RaidBossService) { }
+  constructor(private raidService : RaidBossService, private dialog : MatDialogRef<RegisterRaidBossComponent>) { }
   ngOnInit() {
   }
 
@@ -38,6 +39,10 @@ export class RegisterRaidBossComponent implements OnInit {
       response => {window.location.reload()},
       error => {console.log(error)}
     )
+  }
+
+  handleCancel(){
+    this.dialog.close();
   }
 
   private static calculateWindows(window : string) {

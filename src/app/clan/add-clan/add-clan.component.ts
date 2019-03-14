@@ -1,3 +1,4 @@
+import { MatDialogRef } from '@angular/material';
 import { ClanService } from './../clanService/clan.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddClanComponent implements OnInit {
   maxLevel = 5;
   minLevel = 1;
-  constructor(private clanService : ClanService) { }
+  constructor(private clanService : ClanService, private dialog : MatDialogRef<AddClanComponent>) { }
 
   clanName = new FormControl('',[Validators.required]);
   clanLevel = new FormControl('',[Validators.max(5), Validators.min(1)]);
@@ -34,6 +35,10 @@ export class AddClanComponent implements OnInit {
       error => {
         console.log(error);
       })
+  }
+
+  handleCancel(){
+    this.dialog.close();
   }
 }
 

@@ -2,10 +2,16 @@
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
         <th mat-header-cell *matHeaderCellDef> {{displayingView[column]}} </th>
         <td mat-cell *matCellDef="let element">
+                <span *ngIf="column === 'maxPrice' || column === 'startingPrice'">
+                        {{element[column] | number:'1.0-0'}} 
+                    </span>
             <span *ngIf="column === 'numberOfDays'">
                 {{element[column] | date : 'dd/MM/yyyy'}} 
             </span>
-            <span *ngIf="column !== 'numberOfDays'">
+            <span *ngIf="column === 'photoPath'">
+                    <img [src] ="element[column]">
+                </span>
+            <span *ngIf="column !== 'numberOfDays' && column !== 'maxPrice' && column !== 'startingPrice' && column !== 'photoPath'">
                 {{element[column]}} 
             </span>
         </td>
@@ -17,10 +23,10 @@
         <td mat-cell *matCellDef="let element" [(attr.colspan)]="columnsToDisplay.length">
             <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                 <div class="example-element-description">
-                    <span>{{element.bidStep}} <b>Bid Step </b></span>
+                    <span>{{element.bidStep | number:'1.0-0'}} <b>adena each bid step </b></span>
                     <button style="margin-left: 0.5em;" mat-stroked-button (click)="simpleBid(element)">Bid</button>
-                    <button style="margin-left: 0.5em;" mat-stroked-button color="primary" (click)="maxBid(element)">Offer Max Value</button>
-                    <span style="margin-left: 1em;display: inline-flex;"><h4>The Current Value is <i>{{element.currentValue}} </i>millions</h4></span>
+                    <button style="margin-left: 0.5em;" mat-stroked-button color="primary" (click)="maxBid(element)">Buy Now</button>
+                    <span style="margin-left: 1em;display: inline-flex;"><h4>The Current Value is <i>{{element.currentValue | number:'1.0-0'}} </i>adena</h4></span>
                     <span style="margin-left: 1em;display: inline-flex;"><h4>The Last Bidder is <i>{{element.lastBidder}} </i></h4></span>
                 </div>
             </div>

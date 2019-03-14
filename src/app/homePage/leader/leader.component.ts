@@ -22,7 +22,8 @@ export class LeaderComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteMemberComponent, {
       data : {
         'member' : member
-      }
+      },
+      disableClose : true
     });
   }
   

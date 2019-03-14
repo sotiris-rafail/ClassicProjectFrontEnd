@@ -57,6 +57,7 @@ export class ClanComponent implements OnInit {
 
   showInfo(member: any) {
     let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
-      { data: { member: member } });
+      { data: { member: member },
+    disableClose : true });
   }
 }

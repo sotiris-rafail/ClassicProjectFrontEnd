@@ -10,12 +10,12 @@ import { Subject } from 'rxjs';
 })
 export class AuctionComponent implements OnInit {
 
-  token : OAuth2Token = new OAuth2Token();
-  previusUrl : String;
-  whichToPrint : String = "AUCTION";
+  token: OAuth2Token = new OAuth2Token();
+  previusUrl: String;
+  whichToPrint: String = "AUCTION";
   panelOpenState = false;
   subject = new Subject<boolean>();
-  constructor(private router : Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
@@ -27,33 +27,38 @@ export class AuctionComponent implements OnInit {
     }
   }
 
-  handleOpenOrClose(panelOpenState : boolean){
-    this.subject.next(panelOpenState);
+  handleOpenOrClose(panelOpenState: boolean) {
+    this.panelOpenState = panelOpenState;
+    if (this.panelOpenState) {
+      this.subject.next(panelOpenState);
+    }
   }
 }
 
 export interface UnSoldItems {
-  'itemId' : number,
-  'grade' : String,
-  'typeOfItem' : String,
-  'maxPrice' : number,
-  'startingPrice' : number,
-  'stateOfitem' : String,
-  'name' : String,
-  'numberOfDays' : String,
-  'bidStep' : number,
-  'currentValue' : number,
-  'lastBidder' : String
-}
+  'itemId': number,
+  'grade': String,
+  'typeOfItem': String,
+  'maxPrice': number,
+  'startingPrice': number,
+  'stateOfitem': String,
+  'name': String,
+  'numberOfDays': String,
+  'bidStep': number,
+  'currentValue': number,
+  'lastBidder': String,
+  'photoPath' : String
+ }
 
 export interface SoldItems {
-  'itemId' : number,
-  'grade' : String,
-  'typeOfItem' : String,
-  'price' : String,
-  'stateOfitem' : String,
-  'whoBoughtIt' : String,
-  'boughtPrice' : String,
-  'name' : String,
-  'delivered' : boolean
+  'itemId': number,
+  'grade': String,
+  'typeOfItem': String,
+  'price': number,
+  'stateOfitem': String,
+  'whoBoughtIt': String,
+  'boughtPrice': number,
+  'name': String,
+  'delivered': boolean,
+  'photoPath' : String
 }

@@ -10,7 +10,7 @@
                 </mat-expansion-panel-header>
                 <un-sold-items></un-sold-items>
             </mat-expansion-panel>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" (click)="handleOpenOrClose(panelOpenState)">
+            <mat-expansion-panel (opened)="handleOpenOrClose(true)" (closed)="handleOpenOrClose(false)">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <h2>Sold Items</h2>

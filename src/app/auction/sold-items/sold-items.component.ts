@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material';
 export class SoldItemsComponent implements OnInit {
   @Input() panelState: Subject<any>;
   dataSource : MatTableDataSource<SoldItems>;
-  displayedColumns = ['itemId', 'name', 'typeOfItem', 'grade', 'stateOfitem', 'price', 'whoBoughtIt', 'boughtPrice' , 'delivered', 'more'];
+  displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfitem', 'price', 'whoBoughtIt', 'boughtPrice' , 'delivered', 'more'];
   //expandedElement: PeriodicElement | null;
   constructor() { }
 
@@ -24,37 +24,40 @@ export class SoldItemsComponent implements OnInit {
   openSoldPanel(){
     if(this.panelState){
       let data = [{
-        'name' : 'Demon Dagger' ,
+        'name' : 'Demon\'s Dagger' ,
         'typeOfItem' : 'Weapon' ,
         'stateOfitem' : 'SOLD',
-        'price' : '10 millions',
+        'price' : 10000000,
         'itemId' : 45,
         'grade' : "B",
         'whoBoughtIt' : 'DrENigma',
-        'boughtPrice' : '10 millions',
-        'delivered' : false
+        'boughtPrice' : 10000000,
+        'delivered' : false,
+        'photoPath' : "../../../assets/itemPhoto/demon\'s_dagger.jpg"
       },
       {
-        'name' : 'Demon Dagger' ,
+        'name' : 'Demon\'s Dagger' ,
         'typeOfItem' : 'Weapon' ,
         'stateOfitem' : 'SOLD',
-        'price' : '10 millions',
+        'price' : 10000000,
         'itemId' : 45,
         'grade' : "B",
         'whoBoughtIt' : 'DrENigma',
-        'boughtPrice' : '10 millions',
-        'delivered' : false
+        'boughtPrice' : 10000000,
+        'delivered' : false,
+        'photoPath' : "../../../assets/itemPhoto/demon\'s_dagger.jpg"
       },
       {
-        'name' : 'Demon Dagger' ,
+        'name' : 'Demon\'s Dagger' ,
         'typeOfItem' : 'Weapon' ,
         'stateOfitem' : 'SOLD',
-        'price' : '10 millions',
+        'price' : 10000000,
         'itemId' : 45,
         'grade' : "B",
         'whoBoughtIt' : 'DrENigma',
-        'boughtPrice' : '10 millions',
-        'delivered' : false
+        'boughtPrice' : 10000000,
+        'delivered' : false,
+        'photoPath' : "../../../assets/itemPhoto/demon\'s_dagger.jpg"
       }]
       this.dataSource = new MatTableDataSource<SoldItems>(data);
     } else {

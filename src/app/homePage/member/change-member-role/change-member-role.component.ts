@@ -19,7 +19,9 @@ export class ChangeMemberRoleComponent implements OnInit {
     {value: '3', viewValue: 'Raid Bosser'}
   ];
 
-  constructor(public dialogRef: MatDialogRef<ChangeMemberRoleComponent>, @Inject(MAT_DIALOG_DATA) public data, private memberService : MemberService) { }
+  constructor(public dialogRef: MatDialogRef<ChangeMemberRoleComponent>, @Inject(MAT_DIALOG_DATA) public data, private memberService : MemberService) {
+    console.log(data)
+   }
 
   ngOnInit() {
   }
@@ -33,6 +35,10 @@ export class ChangeMemberRoleComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  handleCancel(){
+    this.dialogRef.close();
   }
 
 }

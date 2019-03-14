@@ -1,5 +1,10 @@
 <div>
-    <div>
+    <h3>Change Role Panel</h3>
+    <p style="text-align: center">
+        You are about to change the role of <b>{{this.data.member.name}}</b>. <br/>
+        The currrect role of that user is <b>{{this.data.member.typeOfUser}}</b>.
+    </p>
+    <div style="text-align: center">
         <mat-form-field>
             <mat-select placeholder="Select a role" [(value)]="selectedValue">
                 <mat-option *ngFor="let role of roles" [value]="role.value">
@@ -8,7 +13,8 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div>
+    <div style="text-align: center">
         <button [disabled]="!selectedValue" mat-raised-button color="warn" (click)="updateUser()">Update user's role</button>
+        <button mat-raised-button color="warn" (click)="handleCancel()" style="margin-left: 0.5em;">Cancel</button>
     </div>
 </div>

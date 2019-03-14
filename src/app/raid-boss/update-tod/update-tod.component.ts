@@ -47,6 +47,7 @@ export class UpdateTODComponent implements OnInit {
   });
   finalDate : string;
   ngOnInit() {}
+
   updateTOD(){
     let dateString : string = new Date(this.datePicker.nativeElement.value).toISOString().split('T')[0];
     let splitDate = dateString.split('-');
@@ -60,5 +61,9 @@ export class UpdateTODComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  handleCancel(){
+    this.dialogRef.close();
   }
 }

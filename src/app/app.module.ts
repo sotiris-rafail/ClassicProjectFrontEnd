@@ -48,9 +48,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { SoldItemsComponent } from './auction/sold-items/sold-items.component';
 import { UnSoldItemsComponent } from './auction/un-sold-items/un-sold-items.component';
 import { AddNewItemPanelComponent } from './auction/add-new-item-panel/add-new-item-panel.component';
+import { AuctionBidConfirmationPanelComponent } from './auction/auction-bid-confirmation-panel/auction-bid-confirmation-panel.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { AddNewItemPanelComponent } from './auction/add-new-item-panel/add-new-i
     MatSortModule,
     MatCardModule,
     FormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule
   ],
   exports: [
     MatFormFieldModule,
@@ -95,9 +98,10 @@ import { AddNewItemPanelComponent } from './auction/add-new-item-panel/add-new-i
     MatSortModule,
     MatCardModule,
     FormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTooltipModule
   ],
-  entryComponents: [AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
+  entryComponents: [AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })

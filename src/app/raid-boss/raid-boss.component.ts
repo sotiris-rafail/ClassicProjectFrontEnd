@@ -90,7 +90,8 @@ export class RaidBossComponent implements OnInit {
       data : {
         raidBoss : clickedRaid,
         acces_tokken : this.token.getAccessToken
-      }
+      },
+      disableClose : true
     });
   }
 
