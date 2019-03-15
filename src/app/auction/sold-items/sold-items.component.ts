@@ -1,21 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { trigger, style, state, transition, animate } from '@angular/animations';
-import { SoldItems } from '../auction.component';
+import { SoldItem } from '../auction.component';
 import { Subject } from 'rxjs';
 import { MatTableDataSource } from '@angular/material';
+import { ItemService } from '../item-service.service';
 
 @Component({
   selector: 'sold-items',
   templateUrl: './sold-items.component.html',
   styleUrls: ['./sold-items.component.css'] ,
-  
+  providers : [ItemService]
 })
 export class SoldItemsComponent implements OnInit {
   @Input() panelState: Subject<any>;
-  dataSource : MatTableDataSource<SoldItems>;
-  displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfitem', 'price', 'whoBoughtIt', 'boughtPrice' , 'delivered', 'more'];
+  dataSource : MatTableDataSource<SoldItem>;
+  displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfItem', 'price', 'whoBoughtIt', 'boughtPrice' , 'delivered', 'more'];
   //expandedElement: PeriodicElement | null;
-  constructor() { }
+  constructor(private itemService : ItemService) { }
 
   ngOnInit() {
     this.openSoldPanel();
@@ -26,7 +26,7 @@ export class SoldItemsComponent implements OnInit {
       let data = [{
         'name' : 'Demon\'s Dagger' ,
         'typeOfItem' : 'Weapon' ,
-        'stateOfitem' : 'SOLD',
+        'stateOfItem' : 'SOLD',
         'price' : 10000000,
         'itemId' : 45,
         'grade' : "B",
@@ -38,7 +38,7 @@ export class SoldItemsComponent implements OnInit {
       {
         'name' : 'Demon\'s Dagger' ,
         'typeOfItem' : 'Weapon' ,
-        'stateOfitem' : 'SOLD',
+        'stateOfItem' : 'SOLD',
         'price' : 10000000,
         'itemId' : 45,
         'grade' : "B",
@@ -50,7 +50,7 @@ export class SoldItemsComponent implements OnInit {
       {
         'name' : 'Demon\'s Dagger' ,
         'typeOfItem' : 'Weapon' ,
-        'stateOfitem' : 'SOLD',
+        'stateOfItem' : 'SOLD',
         'price' : 10000000,
         'itemId' : 45,
         'grade' : "B",
@@ -59,16 +59,23 @@ export class SoldItemsComponent implements OnInit {
         'delivered' : false,
         'photoPath' : "../../../assets/itemPhoto/demon\'s_dagger.jpg"
       }]
-      this.dataSource = new MatTableDataSource<SoldItems>(data);
+      this.dataSource = new MatTableDataSource<SoldItem>(data);
     } else {
-      this.dataSource = new MatTableDataSource<SoldItems>([]);
+      this.dataSource = new MatTableDataSource<SoldItem>([]);
     }
   }
 
-  deliveryIt(item : SoldItems) {
+  deliveryIt(item : SoldItem) {
     let index = this.dataSource.data.indexOf(item, 0);
-    this.dataSource.data[index].delivered = true;
-    this.dataSource._updateChangeSubscription();
+    this.itemService.deliverSoldItem(this.dataSource.data[index].itemId, true, sessionStorage.getItem("access_token")).subscribe(
+      respnse => {
+        this.dataSource.data[index].delivered = true; 
+        this.dataSource._updateChangeSubscription();
+      },
+      error => {console.log(error),
+        this.dataSource.data[index].delivered = false; 
+        this.dataSource._updateChangeSubscription();}
+    );
   }
 
 }

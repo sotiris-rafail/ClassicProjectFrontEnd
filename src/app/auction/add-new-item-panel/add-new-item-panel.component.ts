@@ -1,13 +1,16 @@
+import { MatDialogRef } from '@angular/material/dialog';
+import { UnSoldItem } from './../auction.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ItemService } from '../item-service.service';
 
 @Component({
   selector: 'app-add-new-item-panel',
   templateUrl: './add-new-item-panel.component.html',
-  styleUrls: ['./add-new-item-panel.component.css']
+  styleUrls: ['./add-new-item-panel.component.css'],
+  providers : [ItemService]
 })
 export class AddNewItemPanelComponent implements OnInit {
-  startingPrice: number;
   maxPrice: number;
   grade: string;
   typeOfItem: string;
@@ -29,7 +32,7 @@ export class AddNewItemPanelComponent implements OnInit {
     typeOfItemControl: this.typeOfItemControl,
 
   })
-  constructor() { }
+  constructor(private itemsService : ItemService, private dialogRef : MatDialogRef<AddNewItemPanelComponent>) { }
 
   ngOnInit() {
   }
@@ -47,11 +50,27 @@ export class AddNewItemPanelComponent implements OnInit {
   }
 
   addItem() {
-    console.log(this.grade.toUpperCase());
-    console.log(this.typeOfItem.toUpperCase())
+    let unsoldItem : UnSoldItem ={
+      'name' : String(this.nameControl.value),
+      'startingPrice' : Number(this.startingPriceControl.value),
+      'maxPrice' : Number(this.maxPriceControl.value),
+      'currentValue' : Number(this.startingPriceControl.value),
+      'bidStep' : Number(this.bidPriceControl.value),
+      'photoPath' : "",
+      'lastBidder' : "",
+      'grade' : String(this.grade.toUpperCase()),
+      'typeOfItem' : String(this.typeOfItem.toUpperCase()),
+      'itemId' : NaN,
+      'stateOfItem' : "Un Sold",
+      'numberOfDays' : String(this.numberOfDayControl.value)
+    }
+    this.itemsService.addNewItemForSale(unsoldItem, Number(this.amoundOfItemControl.value), sessionStorage.getItem("access_token")).subscribe(
+      response => {console.log(response)},
+      error => error => {console.log(error)}
+    )
   }
 
   handleCancel() {
-
+    this.dialogRef.close();
   }
 }

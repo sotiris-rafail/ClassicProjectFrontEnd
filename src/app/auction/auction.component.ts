@@ -35,13 +35,13 @@ export class AuctionComponent implements OnInit {
   }
 }
 
-export interface UnSoldItems {
+export interface UnSoldItem {
   'itemId': number,
   'grade': String,
   'typeOfItem': String,
   'maxPrice': number,
   'startingPrice': number,
-  'stateOfitem': String,
+  'stateOfItem': String,
   'name': String,
   'numberOfDays': String,
   'bidStep': number,
@@ -50,12 +50,12 @@ export interface UnSoldItems {
   'photoPath' : String
  }
 
-export interface SoldItems {
+export interface SoldItem {
   'itemId': number,
   'grade': String,
   'typeOfItem': String,
   'price': number,
-  'stateOfitem': String,
+  'stateOfItem': String,
   'whoBoughtIt': String,
   'boughtPrice': number,
   'name': String,

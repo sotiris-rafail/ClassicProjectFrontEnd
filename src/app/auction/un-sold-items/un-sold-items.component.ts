@@ -2,7 +2,7 @@ import { AuctionBidConfirmationPanelComponent } from './../auction-bid-confirmat
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
-import { SoldItems, UnSoldItems } from '../auction.component';
+import { SoldItem, UnSoldItem } from '../auction.component';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({
@@ -19,11 +19,11 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class UnSoldItemsComponent implements OnInit {
 
-  dataSource: MatTableDataSource<UnSoldItems>;
+  dataSource: MatTableDataSource<UnSoldItem>;
   data = [{
     'name': 'Demon\'s Dagger',
     'typeOfItem': 'Weapon',
-    'stateOfitem': 'UNSOLD',
+    'stateOfItem': 'UNSOLD',
     'maxPrice': 10000000,
     'itemId': 45,
     'grade': "B",
@@ -37,7 +37,7 @@ export class UnSoldItemsComponent implements OnInit {
   {
     'name': 'Demon\'s Dagger',
     'typeOfItem': 'Weapon',
-    'stateOfitem': 'UNSOLD',
+    'stateOfItem': 'UNSOLD',
     'maxPrice': 10000000,
     'itemId': 46,
     'grade': "B",
@@ -51,7 +51,7 @@ export class UnSoldItemsComponent implements OnInit {
   {
     'name': 'Demon\'s Dagger',
     'typeOfItem': 'Weapon',
-    'stateOfitem': 'UNSOLD',
+    'stateOfItem': 'UNSOLD',
     'maxPrice': 10000000,
     'itemId': 47,
     'grade': "B",
@@ -62,7 +62,7 @@ export class UnSoldItemsComponent implements OnInit {
     'lastBidder': 'DrEnigma',
     'photoPath' : "../../../assets/itemPhoto/demon\'s_dagger.jpg"
   }];
-  columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'stateOfitem', 'startingPrice', 'maxPrice', 'numberOfDays'];
+  columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'stateOfItem', 'startingPrice', 'maxPrice', 'numberOfDays'];
   displayingView = [];
 
   constructor(private dialog: MatDialog) {
@@ -70,7 +70,7 @@ export class UnSoldItemsComponent implements OnInit {
     this.displayingView['name'] = "Name";
     this.displayingView['grade'] = "Grade";
     this.displayingView['typeOfItem'] = "Type Of Item";
-    this.displayingView['stateOfitem'] = "State Of Item";
+    this.displayingView['stateOfItem'] = "State Of Item";
     this.displayingView['maxPrice'] = "Max Price";
     this.displayingView['startingPrice'] = "Starting Price";
     this.displayingView['numberOfDays'] = "Expiration Date";
@@ -80,7 +80,7 @@ export class UnSoldItemsComponent implements OnInit {
   ngOnInit() {
     this.dataSource = new MatTableDataSource(this.data);
   }
-  simpleBid(item: UnSoldItems) {
+  simpleBid(item: UnSoldItem) {
     let dialogRef = this.dialog.open(AuctionBidConfirmationPanelComponent, { data: { item: item, button: 'simple' }, disableClose: true });
     dialogRef.afterClosed().subscribe(response => {
       if (response) {
@@ -95,7 +95,7 @@ export class UnSoldItemsComponent implements OnInit {
     });
   }
 
-  maxBid(item: UnSoldItems) {
+  maxBid(item: UnSoldItem) {
     let dialogRef = this.dialog.open(AuctionBidConfirmationPanelComponent, { data: { item: item, button: 'buyNow' }, disableClose: true });
     dialogRef.afterClosed().subscribe(response => {
       if (response) {
