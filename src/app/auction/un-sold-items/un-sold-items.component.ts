@@ -19,7 +19,7 @@ import { ItemService } from '../item-service.service';
   ], providers: [ItemService],
 })
 export class UnSoldItemsComponent implements OnInit, OnChanges {
-  private _panelState: boolean = false;
+  private _panelState: boolean = true;
   @Input()
   set panelState(value: boolean) {
     this._panelState = value;
