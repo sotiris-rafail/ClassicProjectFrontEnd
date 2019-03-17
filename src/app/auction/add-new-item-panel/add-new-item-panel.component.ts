@@ -3,6 +3,7 @@ import { UnSoldItem } from './../auction.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ItemService } from '../item-service.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-new-item-panel',
@@ -29,10 +30,9 @@ export class AddNewItemPanelComponent implements OnInit {
     maxPriceControl: this.maxPriceControl,
     bidPriceControl: this.bidPriceControl,
     gradeControl: this.gradeControl,
-    typeOfItemControl: this.typeOfItemControl,
+    typeOfItemControl: this.typeOfItemControl});
 
-  })
-  constructor(private itemsService : ItemService, private dialogRef : MatDialogRef<AddNewItemPanelComponent>) { }
+  constructor(private itemsService : ItemService, private dialogRef : MatDialogRef<AddNewItemPanelComponent>, private snackBar : MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -62,11 +62,11 @@ export class AddNewItemPanelComponent implements OnInit {
       'typeOfItem' : String(this.typeOfItem.toUpperCase()),
       'itemId' : NaN,
       'stateOfItem' : "Un Sold",
-      'numberOfDays' : String(this.numberOfDayControl.value)
+      'numberOfDays' : Number(this.numberOfDayControl.value)
     }
     this.itemsService.addNewItemForSale(unsoldItem, Number(this.amoundOfItemControl.value), sessionStorage.getItem("access_token")).subscribe(
       response => {console.log(response)},
-      error => error => {console.log(error)}
+      error => error => {this.snackBar.open(error.error.message, "OK", { duration : 5000})}
     )
   }
 

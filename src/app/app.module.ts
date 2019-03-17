@@ -50,6 +50,8 @@ import { UnSoldItemsComponent } from './auction/un-sold-items/un-sold-items.comp
 import { AddNewItemPanelComponent } from './auction/add-new-item-panel/add-new-item-panel.component';
 import { AuctionBidConfirmationPanelComponent } from './auction/auction-bid-confirmation-panel/auction-bid-confirmation-panel.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent
@@ -77,7 +79,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     FormsModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatPaginatorModule
   ],
   exports: [
     MatFormFieldModule,
@@ -99,7 +103,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     FormsModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule,
   ],
   entryComponents: [AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
   providers: [HttpClientModule],

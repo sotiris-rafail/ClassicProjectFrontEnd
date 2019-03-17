@@ -1,6 +1,7 @@
-import { UnSoldItem } from './auction.component';
+import { UnSoldItem, SoldItem } from './auction.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,11 @@ export class ItemService {
       //'Authorization' : 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    console.log(item)
-    return this.http.post("http://localhost:8080/unsold/add", JSON.stringify(item), { headers: this.headers, params: { amountOfItem: String(amountOfItem) } });
+    return this.http.post("http://localhost:8080/unsold/add", JSON.stringify(item),
+      {
+        headers: this.headers,
+        params: { amountOfItem: String(amountOfItem) }
+      });
   }
 
   public deliverSoldItem(itemId: number, isDelivered: boolean, access_token: string) {
@@ -24,6 +28,54 @@ export class ItemService {
       //'Authorization' : 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.put("http://localhost:8080/sold/delivery", "", { headers: this.headers, params : { itemId : String(itemId) , isDelivered : String(isDelivered) } })
+    return this.http.put("http://localhost:8080/sold/delivery", "",
+      {
+        headers: this.headers,
+        params: { itemId: String(itemId), isDelivered: String(isDelivered) }
+      })
+  }
+
+  public bidForItem(itemId: number, bidStep: number, userId: string, access_token: string) {
+    this.headers = new HttpHeaders({
+      //'Authorization' : 'Bearer ' + access_token,
+      'Content-Type': 'text/plain, */*',
+    });
+    return this.http.put("http://localhost:8080/unsold/bidForItem", "",
+      {
+        headers: this.headers,
+        params: { itemId: String(itemId), bidStep: String(bidStep), userId: userId },
+        responseType : 'text'
+      });
+  }
+
+
+  public buyNow(itemId: number, userId: string, access_token: string) {
+    this.headers = new HttpHeaders({
+      //'Authorization' : 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put("http://localhost:8080/unsold/buyNow", "",
+      {
+        headers: this.headers,
+        params: { itemId: String(itemId), userId: userId }
+      })
+  }
+
+  public getSoldItems( access_token: string) : Observable<SoldItem[]> {
+    this.headers = new HttpHeaders({
+      //'Authorization' : 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<SoldItem[]>("http://localhost:8080/sold/getSoldItems",
+      { headers: this.headers });
+  }
+
+  public getUnSoldItems( access_token: string) : Observable<UnSoldItem[]> {
+    this.headers = new HttpHeaders({
+      //'Authorization' : 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<UnSoldItem[]>("http://localhost:8080/unsold/getUnSoldItems",
+      { headers: this.headers });
   }
 }

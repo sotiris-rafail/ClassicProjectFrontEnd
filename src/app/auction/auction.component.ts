@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OAuth2Token } from '../tokens';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { SoldItemsComponent } from './sold-items/sold-items.component';
 
 @Component({
   selector: 'auction',
@@ -13,8 +14,8 @@ export class AuctionComponent implements OnInit {
   token: OAuth2Token = new OAuth2Token();
   previusUrl: String;
   whichToPrint: String = "AUCTION";
-  panelOpenState = false;
-  subject = new Subject<boolean>();
+  panelOpenStateUnSold = true;
+  panelOpenStateSold = false;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -27,12 +28,13 @@ export class AuctionComponent implements OnInit {
     }
   }
 
-  handleOpenOrClose(panelOpenState: boolean) {
-    this.panelOpenState = panelOpenState;
-    if (this.panelOpenState) {
-      this.subject.next(panelOpenState);
-    }
+  handleOpenOrCloseUnSold(panelOpenState: boolean) {
+      this.panelOpenStateUnSold = panelOpenState;
   }
+
+  handleOpenOrCloseSold(panelOpenState: boolean) {
+    this.panelOpenStateSold = panelOpenState;
+}
 }
 
 export interface UnSoldItem {
@@ -43,7 +45,7 @@ export interface UnSoldItem {
   'startingPrice': number,
   'stateOfItem': String,
   'name': String,
-  'numberOfDays': String,
+  'numberOfDays': number,
   'bidStep': number,
   'currentValue': number,
   'lastBidder': String,
