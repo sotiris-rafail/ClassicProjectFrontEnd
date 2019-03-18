@@ -88,8 +88,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
           },
           error => {
-            console.log(error)
-            this.snackBar.open(error.error.message, "OK", { duration: 5000 });
+            this.snackBar.open(JSON.parse(error.error).message, "OK", { duration: 5000 });
           }
         )
       }
@@ -107,7 +106,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
             this.dataSource._updateChangeSubscription();
           },
           error => {
-            this.snackBar.open(error.error.message, "OK", { duration: 5000 });
+            this.snackBar.open(JSON.parse(error.error).message, "OK", { duration: 5000 });
           });
       }
     });
