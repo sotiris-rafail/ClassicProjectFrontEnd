@@ -106,7 +106,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
             this.dataSource._updateChangeSubscription();
           },
           error => {
-            this.snackBar.open(JSON.parse(error.error).message, "OK", { duration: 5000 });
+            this.snackBar.open(error.error.message, "OK", { duration: 5000 });
           });
       }
     });
