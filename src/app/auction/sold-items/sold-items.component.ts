@@ -53,6 +53,7 @@ export class SoldItemsComponent implements OnInit, OnChanges {
   set panelState(value : boolean){
     this._panelState = value;
   }
+  @Input() isSuperUser : boolean;
   dataSource: MatTableDataSource<SoldItem>;
   displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfItem', 'price', 'whoBoughtIt', 'boughtPrice', 'delivered', 'more'];
   constructor(private itemService: ItemService, private snackBar: MatSnackBar) { }

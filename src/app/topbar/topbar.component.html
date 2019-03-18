@@ -96,7 +96,7 @@
                     <span><b>Auction</b></span>
                 </div>
                 <div>
-                    <button mat-stroked-button (click)="addNewItem()">Add a new Item</button>
+                    <button [disabled]="!isSuperUser" mat-stroked-button (click)="addNewItem()">Add a new Item</button>
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>

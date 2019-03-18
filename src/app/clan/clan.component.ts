@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { ClanService } from './clanService/clan.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-clan',
@@ -19,7 +20,7 @@ export class ClanComponent implements OnInit {
   clans: any = [];
   typeOfUser: any;
   isSuperUser: boolean = false;
-  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog) { }
+  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog, private snackBar : MatSnackBar) { }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
@@ -36,11 +37,10 @@ export class ClanComponent implements OnInit {
       )
       this.clanService.getAllClansInfo(this.token.getAccessToken).subscribe(
         response => {
-          console.log(response)
           this.clans = response;
         },
         error => {
-          console.log(error)
+          this.snackBar.open(error.error.message, "OK", {duration : 5000})
         }
       )
     } else {
@@ -52,12 +52,13 @@ export class ClanComponent implements OnInit {
     if (this.typeOfUser === "SUPERUSER") {
       this.isSuperUser = true;
     }
-    console.log(this.typeOfUser);
   }
 
   showInfo(member: any) {
     let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
-      { data: { member: member },
-    disableClose : true });
+      {
+        data: { member: member },
+        disableClose: true
+      });
   }
 }

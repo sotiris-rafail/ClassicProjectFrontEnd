@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { UpdateTODComponent } from './update-tod/update-tod.component';
 import { RaidBossService } from './raidBossService/raidBoss.service';
-import { MatSort } from '@angular/material';
+import { MatSort, MatSnackBar } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 
 
@@ -25,7 +25,7 @@ export class RaidBossComponent implements OnInit {
   actualDisplay :MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
   typeOfUser : any;
   raidBosser : boolean = false;
-  constructor(private dialog : MatDialog, private router : Router, private raidBossService : RaidBossService, private memberService : MemberService) {
+  constructor(private dialog : MatDialog, private router : Router, private raidBossService : RaidBossService, private memberService : MemberService, private snackBar : MatSnackBar) {
     
   }
 
@@ -49,7 +49,7 @@ export class RaidBossComponent implements OnInit {
           this.actualDisplay.sort = this.sort;
         },
         error => {
-
+          this.snackBar.open(error.error.message, "OK", { duration : 5000})
         }
       );
     } else {

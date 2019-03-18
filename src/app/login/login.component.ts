@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material';
 import { MemberService } from './../homePage/member/memberService/member.service';
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent{
 
-    constructor(private registerUserService : MemberService, private router : Router){}
+    constructor(private registerUserService : MemberService, private router : Router, private snackBar : MatSnackBar){}
 
     private token : OAuth2Token;
     enterEmail = globals.enterEmail;
@@ -41,6 +42,6 @@ export class LoginComponent{
                 this.token = new OAuth2Token(loginResponse as OAuth2Token);
                 this.token.setTokenToStorage();
                 this.router.navigateByUrl("/user/"+ this.token.getUser)
-          }, loginError => console.log(loginError))
+          }, loginError => {this.snackBar.open(loginError.error.error_description, "OK", {duration : 5000});})
     }
 }

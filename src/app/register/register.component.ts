@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as globals from "../utils/globals"
 import { PasswordValidator } from '../utils/PasswordValidator';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 
 
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit {
   rePassword = globals.rePassword;
   registerResponse : any;
 
-  constructor(private registerUserService : MemberService, private router : Router) { }
+  constructor(private registerUserService : MemberService, private router : Router, private snackBar : MatSnackBar) { }
 
   ngOnInit() {
    
@@ -68,6 +69,8 @@ export class RegisterComponent implements OnInit {
       window.setTimeout(() => {
         this.router.navigateByUrl(response);
       }, 1000)
-    },error  => console.log(error));
+    },error  => {
+      let errorMEssage = JSON.parse(error.error);
+      this.snackBar.open(errorMEssage.message, "OK", {duration : 5000})});
   }
 }
