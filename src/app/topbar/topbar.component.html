@@ -13,7 +13,10 @@
                 <div style="position:relative; padding: 0 0.1em 0 0.5em;">
                     <span><b>Type Of User:</b> {{typeOfUser}} </span>
                 </div>
-                <div *ngIf="cpId != -1" style="position:sticky;left: 60%;padding: 0 0.1em 0 0.5em">
+                <div *ngIf="lengthOfChars != 0" style="margin-left: 2em;">
+                    <a href="/auction">Auction</a>
+                </div>
+                <div *ngIf="cpId != -1" style="position:sticky;left: 35%;padding: 0 0.1em 0 0.5em">
                     <a href="/raidboss">Raid Tracker</a>
                 </div>
                 <div style="position:sticky;left: 100%">

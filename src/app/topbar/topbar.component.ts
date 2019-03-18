@@ -23,6 +23,7 @@ export class TopbarComponent implements OnInit {
   @Input() isUserAleader : boolean;
   @Input() previusUrl : String ;
   @Input() isSuperUser : boolean;
+  @Input() lengthOfChars : Number = 0;
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
