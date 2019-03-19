@@ -1,5 +1,5 @@
 <p *ngIf="data.button === 'simple'">
- Would like to bid for <b>{{data.item.name}}</b> the ammount of <b>{{data.item.bidStep | number:'1.0-0'}}</b> adena??
+ Would like to bid for <b>{{data.item.name}}</b> the ammount of <b>{{(data.item.bidStep + data.item.currentValue) | number:'1.0-0'}}</b> adena??
 </p>
 <p *ngIf="data.button === 'buyNow'">
   Would like to buy the <b>{{data.item.name}}</b> for <b>{{data.item.maxPrice | number:'1.0-0'}}</b> adena??
