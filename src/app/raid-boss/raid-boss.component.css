@@ -1,7 +1,7 @@
 .DEAD {
     background-color: red;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 120%;
+    font-size: 110%;
     color: black;
 }
 
@@ -17,6 +17,11 @@
     font-family: 'Times New Roman', Times, serif;
     font-size: 120%;
     color: black;
+}
+
+mat-cell {
+    color: inherit;
+    font-size: inherit;
 }
 
 .example-container {

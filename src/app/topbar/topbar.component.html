@@ -1,6 +1,6 @@
 <div>
     <div *ngIf="whichToPrint === 'MEMBER'">
-        <mat-toolbar color="warn">
+        <mat-toolbar color="primary">
             <mat-toolbar-row>
                 <div style="position:relative; padding: 0 1em 0 0;left: 1%;">
                     <span><b>User: </b>{{email}} </span>
@@ -20,7 +20,7 @@
                     <a href="/raidboss">Raid Tracker</a>
                 </div>
                 <div style="position:sticky;left: 100%">
-                    <button mat-stroked-button color="basic" (click)="openDialogCharacter()"><mat-icon>add</mat-icon>Add a character</button>
+                    <button mat-raised-button color="accent" (click)="openDialogCharacter()"><mat-icon>add</mat-icon>Add a character</button>
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>
@@ -40,7 +40,7 @@
                     <span><b>CP Leader:</b> {{cpLeader}} </span>
                 </div>
                 <div style="position: sticky;left:100%">
-                    <button [disabled]="!isUserAleader" mat-stroked-button color="basic" (click)="openDialogMember()">
+                    <button [disabled]="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()">
               <mat-icon>add</mat-icon>
               Add a member
             </button>
@@ -60,7 +60,7 @@
                     <span><b>Clan List</b></span>
                 </div>
                 <div style="position: relative;left: 60%">
-                    <button mat-stroked-button color="basic" (click)="openAddClanDialog()">
+                    <button mat-raised-button color="accent" (click)="openAddClanDialog()">
                         <mat-icon>add</mat-icon>Add a Clan
                     </button>
                 </div>
@@ -79,7 +79,7 @@
                     <span><b>Raid Boss Tracker</b></span>
                 </div>
                 <div style="position: sticky;left: 100%">
-                    <button mat-stroked-button color="basic" (click)="openRaidDialog()">
+                    <button mat-raised-button color="accent" (click)="openRaidDialog()">
                         <mat-icon>add</mat-icon>
                         Add a Raid Bosss
                     </button>
@@ -99,7 +99,7 @@
                     <span><b>Auction</b></span>
                 </div>
                 <div>
-                    <button [disabled]="!isSuperUser" mat-stroked-button (click)="addNewItem()">Add a new Item</button>
+                    <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="addNewItem()">Add a new Item</button>
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>

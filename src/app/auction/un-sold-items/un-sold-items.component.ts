@@ -24,6 +24,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   set panelState(value: boolean) {
     this._panelState = value;
   }
+  isFirstTime : boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<UnSoldItem>;
   data: UnSoldItem[] = [];
@@ -43,31 +44,29 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.openUnSoldPanel();
+    this.isFirstTime = false;
+  }
+
+  ngOnChanges() {
+    if (this._panelState && !this.isFirstTime) {
+      console.log("trexw kai egw")
+      this.openUnSoldPanel();
+    } else {
+      this.dataSource = new MatTableDataSource<UnSoldItem>([]);
+    }
+  }
+
+  openUnSoldPanel(){
     this.itemService.getUnSoldItems(sessionStorage.getItem("access_token")).subscribe(
       response => {
-        this.dataSource = new MatTableDataSource(response);
+        this.dataSource = new MatTableDataSource<UnSoldItem>(response);
         this.dataSource.paginator = this.paginator;
       },
       error => {
         this.snackBar.open(error.error.message, "OK", { duration: 5000 })
       }
     )
-  }
-
-  ngOnChanges() {
-    if (this._panelState) {
-      this.itemService.getUnSoldItems(sessionStorage.getItem("access_token")).subscribe(
-        response => {
-          this.dataSource = new MatTableDataSource<UnSoldItem>(response);
-          this.dataSource.paginator = this.paginator;
-        },
-        error => {
-          this.snackBar.open(error.error.message, "OK", { duration: 5000 })
-        }
-      )
-    } else {
-      this.dataSource = new MatTableDataSource<UnSoldItem>([]);
-    }
   }
 
   simpleBid(item: UnSoldItem) {

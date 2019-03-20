@@ -2,15 +2,22 @@
   <div class="list">
     <mat-selection-list #shoes>
       <mat-list-option *ngFor="let shoe of responseData" [value]=shoe.userId>
-        Name : {{shoe.chars[0].name}}
-        Level : {{shoe.chars[0].level}}
-        Class : {{shoe.chars[0].classOfCharacter}}
-        Clan : {{shoe.chars[0].clanName}}
+        <span *ngIf="shoe.chars.length >= 1">
+          Name : {{shoe.chars[0].name}}
+          Level : {{shoe.chars[0].level}}
+          Class : {{shoe.chars[0].classOfCharacter}}
+          Clan : {{shoe.chars[0].clanName}}
+        </span>
       </mat-list-option>
     </mat-selection-list>
   </div>
+  <span>
+    <h3>
+      You are about to add {{this.shoes.selectedOptions.selected.length}} new members in your CP.
+    </h3>
+  </span>
   <div class="button">
-    <button mat-button color="primary" (click)="addUsersToCp()">Add</button>
-    <button mat-button color="warn" (click)="close()">Cancel</button>
+    <button mat-raised-button color="accent" (click)="addUsersToCp()">Add</button>
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
   </div>
 </div>

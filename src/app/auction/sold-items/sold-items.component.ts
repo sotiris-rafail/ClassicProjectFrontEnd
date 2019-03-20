@@ -60,7 +60,6 @@ export class SoldItemsComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.openSoldPanel();
-    this.dataSource.paginator = this.paginator;
   }
   ngOnChanges(){
     this.openSoldPanel();
@@ -71,7 +70,6 @@ export class SoldItemsComponent implements OnInit, OnChanges {
       this.itemService.getSoldItems(sessionStorage.getItem("access_token")).subscribe(
         response => {
           this.dataSource = new MatTableDataSource<SoldItem>(response);
-          console.log(response)
           this.dataSource.paginator = this.paginator;
         },
         error => {

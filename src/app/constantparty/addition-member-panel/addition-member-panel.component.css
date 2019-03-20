@@ -7,11 +7,12 @@
 .list{
     max-height: 450px;
     overflow-y: auto;
+    max-height : 350px;
 }
 
 .button{
     position: relative;
-    top: 4em;
+    top: 1em;
     width: -webkit-fill-available;
     text-align: center;
     border-radius: 12px;
