@@ -6,7 +6,7 @@ import { SoldItem, UnSoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
-import { Direction, Directionality, Direction } from '@angular/cdk/bidi';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'un-sold-items',
@@ -26,7 +26,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   set panelState(value: boolean) {
     this._panelState = value;
   }
-  isFirstTime : boolean = true;
+  isFirstTime: boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<UnSoldItem>;
   data: UnSoldItem[] = [];
@@ -59,7 +59,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
     }
   }
 
-  openUnSoldPanel(){
+  openUnSoldPanel() {
     this.itemService.getUnSoldItems(sessionStorage.getItem("access_token")).subscribe(
       response => {
         this.dataSource = new MatTableDataSource<UnSoldItem>(response);
@@ -67,7 +67,14 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
       },
       error => {
         // this.snackBar.open(error.error.message, "OK", { duration: 5000, panelClass : 'alternate-theme' });
-        this.snackBar.openFromComponent(DisplayingErrorComponent, {data : {message : error.error.message}, duration: 5000, panelClass : 'alternate-theme' })
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            data: { message: error.error.message },
+            duration: 5000,
+            panelClass: ['snackBar'],
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          })
       }
     )
   }
@@ -90,7 +97,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
           },
           error => {
-            this.snackBar.open(JSON.parse(error.error).message, "OK", { duration: 5000, panelClass : 'alternate-theme' });
+            this.snackBar.open(JSON.parse(error.error).message, "OK", { duration: 5000, panelClass: 'alternate-theme' });
           }
         )
       }
@@ -108,7 +115,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
             this.dataSource._updateChangeSubscription();
           },
           error => {
-            this.snackBar.open(error.error.message, "OK", { duration: 500, panelClass : 'alternate-theme' });
+            this.snackBar.open(error.error.message, "OK", { duration: 500, panelClass: 'alternate-theme' });
           });
       }
     });

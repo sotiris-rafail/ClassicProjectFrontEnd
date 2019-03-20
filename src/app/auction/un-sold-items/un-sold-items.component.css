@@ -46,4 +46,9 @@ tr.example-element-row:not(.example-expanded-row):active {
     color: goldenrod;
     background-color: black;
     font-size: 110%;
-  }
+}
+
+.snackBar {
+    background: #1abc9c;
+    color: blue;
+}
