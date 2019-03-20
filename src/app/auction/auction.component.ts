@@ -30,7 +30,7 @@ export class AuctionComponent implements OnInit {
           this.isSuperUser = String(response) === "SUPERUSER";
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", {duration : 5000})
+          this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'})
         }
       )
     } else {

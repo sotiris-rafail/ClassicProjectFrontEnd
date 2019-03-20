@@ -66,7 +66,7 @@ export class AddNewItemPanelComponent implements OnInit {
     }
     this.itemsService.addNewItemForSale(unsoldItem, Number(this.amoundOfItemControl.value), sessionStorage.getItem("access_token")).subscribe(
       response => {console.log(response)},
-      error => {this.snackBar.open(error.error.message, "OK", { duration : 5000})}
+      error => {this.snackBar.open(error.error.message, "OK", { duration : 5000, panelClass : 'alternate-theme'})}
     )
   }
 

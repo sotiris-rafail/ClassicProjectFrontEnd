@@ -1,75 +1,87 @@
+<mat-form-field appearance="outline">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event.target.value)">
+  <mat-icon matSuffix>
+    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="#000000"
+        d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" />
+    </svg>
+  </mat-icon>
+</mat-form-field>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Position Column -->
-    <ng-container matColumnDef="itemId">
-        <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.itemId}} </mat-cell>
-    </ng-container>
+  <!-- Position Column -->
+  <ng-container matColumnDef="itemId">
+    <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.itemId}} </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="photoPath">
-        <mat-header-cell *matHeaderCellDef> Photo. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <img [src]="element.photoPath" /> </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="photoPath">
+    <mat-header-cell *matHeaderCellDef> Photo. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> <img [src]="element.photoPath" /> </mat-cell>
+  </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="typeOfItem">
-        <mat-header-cell *matHeaderCellDef> Type Of Item </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.typeOfItem}} </mat-cell>
-    </ng-container>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="typeOfItem">
+    <mat-header-cell *matHeaderCellDef> Type Of Item </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.typeOfItem}} </mat-cell>
+  </ng-container>
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="grade">
-        <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.grade}} </mat-cell>
-    </ng-container>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="grade">
+    <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.grade}} </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.price | number:'1.0-0'}} </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.price | number:'1.0-0'}} </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="stateOfItem">
-        <mat-header-cell *matHeaderCellDef> State Of Item </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.stateOfItem}} </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="stateOfItem">
+    <mat-header-cell *matHeaderCellDef> State Of Item </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.stateOfItem}} </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="whoBoughtIt">
-        <mat-header-cell *matHeaderCellDef> Buyer </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.whoBoughtIt}} </mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="whoBoughtIt">
+    <mat-header-cell *matHeaderCellDef> Buyer </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.whoBoughtIt}} </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="boughtPrice">
-        <mat-header-cell *matHeaderCellDef> Bought Price </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.boughtPrice | number:'1.0-0'}}</mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="boughtPrice">
+    <mat-header-cell *matHeaderCellDef> Bought Price </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.boughtPrice | number:'1.0-0'}}</mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="delivered">
-        <mat-header-cell *matHeaderCellDef> is Delivered </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <span *ngIf="element.delivered == false">
+  <ng-container matColumnDef="delivered">
+    <mat-header-cell *matHeaderCellDef> is Delivered </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <span *ngIf="element.delivered == false">
         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-            <path fill="#FF0000" d="M20,14H4V10H20" />
+          <path fill="#FF0000" d="M20,14H4V10H20" />
         </svg>
       </span>
-            <span *ngIf="element.delivered">
+      <span *ngIf="element.delivered">
         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
           <path fill="#008000" d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
         </svg>
       </span>
-        </mat-cell>
-    </ng-container>
+    </mat-cell>
+  </ng-container>
 
-    <ng-container matColumnDef="more">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element"><button [disabled]="!isSuperUser || (element.delivered || (element.whoBoughtIt == null))" mat-stroked-button (click)="deliveryIt(element)">Delivery</button></mat-cell>
-    </ng-container>
+  <ng-container matColumnDef="more">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let element"><button
+        [disabled]="!isSuperUser || (element.delivered || (element.whoBoughtIt == null))" mat-stroked-button
+        (click)="deliveryIt(element)">Delivery</button></mat-cell>
+  </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons></mat-paginator>

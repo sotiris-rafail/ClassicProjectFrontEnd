@@ -71,6 +71,6 @@ export class RegisterComponent implements OnInit {
       }, 1000)
     },error  => {
       let errorMEssage = JSON.parse(error.error);
-      this.snackBar.open(errorMEssage.message, "OK", {duration : 5000})});
+      this.snackBar.open(errorMEssage.message, "OK", {duration : 5000, panelClass : 'alternate-theme'})});
   }
 }

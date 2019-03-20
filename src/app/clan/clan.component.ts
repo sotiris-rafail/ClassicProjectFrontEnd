@@ -40,7 +40,7 @@ export class ClanComponent implements OnInit {
           this.clans = response;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", {duration : 5000})
+          this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'})
         }
       )
     } else {

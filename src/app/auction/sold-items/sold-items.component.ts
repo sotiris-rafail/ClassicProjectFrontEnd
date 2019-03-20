@@ -73,7 +73,7 @@ export class SoldItemsComponent implements OnInit, OnChanges {
           this.dataSource.paginator = this.paginator;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", { duration : 5000})
+          this.snackBar.open(error.error.message, "OK", { duration : 5000, panelClass : 'alternate-theme'})
         }
       )
     } else {
@@ -91,7 +91,7 @@ export class SoldItemsComponent implements OnInit, OnChanges {
       error => {
         this.dataSource.data[index].delivered = false;
         this.dataSource._updateChangeSubscription();
-        this.snackBar.open(error.error.message, "OK", {duration : 5000});
+        this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'});
       });
   }
 

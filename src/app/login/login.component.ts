@@ -42,6 +42,6 @@ export class LoginComponent{
                 this.token = new OAuth2Token(loginResponse as OAuth2Token);
                 this.token.setTokenToStorage();
                 this.router.navigateByUrl("/user/"+ this.token.getUser)
-          }, loginError => {this.snackBar.open(loginError.error.error_description, "OK", {duration : 5000});})
+          }, loginError => {this.snackBar.open(loginError.error.error_description, "OK", {duration : 5000, panelClass : 'alternate-theme'});})
     }
 }

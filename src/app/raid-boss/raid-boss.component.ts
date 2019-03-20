@@ -49,7 +49,7 @@ export class RaidBossComponent implements OnInit {
           this.actualDisplay.sort = this.sort;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", { duration : 5000})
+          this.snackBar.open(error.error.message, "OK", { duration : 5000, panelClass : 'alternate-theme'})
         }
       );
     } else {

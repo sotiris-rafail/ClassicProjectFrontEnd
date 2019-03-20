@@ -1,40 +1,58 @@
+<mat-form-field appearance="outline">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event.target.value)" [disabled]="dataSource.length != 0">
+  <mat-icon matSuffix>
+    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="#000000"
+        d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" />
+    </svg>
+  </mat-icon>
+</mat-form-field>
 <table mat-table [(dataSource)]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-        <th mat-header-cell *matHeaderCellDef> {{displayingView[column]}} </th>
-        <td mat-cell *matCellDef="let element">
-            <span *ngIf="column === 'maxPrice' || column === 'startingPrice'">
-                        {{element[column] | number:'1.0-0'}} 
-                    </span>
-            <span *ngIf="column === 'expirationDate'">
-                {{element[column] | date : 'dd/MM/yyyy HH:mm:ss'}} 
-            </span>
-            <span *ngIf="column === 'photoPath'">
-                    <img [src] ="element[column]">
-                </span>
-            <span *ngIf="column !== 'expirationDate' && column !== 'maxPrice' && column !== 'startingPrice' && column !== 'photoPath'">
-                {{element[column]}} 
-            </span>
-        </td>
-    </ng-container>
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef> {{displayingView[column]}} </th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngIf="column === 'maxPrice' || column === 'startingPrice'">
+        {{element[column] | number:'1.0-0'}}
+      </span>
+      <span *ngIf="column === 'expirationDate'">
+        {{element[column] | date : 'dd/MM/yyyy HH:mm:ss'}}
+      </span>
+      <span *ngIf="column === 'photoPath'">
+        <img [src]="element[column]">
+      </span>
+      <span
+        *ngIf="column !== 'expirationDate' && column !== 'maxPrice' && column !== 'startingPrice' && column !== 'photoPath'">
+        {{element[column]}}
+      </span>
+    </td>
+  </ng-container>
 
-    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-    <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let element" [(attr.colspan)]="columnsToDisplay.length">
-            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                <div class="example-element-description">
-                    <span>{{element.bidStep | number:'1.0-0'}} <b>adena each bid step </b></span>
-                    <button style="margin-left: 0.5em;" mat-stroked-button (click)="simpleBid(element)">Bid</button>
-                    <button style="margin-left: 0.5em;" mat-stroked-button color="primary" (click)="maxBid(element)">Buy Now</button>
-                    <span style="margin-left: 1em;display: inline-flex;"><h4>The Current Value is <i>{{element.currentValue | number:'1.0-0'}} </i>adena</h4></span>
-                    <span style="margin-left: 1em;display: inline-flex;"><h4>The Last Bidder is <i>{{element.lastBidder}} </i></h4></span>
-                </div>
-            </div>
-        </td>
-    </ng-container>
+  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [(attr.colspan)]="columnsToDisplay.length">
+      <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-description">
+          <span>{{element.bidStep | number:'1.0-0'}} <b>adena each bid step </b></span>
+          <button style="margin-left: 0.5em;" mat-stroked-button (click)="simpleBid(element)">Bid</button>
+          <button style="margin-left: 0.5em;" mat-stroked-button color="primary" (click)="maxBid(element)">Buy
+            Now</button>
+          <span style="margin-left: 1em;display: inline-flex;">
+            <h4>The Current Value is <i>{{element.currentValue | number:'1.0-0'}} </i>adena</h4>
+          </span>
+          <span style="margin-left: 1em;display: inline-flex;">
+            <h4>The Last Bidder is <i>{{element.lastBidder}} </i></h4>
+          </span>
+        </div>
+      </div>
+    </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
-    </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+    [class.example-expanded-row]="expandedElement === element"
+    (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[15]" showFirstLastButtons color="primary"></mat-paginator>
