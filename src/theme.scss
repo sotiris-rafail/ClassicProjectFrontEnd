@@ -6,9 +6,4 @@ $my-app-warn:    mat-palette($mat-deep-orange, 600);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 @include mat-toolbar-theme($my-app-theme);
 @include mat-button-theme($my-app-theme);
-.alternate-theme {
-  $alternate-primary: mat-palette($mat-red, A700);
-  $alternate-accent:  mat-palette($mat-cyan, A700);
-  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
-  @include mat-snack-bar-theme($alternate-theme);
-}
+@include mat-icon-theme($my-app-theme);

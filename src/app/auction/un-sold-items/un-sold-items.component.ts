@@ -6,7 +6,6 @@ import { SoldItem, UnSoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
-import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'un-sold-items',
@@ -66,15 +65,14 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
         this.dataSource.paginator = this.paginator;
       },
       error => {
-        // this.snackBar.open(error.error.message, "OK", { duration: 5000, panelClass : 'alternate-theme' });
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
-            data: { message: error.error.message },
+            data: { message: error.error.message, type : "alert" },
             duration: 5000,
-            panelClass: ['snackBar'],
+            panelClass: ['snackBarAlert'],
             horizontalPosition: 'right',
             verticalPosition: 'top'
-          })
+          });
       }
     )
   }

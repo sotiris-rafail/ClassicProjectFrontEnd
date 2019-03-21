@@ -8,3 +8,13 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.snackBarAlert {
+    background-color: #FF4500;
+    color: black;
+}
+
+.snackBarSuccess {
+    background-color: lightgreen;
+    color: black;
+}

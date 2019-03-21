@@ -24,8 +24,14 @@
             <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} <b>Type Of Member:</b>
             {{member.typeOfUser}}
           </span>
-          <button [disabled]="!isSuperUser" mat-icon-button (click)="showInfo(member)">
+          <button matTooltip="Change the role" [disabled]="!isSuperUser" mat-icon-button (click)="showInfo(member)">
             <mat-icon matListIcon>info</mat-icon>
+          </button>
+          <button matTooltip="Add user to CP" [disabled]="!isSuperUser || !(member.cpName === 'Not a CP member')" mat-icon-button (click)="addToCp(member)">
+            <mat-icon matListIcon color="accent">add_circle</mat-icon>
+          </button>
+          <button matTooltip="Remove from clan" [disabled]="!isSuperUser" mat-icon-button (click)="removeFromClan(member)">
+            <mat-icon matListIcon color="warn">remove_circle</mat-icon>
           </button>
         </div>
       </mat-list-item>

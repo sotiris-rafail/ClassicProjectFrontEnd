@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { SoldItemsComponent } from './sold-items/sold-items.component';
 import { MemberService } from '../homePage/member/memberService/member.service';
+import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 
 @Component({
   selector: 'auction',
@@ -13,13 +14,13 @@ import { MemberService } from '../homePage/member/memberService/member.service';
   providers: [MemberService]
 })
 export class AuctionComponent implements OnInit {
-  isSuperUser : boolean;
+  isSuperUser: boolean;
   token: OAuth2Token = new OAuth2Token();
   previusUrl: String;
   whichToPrint: String = "AUCTION";
   panelOpenStateUnSold = true;
   panelOpenStateSold = false;
-  constructor(private router: Router, private memberService : MemberService, private snackBar : MatSnackBar) { }
+  constructor(private router: Router, private memberService: MemberService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
@@ -30,21 +31,28 @@ export class AuctionComponent implements OnInit {
           this.isSuperUser = String(response) === "SUPERUSER";
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'})
+          this.snackBar.open(error.error.message, "OK", { duration: 5000, panelClass: 'alternate-theme' })
         }
       )
     } else {
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: "Your token has expired. Please login again", type : "alert" },
+        duration: 5000,
+        panelClass: ['snackBarAlert'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      })
       this.router.navigateByUrl("/");
     }
   }
 
   handleOpenOrCloseUnSold(panelOpenState: boolean) {
-      this.panelOpenStateUnSold = panelOpenState;
+    this.panelOpenStateUnSold = panelOpenState;
   }
 
   handleOpenOrCloseSold(panelOpenState: boolean) {
     this.panelOpenStateSold = panelOpenState;
-}
+  }
 }
 
 export interface UnSoldItem {
@@ -59,8 +67,8 @@ export interface UnSoldItem {
   'bidStep': number,
   'currentValue': number,
   'lastBidder': String,
-  'photoPath' : String
- }
+  'photoPath': String
+}
 
 export interface SoldItem {
   'itemId': number,
@@ -72,5 +80,5 @@ export interface SoldItem {
   'boughtPrice': number,
   'name': String,
   'delivered': boolean,
-  'photoPath' : String
+  'photoPath': String
 }
