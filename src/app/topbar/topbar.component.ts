@@ -14,6 +14,7 @@ import { AddClanComponent } from '../clan/add-clan/add-clan.component';
 })
 export class TopbarComponent implements OnInit {
   @Input() sidenav : MatSidenav;
+  @Input() itemsOnSale : number = 0;
   @Input() cp : String;
   @Input() cpId : number;
   @Input() email : String;

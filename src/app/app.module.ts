@@ -1,3 +1,4 @@
+import { MatBadgeModule } from '@angular/material/badge';
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -82,7 +83,8 @@ import { DisplayingErrorComponent } from './displaying-error/displaying-error.co
     MatExpansionModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatBadgeModule
   ],
   exports: [
     MatFormFieldModule,
@@ -106,6 +108,7 @@ import { DisplayingErrorComponent } from './displaying-error/displaying-error.co
     MatExpansionModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatBadgeModule
   ],
   entryComponents: [DisplayingErrorComponent, AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
   providers: [HttpClientModule],

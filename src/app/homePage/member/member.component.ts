@@ -6,14 +6,16 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { OAuth2Token } from 'src/app/tokens';
+import { ItemService } from 'src/app/auction/item-service.service';
 
 @Component({
   selector: 'member',
   templateUrl: './member.template.html',
   styleUrls: ['./member.style.css'],
-  providers: [MemberService]
+  providers: [MemberService, ItemService]
 })
 export class MemberComponent implements OnInit {
+  itemsOnSale : number = 0;
   previusUrl: String = this.router.url;
   whichToPrint: String = "MEMBER"
   dataSource = []
@@ -24,7 +26,7 @@ export class MemberComponent implements OnInit {
   typeOfUser: string;
   token: OAuth2Token = new OAuth2Token();
   data: any;
-  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router) { }
+  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService : ItemService) { }
 
   ngOnInit(): void {
     this.token.getTokensFromStorage();
@@ -37,6 +39,11 @@ export class MemberComponent implements OnInit {
         this.dataSource = this.data.chars;
         this.typeOfUser = this.data.typeOfUser
       }, error => console.log(error.error.message))
+      this.itemService.getNumberOfUnsoldItems(this.token.getAccessToken).subscribe(
+        response => {
+          this.itemsOnSale = response;
+        }
+      )
     } else {
       this.router.navigateByUrl("/");
     }

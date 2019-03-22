@@ -76,4 +76,13 @@ export class ItemService {
     return this.http.get<UnSoldItem[]>("http://83.212.102.61:8080/unsold/getUnSoldItems",
       { headers: this.headers });
   }
+
+  public getNumberOfUnsoldItems( access_token: string) : Observable<number> {
+    this.headers = new HttpHeaders({
+      //'Authorization' : 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<number>("http://localhost:8080/unsold/getNumberOfUnsoldItems",
+      { headers: this.headers });
+  }
 }

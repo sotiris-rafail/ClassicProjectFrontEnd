@@ -1,5 +1,5 @@
 <div>
-    <topbar [cp]="cp" [email]="email" [typeOfUser]="typeOfUser" [cpId]="cpId" [sidenav]="sidenav" [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [lengthOfChars]=dataSource.length></topbar>
+    <topbar [itemsOnSale]="itemsOnSale" [cp]="cp" [email]="email" [typeOfUser]="typeOfUser" [cpId]="cpId" [sidenav]="sidenav" [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [lengthOfChars]=dataSource.length></topbar>
     <div>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Position Column -->
@@ -35,7 +35,7 @@
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button mat-raised-button color="primary" (click)="handleUpdate(element)">Update</button>
-                    <button mat-raised-button color="warn" disabled=true (click)="handleDelete(element)">Delete</button>
+                    <button mat-raised-button color="warn" (click)="handleDelete(element)">Delete</button>
                 </mat-cell>
             </ng-container>
 

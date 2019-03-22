@@ -14,9 +14,9 @@
                     <span><b>Type Of User:</b> {{typeOfUser}} </span>
                 </div>
                 <div *ngIf="lengthOfChars != 0 && cpId != -1" style="margin-left: 2em;">
-                    <a href="/auction">Auction</a>
+                    <a [matBadge]="itemsOnSale" matBadgeOverlap="false" [matBadgeColor]="itemsOnSale == 0 ? 'warn' : 'accent'"  matBadgePosition="after" href="/auction">Auction</a>
                 </div>
-                <div *ngIf="cpId != -1" style="position:sticky;left: 35%;padding: 0 0.1em 0 0.5em">
+                <div *ngIf="cpId != -1" style="position:sticky;margin-left: 2em;padding: 0 0.1em 0 0.5em">
                     <a href="/raidboss">Raid Tracker</a>
                 </div>
                 <div style="position:sticky;left: 100%">
