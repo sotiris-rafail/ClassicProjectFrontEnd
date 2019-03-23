@@ -25,7 +25,7 @@ export class RegisterCharacterService {
 
   deleteCharacter(access_token: string, characterId: number) {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
     return this.http.delete('http://83.212.102.61:8080/character/delete', {
@@ -46,7 +46,7 @@ export class RegisterCharacterService {
 
   removeCharacterFromClan(memberId: number, access_token: string) {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
     return this.http.put('http://83.212.102.61:8080/character/removeCharacterFromClan', "", {

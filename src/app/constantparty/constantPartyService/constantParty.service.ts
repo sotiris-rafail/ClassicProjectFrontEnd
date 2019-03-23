@@ -64,7 +64,7 @@ export class ConstantPartyService {
 
   getCPIdName(access_token: string): Observable<CP[]> {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
     return this.http.get<CP[]>('http://83.212.102.61:8080/cp/getCPIdName', { headers: this.headers });
@@ -72,7 +72,7 @@ export class ConstantPartyService {
 
   addNewCP(access_token: string, cp: import("../add-new-constant-party/add-new-constant-party.component").CP) {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
     return this.http.post('http://83.212.102.61:8080/cp/add',JSON.stringify(cp),  { headers: this.headers });
