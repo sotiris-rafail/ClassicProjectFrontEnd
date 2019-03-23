@@ -1,3 +1,4 @@
+import { AddNewConstantPartyComponent } from './../constantparty/add-new-constant-party/add-new-constant-party.component';
 import { AddNewItemPanelComponent } from './../auction/add-new-item-panel/add-new-item-panel.component';
 import { AdditionMemberPanelComponent } from '../constantparty/addition-member-panel/addition-member-panel.component';
 import { Component, OnInit, Input } from '@angular/core';
@@ -67,6 +68,14 @@ export class TopbarComponent implements OnInit {
 
   addNewItem(){
     const dialogRef = this.dialog.open(AddNewItemPanelComponent, {width : "550px", height : "600px", disableClose : true});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openAddCPDialog(){
+    const dialogRef = this.dialog.open(AddNewConstantPartyComponent, {width : "330px", height : "250px", disableClose : true});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

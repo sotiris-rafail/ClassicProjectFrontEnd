@@ -1,11 +1,13 @@
+import { AddUserToCpFromClanPageComponent } from './../constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
 import { ChangeMemberRoleComponent } from './../homePage/member/change-member-role/change-member-role.component';
-import { MemberService } from './../homePage/member/memberService/member.service';
+import { MemberService } from './../homePage/member/userService/member.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { ClanService } from './clanService/clan.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
+import { RemoveClanMemberComponent } from './remove-clan-member/remove-clan-member.component';
 
 @Component({
   selector: 'app-clan',
@@ -56,6 +58,22 @@ export class ClanComponent implements OnInit {
 
   showInfo(member: any) {
     let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
+      {
+        data: { member: member },
+        disableClose: true
+      });
+  }
+
+  addToCp(member: any) {
+    let dialogRef = this.dialog.open(AddUserToCpFromClanPageComponent,
+      {
+        data: { member: member },
+        disableClose: true
+      });
+  }
+
+  removeFromClan(member: any) {
+    let dialogRef = this.dialog.open(RemoveClanMemberComponent,
       {
         data: { member: member },
         disableClose: true

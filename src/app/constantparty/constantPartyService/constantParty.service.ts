@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { UpdatableUser } from '../addition-member-panel/addition-member-panel.component';
+import { CP } from '../add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
 
 
 @Injectable()
 export class ConstantPartyService {
-
   constructor(private http: HttpClient) { }
   headers: any;
 
@@ -33,7 +34,7 @@ export class ConstantPartyService {
     return this.http.put('http://83.212.102.61:8080/user/addPeopleToCp', updateObject, { headers: this.headers });
   }
 
-  public updateEpicPoints(access_token: string, rb: string, pointsToAdd: number, cpId : number) {
+  public updateEpicPoints(access_token: string, rb: string, pointsToAdd: number, cpId: number) {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
@@ -43,7 +44,7 @@ export class ConstantPartyService {
       params: {
         'rbName': rb,
         'pointsToAdd': String(pointsToAdd),
-        'cpId' : String(cpId)
+        'cpId': String(cpId)
       }
     });
   }
@@ -60,4 +61,21 @@ export class ConstantPartyService {
       }
     });
   }
+
+  getCPIdName(access_token: string): Observable<CP[]> {
+    this.headers = new HttpHeaders({
+      //'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<CP[]>('http://83.212.102.61:8080/cp/getCPIdName', { headers: this.headers });
+  }
+
+  addNewCP(access_token: string, cp: import("../add-new-constant-party/add-new-constant-party.component").CP) {
+    this.headers = new HttpHeaders({
+      //'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post('http://83.212.102.61:8080/cp/add',JSON.stringify(cp),  { headers: this.headers });
+  }
+
 }

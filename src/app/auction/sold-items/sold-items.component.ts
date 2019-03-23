@@ -1,45 +1,8 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import { SoldItem } from '../auction.component';
-import { Subject } from 'rxjs';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 
-
-const data = [{
-  'name': 'Demon\'s Dagger',
-  'typeOfItem': 'Weapon',
-  'stateOfItem': 'SOLD',
-  'price': 10000000,
-  'itemId': 45,
-  'grade': "B",
-  'whoBoughtIt': 'DrENigma',
-  'boughtPrice': 10000000,
-  'delivered': false,
-  'photoPath': "../../../assets/itemPhoto/demon\'s_dagger.jpg"},
-{
-  'name': 'Demon\'s Dagger',
-  'typeOfItem': 'Weapon',
-  'stateOfItem': 'SOLD',
-  'price': 10000000,
-  'itemId': 45,
-  'grade': "B",
-  'whoBoughtIt': 'DrENigma',
-  'boughtPrice': 10000000,
-  'delivered': false,
-  'photoPath': "../../../assets/itemPhoto/demon\'s_dagger.jpg"
-},
-{
-  'name': 'Demon\'s Dagger',
-  'typeOfItem': 'Weapon',
-  'stateOfItem': 'SOLD',
-  'price': 10000000,
-  'itemId': 45,
-  'grade': "B",
-  'whoBoughtIt': 'DrENigma',
-  'boughtPrice': 10000000,
-  'delivered': false,
-  'photoPath': "../../../assets/itemPhoto/demon\'s_dagger.jpg"
-}]
 @Component({
   selector: 'sold-items',
   templateUrl: './sold-items.component.html',
@@ -93,6 +56,10 @@ export class SoldItemsComponent implements OnInit, OnChanges {
         this.dataSource._updateChangeSubscription();
         this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'});
       });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

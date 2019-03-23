@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material';
-import { MemberService } from './../homePage/member/memberService/member.service';
+import { MemberService } from './../homePage/member/userService/member.service';
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 

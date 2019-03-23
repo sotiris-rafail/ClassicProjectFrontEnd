@@ -1,4 +1,4 @@
-import { MemberService } from './../homePage/member/memberService/member.service';
+import { MemberService } from './../homePage/member/userService/member.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -59,7 +59,6 @@ export class RaidBossComponent implements OnInit {
 
   private fixOutput (datasource) {
     let raidBosses = new Array<RaidBoss>();
-    let date = new Date().getTimezoneOffset();
     datasource.forEach(
       raidboss =>{
         let raid : RaidBoss = {

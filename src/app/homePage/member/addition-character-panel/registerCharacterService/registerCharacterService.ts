@@ -28,7 +28,7 @@ export class RegisterCharacterService {
       //'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.delete('http://localhost:8080/character/delete', {
+    return this.http.delete('http://83.212.102.61:8080/character/delete', {
       headers: this.headers,
       params: {
         'characterId': String(characterId)
@@ -43,6 +43,18 @@ export class RegisterCharacterService {
     });
     return this.http.put('http://83.212.102.61:8080/character/update', JSON.stringify(updateChar), { headers: this.headers });
   }
-  
+
+  removeCharacterFromClan(memberId: number, access_token: string) {
+    this.headers = new HttpHeaders({
+      //'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put('http://83.212.102.61:8080/character/removeCharacterFromClan', "", {
+      headers: this.headers,
+      params: {
+        characterId: String(memberId)
+      }
+    });
+  }
 
 }

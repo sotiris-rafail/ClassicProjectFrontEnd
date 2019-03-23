@@ -1,0 +1,12 @@
+<div>
+  <div div style="text-align: center;padding: 0.5em;">
+    <span>
+      You are about to remove <b>{{data.member.name}}</b> from Clan <b>{{data.member.clanName}}</b>
+    </span>
+  </div>
+  <div style="text-align: center;padding: 0.5em;">
+    <button mat-raised-button color="accent" (click)="removeCharacterFromClan(data.member)">Remove</button>
+    <button mat-raised-button color="warn" (click)="handleCancel()">Cancel</button>
+  </div>
+  <span><b>Note:</b> Window will autorefresh after 5 seconds.</span>
+</div>

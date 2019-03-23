@@ -1,7 +1,7 @@
 import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { UpdateCharacterComponent } from './update-character/update-character.component';
 
-import { MemberService } from './memberService/member.service';
+import { MemberService } from './userService/member.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';

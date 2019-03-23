@@ -4,7 +4,7 @@ import { OAuth2Token } from '../tokens';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { SoldItemsComponent } from './sold-items/sold-items.component';
-import { MemberService } from '../homePage/member/memberService/member.service';
+import { MemberService } from '../homePage/member/userService/member.service';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 
 @Component({

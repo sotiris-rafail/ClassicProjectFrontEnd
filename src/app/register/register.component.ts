@@ -1,5 +1,5 @@
 import { OAuth2Token } from './../tokens';
-import { MemberService } from './../homePage/member/memberService/member.service';
+import { MemberService } from './../homePage/member/userService/member.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as globals from "../utils/globals"

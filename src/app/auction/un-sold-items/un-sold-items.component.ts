@@ -2,7 +2,7 @@ import { AuctionBidConfirmationPanelComponent } from './../auction-bid-confirmat
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild, OnChanges, Input } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
-import { SoldItem, UnSoldItem } from '../auction.component';
+import { UnSoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
@@ -51,7 +51,6 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this._panelState && !this.isFirstTime) {
-      console.log("trexw kai egw")
       this.openUnSoldPanel();
     } else {
       this.dataSource = new MatTableDataSource<UnSoldItem>([]);
@@ -117,5 +116,9 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
           });
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
