@@ -33,7 +33,7 @@
                 <mat-icon matListIcon>update</mat-icon>
               </button>
             </div>
-            <div *ngIf="isSuperUser && member.cpName === 'Not a CP member'">
+            <div *ngIf="isSuperUser && member.cpName === 'Not a CP member' && member.typeOfUser === 'CPLEADER'">
               <button matTooltip="Add user to CP" mat-icon-button (click)="addToCp(member)">
                 <mat-icon matListIcon color="accent">add_circle</mat-icon>
               </button>
