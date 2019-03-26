@@ -10,7 +10,12 @@ body {
 }
 
 .snackBarAlert {
-    background-color: #FF4500;
+    background-color: #C4C15E;
+    color: black;
+}
+
+.snackBarError {
+    background-color: #FF6464;
     color: black;
 }
 

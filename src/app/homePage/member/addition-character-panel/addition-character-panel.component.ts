@@ -3,12 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RegisterCharacterService } from './registerCharacterService/registerCharacterService';
 import { OAuth2Token } from '../../../tokens';
+import { MatSnackBar } from '@angular/material';
+import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 
 @Component({
   selector: 'addition-character-panel',
   templateUrl: './addition-character-panel.component.html',
   styleUrls: ['./addition-character-panel.component.css'],
-  providers : [RegisterCharacterService]
+  providers : [RegisterCharacterService, DisplayingErrorComponent]
 })
 export class AdditionCharacterPanelComponent implements OnInit {
   token : OAuth2Token = new OAuth2Token();
@@ -33,7 +35,7 @@ export class AdditionCharacterPanelComponent implements OnInit {
     classControl : this.classControl,
     typeControl : this.typeControl
   });
-  constructor(public dialogRef: MatDialogRef<AdditionCharacterPanelComponent>, private registerCharacterService : RegisterCharacterService) { }
+  constructor(public dialogRef: MatDialogRef<AdditionCharacterPanelComponent>, private registerCharacterService : RegisterCharacterService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.token.getTokensFromStorage();
@@ -75,13 +77,27 @@ export class AdditionCharacterPanelComponent implements OnInit {
     }
     console.log(character);
     this.registerCharacterService.registerCharacter(character, this.token.getAccessToken).subscribe(
-      response => {},
-      error => {console.log(error)},
-      () => {
-        this.closeDialog();
-        window.setTimeout(function(){this.close();location.reload();},1000);
-      }
-    );
+      response => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarSuccess',
+            data: { message: character.inGameName +" has been added sucessfully", type: 'success' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        window.location.reload();
+      },
+      error => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: error.error.message , type: 'error' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+      });
   }
 }
 

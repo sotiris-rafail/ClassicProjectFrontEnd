@@ -1,14 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { RegisterCharacterService } from '../addition-character-panel/registerCharacterService/registerCharacterService';
 import { Clan, Clazz, TypeOfCharacter } from '../addition-character-panel/addition-character-panel.component';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 
 @Component({
   selector: 'app-update-character',
   templateUrl: './update-character.component.html',
   styleUrls: ['./update-character.component.css'],
-  providers : [RegisterCharacterService]
+  providers : [RegisterCharacterService, DisplayingErrorComponent]
 })
 export class UpdateCharacterComponent implements OnInit {
   
@@ -33,7 +34,7 @@ export class UpdateCharacterComponent implements OnInit {
     classControl : this.classControl,
     typeControl : this.typeControl
   });
-  constructor(private dialogRef: MatDialogRef<UpdateCharacterComponent>,  @Inject(MAT_DIALOG_DATA) public data : any, private charService : RegisterCharacterService) { 
+  constructor(private dialogRef: MatDialogRef<UpdateCharacterComponent>,  @Inject(MAT_DIALOG_DATA) public data : any, private charService : RegisterCharacterService, private snackBar : MatSnackBar) { 
     console.log(data)
   }
 
@@ -68,18 +69,33 @@ export class UpdateCharacterComponent implements OnInit {
     let updateChar : CharacterUpdate ={
       'charId' : this.data.character.characterId,
       'inGameName' : this.charNameControl.value,
-      'level' : this.levelControl.value === undefined ? -1 : this.levelControl.value.value,
+      'level' : this.levelControl.value === undefined ? -1 : this.levelControl.value,
       'clanId' : this.selectedClan === undefined ? -1 : this.selectedClan,
       'classOfCharacter' : this.selectedClass === undefined ? -1 : this.selectedClass,
       'typeOfCharacter' : this.selectedType === undefined ? -1 : this.selectedType,
     }
-    console.log(JSON.stringify(updateChar))
+    console.log(updateChar)
     this.charService.updateCharacer(updateChar, sessionStorage.getItem("access_token")).subscribe(
       response => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarSuccess',
+            data: { message: this.data.character.name +" has been updated sucessfully", type: 'success' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
         window.location.reload();
       },
       error => {
-        console.log(error)
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: error.error.message , type: 'error' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
       })
   }
 }

@@ -1,46 +1,63 @@
 <div>
-    <topbar [itemsOnSale]="itemsOnSale" [cp]="cp" [email]="email" [typeOfUser]="typeOfUser" [cpId]="cpId" [sidenav]="sidenav" [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [lengthOfChars]=dataSource.length></topbar>
-    <div>
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <!-- Position Column -->
-            <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-            </ng-container>
+  <topbar [itemsOnSale]="itemsOnSale" [cp]="cp" [email]="email" [typeOfUser]="typeOfUser" [cpId]="cpId"
+    [sidenav]="sidenav" [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [lengthOfChars]=dataSource.length>
+  </topbar>
+  <div>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
 
-            <!-- Name Column -->
-            <ng-container matColumnDef="level">
-                <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
-            </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="level">
+        <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
+      </ng-container>
 
-            <!-- Weight Column -->
-            <ng-container matColumnDef="classOfCharacter">
-                <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.classOfCharacter}} </mat-cell>
-            </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="classOfCharacter">
+        <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.classOfCharacter}} </mat-cell>
+      </ng-container>
 
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="clanName">
-                <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
-                <mat-cell *matCellDef="let element"> <a href="/clan">{{element.clanName}}</a> </mat-cell>
-            </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="clanName">
+        <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <a href="/clan">{{element.clanName}}</a> </mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="typeOfCharacter">
-                <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.typeOfCharacter}} </mat-cell>
-            </ng-container>
+      <ng-container matColumnDef="typeOfCharacter">
+        <mat-header-cell *matHeaderCellDef> Type Of Character </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.typeOfCharacter}} </mat-cell>
+      </ng-container>
 
-            <ng-container matColumnDef="More">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="primary" (click)="handleUpdate(element)">Update</button>
-                    <button mat-raised-button color="warn" (click)="handleDelete(element)">Delete</button>
-                </mat-cell>
-            </ng-container>
+      <ng-container matColumnDef="More">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-raised-button color="accent" (click)="handleUpdate(element)">
+            <mat-icon>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#000000"
+                  d="M21,10.12H14.22L16.96,7.3C14.23,4.6 9.81,4.5 7.08,7.2C4.35,9.91 4.35,14.28 7.08,17C9.81,19.7 14.23,19.7 16.96,17C18.32,15.65 19,14.08 19,12.1H21C21,14.08 20.12,16.65 18.36,18.39C14.85,21.87 9.15,21.87 5.64,18.39C2.14,14.92 2.11,9.28 5.62,5.81C9.13,2.34 14.76,2.34 18.27,5.81L21,3V10.12M12.5,8V12.25L16,14.33L15.28,15.54L11,13V8H12.5Z" />
+              </svg>
+            </mat-icon>Update
+          </button>
+          <button mat-raised-button color="warn" (click)="handleDelete(element)">
+            <mat-icon>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#FFFFFF"
+                  d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M17,7H14.5L13.5,6H10.5L9.5,7H7V9H17V7M9,18H15A1,1 0 0,0 16,17V10H8V17A1,1 0 0,0 9,18Z" />
+              </svg>
+            </mat-icon>
+            Delete
+          </button>
+        </mat-cell>
+      </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-    </div>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
 </div>

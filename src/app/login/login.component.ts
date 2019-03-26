@@ -1,3 +1,4 @@
+import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { MatSnackBar } from '@angular/material';
 import { MemberService } from './../homePage/member/userService/member.service';
 import { Component } from "@angular/core";
@@ -11,13 +12,13 @@ import { Router } from '@angular/router';
     selector: 'login',
     templateUrl: './login.template.html',
     styleUrls: ['./login.style.css'],
-    providers: [MemberService]
+    providers: [MemberService, DisplayingErrorComponent]
 })
-export class LoginComponent{
+export class LoginComponent {
 
-    constructor(private registerUserService : MemberService, private router : Router, private snackBar : MatSnackBar){}
+    constructor(private registerUserService: MemberService, private router: Router, private snackBar: MatSnackBar) { }
 
-    private token : OAuth2Token;
+    private token: OAuth2Token;
     enterEmail = globals.enterEmail;
     emptyFieldError = globals.emptyFieldError;
     wrongPassword = globals.wrongPassword;
@@ -28,20 +29,29 @@ export class LoginComponent{
         Validators.pattern(globals.EMAIL_REGEX)]);
 
     passwordControl = new FormControl("", [
-    Validators.required]);
+        Validators.required]);
 
 
     logInGroup = new FormGroup({
-        userNameControl : this.userNameControl,
-        passwordControl : this.passwordControl
+        userNameControl: this.userNameControl,
+        passwordControl: this.passwordControl
     })
 
-    login(){
+    login() {
         this.registerUserService.loginUserService(this.logInGroup.getRawValue().userNameControl, this.logInGroup.getRawValue().passwordControl)
             .subscribe(loginResponse => {
                 this.token = new OAuth2Token(loginResponse as OAuth2Token);
                 this.token.setTokenToStorage();
-                this.router.navigateByUrl("/user/"+ this.token.getUser)
-          }, loginError => {this.snackBar.open(loginError.error.error_description, "OK", {duration : 5000, panelClass : 'alternate-theme'});})
+                this.router.navigateByUrl("/user/" + this.token.getUser)
+            }, loginError => {
+                this.snackBar.openFromComponent(DisplayingErrorComponent,
+                    {
+                        duration: 5000,
+                        panelClass: 'snackBarError',
+                        data: { message: loginError.error.error_description, type: 'error' },
+                        horizontalPosition: 'center',
+                        verticalPosition: 'top'
+                    });
+            })
     }
 }

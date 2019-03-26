@@ -6,6 +6,7 @@ import * as globals from "../utils/globals"
 import { PasswordValidator } from '../utils/PasswordValidator';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 
 
 
@@ -13,7 +14,7 @@ import { MatSnackBar } from '@angular/material';
   selector: 'register',
   templateUrl: './register.template.html',
   styleUrls: ['./register.style.css'],
-  providers : [MemberService]
+  providers : [MemberService, DisplayingErrorComponent]
 })
 export class RegisterComponent implements OnInit {
 
@@ -71,6 +72,14 @@ export class RegisterComponent implements OnInit {
       }, 1000)
     },error  => {
       let errorMEssage = JSON.parse(error.error);
-      this.snackBar.open(errorMEssage.message, "OK", {duration : 5000, panelClass : 'alternate-theme'})});
+      this.snackBar.openFromComponent(DisplayingErrorComponent,
+        {
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: errorMEssage.message , type: 'error' },
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+        });
+    });
   }
 }
