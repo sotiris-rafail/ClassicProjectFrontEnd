@@ -40,9 +40,9 @@ export class AddNewConstantPartyComponent implements OnInit {
       },
       error => {
         this.snackbar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: error.error.message || error.error.error_description, type: "alert" },
+          data: { message: error.error.message || error.error.error_description, type: "error" },
           duration: 5000,
-          panelClass: ['snackBarAlert'],
+          panelClass: ['snackBarError'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
         })
