@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
         this.token = new OAuth2Token(loginResponse as OAuth2Token);
         this.token.setTokenToStorage();
         this.registerResponse = response;
-      }, loginError => console.log(loginError))
+      })
       window.setTimeout(() => {
         this.router.navigateByUrl(response);
       }, 1000)
