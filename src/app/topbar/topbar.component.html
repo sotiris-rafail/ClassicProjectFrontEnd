@@ -87,7 +87,7 @@
           <span><b>Raid Boss Tracker</b></span>
         </div>
         <div style="position: sticky;left: 55%">
-          <button [disabled]="typeOfUser !== 'RAIDBOSSER' ||  !isUserAleader" mat-raised-button color="accent" (click)="openRaidDialog()">
+          <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="openRaidDialog()">
             <mat-icon>add</mat-icon>
             Add Raid Bosss
           </button>
