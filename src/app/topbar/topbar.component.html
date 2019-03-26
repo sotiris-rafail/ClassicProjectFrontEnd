@@ -86,10 +86,10 @@
         <div style="padding: 5%">
           <span><b>Raid Boss Tracker</b></span>
         </div>
-        <div style="position: sticky;left: 100%">
-          <button mat-raised-button color="accent" (click)="openRaidDialog()">
+        <div style="position: sticky;left: 55%">
+          <button [disabled]="typeOfUser !== 'RAIDBOSSER' ||  !isUserAleader" mat-raised-button color="accent" (click)="openRaidDialog()">
             <mat-icon>add</mat-icon>
-            Add a Raid Bosss
+            Add Raid Bosss
           </button>
         </div>
       </mat-toolbar-row>
