@@ -1,24 +1,24 @@
-<div style="position: fixed;">
-    <div style="position:fixed;text-align:center; top: 2%;;width:100%">
+<div fxLayout="column" fxLayoutAlign="center">
+    <div style="text-align:center; padding-bottom: 2%;width:100%">
         <span class="welcome">{{welcomeMessage}}</span>
     </div>
-    <div class="container">
-        <div class="login">
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutAlign.xs="center center">
+        <section class="login" gdAlignRows="center center">
             <div>
                 <span>Login</span>
             </div>
             <div style="margin-top:2%;">
                 <login></login>
             </div>
-        </div>
-        <mat-divider [vertical]="true"></mat-divider>
-        <div class="register">
+        </section>
+        <mat-divider fxLayout [vertical]="true"></mat-divider>
+        <section class="register" gdAlignRows="center center">
             <div>
                 <span>Register</span>
             </div>
             <div style="margin-top:2%;">
                 <register></register>
             </div>
-        </div>
+        </section>
     </div>
 </div>

@@ -1,7 +1,7 @@
-<div>
+<div fxFlex fxLayout="column">
   <topbar [whichToPrint]="whichToPrint" [cp]="cp" [cpLeader]="cpLeader" [isUserAleader]="isUserAleader" [previusUrl]="previusUrl"
     [cpId]="cpId"></topbar>
-  <div>
+  <div fxFlex fxLayout="column">
     <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
