@@ -57,6 +57,7 @@ import { DisplayingErrorComponent } from './displaying-error/displaying-error.co
 import { RemoveClanMemberComponent } from './clan/remove-clan-member/remove-clan-member.component';
 import { AddUserToCpFromClanPageComponent } from './constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
 import { AddNewConstantPartyComponent } from './constantparty/add-new-constant-party/add-new-constant-party.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent, AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent
@@ -87,7 +88,8 @@ import { AddNewConstantPartyComponent } from './constantparty/add-new-constant-p
     MatTooltipModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
+    FlexLayoutModule
   ],
   exports: [
     MatFormFieldModule,
@@ -111,7 +113,8 @@ import { AddNewConstantPartyComponent } from './constantparty/add-new-constant-p
     MatExpansionModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatBadgeModule
+    MatBadgeModule,
+    FlexLayoutModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent, AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
   providers: [HttpClientModule],

@@ -23,3 +23,7 @@ body {
     background-color: lightgreen;
     color: black;
 }
+
+a {
+    text-decoration: none;
+}

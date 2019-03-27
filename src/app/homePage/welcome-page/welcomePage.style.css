@@ -1,8 +1,6 @@
 .container {
     top: 10%;
     width: 100%;
-    position: fixed;
-    align-content: stretch;
     display: flex;
 }
 
