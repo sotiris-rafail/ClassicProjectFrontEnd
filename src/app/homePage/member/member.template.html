@@ -25,7 +25,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="clanName">
         <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <a href="/clan">{{element.clanName}}</a> </mat-cell>
+        <mat-cell *matCellDef="let element"> <a routerLink="/clan">{{element.clanName}}</a> </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="typeOfCharacter">
