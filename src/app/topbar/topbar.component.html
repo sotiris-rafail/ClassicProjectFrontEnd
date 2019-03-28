@@ -29,7 +29,7 @@
   <div *ngIf="whichToPrint === 'CP'" fxFlex fxLayout="row">
     <mat-toolbar color="primary">
       <div fxFlex fxLayoutAlign="flex-start" style="padding: 0 0.1em 0 0.5em;">
-        <a [routerLink]="previusUrl" mat-icon-button>
+        <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
@@ -47,12 +47,23 @@
       </div>
     </mat-toolbar>
   </div>
-  <div *ngIf="whichToPrint === 'CLAN'">
-    <mat-toolbar color="primary" fxFlex fxLayout="row">
-      <div fxFlex fxLayoutAlign="flex-start">
-        <a [routerLink]="previusUrl" mat-icon-button>
-          <mat-icon>home</mat-icon>
-        </a>
+  <div *ngIf="whichToPrint === 'CLAN'" fxFlex fxLayout="row">
+    <mat-toolbar color="primary">
+      <div fxFlex fxLayout>
+        <div fxLayoutAlign="flex-start">
+          <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
+            <mat-icon>home</mat-icon>
+          </a>
+        </div>
+        <div fxLayoutAlign="flex-start" [fxShow]="isSuperUser">
+          <a routerLink="/adminDashboard" mat-icon-button matTooltip="Dashboard">
+            <mat-icon>
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="#FFFFFF" d="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z" />
+              </svg>
+            </mat-icon>
+          </a>
+        </div>
       </div>
       <div fxFlex fxLayoutAlign="center center" style="padding: 5%">
         <span><b>Clan List</b></span>
@@ -70,7 +81,7 @@
   <div *ngIf="whichToPrint === 'RAIDS'">
     <mat-toolbar color="primary" fxFlex fxLayout="row">
       <div fxFlex fxLayoutAlign="flex-start">
-        <a [routerLink]="previusUrl" mat-icon-button>
+        <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
@@ -88,7 +99,7 @@
   <div *ngIf="whichToPrint === 'AUCTION'" fxFlex fxLayout="row">
     <mat-toolbar color="primary">
       <div fxFlex fxLayoutAlign="flex-start">
-        <a [routerLink]="previusUrl" mat-icon-button>
+        <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
@@ -99,6 +110,21 @@
         <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="addNewItem()">
           <mat-icon>add</mat-icon>Add Item
         </button>
+      </div>
+    </mat-toolbar>
+  </div>
+  <div *ngIf="whichToPrint === 'Dashboard'" fxLayout>
+    <mat-toolbar color="primary">
+      <div fxLayoutAlign="flex-start">
+        <a routerLink="/clan" mat-icon-button matTooltip="Back to clan">
+          <mat-icon>arrow_back</mat-icon>
+        </a>
+        <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
+          <mat-icon>home</mat-icon>
+        </a>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <span><b>Dash Board</b></span>
       </div>
     </mat-toolbar>
   </div>

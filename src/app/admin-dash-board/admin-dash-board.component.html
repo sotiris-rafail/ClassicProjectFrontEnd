@@ -1,0 +1,36 @@
+<div>
+  <topbar [whichToPrint]="'Dashboard'" [previusUrl]="previusUrl"></topbar>
+  <div class="grid-container">
+    <mat-grid-list cols="2" rowHeight="350px">
+      <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{card.title}}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content *ngIf="card.number == 1" class="dashboard-card-content">
+            <div fxFlex style="height:250px;">
+              <app-users-info-dashboard-display></app-users-info-dashboard-display>
+            </div>
+          </mat-card-content>
+          <mat-card-content *ngIf="card.number == 2" class="dashboard-card-content">
+            <div fxFlex style="height:250px;">
+              <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
+            </div>
+          </mat-card-content>
+          <mat-card-content *ngIf="card.number == 3" class="dashboard-card-content">
+            <div fxFlex style="height:250px;">
+              <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
+            </div>
+          </mat-card-content>
+          <mat-card-content *ngIf="card.number == 4" class="dashboard-card-content">
+            <div fxFlex style="height:250px;">
+              <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

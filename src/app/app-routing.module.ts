@@ -1,3 +1,4 @@
+import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
 import { AuctionComponent } from './auction/auction.component';
 import { ConstantpartyComponent } from './constantparty/constantparty.component';
 import { WelcomePageComponent } from './homePage/welcome-page/welcomePage.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path : 'cp/:cpId', component : ConstantpartyComponent},
   { path : 'raidboss', component: RaidBossComponent},
   { path : 'auction', component : AuctionComponent},
+  { path : 'adminDashboard', component : AdminDashBoardComponent},
   { path: '**', component : NotFoundPageComponent }
 ];
 

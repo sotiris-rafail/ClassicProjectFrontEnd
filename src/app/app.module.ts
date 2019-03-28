@@ -36,7 +36,7 @@ import { UpdateTODComponent } from './raid-boss/update-tod/update-tod.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ChangeMemberRoleComponent } from './homePage/member/change-member-role/change-member-role.component';
 import { AddClanComponent } from './clan/add-clan/add-clan.component';
-import { MatSortModule } from '@angular/material';
+import { MatSortModule, MatGridListModule, MatMenuModule } from '@angular/material';
 import { MatCardModule } from '@angular/material/card';
 import { ContastpartyEpicPointsComponent } from './constantparty/contastparty-epic-points/contastparty-epic-points.component';
 import { FormsModule } from '@angular/forms';
@@ -58,10 +58,14 @@ import { RemoveClanMemberComponent } from './clan/remove-clan-member/remove-clan
 import { AddUserToCpFromClanPageComponent } from './constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
 import { AddNewConstantPartyComponent } from './constantparty/add-new-constant-party/add-new-constant-party.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UsersInfoDashboardDisplayComponent } from './admin-dash-board/users-info-dashboard-display/users-info-dashboard-display.component';
+import { EpicPointsDashboardDisplayComponent } from './admin-dash-board/epic-points-dashboard-display/epic-points-dashboard-display.component';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent, AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent
-  ],
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent, AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -89,7 +93,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSnackBarModule,
     MatPaginatorModule,
     MatBadgeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatGridListModule,
+    MatMenuModule,
+    LayoutModule,
+    DragDropModule
   ],
   exports: [
     MatFormFieldModule,
@@ -114,7 +122,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatTooltipModule,
     MatSnackBarModule,
     MatBadgeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    DragDropModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent, AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent, RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent, UpdateCharacterComponent],
   providers: [HttpClientModule],

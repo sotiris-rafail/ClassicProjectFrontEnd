@@ -20,7 +20,7 @@ export class TopbarComponent implements OnInit {
   @Input() cpId : number;
   @Input() email : String;
   @Input() typeOfUser : String;
-  @Input() whichToPrint : String = 'RAIDS';
+  @Input() whichToPrint : String = '';
   @Input() cpLeader : String;
   @Input() isUserAleader : boolean;
   @Input() previusUrl : String ;
