@@ -23,7 +23,7 @@ export class AdminDashbordService {
             'Authorization': 'Bearer  ' + token,
             'Content-Type': 'application/json',
         });
-        //return this.http.get<CP[]>('http://83.212.102.61:8080/cp/getEpicPoints', { headers: this.headers })
+        return this.http.get<CP[]>('http://83.212.102.61:8080/cp/getEpicPoints', { headers: this.headers })
     }
 
     public getUsersForDashboard(token: string): Observable<User[]> {
