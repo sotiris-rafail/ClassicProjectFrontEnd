@@ -63,9 +63,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UsersInfoDashboardDisplayComponent } from './admin-dash-board/users-info-dashboard-display/users-info-dashboard-display.component';
 import { EpicPointsDashboardDisplayComponent } from './admin-dash-board/epic-points-dashboard-display/epic-points-dashboard-display.component';
+import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-party-numbers-info/constant-party-numbers-info.component';
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent, AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent  ],
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, LeaderComponent, MemberComponent, SuperuserComponent, ClanComponent, WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent, DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent, ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent, UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent, AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent, ConstantPartyNumbersInfoComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

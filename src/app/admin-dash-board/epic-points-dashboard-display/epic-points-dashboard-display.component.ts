@@ -13,7 +13,7 @@ export class EpicPointsDashboardDisplayComponent implements OnInit {
   dataSource: EpicPointsDashboardDiaplyDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name', 'more'];
+  displayedColumns = ['id', 'name', 'points', 'more'];
 
   ngOnInit() {
     this.dataSource = new EpicPointsDashboardDiaplyDataSource(this.paginator, this.sort);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { EpicPointsDashboardDiaplyItem } from './epic-points-dashboard-display/epic-points-dashboard-display-datasource';
 
 @Component({
   selector: 'app-admin-dash-board',
@@ -10,6 +11,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class AdminDashBoardComponent implements OnInit {
   previusUrl: string = "";
+  coreInfoPoints : EpicPointsDashboardDiaplyItem[] = [];
+  orfenInfoPoints : EpicPointsDashboardDiaplyItem[] = [];
+  AQInfoPoints : EpicPointsDashboardDiaplyItem[] = [];
   ngOnInit(): void {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
   }
@@ -21,7 +25,8 @@ export class AdminDashBoardComponent implements OnInit {
           { title: 'User\'s Info', cols: 1, rows: 1, number: 1 },
           { title: 'Core Points', cols: 1, rows: 1, number: 2 },
           { title: 'Orfen Points', cols: 1, rows: 1, number: 3 },
-          { title: 'Queen Ant Points', cols: 1, rows: 1, number: 4 }
+          { title: 'Queen Ant Points', cols: 1, rows: 1, number: 4 },
+          { title: 'CP Numbers Info', cols: 1, rows: 1, number: 5 }
         ];
       }
 
@@ -29,7 +34,8 @@ export class AdminDashBoardComponent implements OnInit {
         { title: 'User\'s Info', cols: 2, rows: 1, number: 1 },
         { title: 'Core Points', cols: 1, rows: 1, number: 2 },
         { title: 'Orfen Points', cols: 1, rows: 1, number: 3 },
-        { title: 'Queen Ant Points', cols: 1, rows: 1, number: 4 }
+        { title: 'Queen Ant Points', cols: 1, rows: 1, number: 4 },
+        { title: 'CP Numbers Info', cols: 1, rows: 1, number: 5 }
       ];
     })
   );

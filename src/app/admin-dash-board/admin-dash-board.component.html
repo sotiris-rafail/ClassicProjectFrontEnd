@@ -29,6 +29,11 @@
               <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
+          <mat-card-content *ngIf="card.number == 5" class="dashboard-card-content">
+            <div fxFlex style="height:250px;">
+              <app-constant-party-numbers-info></app-constant-party-numbers-info>
+            </div>
+          </mat-card-content>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
