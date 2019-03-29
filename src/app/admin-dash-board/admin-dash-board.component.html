@@ -16,17 +16,17 @@
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 2" class="dashboard-card-content">
             <div fxFlex style="height:250px;">
-              <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
+              <app-epic-points-dashboard-display [data]="coreInfoPoints"></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 3" class="dashboard-card-content">
             <div fxFlex style="height:250px;">
-              <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
+              <app-epic-points-dashboard-display [data]="orfenInfoPoints"></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 4" class="dashboard-card-content">
             <div fxFlex style="height:250px;">
-              <app-epic-points-dashboard-display></app-epic-points-dashboard-display>
+              <app-epic-points-dashboard-display [data]="aqInfoPoints"></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 5" class="dashboard-card-content">

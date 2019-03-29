@@ -1,21 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { EpicPointsDashboardDiaplyItem } from './epic-points-dashboard-display/epic-points-dashboard-display-datasource';
+import { AdminDashbordService } from './adminDashboard.service';
+import { CpPoints } from './epic-points-dashboard-display/epic-points-dashboard-display.component';
 
 @Component({
   selector: 'app-admin-dash-board',
   templateUrl: './admin-dash-board.component.html',
-  styleUrls: ['./admin-dash-board.component.css']
+  styleUrls: ['./admin-dash-board.component.css'],
+  providers: [AdminDashbordService]
 })
 export class AdminDashBoardComponent implements OnInit {
   previusUrl: string = "";
-  coreInfoPoints : EpicPointsDashboardDiaplyItem[] = [];
-  orfenInfoPoints : EpicPointsDashboardDiaplyItem[] = [];
-  AQInfoPoints : EpicPointsDashboardDiaplyItem[] = [];
+  coreInfoPoints = [];
+  orfenInfoPoints = [];
+  aqInfoPoints = [];
   ngOnInit(): void {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
+    this.adminService.getEpicPoints(sessionStorage.getItem("acces_token")).subscribe(
+      response => {
+        response.forEach(cp => {
+          this.coreInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.corePoints) });
+          this.orfenInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.aqPoints) });
+          this.aqInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.orfenPoints) });
+        })
+      }
+    )
+
   }
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -40,5 +51,30 @@ export class AdminDashBoardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) { }
+}
+
+export interface CP {
+  cpId: number;
+  cpName: string;
+  orfenPoints: number;
+  aqPoints: number;
+  corePoints: number
+}
+
+export interface User {
+  'userId': number,
+  'email': string,
+  'typeOfUser': string,
+  'chars': Character[],
+  'cpName': CP;
+}
+
+export interface Character {
+  'charId' : number,
+  'name': string,
+  'level': number,
+  'clanName': string,
+  'classOfCharacter': string,
+  'typeOfCharacter': string
 }

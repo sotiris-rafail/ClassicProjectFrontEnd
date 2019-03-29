@@ -69,6 +69,8 @@ export class ConstantPartyNumbersInfoDataSource extends DataSource<ConstantParty
       switch (this.sort.active) {
         case 'cpName': return compare(a.cpName, b.cpName, isAsc);
         case 'cpId': return compare(+a.cpId, +b.cpId, isAsc);
+        case 'numberOfActives' : return compare(a.numberOfActives, b.numberOfActives, isAsc);
+        case 'numberOfBoxes' : return compare(a.numberOfBoxes, b.numberOfBoxes, isAsc);
         default: return 0;
       }
     });

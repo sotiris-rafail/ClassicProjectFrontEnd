@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { UsersInfoDashboardDiaplyDataSource } from './users-info-dashboard-display-datasource';
 import { trigger, state, transition, style, animate } from '@angular/animations';
+import { AdminDashbordService } from '../adminDashboard.service';
 
 @Component({
   selector: 'app-users-info-dashboard-display',
@@ -14,6 +15,7 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  providers : [AdminDashbordService]
 })
 export class UsersInfoDashboardDisplayComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -21,9 +23,17 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
   dataSource: UsersInfoDashboardDiaplyDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  columnsToDisplay = ['id', 'name'];
+  columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName'];
 
   ngOnInit() {
-    this.dataSource = new UsersInfoDashboardDiaplyDataSource(this.paginator, this.sort);
+    this.adminService.getUsersForDashboard(sessionStorage.getItem("access_token")).subscribe(
+      response => {
+        console.log(response)
+        this.dataSource = new UsersInfoDashboardDiaplyDataSource(this.paginator, this.sort);
+        this.dataSource.data = response;
+      }
+    )
   }
+
+  constructor(private adminService : AdminDashbordService){}
 }
