@@ -9,7 +9,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 export class EpicPointsDashboardDisplayComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource: MatTableDataSource<CpPoints>;
+  dataSource: MatTableDataSource<CpPoints> = new MatTableDataSource();
   @Input() data: CpPoints[] = [];
   firstTime = false;
   // @Input() set data(value: any) {
