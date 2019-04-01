@@ -18,7 +18,7 @@ import { User } from '../admin-dash-board.component';
 export class UsersInfoDashboardDiaplyDataSource extends DataSource<User> {
   data: User[] = [];
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  constructor(private paginator?: MatPaginator, private sort?: MatSort) {
     super();
   }
 

@@ -10,7 +10,7 @@ export class EpicPointsDashboardDisplayComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<CpPoints> = new MatTableDataSource();
-  @Input() data: CpPoints[] = [];
+  @Input() data: CpPoints[];
   firstTime = false;
   // @Input() set data(value: any) {
   //   this._data = value;

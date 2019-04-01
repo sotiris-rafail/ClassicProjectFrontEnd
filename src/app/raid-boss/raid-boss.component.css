@@ -19,6 +19,14 @@
     color: black;
 }
 
+.UNKNOWN {
+    background-color: grey;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 120%;
+    color: black;
+}
+
+
 mat-cell {
     color: inherit;
     font-size: inherit;

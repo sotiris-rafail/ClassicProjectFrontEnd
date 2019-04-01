@@ -26,6 +26,16 @@ export class RaidBossService{
         }});
     }
 
+    public setToUnknown(access_token : string, raidId : string, time : string) {
+        this.headers = new HttpHeaders({
+            'Authorization' : 'Bearer ' + access_token,
+            'Content-Type' : 'application/json',
+          });
+        return this.http.put('http://83.212.102.61:8080/raidboss/setToUnknown', '', {headers : this.headers, params : {
+            'raidId' : raidId 
+        }});
+    }
+
     public addNewRaid(access_token :string ,  raidBoss : RaidBoss) {
         this.headers = new HttpHeaders({
             'Authorization' : 'Bearer ' + access_token,

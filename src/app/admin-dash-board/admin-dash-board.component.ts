@@ -17,12 +17,12 @@ export class AdminDashBoardComponent implements OnInit {
   aqInfoPoints = [];
   ngOnInit(): void {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
-    this.adminService.getEpicPoints(sessionStorage.getItem("acces_token")).subscribe(
+    this.adminService.getEpicPoints(sessionStorage.getItem("access_token")).subscribe(
       response => {
         response.forEach(cp => {
-          // this.coreInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.corePoints) });
-          // this.orfenInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.aqPoints) });
-          // this.aqInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.orfenPoints) });
+          this.coreInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.corePoints) });
+          this.orfenInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.aqPoints) });
+          this.aqInfoPoints.push({ cpId: Number(cp.cpId), cpName: String(cp.cpName), points: Number(cp.orfenPoints) });
         })
       }
     )

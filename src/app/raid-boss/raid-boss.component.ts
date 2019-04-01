@@ -13,31 +13,31 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-raid-boss',
   templateUrl: './raid-boss.component.html',
   styleUrls: ['./raid-boss.component.css'],
-  providers : [RaidBossService, MemberService]
+  providers: [RaidBossService, MemberService]
 })
 export class RaidBossComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  whichToPrint : String = "RAIDS"
-  token : OAuth2Token = new OAuth2Token();
-  dataSource : any;
-  previusUrl : String;
-  displayedColumns =['name', 'level', 'windowStart', 'windowEnd', 'state', 'more'];
-  actualDisplay :MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
-  typeOfUser : any;
-  raidBosser : boolean = false;
-  constructor(private dialog : MatDialog, private router : Router, private raidBossService : RaidBossService, private memberService : MemberService, private snackBar : MatSnackBar) {
-    
+  whichToPrint: String = "RAIDS"
+  token: OAuth2Token = new OAuth2Token();
+  dataSource: any;
+  previusUrl: String;
+  displayedColumns = ['name', 'level', 'windowStart', 'windowEnd', 'state', 'more', 'unknown'];
+  actualDisplay: MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
+  typeOfUser: any;
+  raidBosser: boolean = false;
+  constructor(private dialog: MatDialog, private router: Router, private raidBossService: RaidBossService, private memberService: MemberService, private snackBar: MatSnackBar) {
+
   }
 
   ngOnInit() {
-    this.previusUrl = "/user/"+sessionStorage.getItem("userId");
+    this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
-    if(this.token.isAccessTokenValid()) {
+    if (this.token.isAccessTokenValid()) {
       this.memberService.getRoleOfUser(Number(this.token.getUser), this.token.getAccessToken).subscribe(
         roleOfUser => {
           this.typeOfUser = roleOfUser;
           this.showButton();
-      },
+        },
         error => {
           console.log(error)
         }
@@ -49,7 +49,7 @@ export class RaidBossComponent implements OnInit {
           this.actualDisplay.sort = this.sort;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", { duration : 5000, panelClass : 'alternate-theme'})
+          this.snackBar.open(error.error.message, "OK", { duration: 5000, panelClass: 'alternate-theme' })
         }
       );
     } else {
@@ -57,45 +57,57 @@ export class RaidBossComponent implements OnInit {
     }
   }
 
-  private fixOutput (datasource) {
+  private fixOutput(datasource) {
     let raidBosses = new Array<RaidBoss>();
     datasource.forEach(
-      raidboss =>{
-        let raid : RaidBoss = {
-          raidBossId : raidboss.raidBossId,
-          level : raidboss.level,
-          name : raidboss.name,
-          isAlive : raidboss.raidBossState,
-          whereItLives : raidboss.whereItLives,
-          windowStarts : new Date (raidboss.windowStarts),
-          windowEnds : new Date (raidboss.windowEnds)
+      raidboss => {
+        let raid: RaidBoss = {
+          raidBossId: raidboss.raidBossId,
+          level: raidboss.level,
+          name: raidboss.name,
+          isAlive: raidboss.raidBossState,
+          whereItLives: raidboss.whereItLives,
+          windowStarts: new Date(raidboss.windowStarts),
+          windowEnds: new Date(raidboss.windowEnds)
         }
         raidBosses.push(raid);
       })
-      return raidBosses;
+    return raidBosses;
   }
 
-  handleRowClick(id : number) {
-    let clickedRaid : RaidBoss;
+  handleRowClick(id: number) {
+    let clickedRaid: RaidBoss;
     this.actualDisplay.data.forEach(
       raid => {
-        if(raid.raidBossId == id) {
+        if (raid.raidBossId == id) {
           clickedRaid = raid;
         }
-      }
-    )
+      })
     this.dialog.open(UpdateTODComponent, {
-      width : "300px", height : "630px",
-      data : {
-        raidBoss : clickedRaid,
-        acces_tokken : this.token.getAccessToken
+      width: "300px", height: "630px",
+      data: {
+        raidBoss: clickedRaid,
+        acces_tokken: this.token.getAccessToken
       },
-      disableClose : true
+      disableClose: true
     });
   }
 
-  showButton(){
-    if(this.typeOfUser === "SUPERUSER" || this.typeOfUser === "RAIDBOSSER") {
+  handleUnknowClick(id: number) {
+    let clickedRaid: RaidBoss;
+    this.actualDisplay.data.forEach(
+      raid => {
+        if (raid.raidBossId == id) {
+          clickedRaid = raid;
+          clickedRaid.isAlive = 'UNKNOWN';
+        }
+      })
+    console.log(clickedRaid.raidBossId);
+    this.actualDisplay._updateChangeSubscription();
+  }
+
+  showButton() {
+    if (this.typeOfUser === "SUPERUSER" || this.typeOfUser === "RAIDBOSSER") {
       this.raidBosser = true;
     }
   }
@@ -106,11 +118,11 @@ export class RaidBossComponent implements OnInit {
 }
 
 export interface RaidBoss {
-  raidBossId : number,
-  level : number,
-  name : string;
-  isAlive : string,
-  whereItLives : string,
-  windowStarts : Date,
-  windowEnds : Date
+  raidBossId: number,
+  level: number,
+  name: string;
+  isAlive: string,
+  whereItLives: string,
+  windowStarts: Date,
+  windowEnds: Date
 }
