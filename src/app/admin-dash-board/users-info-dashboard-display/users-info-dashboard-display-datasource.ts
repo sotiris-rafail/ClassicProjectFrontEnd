@@ -16,9 +16,8 @@ import { User } from '../admin-dash-board.component';
  * (including sorting, pagination, and filtering).
  */
 export class UsersInfoDashboardDiaplyDataSource extends DataSource<User> {
-  data: User[] = [];
 
-  constructor(private paginator?: MatPaginator, private sort?: MatSort) {
+  constructor(public data: User[], private paginator: MatPaginator, private sort: MatSort) {
     super();
   }
 
@@ -55,6 +54,9 @@ export class UsersInfoDashboardDiaplyDataSource extends DataSource<User> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getPagedData(data: User[]) {
+    if(data.length == 0) {
+      return data;
+    }
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }

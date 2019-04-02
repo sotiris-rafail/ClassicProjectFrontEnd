@@ -28,8 +28,7 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
   ngOnInit() {
     this.adminService.getUsersForDashboard(sessionStorage.getItem("access_token")).subscribe(
       response => {
-        this.dataSource = new UsersInfoDashboardDisplayDataSource(this.paginator, this.sort);
-        this.dataSource.data = response;
+        this.dataSource = new UsersInfoDashboardDisplayDataSource(response, this.paginator, this.sort);
       }, error => {
         console.log(error)
       }
