@@ -19,7 +19,7 @@ export class AddNewItemPanelComponent implements OnInit {
   amoundOfItemControl = new FormControl(1, [Validators.required, Validators.min(1)])
   maxPriceControl = new FormControl('', [Validators.required]);
   startingPriceControl = new FormControl('', [Validators.required]);
-  bidPriceControl = new FormControl('', [Validators.required]);
+  bidPriceControl = new FormControl('', [Validators.required,Validators.min(0.1)]);
   numberOfDayControl = new FormControl(1, [Validators.required, Validators.min(1)])
   gradeControl = new FormControl('', [Validators.required]);
   typeOfItemControl = new FormControl('', [Validators.required]);

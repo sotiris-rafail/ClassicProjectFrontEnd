@@ -1,7 +1,9 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
 import { SoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
+import { ReSaleSoldItemComponent } from './re-sale-sold-item/re-sale-sold-item.component';
 
 @Component({
   selector: 'sold-items',
@@ -19,7 +21,7 @@ export class SoldItemsComponent implements OnInit, OnChanges {
   @Input() isSuperUser : boolean;
   dataSource: MatTableDataSource<SoldItem>;
   displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfItem', 'price', 'whoBoughtIt', 'boughtPrice', 'delivered', 'more'];
-  constructor(private itemService: ItemService, private snackBar: MatSnackBar) { }
+  constructor(private itemService: ItemService, private snackBar: MatSnackBar, private dialog : MatDialog) { }
 
   ngOnInit() {
     this.openSoldPanel();
@@ -56,6 +58,11 @@ export class SoldItemsComponent implements OnInit, OnChanges {
         this.dataSource._updateChangeSubscription();
         this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'});
       });
+  }
+
+  itemResale(item: SoldItem){
+    const dialogRef = this.dialog.open(ReSaleSoldItemComponent,{data : item,  disableClose: true})
+    console.log(item);
   }
 
   applyFilter(filterValue: string) {

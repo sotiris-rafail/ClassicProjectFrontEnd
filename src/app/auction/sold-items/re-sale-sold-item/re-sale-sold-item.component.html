@@ -1,0 +1,59 @@
+<div style="padding: 1em;text-align: center;">
+  <h4>
+    ReSale <b><i>{{data.name}}</i></b>
+    <br />
+    <img [src]="data.photoPath" />
+  </h4>
+  <h5>
+    <b>NOTE: </b> If you want same starting and <br /> max price as before do not change the fields!
+  </h5>
+  <form [formGroup]="addItemForm">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Starting Price</mat-label>
+        <input matInput [formControl]="startingPriceControl">
+        <mat-icon matSuffix type="number">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#000000"
+              d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
+          </svg>
+        </mat-icon>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Max Price</mat-label>
+        <input matInput [formControl]="maxPriceControl">
+        <mat-icon matSuffix type="number">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#000000"
+              d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
+          </svg>
+        </mat-icon>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Bid Step</mat-label>
+        <input matInput required type="number" [formControl]="bidPriceControl">
+        <mat-hint>The number of days item will remain unsold</mat-hint>
+      </mat-form-field>
+    </div>
+    <div style="margin-top: 0.5em;">
+      <mat-form-field appearance="outline">
+        <mat-label>Number of days</mat-label>
+        <input matInput required type="number" [formControl]="numberOfDayControl">
+        <mat-hint>The number of days item will remain unsold
+        </mat-hint>
+      </mat-form-field>
+    </div>
+  </form>
+  <div style="display: inline-flex;text-align: center;margin-top: 1em;">
+    <div>
+      <button mat-raised-button color="accent" (click)="reSaleItem()" [disabled]="!addItemForm.valid">Re Sale</button>
+    </div>
+    <div style="margin-left: 0.5em;">
+      <button mat-raised-button color="warn" (click)="handleCancel()">Cancel</button>
+    </div>
+  </div>
+</div>
