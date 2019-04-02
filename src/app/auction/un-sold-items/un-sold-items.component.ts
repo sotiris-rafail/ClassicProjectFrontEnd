@@ -8,7 +8,7 @@ import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 
 @Component({
-  selector: 'un-sold-items',
+  selector: 'app-un-sold-items',
   templateUrl: './un-sold-items.component.html',
   styleUrls: ['./un-sold-items.component.css'],
   animations: [
@@ -20,12 +20,12 @@ import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-er
   ], providers: [ItemService],
 })
 export class UnSoldItemsComponent implements OnInit, OnChanges {
-  private _panelState: boolean = true;
+  private _panelState: Boolean = true;
   @Input()
-  set panelState(value: boolean) {
+  set panelState(value: Boolean) {
     this._panelState = value;
   }
-  isFirstTime: boolean = true;
+  isFirstTime: Boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<UnSoldItem>;
   data: UnSoldItem[] = [];
@@ -33,15 +33,15 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   displayingView = [];
 
   constructor(private dialog: MatDialog, private itemService: ItemService, private snackBar: MatSnackBar) {
-    this.displayingView['itemId'] = "ID";
-    this.displayingView['name'] = "Name";
-    this.displayingView['grade'] = "Grade";
-    this.displayingView['typeOfItem'] = "Type Of Item";
-    this.displayingView['stateOfItem'] = "State Of Item";
-    this.displayingView['maxPrice'] = "Max Price";
-    this.displayingView['startingPrice'] = "Starting Price";
-    this.displayingView['expirationDate'] = "Expiration Date";
-    this.displayingView['photoPath'] = "Photo";
+    this.displayingView['itemId'] = 'ID';
+    this.displayingView['name'] = 'Name';
+    this.displayingView['grade'] = 'Grade';
+    this.displayingView['typeOfItem'] = 'Type Of Item';
+    this.displayingView['stateOfItem'] = 'State Of Item';
+    this.displayingView['maxPrice'] = 'Max Price';
+    this.displayingView['startingPrice'] = 'Starting Price';
+    this.displayingView['expirationDate'] = 'Expiration Date';
+    this.displayingView['photoPath'] = 'Photo';
   }
 
   ngOnInit() {
@@ -58,7 +58,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   openUnSoldPanel() {
-    this.itemService.getUnSoldItems(sessionStorage.getItem("access_token")).subscribe(
+    this.itemService.getUnSoldItems(sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.dataSource = new MatTableDataSource<UnSoldItem>(response);
         this.dataSource.paginator = this.paginator;
@@ -66,25 +66,25 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
-            data: { message: error.error.message, type : "alert" },
+            data: { message: error.error.message, type : 'alert' },
             duration: 5000,
             panelClass: ['snackBarAlert'],
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
       }
-    )
+    );
   }
 
   simpleBid(item: UnSoldItem) {
-    let dialogRef = this.dialog.open(AuctionBidConfirmationPanelComponent, { data: { item: item, button: 'simple' }, disableClose: true });
+    const dialogRef = this.dialog.open(AuctionBidConfirmationPanelComponent, { data: { item: item, button: 'simple' }, disableClose: true });
     dialogRef.afterClosed().subscribe(response => {
       if (response) {
-        this.itemService.bidForItem(item.itemId, item.bidStep, sessionStorage.getItem("userId"), sessionStorage.getItem("access_token")).subscribe(
+        this.itemService.bidForItem(item.itemId, item.bidStep, sessionStorage.getItem('userId'), sessionStorage.getItem('access_token')).subscribe(
           response => {
-            let lastBidder: string = String(response);
-            let index = this.dataSource.data.indexOf(item);
-            let currentValue: number = this.dataSource.data[index].currentValue + this.dataSource.data[index].bidStep;
+            const lastBidder: string = String(response);
+            const index = this.dataSource.data.indexOf(item);
+            const currentValue: number = this.dataSource.data[index].currentValue + this.dataSource.data[index].bidStep;
             this.dataSource.data[index].currentValue = currentValue;
             this.dataSource.data[index].lastBidder = lastBidder;
             if (this.dataSource.data[index].currentValue >= this.dataSource.data[index].maxPrice) {
@@ -94,25 +94,25 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
           },
           error => {
-            this.snackBar.open(JSON.parse(error.error).message, "OK", { duration: 5000, panelClass: 'alternate-theme' });
+            this.snackBar.open(JSON.parse(error.error).message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
           }
-        )
+        );
       }
     });
   }
 
   maxBid(item: UnSoldItem) {
-    let dialogRef = this.dialog.open(AuctionBidConfirmationPanelComponent, { data: { item: item, button: 'buyNow' }, disableClose: true });
+    const dialogRef = this.dialog.open(AuctionBidConfirmationPanelComponent, { data: { item: item, button: 'buyNow' }, disableClose: true });
     dialogRef.afterClosed().subscribe(response => {
       if (response) {
-        this.itemService.buyNow(item.itemId, sessionStorage.getItem("userId"), sessionStorage.getItem("access_token")).subscribe(
+        this.itemService.buyNow(item.itemId, sessionStorage.getItem('userId'), sessionStorage.getItem('access_token')).subscribe(
           response => {
-            let index = this.dataSource.data.indexOf(item);
+            const index = this.dataSource.data.indexOf(item);
             this.dataSource.data.splice(index, 1);
             this.dataSource._updateChangeSubscription();
           },
           error => {
-            this.snackBar.open(error.error.message, "OK", { duration: 500, panelClass: 'alternate-theme' });
+            this.snackBar.open(error.error.message, 'OK', { duration: 500, panelClass: 'alternate-theme' });
           });
       }
     });

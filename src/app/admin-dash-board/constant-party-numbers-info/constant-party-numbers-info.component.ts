@@ -19,26 +19,26 @@ export class ConstantPartyNumbersInfoComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.admindashboardService.getCPNumbers(sessionStorage.getItem("access_token")).subscribe(
+    this.admindashboardService.getCPNumbers(sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.dataSource = new ConstantPartyNumbersInfoDataSource(response, this.sort);
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
     );
   }
 
   getTotalMains() {
-    if (this.dataSource != undefined) {
+    if (this.dataSource !== undefined) {
       return this.dataSource.data.map(t => t.numberOfActives).reduce((acc, value) => acc + value, 0);
     } else {
-      return 0
+      return 0;
     }
   }
 
   getTotalBoxes() {
-    if (this.dataSource != undefined) {
+    if (this.dataSource !== undefined) {
       return this.dataSource.data.map(t => t.numberOfBoxes).reduce((acc, value) => acc + value, 0);
     } else {
       return 0;

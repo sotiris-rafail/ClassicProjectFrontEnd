@@ -1,22 +1,22 @@
-<topbar [previusUrl]="previusUrl" [whichToPrint]="whichToPrint" [isSuperUser]="isSuperUser"></topbar>
+<topbar [previusUrl]='previusUrl' [whichToPrint]='whichToPrint' [isSuperUser]='isSuperUser'></topbar>
 <div>
-    <div style="padding: 3em;">
+    <div style='padding: 3em;'>
         <mat-accordion>
-            <mat-expansion-panel expanded="true" (opened)="handleOpenOrCloseUnSold(true)" (closed)="handleOpenOrCloseUnSold(false)">
+            <mat-expansion-panel expanded='true' (opened)='handleOpenOrCloseUnSold(true)' (closed)='handleOpenOrCloseUnSold(false)'>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <h2>UnSold Items</h2>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <un-sold-items [panelState]="panelOpenStateUnSold"></un-sold-items>
+                <app-un-sold-items [panelState]='panelOpenStateUnSold'></app-un-sold-items>
             </mat-expansion-panel>
-            <mat-expansion-panel (opened)="handleOpenOrCloseSold(true)" (closed)="handleOpenOrCloseSold(false)">
+            <mat-expansion-panel (opened)='handleOpenOrCloseSold(true)' (closed)='handleOpenOrCloseSold(false)'>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <h2>Sold Items</h2>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <sold-items [panelState]="panelOpenStateSold" [isSuperUser]="isSuperUser"></sold-items>
+                <app-sold-items [panelState]='panelOpenStateSold' [isSuperUser]='isSuperUser'></app-sold-items>
             </mat-expansion-panel>
         </mat-accordion>
     </div>

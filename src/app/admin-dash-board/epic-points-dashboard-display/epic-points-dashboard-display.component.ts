@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, OnChanges, SimpleChanges, AfterContentInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
@@ -6,15 +6,12 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
   templateUrl: './epic-points-dashboard-display.component.html',
   styleUrls: ['./epic-points-dashboard-display.component.css']
 })
-export class EpicPointsDashboardDisplayComponent implements OnInit, OnChanges {
+export class EpicPointsDashboardDisplayComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<CpPoints> = new MatTableDataSource();
   @Input() data: CpPoints[];
   firstTime = false;
-  // @Input() set data(value: any) {
-  //   this._data = value;
-  // }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cpId', 'cpName', 'points', 'more'];
@@ -26,19 +23,12 @@ export class EpicPointsDashboardDisplayComponent implements OnInit, OnChanges {
     this.dataSource.paginator = this.paginator;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data.currentValue != undefined) {
-      this.dataSource.data = changes.data.currentValue;
-      this.dataSource._updateChangeSubscription();
-    }
-  }
-
   constructor() {
   }
 }
 
 export interface CpPoints {
-  'cpId': number,
-  'cpName': string,
-  'points': number
+  'cpId': number;
+  'cpName': string;
+  'points': number;
 }

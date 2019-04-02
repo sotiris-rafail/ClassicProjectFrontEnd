@@ -1,14 +1,12 @@
-import { MatSnackBar } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
-import { OAuth2Token } from '../tokens';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { SoldItemsComponent } from './sold-items/sold-items.component';
-import { MemberService } from '../homePage/member/userService/member.service';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
+import { MemberService } from '../homePage/member/userService/member.service';
+import { OAuth2Token } from '../tokens';
 
 @Component({
-  selector: 'auction',
+  selector: 'app-auction',
   templateUrl: './auction.component.html',
   styleUrls: ['./auction.component.css'],
   providers: [MemberService]
@@ -17,32 +15,32 @@ export class AuctionComponent implements OnInit {
   isSuperUser: boolean;
   token: OAuth2Token = new OAuth2Token();
   previusUrl: String;
-  whichToPrint: String = "AUCTION";
+  whichToPrint: String = 'AUCTION';
   panelOpenStateUnSold = true;
   panelOpenStateSold = false;
   constructor(private router: Router, private memberService: MemberService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.previusUrl = "/user/" + sessionStorage.getItem("userId");
+    this.previusUrl = '/user/' + sessionStorage.getItem('userId');
     this.token.getTokensFromStorage();
     if (this.token.isAccessTokenValid()) {
-      this.memberService.getRoleOfUser(Number(sessionStorage.getItem("userId")), sessionStorage.getItem("access_token")).subscribe(
+      this.memberService.getRoleOfUser(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
         response => {
-          this.isSuperUser = String(response) === "SUPERUSER";
+          this.isSuperUser = String(response) === 'SUPERUSER';
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", { duration: 5000, panelClass: 'alternate-theme' })
+          this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
         }
-      )
+      );
     } else {
       this.snackBar.openFromComponent(DisplayingErrorComponent, {
-        data: { message: "Your token has expired. Please login again", type : "alert" },
+        data: { message: 'Your token has expired. Please login again', type : 'alert' },
         duration: 5000,
         panelClass: ['snackBarAlert'],
         horizontalPosition: 'right',
         verticalPosition: 'top'
-      })
-      this.router.navigateByUrl("/");
+      });
+      this.router.navigateByUrl('/');
     }
   }
 
@@ -56,29 +54,29 @@ export class AuctionComponent implements OnInit {
 }
 
 export interface UnSoldItem {
-  'itemId': number,
-  'grade': String,
-  'typeOfItem': String,
-  'maxPrice': number,
-  'startingPrice': number,
-  'stateOfItem': String,
-  'name': String,
-  'numberOfDays': number,
-  'bidStep': number,
-  'currentValue': number,
-  'lastBidder': String,
-  'photoPath': String
+  'itemId': number;
+  'grade': String;
+  'typeOfItem': String;
+  'maxPrice': number;
+  'startingPrice': number;
+  'stateOfItem': String;
+  'name': String;
+  'numberOfDays': number;
+  'bidStep': number;
+  'currentValue': number;
+  'lastBidder': String;
+  'photoPath': String;
 }
 
 export interface SoldItem {
-  'itemId': number,
-  'grade': String,
-  'typeOfItem': String,
-  'price': number,
-  'stateOfItem': String,
-  'whoBoughtIt': String,
-  'boughtPrice': number,
-  'name': String,
-  'delivered': boolean,
-  'photoPath': String
+  'itemId': number;
+  'grade': String;
+  'typeOfItem': String;
+  'price': number;
+  'stateOfItem': String;
+  'whoBoughtIt': String;
+  'boughtPrice': number;
+  'name': String;
+  'delivered': boolean;
+  'photoPath': String;
 }

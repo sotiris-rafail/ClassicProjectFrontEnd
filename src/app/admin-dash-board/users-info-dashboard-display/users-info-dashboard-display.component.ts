@@ -26,14 +26,14 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
   columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName'];
 
   ngOnInit() {
-    this.adminService.getUsersForDashboard(sessionStorage.getItem("access_token")).subscribe(
+    this.adminService.getUsersForDashboard(sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.dataSource = new UsersInfoDashboardDisplayDataSource(response, this.paginator, this.sort);
       }, error => {
-        console.log(error)
+        console.log(error);
       }
-    )
+    );
   }
 
-  constructor(private adminService : AdminDashbordService){}
+  constructor(private adminService: AdminDashbordService) {}
 }

@@ -3,52 +3,51 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } 
 import { SoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
-import { ReSaleSoldItemComponent } from './re-sale-sold-item/re-sale-sold-item.component';
 
 @Component({
-  selector: 'sold-items',
+  selector: 'app-sold-items',
   templateUrl: './sold-items.component.html',
   styleUrls: ['./sold-items.component.css'],
   providers: [ItemService]
 })
 export class SoldItemsComponent implements OnInit, OnChanges {
-  private _panelState : boolean = false;
+  private _panelState: Boolean = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @Input() 
-  set panelState(value : boolean){
+  @Input()
+  set panelState(value: Boolean) {
     this._panelState = value;
   }
-  @Input() isSuperUser : boolean;
+  @Input() isSuperUser: Boolean;
   dataSource: MatTableDataSource<SoldItem>;
   displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfItem', 'price', 'whoBoughtIt', 'boughtPrice', 'delivered', 'more'];
-  constructor(private itemService: ItemService, private snackBar: MatSnackBar, private dialog : MatDialog) { }
+  constructor(private itemService: ItemService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.openSoldPanel();
   }
-  ngOnChanges(){
+  ngOnChanges() {
     this.openSoldPanel();
   }
 
   openSoldPanel() {
     if (this._panelState) {
-      this.itemService.getSoldItems(sessionStorage.getItem("access_token")).subscribe(
+      this.itemService.getSoldItems(sessionStorage.getItem('access_token')).subscribe(
         response => {
           this.dataSource = new MatTableDataSource<SoldItem>(response);
           this.dataSource.paginator = this.paginator;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", { duration : 5000, panelClass : 'alternate-theme'})
+          this.snackBar.open(error.error.message, 'OK', { duration : 5000, panelClass : 'alternate-theme'});
         }
-      )
+      );
     } else {
       this.dataSource = new MatTableDataSource<SoldItem>([]);
     }
   }
 
   deliveryIt(item: SoldItem) {
-    let index = this.dataSource.data.indexOf(item, 0);
-    this.itemService.deliverSoldItem(this.dataSource.data[index].itemId, true, sessionStorage.getItem("access_token")).subscribe(
+    const index = this.dataSource.data.indexOf(item, 0);
+    this.itemService.deliverSoldItem(this.dataSource.data[index].itemId, true, sessionStorage.getItem('access_token')).subscribe(
       respnse => {
         this.dataSource.data[index].delivered = true;
         this.dataSource._updateChangeSubscription();
@@ -56,17 +55,11 @@ export class SoldItemsComponent implements OnInit, OnChanges {
       error => {
         this.dataSource.data[index].delivered = false;
         this.dataSource._updateChangeSubscription();
-        this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'});
+        this.snackBar.open(error.error.message, 'OK', {duration : 5000, panelClass : 'alternate-theme'});
       });
-  }
-
-  itemResale(item: SoldItem){
-    const dialogRef = this.dialog.open(ReSaleSoldItemComponent,{data : item,  disableClose: true})
-    console.log(item);
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
 }
