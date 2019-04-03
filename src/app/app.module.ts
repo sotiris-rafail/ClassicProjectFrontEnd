@@ -64,6 +64,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { UsersInfoDashboardDisplayComponent } from './admin-dash-board/users-info-dashboard-display/users-info-dashboard-display.component';
 import { EpicPointsDashboardDisplayComponent } from './admin-dash-board/epic-points-dashboard-display/epic-points-dashboard-display.component';
 import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-party-numbers-info/constant-party-numbers-info.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-p
     MatGridListModule,
     MatMenuModule,
     LayoutModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatFormFieldModule,
@@ -131,7 +133,8 @@ import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-p
     MatSnackBarModule,
     MatBadgeModule,
     FlexLayoutModule,
-    DragDropModule
+    DragDropModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,

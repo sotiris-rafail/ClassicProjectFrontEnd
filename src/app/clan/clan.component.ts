@@ -8,12 +8,13 @@ import { ClanService } from './clanService/clan.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { RemoveClanMemberComponent } from './remove-clan-member/remove-clan-member.component';
+import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 
 @Component({
   selector: 'app-clan',
   templateUrl: './clan.template.html',
   styleUrls: ['./clan.style.css'],
-  providers: [ClanService, MemberService]
+  providers: [ClanService, MemberService, DisplayingErrorComponent]
 })
 export class ClanComponent implements OnInit {
   previusUrl: String;
@@ -22,7 +23,7 @@ export class ClanComponent implements OnInit {
   clans: any = [];
   typeOfUser: any;
   isSuperUser: boolean = false;
-  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog, private snackBar : MatSnackBar) { }
+  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
@@ -34,7 +35,17 @@ export class ClanComponent implements OnInit {
           this.showButton();
         },
         error => {
-          console.log(error)
+          this.snackBar.openFromComponent(DisplayingErrorComponent,
+            {
+              duration: 5000,
+              panelClass: 'snackBarError',
+              data: { message: error.error.message, type: 'error' },
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+          if (Number(error.status) == 401) {
+            this.router.navigateByUrl('/');
+          }
         }
       )
       this.clanService.getAllClansInfo(this.token.getAccessToken).subscribe(
@@ -42,10 +53,27 @@ export class ClanComponent implements OnInit {
           this.clans = response;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", {duration : 5000, panelClass : 'alternate-theme'})
+          this.snackBar.openFromComponent(DisplayingErrorComponent,
+            {
+              duration: 5000,
+              panelClass: 'snackBarError',
+              data: { message: error.error.message || error.error.error_description, type: 'error' },
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+          if (Number(error.status) == 401) {
+            this.router.navigateByUrl('/');
+          }
         }
       )
     } else {
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: 'Your token has expired. Please login again', type: 'alert' },
+        duration: 5000,
+        panelClass: ['snackBarAlert'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
       this.router.navigateByUrl("/");
     }
   }

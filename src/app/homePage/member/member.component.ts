@@ -7,15 +7,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { OAuth2Token } from 'src/app/tokens';
 import { ItemService } from 'src/app/auction/item-service.service';
+import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'member',
   templateUrl: './member.template.html',
   styleUrls: ['./member.style.css'],
-  providers: [MemberService, ItemService]
+  providers: [MemberService, ItemService, DisplayingErrorComponent]
 })
 export class MemberComponent implements OnInit {
-  itemsOnSale : number = 0;
+  itemsOnSale: number = 0;
   previusUrl: String = this.router.url;
   whichToPrint: String = "MEMBER"
   dataSource = []
@@ -26,7 +28,7 @@ export class MemberComponent implements OnInit {
   typeOfUser: string;
   token: OAuth2Token = new OAuth2Token();
   data: any;
-  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService : ItemService) { }
+  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService: ItemService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.token.getTokensFromStorage();
@@ -38,13 +40,31 @@ export class MemberComponent implements OnInit {
         this.cp = this.data.responseConstantParty.cpName
         this.dataSource = this.data.chars;
         this.typeOfUser = this.data.typeOfUser
-      }, error => console.log(error.error.message))
+      }, error => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent, {
+          data: { message: error.error.message || error.error.error_description, type: 'error' },
+          duration: 5000,
+          panelClass: ['snackBarError'],
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+        if(Number(error.status) == 401 ){
+          this.router.navigateByUrl('/');
+        }
+      })
       this.itemService.getNumberOfUnsoldItems(this.token.getAccessToken).subscribe(
         response => {
           this.itemsOnSale = response;
         }
       )
     } else {
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: 'Your token has expired. Please login again', type: 'alert' },
+        duration: 5000,
+        panelClass: ['snackBarAlert'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
       this.router.navigateByUrl("/");
     }
   }
@@ -54,7 +74,7 @@ export class MemberComponent implements OnInit {
       data: {
         'character': character
       },
-      disableClose : true
+      disableClose: true
     })
   }
 
@@ -63,7 +83,7 @@ export class MemberComponent implements OnInit {
       data: {
         'character': character
       },
-      disableClose : true
+      disableClose: true
     })
   }
 }

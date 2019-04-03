@@ -7,13 +7,14 @@ import { UpdateTODComponent } from './update-tod/update-tod.component';
 import { RaidBossService } from './raidBossService/raidBoss.service';
 import { MatSort, MatSnackBar } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
+import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 
 
 @Component({
   selector: 'app-raid-boss',
   templateUrl: './raid-boss.component.html',
   styleUrls: ['./raid-boss.component.css'],
-  providers: [RaidBossService, MemberService]
+  providers: [RaidBossService, MemberService, DisplayingErrorComponent]
 })
 export class RaidBossComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
@@ -39,7 +40,17 @@ export class RaidBossComponent implements OnInit {
           this.showButton();
         },
         error => {
-          console.log(error)
+          this.snackBar.openFromComponent(DisplayingErrorComponent,
+            {
+              duration: 5000,
+              panelClass: 'snackBarError',
+              data: { message: error.error.message || error.error.error_description, type: 'error' },
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+            if(Number(error.status) == 401 ){
+              this.router.navigateByUrl('/');
+            }
         }
       )
       this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
@@ -49,10 +60,27 @@ export class RaidBossComponent implements OnInit {
           this.actualDisplay.sort = this.sort;
         },
         error => {
-          this.snackBar.open(error.error.message, "OK", { duration: 5000, panelClass: 'alternate-theme' })
+          this.snackBar.openFromComponent(DisplayingErrorComponent,
+            {
+              duration: 5000,
+              panelClass: 'snackBarError',
+              data: { message: error.error.message || error.error.error_description, type: 'error' },
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+            if(Number(error.status) == 401 ){
+              this.router.navigateByUrl('/');
+            }
         }
       );
     } else {
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: 'Your token has expired. Please login again', type: 'alert' },
+        duration: 5000,
+        panelClass: ['snackBarAlert'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
       this.router.navigateByUrl("/");
     }
   }
@@ -102,8 +130,29 @@ export class RaidBossComponent implements OnInit {
           clickedRaid.isAlive = 'UNKNOWN';
         }
       })
-    console.log(clickedRaid.raidBossId);
-    this.actualDisplay._updateChangeSubscription();
+    this.raidBossService.setToUnknown(sessionStorage.getItem('access_token'), String(clickedRaid.raidBossId)).subscribe(
+      response => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarSuccess',
+            data: { message: clickedRaid.name + " has been set to Unknown successfully.", type: 'success' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        this.actualDisplay._updateChangeSubscription();
+      },
+      error => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+      }
+    )
   }
 
   showButton() {

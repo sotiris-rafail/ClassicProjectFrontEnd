@@ -5,34 +5,36 @@ import { OAuth2Token } from '../tokens';
 import { Router } from '@angular/router';
 import { ConstantPartyService } from './constantPartyService/constantParty.service';
 import { DeleteMemberComponent } from './delete-member/delete-member.component';
+import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-constantparty',
   templateUrl: './constantparty.component.html',
   styleUrls: ['./constantparty.component.css'],
-  providers : [ConstantPartyService]
+  providers: [ConstantPartyService, DisplayingErrorComponent]
 })
 export class ConstantpartyComponent implements OnInit {
 
-  private isMember : boolean;
-  responseData : any;
-  cpId : number;
+  private isMember: boolean;
+  responseData: any;
+  cpId: number;
   whichToPrint = "CP"
-  isUserAleader : boolean = false;
-  cp : string;
+  isUserAleader: boolean = false;
+  cp: string;
   dataSource2 = []
-  cpLeader : string;
-  token : OAuth2Token = new OAuth2Token();
-  displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName' , 'typeOfCharacter', 'More'];
-  previusUrl : string;
-  constructor(private dialog : MatDialog, private router : Router, private cpService : ConstantPartyService) {
-   }
+  cpLeader: string;
+  token: OAuth2Token = new OAuth2Token();
+  displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName', 'typeOfCharacter', 'More'];
+  previusUrl: string;
+  constructor(private dialog: MatDialog, private router: Router, private cpService: ConstantPartyService, private snackBar: MatSnackBar) {
+  }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
     this.cpId = Number(this.router.url.split("/")[2]);
-    if(this.token.isAccessTokenValid()) {
+    if (this.token.isAccessTokenValid()) {
       this.cpService.getCpById(this.cpId, this.token.getAccessToken, this.token.getUser).subscribe(response => {
         this.responseData = response;
         this.UserPartyLeader(this.responseData.members);
@@ -44,22 +46,25 @@ export class ConstantpartyComponent implements OnInit {
         this.router.navigateByUrl(this.previusUrl)
       })
     } else {
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: 'Your token has expired. Please login again', type: 'alert' },
+        duration: 5000,
+        panelClass: ['snackBarAlert'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
       this.router.navigateByUrl("/");
     }
   }
 
-  openDialog(){
-    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, {width : "530px", height : "530px"});
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  openDialog() {
+    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, { width: "530px", height: "530px" });
   }
 
-  private static getCPChars(members : any) {
+  private static getCPChars(members: any) {
     let cpChars = [];
     members.forEach(member => {
-      if(member.chars.length > 1) {
+      if (member.chars.length > 1) {
         member.chars.forEach(element => {
           cpChars.push(element)
         });
@@ -71,13 +76,13 @@ export class ConstantpartyComponent implements OnInit {
     return cpChars;
   }
 
-  private static getCPLeader(members : any) {
+  private static getCPLeader(members: any) {
     let cpLeader;
-    members.forEach(member =>{
-      if(member.typeOfUser === "CPLEADER"){
+    members.forEach(member => {
+      if (member.typeOfUser === "CPLEADER") {
         member.chars.forEach(char => {
-          if(char.typeOfCharacter === "MAIN"){
-            cpLeader =  char.name;
+          if (char.typeOfCharacter === "MAIN") {
+            cpLeader = char.name;
           }
         })
       }
@@ -85,10 +90,10 @@ export class ConstantpartyComponent implements OnInit {
     return cpLeader;
   }
 
-  private UserPartyLeader(members : any) : void {
-    members.forEach(member =>{
-      if(member.typeOfUser === "CPLEADER" || member.typeOfUser === "SUPERUSER") {
-        if(!this.isUserAleader) {
+  private UserPartyLeader(members: any): void {
+    members.forEach(member => {
+      if (member.typeOfUser === "CPLEADER" || member.typeOfUser === "SUPERUSER") {
+        if (!this.isUserAleader) {
           this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
         }
       }

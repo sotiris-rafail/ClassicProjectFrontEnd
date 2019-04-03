@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RaidBoss } from '../raid-boss.component';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 export const MY_FORMATS = {
   parse: {
@@ -40,7 +41,8 @@ export class UpdateTODComponent implements OnInit {
   hour = new FormControl('00', [Validators.max(23), Validators.min(0), Validators.required]);
   mins = new FormControl('00', [Validators.max(59), Validators.min(0), Validators.required]);
 
-  constructor(public dialogRef: MatDialogRef<UpdateTODComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private raidBossService: RaidBossService, private snackBar: MatSnackBar) { }
+  constructor(public dialogRef: MatDialogRef<UpdateTODComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private raidBossService: RaidBossService,
+    private snackBar: MatSnackBar, private router: Router) { }
 
   formGroup = new FormGroup({
     date: this.date,
@@ -60,7 +62,7 @@ export class UpdateTODComponent implements OnInit {
           {
             duration: 5000,
             panelClass: 'snackBarSuccess',
-            data: { message: this.data.raidBoss.name +"'s TOD has been updated sucessfully", type: 'success' },
+            data: { message: this.data.raidBoss.name + "'s TOD has been updated sucessfully", type: 'success' },
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
@@ -71,10 +73,13 @@ export class UpdateTODComponent implements OnInit {
           {
             duration: 5000,
             panelClass: 'snackBarError',
-            data: { message: error.error.message, type: 'error' },
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
+        if (Number(error.status) == 401) {
+          this.router.navigateByUrl('/');
+        }
       }
     )
   }

@@ -2,6 +2,7 @@ import { DisplayingErrorComponent } from './../../displaying-error/displaying-er
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { RegisterCharacterService } from '../../homePage/member/addition-character-panel/registerCharacterService/registerCharacterService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-remove-clan-member',
@@ -12,8 +13,7 @@ import { RegisterCharacterService } from '../../homePage/member/addition-charact
 export class RemoveClanMemberComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<RemoveClanMemberComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private characterService: RegisterCharacterService,
-    private snackbar: MatSnackBar) {
-    console.log(data.member)
+    private snackbar: MatSnackBar, private router: Router) {
   }
 
 
@@ -39,7 +39,10 @@ export class RemoveClanMemberComponent implements OnInit {
           panelClass: ['snackBarAlert'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
-        })
+        });
+        if(Number(error.status) == 401 ){
+          this.router.navigateByUrl('/');
+        }
       }
     )
   }

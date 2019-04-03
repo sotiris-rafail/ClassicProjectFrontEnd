@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-constant-party',
@@ -13,7 +14,7 @@ import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-er
 export class AddNewConstantPartyComponent implements OnInit {
   maxLevel = 5;
   minLevel = 1;
-  constructor(private cpService : ConstantPartyService, private dialog : MatDialogRef<AddNewConstantPartyComponent>, private snackbar : MatSnackBar) { }
+  constructor(private cpService : ConstantPartyService, private dialog : MatDialogRef<AddNewConstantPartyComponent>, private snackbar : MatSnackBar, private router: Router) { }
 
   cpName = new FormControl('',[Validators.required]);
 
@@ -45,7 +46,10 @@ export class AddNewConstantPartyComponent implements OnInit {
           panelClass: ['snackBarError'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
-        })
+        });
+        if(Number(error.status) == 401 ){
+          this.router.navigateByUrl('/');
+        }
       }
     )
   }

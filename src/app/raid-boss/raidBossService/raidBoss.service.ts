@@ -26,7 +26,7 @@ export class RaidBossService{
         }});
     }
 
-    public setToUnknown(access_token : string, raidId : string, time : string) {
+    public setToUnknown(access_token : string, raidId : string) {
         this.headers = new HttpHeaders({
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',

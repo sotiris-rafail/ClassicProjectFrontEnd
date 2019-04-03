@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatSelect, MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user-to-cp-from-clan-page',
@@ -14,7 +15,7 @@ import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-er
 export class AddUserToCpFromClanPageComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<AddUserToCpFromClanPageComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cpService: ConstantPartyService,
-    private snackBar: MatSnackBar, private memberService: MemberService) { }
+    private snackBar: MatSnackBar, private memberService: MemberService, private router: Router) { }
 
   @ViewChild(MatSelect) matSelect: MatSelect
   cps: CP[] = [];
@@ -26,12 +27,15 @@ export class AddUserToCpFromClanPageComponent implements OnInit {
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: error.error.message, type: "alert" },
+          data: { message: error.error.message || error.error.error_description, type: "alert" },
           duration: 5000,
           panelClass: ['snackBarAlert'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
-        })
+        });
+        if(Number(error.status) == 401 ){
+          this.router.navigateByUrl('/');
+        }
       }
     )
     this.cps = [];
@@ -61,7 +65,10 @@ export class AddUserToCpFromClanPageComponent implements OnInit {
           panelClass: ['snackBarAlert'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
-        })
+        });
+        if(Number(error.status) == 401 ){
+          this.router.navigateByUrl('/');
+        }
       }
     )
   }

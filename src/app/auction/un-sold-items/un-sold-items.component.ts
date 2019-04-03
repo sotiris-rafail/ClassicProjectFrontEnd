@@ -6,6 +6,7 @@ import { UnSoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-un-sold-items',
@@ -32,7 +33,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'stateOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
   displayingView = [];
 
-  constructor(private dialog: MatDialog, private itemService: ItemService, private snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private itemService: ItemService, private snackBar: MatSnackBar, private router: Router) {
     this.displayingView['itemId'] = 'ID';
     this.displayingView['name'] = 'Name';
     this.displayingView['grade'] = 'Grade';
@@ -66,12 +67,15 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
-            data: { message: error.error.message, type : 'alert' },
+            data: { message: error.error.message || error.error.error_description, type : 'alert' },
             duration: 5000,
             panelClass: ['snackBarAlert'],
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
+          if(Number(error.status) == 401 ){
+            this.router.navigateByUrl('/');
+          }
       }
     );
   }
