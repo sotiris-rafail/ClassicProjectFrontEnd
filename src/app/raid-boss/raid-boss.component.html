@@ -36,7 +36,7 @@
 
       <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef> State </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.isAlive}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{displayingView[element.isAlive]}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="more">

@@ -24,8 +24,8 @@
           </i>
           <span>
             <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
-            <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{member.typeOfCharacter}} <b>Type Of Member:</b>
-            {{member.typeOfUser}}
+            <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{displayingView[member.typeOfCharacter]}} <b>Type Of Member:</b>
+            {{displayingView[member.typeOfUser]}}
           </span>
           <div style="display: inline-flex">
             <div *ngIf="isSuperUser">

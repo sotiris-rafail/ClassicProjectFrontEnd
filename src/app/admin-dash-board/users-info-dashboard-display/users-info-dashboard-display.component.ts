@@ -23,6 +23,7 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: UsersInfoDashboardDisplayDataSource;
+  displayingView = [];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName'];
@@ -47,5 +48,16 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
     );
   }
 
-  constructor(private adminService: AdminDashbordService, private snackBar: MatSnackBar, private router: Router) {}
+  constructor(private adminService: AdminDashbordService, private snackBar: MatSnackBar, private router: Router) {
+    this.displayingView['userId'] = 'ID';
+    this.displayingView['email'] = 'Email';
+    this.displayingView['typeOfUser'] = 'Type Of User';
+    this.displayingView['cpName'] = 'CP Name';
+    this.displayingView['MAIN'] = 'Main';
+    this.displayingView['BOX'] = 'Box';
+    this.displayingView['SUPERUSER'] = 'Super User';
+    this.displayingView['CPMEMBER'] = 'CP Member';
+    this.displayingView['RAIDBOSSER'] = 'Raid Bosser';
+    this.displayingView['CPLEADER'] = 'CP Leader';
+  }
 }

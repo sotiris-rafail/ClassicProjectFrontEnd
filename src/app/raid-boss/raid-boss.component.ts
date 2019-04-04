@@ -26,8 +26,12 @@ export class RaidBossComponent implements OnInit {
   actualDisplay: MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
   typeOfUser: any;
   raidBosser: boolean = false;
+  displayingView = [];
   constructor(private dialog: MatDialog, private router: Router, private raidBossService: RaidBossService, private memberService: MemberService, private snackBar: MatSnackBar) {
-
+    this.displayingView['ALIVE'] = 'Alive';
+    this.displayingView['ONWINDOW'] = 'On Window';
+    this.displayingView['DEAD'] = 'Dead';
+    this.displayingView['UNKNOWN'] = 'Unknown';
   }
 
   ngOnInit() {

@@ -28,7 +28,19 @@ export class MemberComponent implements OnInit {
   typeOfUser: string;
   token: OAuth2Token = new OAuth2Token();
   data: any;
-  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService: ItemService, private snackBar: MatSnackBar) { }
+  displayingView = [];
+  constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService: ItemService, private snackBar: MatSnackBar) {
+    this.displayingView['userId'] = 'ID';
+    this.displayingView['email'] = 'Email';
+    this.displayingView['typeOfUser'] = 'Type Of User';
+    this.displayingView['cpName'] = 'CP Name';
+    this.displayingView['MAIN'] = 'Main';
+    this.displayingView['BOX'] = 'Box';
+    this.displayingView['SUPERUSER'] = 'Super User';
+    this.displayingView['CPMEMBER'] = 'CP Member';
+    this.displayingView['RAIDBOSSER'] = 'Raid Bosser';
+    this.displayingView['CPLEADER'] = 'CP Leader';
+   }
 
   ngOnInit(): void {
     this.token.getTokensFromStorage();

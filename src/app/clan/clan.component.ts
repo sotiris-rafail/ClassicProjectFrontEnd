@@ -23,7 +23,15 @@ export class ClanComponent implements OnInit {
   clans: any = [];
   typeOfUser: any;
   isSuperUser: boolean = false;
-  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+  displayingView = []
+  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog, private snackBar: MatSnackBar) { 
+    this.displayingView['MAIN'] = 'Main';
+    this.displayingView['BOX'] = 'Box';
+    this.displayingView['SUPERUSER'] = 'Super User';
+    this.displayingView['CPMEMBER'] = 'CP Member';
+    this.displayingView['RAIDBOSSER'] = 'Raid Bosser';
+    this.displayingView['CPLEADER'] = 'CP Leader';
+  }
 
   ngOnInit() {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
