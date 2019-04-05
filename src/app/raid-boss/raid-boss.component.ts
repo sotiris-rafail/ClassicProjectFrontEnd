@@ -31,7 +31,7 @@ export class RaidBossComponent implements OnInit {
     this.displayingView['ALIVE'] = 'Alive';
     this.displayingView['ONWINDOW'] = 'On Window';
     this.displayingView['DEAD'] = 'Dead';
-    this.displayingView['UNKNOWN'] = 'Unknown';
+    this.displayingView['AAUNKNOWN'] = 'Unknown';
   }
 
   ngOnInit() {
