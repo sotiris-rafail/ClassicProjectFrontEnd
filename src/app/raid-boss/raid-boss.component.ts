@@ -131,7 +131,7 @@ export class RaidBossComponent implements OnInit {
       raid => {
         if (raid.raidBossId == id) {
           clickedRaid = raid;
-          clickedRaid.isAlive = 'UNKNOWN';
+          clickedRaid.isAlive = 'AAUNKNOWN';
         }
       })
     this.raidBossService.setToUnknown(sessionStorage.getItem('access_token'), String(clickedRaid.raidBossId)).subscribe(
