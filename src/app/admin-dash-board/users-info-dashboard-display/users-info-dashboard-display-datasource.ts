@@ -79,6 +79,26 @@ export class UsersInfoDashboardDiaplyDataSource extends DataSource<User> {
       }
     });
   }
+
+  public filterByEmail(filter: string) {
+    return this.data.filter(user => {
+      return user.email.trim().toLowerCase().includes(filter.trim().toLowerCase())
+    })
+  };
+
+  filterByCharacterName(filter: string): User[] {
+    let filterData = [];
+    this.data.forEach(user => {
+      user.chars.forEach(char => {
+        if (char.name.trim().toLowerCase().includes(filter.trim().toLowerCase())) {
+          filterData.push(user);
+        }
+      });
+    });
+    return filterData;
+  };
+
+
 }
 
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */

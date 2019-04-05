@@ -65,6 +65,7 @@ import { UsersInfoDashboardDisplayComponent } from './admin-dash-board/users-inf
 import { EpicPointsDashboardDisplayComponent } from './admin-dash-board/epic-points-dashboard-display/epic-points-dashboard-display.component';
 import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-party-numbers-info/constant-party-numbers-info.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     LayoutModule,
     DragDropModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCheckboxModule
   ],
   exports: [
     MatFormFieldModule,
@@ -134,7 +136,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatBadgeModule,
     FlexLayoutModule,
     DragDropModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCheckboxModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,

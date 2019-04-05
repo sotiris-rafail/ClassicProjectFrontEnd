@@ -15,6 +15,9 @@ export class AdminDashBoardComponent implements OnInit {
   coreInfoPoints = [];
   orfenInfoPoints = [];
   aqInfoPoints = [];
+  filter = "";
+  whatToFilter = "Email";
+  checked = false;
   ngOnInit(): void {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.adminService.getEpicPoints(sessionStorage.getItem("access_token")).subscribe(
@@ -52,6 +55,18 @@ export class AdminDashBoardComponent implements OnInit {
   );
 
   constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) { }
+
+  applyFilter(value : string){
+    this.filter = value;
+  }
+
+  changeSearch(){
+    if(this.checked){
+      this.whatToFilter = "Character";
+    } else {
+      this.whatToFilter = "Email";
+    }
+  }
 }
 
 export interface CP {

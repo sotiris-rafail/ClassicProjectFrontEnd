@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { UsersInfoDashboardDiaplyDataSource as UsersInfoDashboardDisplayDataSource } from './users-info-dashboard-display-datasource';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { AdminDashbordService } from '../adminDashboard.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
+import { User } from '../admin-dash-board.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-info-dashboard-display',
@@ -19,18 +21,21 @@ import { Router } from '@angular/router';
   ],
   providers: [AdminDashbordService, DisplayingErrorComponent]
 })
-export class UsersInfoDashboardDisplayComponent implements OnInit {
+export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: UsersInfoDashboardDisplayDataSource;
   displayingView = [];
-
+  @Input() filter = "";
+  @Input() searchByCharacter = false;
+  actualData = [];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName'];
 
   ngOnInit() {
     this.adminService.getUsersForDashboard(sessionStorage.getItem('access_token')).subscribe(
       response => {
+        this.actualData = response;
         this.dataSource = new UsersInfoDashboardDisplayDataSource(response, this.paginator, this.sort);
       }, error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -48,7 +53,21 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
     );
   }
 
-  constructor(private adminService: AdminDashbordService, private snackBar: MatSnackBar, private router: Router) {
+  ngOnChanges() {
+    if (this.filter !== "") {
+      this.dataSource = new UsersInfoDashboardDisplayDataSource(this.actualData, this.paginator, this.sort);
+      if (this.searchByCharacter) {
+        this.dataSource = new UsersInfoDashboardDisplayDataSource(this.dataSource.filterByCharacterName(this.filter), this.paginator, this.sort);
+      } else {
+        this.dataSource = new UsersInfoDashboardDisplayDataSource(this.dataSource.filterByEmail(this.filter), this.paginator, this.sort);
+      }
+    } else {
+      this.dataSource = new UsersInfoDashboardDisplayDataSource(this.actualData, this.paginator, this.sort);
+    }
+  }
+
+
+  constructor(private adminService: AdminDashbordService, private snackBar: MatSnackBar, private router: Router, private changeDetectorRefs: ChangeDetectorRef) {
     this.displayingView['userId'] = 'ID';
     this.displayingView['email'] = 'Email';
     this.displayingView['typeOfUser'] = 'Type Of User';
