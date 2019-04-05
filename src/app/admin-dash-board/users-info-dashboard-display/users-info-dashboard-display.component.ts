@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./users-info-dashboard-display.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
-  providers : [AdminDashbordService, DisplayingErrorComponent]
+  providers: [AdminDashbordService, DisplayingErrorComponent]
 })
 export class UsersInfoDashboardDisplayComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -35,15 +35,15 @@ export class UsersInfoDashboardDisplayComponent implements OnInit {
       }, error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
-              duration: 5000,
-              panelClass: 'snackBarError',
-              data: { message: error.error.message || error.error.error_description, type: 'error' },
-              horizontalPosition: 'right',
-              verticalPosition: 'top'
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
           });
-          if(Number(error.status) == 401 ){
-            this.router.navigateByUrl('/');
-          }
+        if (Number(error.status) === 401) {
+          this.router.navigateByUrl('/');
+        }
       }
     );
   }

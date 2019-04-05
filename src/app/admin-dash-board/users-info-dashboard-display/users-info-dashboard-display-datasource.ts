@@ -47,14 +47,14 @@ export class UsersInfoDashboardDiaplyDataSource extends DataSource<User> {
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect() {}
+  disconnect() { }
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getPagedData(data: User[]) {
-    if(data.length == 0) {
+    if (data.length === 0) {
       return data;
     }
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
