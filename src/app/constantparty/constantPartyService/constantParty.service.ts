@@ -62,7 +62,7 @@ export class ConstantPartyService {
     });
   }
 
-  getCPIdName(access_token: string): Observable<CP[]> {
+  public getCPIdName(access_token: string): Observable<CP[]> {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
@@ -70,12 +70,30 @@ export class ConstantPartyService {
     return this.http.get<CP[]>('http://83.212.102.61:8080/cp/getCPIdName', { headers: this.headers });
   }
 
-  addNewCP(access_token: string, cp: import("../add-new-constant-party/add-new-constant-party.component").CP) {
+  public addNewCP(access_token: string, cp: import("../add-new-constant-party/add-new-constant-party.component").CP) {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://83.212.102.61:8080/cp/add',JSON.stringify(cp),  { headers: this.headers });
+    return this.http.post('http://83.212.102.61:8080/cp/add', JSON.stringify(cp), { headers: this.headers });
+  }
+
+  public uploadImage(file: File, access_token : String, cpId: number, cpName: string): Observable<Boolean> {
+    this.headers = new HttpHeaders({
+      //'Authorization': 'Bearer ' + access_token,
+    });
+    const formData = new FormData();
+
+    formData.append('image', file);
+    return this.http.post<Boolean>('http://localhost:8080/cp/upload', "",
+      {
+        headers: this.headers,
+        params: {
+          'photo' : String(file),
+          'cpId' : String(cpId),
+          'cpName' : cpName,
+        }
+      });
   }
 
 }
