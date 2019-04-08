@@ -48,7 +48,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="dataSource === undefined">
+<div *ngIf="dataSource === undefined || actualData.length == 0">
   <mat-spinner style="margin:0 auto;z-index: 1;position: relative;" color="primary">
   </mat-spinner>
 </div>
