@@ -29,7 +29,7 @@
         </div>
         <div class="selections">
             <div class="clanSelection">
-                <mat-form-field [formControl]="clanNameControl">
+                <mat-form-field>
                     <mat-select placeholder="Select Clan" required="true" [(value)]="selectedClan" [formControl]="clanControl">
                         <mat-option *ngFor="let clan of clans" [value]="clan.value">
                             {{clan.viewValue}}

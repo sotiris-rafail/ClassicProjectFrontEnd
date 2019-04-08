@@ -1,6 +1,6 @@
 <mat-form-field appearance="outline">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event.target.value)" [disabled]="dataSource.length == 0">
+  <input matInput (keyup)="applyFilter($event.target.value)" [disabled]="dataSource.data.length == 0">
   <mat-icon matSuffix>
     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
       <path fill="#000000"
