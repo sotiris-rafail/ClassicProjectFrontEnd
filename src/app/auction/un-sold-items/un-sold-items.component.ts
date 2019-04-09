@@ -2,11 +2,11 @@ import { AuctionBidConfirmationPanelComponent } from './../auction-bid-confirmat
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, ViewChild, OnChanges, Input } from '@angular/core';
 import { trigger, style, state, transition, animate } from '@angular/animations';
-import { UnSoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
+import { UnSoldItem } from '../auction.component';
 
 @Component({
   selector: 'app-un-sold-items',
@@ -28,8 +28,8 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
   isFirstTime: Boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource: MatTableDataSource<UnSoldItem>;
-  data: UnSoldItem[] = [];
+  dataSource: MatTableDataSource<UnSoldItemDisplay>;
+  data: UnSoldItemDisplay[] = [];
   columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'stateOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
   displayingView = [];
 
@@ -54,14 +54,17 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
     if (this._panelState && !this.isFirstTime) {
       this.openUnSoldPanel();
     } else {
-      this.dataSource = new MatTableDataSource<UnSoldItem>([]);
+      this.dataSource = new MatTableDataSource<UnSoldItemDisplay>([]);
     }
   }
 
   openUnSoldPanel() {
     this.itemService.getUnSoldItems(sessionStorage.getItem('access_token')).subscribe(
       response => {
-        this.dataSource = new MatTableDataSource<UnSoldItem>(response);
+        response.forEach(unsoldItem => {
+          unsoldItem.expirationDate = new Date(String(unsoldItem.expirationDate)).toISOString();
+        });
+        this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
       },
       error => {
@@ -125,4 +128,21 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+}
+
+
+export interface UnSoldItemDisplay {
+  'itemId': number;
+  'grade': String;
+  'typeOfItem': String;
+  'maxPrice': number;
+  'startingPrice': number;
+  'stateOfItem': String;
+  'name': String;
+  'numberOfDays': number;
+  'bidStep': number;
+  'currentValue': number;
+  'lastBidder': String;
+  'photoPath': String;
+  'expirationDate'?: String;
 }

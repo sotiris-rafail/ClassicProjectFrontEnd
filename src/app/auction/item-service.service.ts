@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SoldItem, UnSoldItem } from './auction.component';
+import { UnSoldItemDisplay } from './un-sold-items/un-sold-items.component';
 
 @Injectable()
 export class ItemService {
@@ -68,12 +69,12 @@ export class ItemService {
       { headers: this.headers });
   }
 
-  public getUnSoldItems( access_token: string): Observable<UnSoldItem[]> {
+  public getUnSoldItems( access_token: string): Observable<UnSoldItemDisplay[]> {
     this.headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<UnSoldItem[]>('http://83.212.102.61:8080/unsold/getUnSoldItems',
+    return this.http.get<UnSoldItemDisplay[]>('http://83.212.102.61:8080/unsold/getUnSoldItems',
       { headers: this.headers });
   }
 
