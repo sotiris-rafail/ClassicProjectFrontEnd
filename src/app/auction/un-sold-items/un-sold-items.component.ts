@@ -62,7 +62,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
     this.itemService.getUnSoldItems(sessionStorage.getItem('access_token')).subscribe(
       response => {
         response.forEach(unsoldItem => {
-          unsoldItem.expirationDate = new Date(String(unsoldItem.expirationDate)).toUTCString();
+          unsoldItem.expirationDate = new Date(String(unsoldItem.expirationDate)).toLocaleString();
         });
         this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
