@@ -85,7 +85,7 @@ export class ConstantPartyService {
     const formData = new FormData();
 
     formData.append('image', file);
-    return this.http.post<Boolean>('http://localhost:8080/cp/upload', "",
+    return this.http.post<Boolean>('http://localhost:8080/cp/upload', formData,
       {
         headers: this.headers,
         params: {
