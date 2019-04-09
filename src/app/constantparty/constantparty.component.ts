@@ -8,6 +8,7 @@ import { DeleteMemberComponent } from './delete-member/delete-member.component';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { MatSnackBar } from '@angular/material';
 
+const photo_path = "../../assets/upload/photos/";
 @Component({
   selector: 'app-constantparty',
   templateUrl: './constantparty.component.html',

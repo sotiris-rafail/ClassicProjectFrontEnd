@@ -12,7 +12,7 @@ import { OAuth2Token } from '../tokens';
   providers: [MemberService]
 })
 export class AuctionComponent implements OnInit {
-  isSuperUser: boolean;
+  isSuperUser: boolean = false;
   token: OAuth2Token = new OAuth2Token();
   previusUrl: String;
   whichToPrint: String = 'AUCTION';

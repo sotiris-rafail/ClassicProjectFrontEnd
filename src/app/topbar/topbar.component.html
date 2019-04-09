@@ -40,7 +40,7 @@
         <span><b>CP Leader:</b> {{cpLeader}} </span>
       </div>
       <div fxFlex fxLayout fxLayoutAlign="flex-end">
-        <div class="button-row">
+        <div class="button-row" *ngIf="false">
           <button mat-raised-button color="accent" (click)="imgFileInput.click()">
           <mat-icon>attachment</mat-icon> Upload Photo
           </button> <input hidden type="file" #imgFileInput accept="image/*" (change)="processFile(imgFileInput)" />
