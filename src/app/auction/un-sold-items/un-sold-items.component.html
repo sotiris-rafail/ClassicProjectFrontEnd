@@ -16,7 +16,7 @@
         {{element[column] | number:'1.0-0'}}
       </span>
       <span *ngIf="column === 'expirationDate'">
-        {{element[column] | date : 'dd/MM/yyyy HH:mm:ss ZZZ'}}
+        {{element[column] | date : 'full'}}
       </span>
       <span *ngIf="column === 'photoPath'">
         <img [src]="element[column]">
