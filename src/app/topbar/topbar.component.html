@@ -41,7 +41,7 @@
       </div>
       <div fxFlex fxLayout fxLayoutAlign="flex-end">
         <div class="button-row">
-          <button mat-raised-button color="accent" (click)="imgFileInput.click()">
+          <button mat-raised-button color="accent" (click)="imgFileInput.click()" hidden='true'>
           <mat-icon>attachment</mat-icon> Upload Photo
           </button> <input hidden type="file" #imgFileInput accept="image/*" (change)="processFile(imgFileInput)" />
         </div>
