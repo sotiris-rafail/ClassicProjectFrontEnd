@@ -71,15 +71,15 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
-            data: { message: error.error.message || error.error.error_description, type : 'alert' },
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
             duration: 5000,
-            panelClass: ['snackBarAlert'],
+            panelClass: ['snackBarError'],
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-          if(Number(error.status) == 401 ){
-            this.router.navigateByUrl('/');
-          }
+        if (Number(error.status) == 401) {
+          this.router.navigateByUrl('/');
+        }
       }
     );
   }
@@ -102,7 +102,14 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
           },
           error => {
-            this.snackBar.open(JSON.parse(error.error).message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
+            this.snackBar.openFromComponent(DisplayingErrorComponent,
+              {
+                data: { message: error.error.message || error.error.error_description, type: 'error' },
+                duration: 5000,
+                panelClass: ['snackBarError'],
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              });
           }
         );
       }
@@ -120,7 +127,14 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
             this.dataSource._updateChangeSubscription();
           },
           error => {
-            this.snackBar.open(error.error.message, 'OK', { duration: 500, panelClass: 'alternate-theme' });
+            this.snackBar.openFromComponent(DisplayingErrorComponent,
+              {
+                data: { message: error.error.message || error.error.error_description, type: 'error' },
+                duration: 5000,
+                panelClass: ['snackBarError'],
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              });
           });
       }
     });
