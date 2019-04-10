@@ -36,7 +36,7 @@
 
       <ng-container matColumnDef="state">
         <mat-header-cell *matHeaderCellDef> State </mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="element.isAlive"> <b>{{displayingView[element.isAlive]}}</b> </mat-cell>
+        <mat-cell *matCellDef="let element"> <b></b>{{displayingView[element.isAlive]}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="more">
@@ -69,6 +69,6 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row style="border:0.1px solid black; background-color:#f7e6f6;" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row  [ngClass]="row.isAlive" *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
