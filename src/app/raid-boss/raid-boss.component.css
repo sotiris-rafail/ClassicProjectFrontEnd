@@ -1,29 +1,28 @@
 .DEAD {
-    background-color: red;
+
     font-family: 'Times New Roman', Times, serif;
     font-size: 110%;
-    color: black;
+    color: red;
 }
 
 .ALIVE {
-    background-color: green;
     font-family: 'Times New Roman', Times, serif;
     font-size: 120%;
-    color: white;
+    color: green;
 }
 
 .ONWINDOW {
-    background-color: orange;
+    
     font-family: 'Times New Roman', Times, serif;
     font-size: 120%;
-    color: black;
+    color: #ed6307;
 }
 
 .AAUNKNOWN {
-    background-color: grey;
+    
     font-family: 'Times New Roman', Times, serif;
     font-size: 120%;
-    color: black;
+    color: #423f42;
 }
 
 
