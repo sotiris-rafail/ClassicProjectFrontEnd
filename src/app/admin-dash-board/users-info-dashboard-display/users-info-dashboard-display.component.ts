@@ -1,5 +1,6 @@
+import { DeleteUserComponent } from './../../homePage/member/delete-user/delete-user.component';
 import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { UsersInfoDashboardDiaplyDataSource as UsersInfoDashboardDisplayDataSource } from './users-info-dashboard-display-datasource';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { AdminDashbordService } from '../adminDashboard.service';
@@ -30,7 +31,7 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   @Input() searchByCharacter = false;
   actualData = [];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName'];
+  columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName', 'more'];
 
   ngOnInit() {
     this.adminService.getUsersForDashboard(sessionStorage.getItem('access_token')).subscribe(
@@ -67,11 +68,12 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   }
 
 
-  constructor(private adminService: AdminDashbordService, private snackBar: MatSnackBar, private router: Router, private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(private adminService: AdminDashbordService, private snackBar: MatSnackBar, private router: Router, private dialog: MatDialog) {
     this.displayingView['userId'] = 'ID';
     this.displayingView['email'] = 'Email';
     this.displayingView['typeOfUser'] = 'Type Of User';
     this.displayingView['cpName'] = 'CP Name';
+    this.displayingView['more'] = 'Action';
     this.displayingView['MAIN'] = 'Main';
     this.displayingView['BOX'] = 'Box';
     this.displayingView['SUPERUSER'] = 'Super User';
@@ -79,4 +81,20 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
     this.displayingView['RAIDBOSSER'] = 'Raid Bosser';
     this.displayingView['CPLEADER'] = 'CP Leader';
   }
+
+  handleDelete(user_id: number, email: string) {
+    const dialogRef = this.dialog.open(DeleteUserComponent, {
+      data: { 'user_id': user_id, 'email': email }
+    })
+
+    dialogRef.afterClosed().subscribe(response => {
+      if (response.button) {
+        const member = this.actualData.find((member) => member.userId == response.user_id);
+        const index = this.actualData.indexOf(member, 0);
+        this.actualData.splice(index, 1);
+        this.ngOnChanges();
+      }
+    });
+  }
+
 }

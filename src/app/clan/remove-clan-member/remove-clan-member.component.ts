@@ -21,7 +21,7 @@ export class RemoveClanMemberComponent implements OnInit {
   }
 
   removeCharacterFromClan(member) {
-    this.characterService.removeCharacterFromClan(member.characterId, sessionStorage.getItem("access_token")).subscribe(
+    this.characterService.deleteCharacter(sessionStorage.getItem("access_token"), member.characterId).subscribe(
       response => {
         this.snackbar.openFromComponent(DisplayingErrorComponent, {
           data: { message: member.name + " removed successfully", type: "success" },

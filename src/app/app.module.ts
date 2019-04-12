@@ -66,6 +66,7 @@ import { EpicPointsDashboardDisplayComponent } from './admin-dash-board/epic-poi
 import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-party-numbers-info/constant-party-numbers-info.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DeleteUserComponent } from './homePage/member/delete-user/delete-user.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent,
     AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
-    ConstantPartyNumbersInfoComponent],
+    ConstantPartyNumbersInfoComponent, DeleteUserComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -142,7 +143,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,
     RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent,
-    UpdateCharacterComponent],
+    UpdateCharacterComponent, DeleteUserComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })

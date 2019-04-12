@@ -47,7 +47,7 @@ export class MemberService {
     })
   }
 
-  addSingleUserToCP(characterId: number, cpId: number, token: string) {
+  public addSingleUserToCP(characterId: number, cpId: number, token: string) {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
@@ -55,6 +55,17 @@ export class MemberService {
     return this.http.put('http:///83.212.102.61:8080/user/addUserToCp', "", {
       headers: this.headers,
       params: { characterId: String(characterId), cpId: String(cpId) }
+    })
+  }
+
+  public deleteUser(user_id: number, token: string) {
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer  ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.delete('http:///83.212.102.61:8080/user/deleteUser', {
+      headers: this.headers,
+      params: { userId: String(user_id)}
     })
   }
 }
