@@ -1,6 +1,6 @@
 import { MemberService } from './../userService/member.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MAT_DIALOG_DATA, MatTooltip } from '@angular/material';
 import { Router } from '@angular/router';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 
@@ -23,9 +23,9 @@ export class DeleteUserComponent implements OnInit {
     this.memberService.deleteUser(user_id, sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.snackbar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: this.data.email +" has been successfully deleted", type: "alert" },
+          data: { message: this.data.email +" has been successfully deleted", type: "success" },
           duration: 5000,
-          panelClass: ['snackBarAlert'],
+          panelClass: ['snackBarSuccess'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
