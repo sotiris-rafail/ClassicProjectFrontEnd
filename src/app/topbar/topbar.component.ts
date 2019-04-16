@@ -10,6 +10,7 @@ import { RegisterRaidBossComponent } from '../raid-boss/register-raid-boss/regis
 import { AddClanComponent } from '../clan/add-clan/add-clan.component';
 import { MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'topbar',
@@ -30,7 +31,7 @@ export class TopbarComponent implements OnInit {
   @Input() previusUrl: String;
   @Input() isSuperUser: boolean;
   @Input() lengthOfChars: Number = 0;
-  constructor(public dialog: MatDialog, private cpService: ConstantPartyService, private snackBar : MatSnackBar) { }
+  constructor(public dialog: MatDialog, private cpService: ConstantPartyService, private snackBar : MatSnackBar, private router : Router) { }
 
   ngOnInit() {
     if (this.cpId == -1) {
@@ -99,7 +100,13 @@ export class TopbarComponent implements OnInit {
           });
         })
     });
-
     reader.readAsDataURL(file);
+  }
+
+  navigate(url: string, extra? : number){
+    if(extra > 0 ){
+      url = url + String(extra);
+    }
+    this.router.navigateByUrl(url);
   }
 }

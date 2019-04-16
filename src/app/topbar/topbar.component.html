@@ -32,7 +32,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item color="accent">
+            <button mat-menu-item color="accent" (click)="navigate('/cp/',cpId)">
               <div fxLayoutAlign="flex-start">
                 <span><b> CP: </b>
                   <a routerLink="/cp/{{cpId}}"> {{cp}}</a>
@@ -40,7 +40,7 @@
               </div>
             </button>
             <mat-divider style="background-color:#212121"></mat-divider>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="navigate('/auction', 0)">
               <div *ngIf="lengthOfChars != 0 && cpId != -1">
                 <a [matBadge]="itemsOnSale" matBadgeOverlap="false"
                   [matBadgeColor]="itemsOnSale == 0 ? 'warn' : 'accent'" matBadgePosition="after"
@@ -48,7 +48,7 @@
               </div>
             </button>
             <mat-divider style="background-color:#212121"></mat-divider>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="navigate('/raidboss', 0)">
               <div *ngIf="cpId != -1">
                 <a routerLink="/raidboss">Raid Tracker</a>
               </div>
