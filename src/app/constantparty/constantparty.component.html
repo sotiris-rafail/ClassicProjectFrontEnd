@@ -43,5 +43,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
-  <contastparty-epic-points [corePoints]="responseData.corePoints" [orfenPoints]="responseData.orfenPoints"  [aqPoints]="responseData.aqPoints" [cpId]="responseData.cpId"></contastparty-epic-points>
+  <div *ngIf="responseData">
+    <contastparty-epic-points [corePoints]="responseData.corePoints" [orfenPoints]="responseData.orfenPoints"  [aqPoints]="responseData.aqPoints" [cpId]="responseData.cpId"></contastparty-epic-points>
+  </div>
 </div>

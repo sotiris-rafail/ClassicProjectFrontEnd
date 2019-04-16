@@ -1,6 +1,6 @@
 <topbar [previusUrl]='previusUrl' [whichToPrint]='whichToPrint' [isSuperUser]='isSuperUser'></topbar>
 <div>
-    <div style='padding: 3em;'>
+    <div [ngStyle.md]="{'padding.em': 3}">
         <mat-accordion>
             <mat-expansion-panel expanded='true' (opened)='handleOpenOrCloseUnSold(true)' (closed)='handleOpenOrCloseUnSold(false)'>
                 <mat-expansion-panel-header>

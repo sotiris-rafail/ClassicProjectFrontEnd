@@ -1,13 +1,13 @@
 <div>
   <topbar [whichToPrint]="'Dashboard'" [previusUrl]="previusUrl"></topbar>
   <div class="grid-container">
-    <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-list [cols]="cols" rowHeight="400px">
       <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
         <mat-card class="dashboard-card">
           <mat-card-header>
             <mat-card-title style="height: 3.5em;" *ngIf="card.title ==='User\'s Info'">
               {{card.title}}
-              <mat-form-field appearance="" style="margin-left:2em;margin-right: 2em;">
+              <mat-form-field appearance="" [ngStyle.md]="{'margin-left.em':2,'margin-right.em':2}">
                 <mat-label>Filter By {{whatToFilter}}</mat-label>
                 <input matInput (keyup)="applyFilter($event.target.value)">
                 <mat-icon matSuffix>
@@ -17,7 +17,8 @@
                   </svg>
                 </mat-icon>
               </mat-form-field>
-              <mat-checkbox [(ngModel)]="checked" (change)="changeSearch()">Search By Character Name</mat-checkbox>
+              <mat-checkbox fxShow fxHide.xs="true" [(ngModel)]="checked" (change)="changeSearch()">Search By Character
+                Name</mat-checkbox>
             </mat-card-title>
             <mat-card-title *ngIf="card.title !=='User\'s Info'">
               {{card.title}}
@@ -25,7 +26,8 @@
           </mat-card-header>
           <mat-card-content *ngIf="card.number == 1" class="dashboard-card-content">
             <div fxFlex style="height:250px;">
-              <app-users-info-dashboard-display [filter]="filter" [searchByCharacter]="checked"></app-users-info-dashboard-display>
+              <app-users-info-dashboard-display [filter]="filter" [searchByCharacter]="checked">
+              </app-users-info-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 2" class="dashboard-card-content">

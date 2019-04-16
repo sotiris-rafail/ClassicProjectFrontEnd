@@ -18,6 +18,7 @@ export class AdminDashBoardComponent implements OnInit {
   filter = "";
   whatToFilter = "Email";
   checked = false;
+  cols : number = 0;
   ngOnInit(): void {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.adminService.getEpicPoints(sessionStorage.getItem("access_token")).subscribe(
@@ -35,6 +36,7 @@ export class AdminDashBoardComponent implements OnInit {
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
+        this.cols = 1;
         return [
           { title: 'User\'s Info', cols: 1, rows: 1, number: 1 },
           { title: 'Core Points', cols: 1, rows: 1, number: 2 },
@@ -43,7 +45,7 @@ export class AdminDashBoardComponent implements OnInit {
           { title: 'CP Numbers Info', cols: 1, rows: 1, number: 5 }
         ];
       }
-
+      this.cols = 2;
       return [
         { title: 'User\'s Info', cols: 2, rows: 1, number: 1 },
         { title: 'Core Points', cols: 1, rows: 1, number: 2 },
@@ -54,7 +56,9 @@ export class AdminDashBoardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) { }
+  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) { 
+    console.log(this.cards)
+  }
 
   applyFilter(value : string){
     this.filter = value;

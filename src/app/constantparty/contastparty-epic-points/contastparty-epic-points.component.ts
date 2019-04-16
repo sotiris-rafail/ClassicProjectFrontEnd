@@ -16,9 +16,9 @@ export class ContastpartyEpicPointsComponent implements OnInit {
   @Input() corePoints: number = 0;
   @Input() orfenPoints: number = 0;
   @Input() cpId: number = NaN;
-  aqPointsToAdd = NaN;
-  corePointsToAdd = NaN;
-  orfenPointsToAdd = NaN;
+  aqPointsToAdd = 0;
+  corePointsToAdd = 0;
+  orfenPointsToAdd = 0;
   constructor(private constantPartyService: ConstantPartyService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {

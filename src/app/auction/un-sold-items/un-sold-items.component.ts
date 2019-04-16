@@ -30,7 +30,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<UnSoldItemDisplay>;
   data: UnSoldItemDisplay[] = [];
-  columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'stateOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
+  columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
   displayingView = [];
 
   constructor(private dialog: MatDialog, private itemService: ItemService, private snackBar: MatSnackBar, private router: Router) {
@@ -64,7 +64,6 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
         response.forEach(unsoldItem => {
           unsoldItem.expirationDate = new Date(unsoldItem.expirationDate);
         });
-        console.log(response)
         this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
       },

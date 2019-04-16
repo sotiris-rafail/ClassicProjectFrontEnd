@@ -5,5 +5,15 @@
 
 
 .example-form-field {
-    width: 120px;
-  }
+  width: 120px;
+}
+
+.big {
+  display: inline-flex;
+  padding: 0.5em;
+}
+
+.small {
+  display: inline-grid;
+  padding: 0.5em;
+}

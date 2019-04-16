@@ -27,3 +27,8 @@ body {
 a {
     text-decoration: none;
 }
+
+.mat-menu-content:not(:empty) {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}
