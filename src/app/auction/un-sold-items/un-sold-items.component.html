@@ -21,8 +21,11 @@
       <span *ngIf="column === 'photoPath'">
         <img [src]="element[column]">
       </span>
+      <span *ngIf="column === 'grade'">
+        <span *ngIf="element[column] !== 'NONE'">{{element[column]}}</span>
+      </span>
       <span
-        *ngIf="column !== 'expirationDate' && column !== 'maxPrice' && column !== 'startingPrice' && column !== 'photoPath'">
+        *ngIf="column !== 'expirationDate' && column !== 'maxPrice' && column !== 'startingPrice' && column !== 'photoPath' && column !== 'grade'">
         {{element[column]}}
       </span>
     </td>
