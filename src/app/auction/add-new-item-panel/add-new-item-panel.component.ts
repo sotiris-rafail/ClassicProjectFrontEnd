@@ -1,7 +1,7 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { UnSoldItem } from './../auction.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ItemService } from '../item-service.service';
 import { MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
@@ -23,7 +23,7 @@ export class AddNewItemPanelComponent implements OnInit {
   startingPriceControl = new FormControl('', [Validators.required]);
   bidPriceControl = new FormControl('', [Validators.required, Validators.min(0.1)]);
   numberOfDayControl = new FormControl(1, [Validators.required, Validators.min(1)])
-  gradeControl = new FormControl('', [Validators.required]);
+  gradeControl = new FormControl({ value: '', disabled: (this.typeOfItem === 'book') }, [Validators.required]);
   typeOfItemControl = new FormControl('', [Validators.required]);
   addItemForm = new FormGroup({
     nameControl: this.nameControl,
@@ -38,6 +38,14 @@ export class AddNewItemPanelComponent implements OnInit {
   constructor(private itemsService: ItemService, private dialogRef: MatDialogRef<AddNewItemPanelComponent>, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
+    this.addItemForm.controls['typeOfItemControl'].valueChanges.subscribe(response => {
+      if (response === 'book') {
+        this.gradeControl.disable();
+        this.grade = 'NONE';
+      } else {
+        this.gradeControl.enable();
+      }
+    })
   }
 
   changeStartingValue() {
@@ -61,7 +69,7 @@ export class AddNewItemPanelComponent implements OnInit {
       'bidStep': Number(this.bidPriceControl.value),
       'photoPath': "",
       'lastBidder': "",
-      'grade': String(this.grade.toUpperCase()),
+      'grade': this.grade ? String(this.grade.toUpperCase()) : "NONE",
       'typeOfItem': String(this.typeOfItem.toUpperCase()),
       'itemId': NaN,
       'stateOfItem': "Un Sold",
