@@ -19,8 +19,7 @@
             <div style="padding: 0.1em 0.7em;">
                 <mat-form-field appearance="outline">
                     <mat-label>Starting Price</mat-label>
-                    <input matInput type="number" [formControl]="startingPriceControl" required
-                        (ngModelChange)="changeStartingValue()">
+                    <input matInput type="number" [formControl]="startingPriceControl" required>
                     <mat-icon matSuffix>
                         <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                             <path fill="#000000"
@@ -34,8 +33,7 @@
             <div style="padding: 0.1em 0.7em;">
                 <mat-form-field appearance="outline">
                     <mat-label>Max Price</mat-label>
-                    <input matInput type="number" [formControl]="maxPriceControl" required [(ngModel)]="maxPrice"
-                        (ngModelChange)="changeMaxPriceValue()">
+                    <input matInput type="number" [formControl]="maxPriceControl" required>
                     <mat-icon matSuffix>
                         <svg style=" width:24px;height:24px" viewBox="0 0 24 24">
                             <path fill="#000000"
@@ -92,4 +90,10 @@
         <button mat-raised-button color="accent" (click)="addItem()" [disabled]="!addItemForm.valid">Add Item</button>
         <button style="margin-left:0.5em;" mat-raised-button color="warn" (click)="handleCancel()">Cancel</button>
     </div>
+    <mat-error *ngIf="startingPriceControl.hasError('max')">
+        <div class="error" fxFlex fxLayoutAlign="center center">
+            <mat-icon>error</mat-icon>
+            <span><b>Starting price must be less or equal of Max Price</b></span>
+        </div>
+    </mat-error>
 </div>

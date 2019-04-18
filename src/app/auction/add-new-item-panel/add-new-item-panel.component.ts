@@ -1,3 +1,4 @@
+import { ValidationErrors } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UnSoldItem } from './../auction.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -19,8 +20,8 @@ export class AddNewItemPanelComponent implements OnInit {
   typeOfItem: string;
   nameControl = new FormControl('', [Validators.required]);
   amoundOfItemControl = new FormControl(1, [Validators.required, Validators.min(1)])
-  maxPriceControl = new FormControl('', [Validators.required]);
-  startingPriceControl = new FormControl('', [Validators.required]);
+  maxPriceControl = new FormControl([Validators.required]);
+  startingPriceControl = new FormControl([Validators.required]);
   bidPriceControl = new FormControl('', [Validators.required, Validators.min(0.1)]);
   numberOfDayControl = new FormControl(1, [Validators.required, Validators.min(1)])
   gradeControl = new FormControl({ value: '', disabled: (this.typeOfItem === 'book') }, [Validators.required]);
@@ -33,31 +34,41 @@ export class AddNewItemPanelComponent implements OnInit {
     bidPriceControl: this.bidPriceControl,
     gradeControl: this.gradeControl,
     typeOfItemControl: this.typeOfItemControl
-  });
-
+  }, { updateOn: 'change' });
+  errors = [];
   constructor(private itemsService: ItemService, private dialogRef: MatDialogRef<AddNewItemPanelComponent>, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
     this.addItemForm.controls['typeOfItemControl'].valueChanges.subscribe(response => {
-      if (response === 'book') {
-        this.gradeControl.disable();
-        this.grade = 'NONE';
-      } else {
-        this.gradeControl.enable();
-      }
+      this.onBookSelect(response);
+    });
+    this.startingPriceControl.valueChanges.subscribe(() => {
+      this.validateStartingAndMaxPrice();
     })
+    this.maxPriceControl.valueChanges.subscribe(() => {
+      this.validateStartingAndMaxPrice();
+    });
   }
 
-  changeStartingValue() {
-    if (this.maxPrice != 0) {
-      this.addItemForm.controls["startingPriceControl"].setValidators([Validators.required, Validators.max(this.maxPrice)]);
+  private onBookSelect(response: string) {
+    if (response === 'book') {
+      this.gradeControl.disable();
+      this.grade = 'NONE';
+    } else {
+      this.gradeControl.enable();
     }
-    this.addItemForm.controls["startingPriceControl"].updateValueAndValidity();
   }
 
-  changeMaxPriceValue() {
-    this.addItemForm.controls["startingPriceControl"].setValidators([Validators.required, Validators.max(this.maxPrice)]);
-    this.addItemForm.controls["startingPriceControl"].updateValueAndValidity();
+  private validateStartingAndMaxPrice() {
+    if (this.startingPriceControl.value == null) {
+      this.startingPriceControl.setErrors({ required: true });
+    } else if (this.maxPriceControl.value == null) {
+      this.maxPriceControl.setErrors({ required: true });
+    } else if (this.startingPriceControl.value > this.maxPriceControl.value) {
+      this.startingPriceControl.setErrors({ max: true });
+    } else if (this.startingPriceControl.value < this.maxPriceControl.value) {
+      this.startingPriceControl.updateValueAndValidity({ onlySelf: false, emitEvent: false });
+    }
   }
 
   addItem() {
