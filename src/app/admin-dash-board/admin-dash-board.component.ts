@@ -56,9 +56,7 @@ export class AdminDashBoardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) { 
-    console.log(this.cards)
-  }
+  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) {}
 
   applyFilter(value : string){
     this.filter = value;

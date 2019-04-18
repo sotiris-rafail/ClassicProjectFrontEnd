@@ -74,7 +74,6 @@ export class UpdateCharacterComponent implements OnInit {
       'classOfCharacter': this.selectedClass === undefined ? -1 : this.selectedClass,
       'typeOfCharacter': this.selectedType === undefined ? -1 : this.selectedType,
     }
-    console.log(updateChar)
     this.charService.updateCharacer(updateChar, sessionStorage.getItem("access_token")).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
