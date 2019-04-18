@@ -69,11 +69,12 @@ export class UpdateCharacterComponent implements OnInit {
     let updateChar: CharacterUpdate = {
       'charId': this.data.character.characterId,
       'inGameName': this.charNameControl.value,
-      'level': this.levelControl.value === undefined ? -1 : this.levelControl.value,
+      'level': this.levelControl.value === undefined ? -1 : this.levelControl.value.value,
       'clanId': this.selectedClan === undefined ? -1 : this.selectedClan,
       'classOfCharacter': this.selectedClass === undefined ? -1 : this.selectedClass,
       'typeOfCharacter': this.selectedType === undefined ? -1 : this.selectedType,
     }
+    console.log(updateChar)
     this.charService.updateCharacer(updateChar, sessionStorage.getItem("access_token")).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
