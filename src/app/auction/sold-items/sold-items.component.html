@@ -35,7 +35,7 @@
   <!-- Symbol Column -->
   <ng-container matColumnDef="grade">
     <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
-    <mat-cell *matCellDef="let element"><span *ngIf="grade !== 'NONE'">{{element.grade}}</span></mat-cell>
+    <mat-cell *matCellDef="let element"><span *ngIf="element.grade !== 'NONE'">{{element.grade}}</span></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="price">
