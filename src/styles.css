@@ -28,6 +28,10 @@ a {
     text-decoration: none;
 }
 
+button {
+    border-radius: 20em !important;
+}
+
 .mat-menu-content:not(:empty) {
     padding-bottom: 0 !important;
     padding-top: 0 !important;
