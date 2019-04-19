@@ -26,7 +26,7 @@ export class ConstantpartyComponent implements OnInit {
   dataSource2 = []
   cpLeader: string;
   token: OAuth2Token = new OAuth2Token();
-  displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName', 'typeOfCharacter', 'More'];
+  displayedColumns: string[] = ['name', 'level', 'classOfCharacter', 'clanName', 'More'];
   previusUrl: string;
   constructor(private dialog: MatDialog, private router: Router, private cpService: ConstantPartyService, private snackBar: MatSnackBar) {
   }

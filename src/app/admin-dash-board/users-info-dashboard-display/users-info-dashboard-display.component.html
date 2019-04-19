@@ -2,17 +2,33 @@
   <div>
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="" matSort>
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-        <th mat-header-cell *matHeaderCellDef> {{displayingView[column]}} </th>
+        <th mat-header-cell *matHeaderCellDef> 
+          <span fxShow fxHide.xs="true">{{displayingView[column]}}</span> 
+          <span fxHide fxShow.xs="true" *ngIf="column != 'userId' ">{{displayingView[column]}}</span> 
+        </th>
         <td mat-cell *matCellDef="let element">
           <span *ngIf="column === 'cpName'">
             {{element['responseConstantParty'].cpName}}
           </span>
           <span *ngIf="column === 'typeOfUser'">
-            {{displayingView[element[column]]}}
+            <span fxShow fxHide.xs="true">{{displayingView[element[column]]}}</span>
+            <span fxHide fxShow.xs="true">
+              <mat-icon>
+                <i matListAvatar *ngIf="element[column] == 'CPMEMBER'" class="material-icons">account_box</i>
+                <i matListAvatar *ngIf="element[column] == 'CPLEADER'" class="material-icons" class="fas fa-crown"></i>
+                <i matListAvatar *ngIf="element[column] == 'RAIDBOSSER'" class="material-icons">
+                  <img src="https://img.icons8.com/color/24/000000/approve-and-update.png">
+                </i>
+                <i matListAvatar *ngIf="element[column] == 'SUPERUSER'" class="material-icons">Hello</i>
+              </mat-icon>
+            </span>
           </span>
-          <span *ngIf="column !== 'typeOfUser'">
+          <span fxShow fxHide.xs="true" *ngIf="column !== 'typeOfUser'">
             {{element[column]}}
           </span>
+          <span fxHide fxShow.xs="true" *ngIf="column !== 'typeOfUser' && column !== 'userId'">
+              {{element[column]}}
+            </span>
           <span *ngIf="column === 'more'">
             <div *ngIf="element['chars'].length === 0">
               <button mat-raised-button color="warn" (click)="handleDelete(element['userId'], element['email'])">

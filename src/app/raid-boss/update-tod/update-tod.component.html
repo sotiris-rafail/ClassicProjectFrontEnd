@@ -8,7 +8,8 @@
     <form [formGroup]="formGroup">
         <div>
             <mat-form-field>
-                <input matInput [matDatepicker]="dp" placeholder="Pick TOD Date" [max]="maxDate" [min]="minDate" [formControl]="date" required #datePicker>
+                <input matInput [matDatepicker]="dp" placeholder="Pick TOD Date" [max]="maxDate" [min]="minDate"
+                    [formControl]="date" required #datePicker>
                 <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                 <mat-datepicker #dp color="warn"></mat-datepicker>
             </mat-form-field>
@@ -18,6 +19,12 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Hour</mat-label>
                     <input type="number" matInput placeholder="Hour" min="0" max="23" [formControl]="hour" required>
+                    <mat-error *ngIf="hour.hasError('max')">
+                        Max input value is 23
+                    </mat-error>
+                    <mat-error *ngIf="hour.hasError('min')">
+                        Min input value is 0
+                    </mat-error>
                 </mat-form-field>
             </p>
         </div>
@@ -26,6 +33,12 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Minute</mat-label>
                     <input type="number" matInput placeholder="Minute" min="01" max="59" [formControl]="mins" required>
+                    <mat-error *ngIf="mins.hasError('max')">
+                        Max input value is 59
+                    </mat-error>
+                    <mat-error *ngIf="mins.hasError('min')">
+                        Min input value is 0
+                    </mat-error>
                 </mat-form-field>
             </p>
         </div>
@@ -34,7 +47,7 @@
         <button mat-raised-button color="accent" (click)="updateTOD()" [disabled]="!formGroup.valid">Update TOD</button>
         <button mat-raised-button color="warn" (click)="handleCancel()" style="margin-left: 0.5em;">Cancel</button>
     </div>
-    <div>
+    <div style="margin-top: 0.5em;">
         <span><b>Page will auto refresh after 5 seconds</b></span>
     </div>
 </div>

@@ -72,3 +72,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   bottom: 0;
   right: 0;
 }
+
+.fa-crown {
+  color: goldenrod;
+}
