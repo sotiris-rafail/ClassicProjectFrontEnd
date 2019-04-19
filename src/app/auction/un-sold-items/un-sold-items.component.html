@@ -10,21 +10,29 @@
 </mat-form-field>
 <table mat-table [(dataSource)]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> {{displayingView[column]}} </th>
+    <th mat-header-cell *matHeaderCellDef>
+      <span fxShow fxHide.xs="true"> {{displayingView[column]}}</span>
+      <span fxHide fxShow.xs="true" *ngIf="column == 'photoPath' || column == 'name'">
+        {{displayingView[column]}}
+      </span>
+    </th>
     <td mat-cell *matCellDef="let element">
-      <span *ngIf="column === 'maxPrice' || column === 'startingPrice'">
+      <span fxHide fxShow.xs="true" *ngIf="column == 'name'">
+        {{element[column]}}
+      </span>
+      <span fxShow fxHide.xs="true" *ngIf="column === 'maxPrice' || column === 'startingPrice'">
         {{element[column] | number:'1.0-0'}}
       </span>
-      <span *ngIf="column === 'expirationDate'">
+      <span fxShow fxHide.xs="true" *ngIf="column === 'expirationDate'">
         {{element[column] | date :'d MMM y, HH:mm:ss a'}}
       </span>
       <span *ngIf="column === 'photoPath'">
         <img [src]="element[column]">
       </span>
-      <span *ngIf="column === 'grade'">
+      <span fxShow fxHide.xs="true" *ngIf="column === 'grade'">
         <span *ngIf="element[column] !== 'NONE'">{{element[column]}}</span>
       </span>
-      <span
+      <span fxShow fxHide.xs="true"
         *ngIf="column !== 'expirationDate' && column !== 'maxPrice' && column !== 'startingPrice' && column !== 'photoPath' && column !== 'grade'">
         {{element[column]}}
       </span>
@@ -36,6 +44,18 @@
     <td mat-cell *matCellDef="let element" [(attr.colspan)]="columnsToDisplay.length">
       <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-description">
+          <div fxHide fxShow.xs="true" style="display: inline-grid;margin-bottom: 0.3em;">
+            <span>
+              <b>Starting Price: </b>{{element.startingPrice | number:'1.0-0'}}
+            </span>
+            <span>
+              <b>Max Price: </b>{{element.maxPrice | number:'1.0-0'}}
+            </span>
+            <span>
+              <b>Expiration Date: </b>{{element.expirationDate | date :'d/MM, HH:mm:ss a'}}
+            </span>
+          </div>
+          <mat-divider></mat-divider>
           <span>{{element.bidStep | number:'1.0-0'}} <b>adena each bid step </b></span>
           <div [ngStyle.xs]="{'display': 'flex'}" [ngStyle]="{'display': 'inline-flex'}">
             <button style="margin-left: 0.5em;" mat-stroked-button (click)="simpleBid(element)">Bid</button>

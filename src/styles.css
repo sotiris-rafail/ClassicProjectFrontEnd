@@ -42,12 +42,6 @@ button.mat-menu-item {
   text-overflow: clip !important;
 }
 
-@media(max-width:600px){
-    .mat-header-cell {
-        place-content: stretch flex-start;
-      }
-}
-
 .mat-header-cell {
   place-content: stretch center;
 }
