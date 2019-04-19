@@ -1,0 +1,5 @@
+@media(max-width:600px){
+    .mat-header-cell {
+        place-content: stretch flex-start !important;
+      }
+}
