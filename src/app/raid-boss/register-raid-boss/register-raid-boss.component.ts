@@ -18,8 +18,8 @@ export class RegisterRaidBossComponent implements OnInit {
   minLevel = 1;
   raidName = new FormControl('', [Validators.required]);
   raidLevel = new FormControl('', [Validators.required, Validators.max(this.maxLevel), Validators.min(this.minLevel)]);
-  windowStart = new FormControl('', [Validators.required, Validators.min(this.minHour)]);
-  windowEnd = new FormControl('', [Validators.required, Validators.min(this.minHour)])
+  windowStart = new FormControl([Validators.required, Validators.min(this.minHour)]);
+  windowEnd = new FormControl([Validators.required, Validators.min(this.minHour)])
   addRaidBossGroup = new FormGroup({
     raidName: this.raidName,
     raidLevel: this.raidLevel,
@@ -28,6 +28,24 @@ export class RegisterRaidBossComponent implements OnInit {
   });
   constructor(private raidService: RaidBossService, private dialog: MatDialogRef<RegisterRaidBossComponent>, private snackBar: MatSnackBar, private router: Router) { }
   ngOnInit() {
+    this.windowStart.valueChanges.subscribe(() => {
+      this.validateWindows();
+    });
+    this.windowEnd.valueChanges.subscribe(() => {
+      this.validateWindows();
+    });
+  }
+
+  private validateWindows() {
+    if (this.windowStart.value == null) {
+      return;
+    } else if (this.windowEnd.value == null) {
+      return;
+    } else if (this.windowEnd.value < this.windowStart.value) {
+      this.windowStart.setErrors({ max : true});
+    } else if (this.windowEnd.value > this.windowStart.value) {
+      this.windowStart.updateValueAndValidity({onlySelf : false, emitEvent : false });
+    }
   }
 
   addRaidBoss() {
@@ -37,17 +55,17 @@ export class RegisterRaidBossComponent implements OnInit {
       'windowStarts': RegisterRaidBossComponent.calculateWindows(this.addRaidBossGroup.getRawValue().windowStart),
       'windowEnds': RegisterRaidBossComponent.calculateWindows(this.addRaidBossGroup.getRawValue().windowEnd),
     }
-    this.raidService.addNewRaid(sessionStorage.getItem("access_token"), raidBoss).subscribe(
+    this.raidService.addNewRaid(sessionStorage.getItem('access_token'), raidBoss).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
             duration: 5000,
             panelClass: 'snackBarSuccess',
-            data: { message: raidBoss.name + "added successfully.", type: 'success' },
+            data: { message: raidBoss.name + 'added successfully.', type: 'success' },
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.location.reload()
+        window.location.reload();
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -58,7 +76,7 @@ export class RegisterRaidBossComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        if (Number(error.status) == 401) {
+        if (Number(error.status) === 401) {
           this.router.navigateByUrl('/');
         }
       }
@@ -98,8 +116,8 @@ export class RegisterRaidBossComponent implements OnInit {
 }
 
 export interface RaidBoss {
-  level: number,
+  level: number;
   name: string;
-  windowStarts: string,
-  windowEnds: string
+  windowStarts: string;
+  windowEnds: string;
 }

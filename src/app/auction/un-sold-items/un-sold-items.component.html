@@ -55,7 +55,7 @@
               <b>Expiration Date: </b>{{element.expirationDate | date :'d/MM, HH:mm:ss a'}}
             </span>
           </div>
-          <mat-divider></mat-divider>
+          <mat-divider fxHide fxShow.xs="true"></mat-divider>
           <span>{{element.bidStep | number:'1.0-0'}} <b>adena each bid step </b></span>
           <div [ngStyle.xs]="{'display': 'flex'}" [ngStyle]="{'display': 'inline-flex'}">
             <button style="margin-left: 0.5em;" mat-stroked-button (click)="simpleBid(element)">Bid</button>

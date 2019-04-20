@@ -1,9 +1,9 @@
-<div>
+<div fxFlex>
     <form [formGroup]="addRaidBossGroup">
-        <h3>Add A New Raid Boss</h3>
+        <h3 fxLayoutAlign="center center">Add A New Raid Boss</h3>
         <div>
             <div>
-                <mat-form-field>
+                <mat-form-field style="width: 100%;">
                     <input matInput placeholder="Raid Boss Name" [formControl]="raidName" required>
                     <mat-error *ngIf="raidName.hasError('required')">
                         The field can not be empty
@@ -11,8 +11,9 @@
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field>
-                    <input matInput placeholder="Raid Boss Level" type="number" [formControl]="raidLevel" [max]="maxLevel" [min]="minLevel" required>
+                <mat-form-field style="width: 100%;">
+                    <input matInput placeholder="Raid Boss Level" type="number" [formControl]="raidLevel"
+                        [max]="maxLevel" [min]="minLevel" required>
                     <mat-error *ngIf="raidLevel.hasError('max')">
                         Max level is {{maxLevel}}
                     </mat-error>
@@ -25,19 +26,24 @@
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field>
-                    <input matInput placeholder="Widnow Start" type="number" [formControl]="windowStart" [min]="minHour" required>
+                <mat-form-field style="width: 100%;">
+                    <input matInput placeholder="Widnow Start" type="number" [formControl]="windowStart" [min]="minHour"
+                        required>
                     <mat-error *ngIf="windowStart.hasError('min')">
                         This field can not have negative value
                     </mat-error>
                     <mat-error *ngIf="windowStart.hasError('required')">
                         The field can not be empty
                     </mat-error>
+                    <mat-error *ngIf="windowStart.hasError('max')">
+                        <span>Window Start must be less or equal to the Window End</span>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field>
-                    <input matInput placeholder="Window End" type="number" [formControl]="windowEnd" [min]="minHour" required>
+                <mat-form-field style="width: 100%;">
+                    <input matInput placeholder="Window End" type="number" [formControl]="windowEnd" [min]="minHour"
+                        required>
                     <mat-error *ngIf="windowEnd.hasError('min')">
                         This field can not have negative value
                     </mat-error>
@@ -50,7 +56,8 @@
     </form>
     <div>
         <button mat-raised-button [disabled]="!addRaidBossGroup.valid" color="accent" (click)="addRaidBoss()">
-          <mat-icon>add</mat-icon>Add Raid</button>
+            <mat-icon>add</mat-icon>Add Raid
+        </button>
         <button mat-raised-button color="warn" (click)="handleCancel()" style="margin-left: 0.5em;">Cancel</button>
     </div>
 </div>

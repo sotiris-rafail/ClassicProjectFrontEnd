@@ -38,7 +38,7 @@ button.mat-menu-item {
 }
 
 .mat-list-base .mat-list-item .mat-line {
-  overflow: scroll !important;
+  overflow: auto !important;
   text-overflow: clip !important;
 }
 
