@@ -40,8 +40,10 @@ tr.example-element-row:not(.example-expanded-row):active {
   color: gold;
   background-color: black;
   font-size: 110%;
+  overflow: initial;
 }
 
-.name {
-  place-content: flex-start;
+.mat-header-cell, .mat-cell {
+  align-items: center;
+  place-content: stretch flex-start;
 }

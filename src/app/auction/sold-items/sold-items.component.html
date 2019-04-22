@@ -11,13 +11,13 @@
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Position Column -->
   <ng-container matColumnDef="itemId">
-    <mat-header-cell *matHeaderCellDef> ID. </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.itemId}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs="true"> ID. </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.xs="true"> {{element.itemId}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="photoPath">
-    <mat-header-cell *matHeaderCellDef> Photo. </mat-header-cell>
-    <mat-cell *matCellDef="let element"> <img [src]="element.photoPath" /> </mat-cell>
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs="true"> Photo. </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.xs="true"> <img [src]="element.photoPath" /> </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
@@ -28,29 +28,30 @@
 
   <!-- Weight Column -->
   <ng-container matColumnDef="typeOfItem">
-    <mat-header-cell *matHeaderCellDef> Type Of Item </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.typeOfItem}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs="true"> Type Of Item </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.xs="true"> {{element.typeOfItem}} </mat-cell>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="grade">
-    <mat-header-cell *matHeaderCellDef> Grade </mat-header-cell>
-    <mat-cell *matCellDef="let element"><span *ngIf="element.grade !== 'NONE'">{{element.grade}}</span></mat-cell>
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs="true"> Grade </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.xs="true"><span
+        *ngIf="element.grade !== 'NONE'">{{element.grade}}</span></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="price">
-    <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.price | number:'1.0-0'}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs="true"> Price </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.xs="true" sa> {{element.price | number:'1.0-0'}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="stateOfItem">
-    <mat-header-cell *matHeaderCellDef> State Of Item </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.stateOfItem}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs="true"> State Of Item </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxShow fxHide.xs="true"> {{element.stateOfItem}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="whoBoughtIt">
     <mat-header-cell *matHeaderCellDef> Buyer </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.whoBoughtIt}} </mat-cell>
+    <mat-cell *matCellDef="let element"> <b>{{element.whoBoughtIt}}</b> </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="boughtPrice">
@@ -75,8 +76,8 @@
   </ng-container>
 
   <ng-container matColumnDef="more">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let element">
+    <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px': 0}"></mat-header-cell>
+    <mat-cell *matCellDef="let element" [ngStyle.xs]="{'padding-right.px': 0}">
       <div>
         <button [disabled]="!isSuperUser || (element.delivered || (element.whoBoughtIt == null))" mat-stroked-button
           (click)="deliveryIt(element)">
@@ -85,7 +86,7 @@
               d="M3,4A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8H17V4M10,6L14,10L10,14V11H4V9H10M17,9.5H19.5L21.47,12H17M6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5M18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5Z" />
             <path *ngIf="!element.delivered" fill="black"
               d="M3,4A2,2 0 0,0 1,6V17H3A3,3 0 0,0 6,20A3,3 0 0,0 9,17H15A3,3 0 0,0 18,20A3,3 0 0,0 21,17H23V12L20,8H17V4M10,6L14,10L10,14V11H4V9H10M17,9.5H19.5L21.47,12H17M6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5M18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5Z" />
-          </svg>Delivery</button>
+          </svg><span fxShow fxHide.xs="true">Delivery</span></button>
       </div>
     </mat-cell>
   </ng-container>
