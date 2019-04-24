@@ -9,7 +9,7 @@
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header color="primary"> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element">
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto', 'padding-left.em': 0.9}">
           {{element.name}}
         </mat-cell>
       </ng-container>

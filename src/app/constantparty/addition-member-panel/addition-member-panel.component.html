@@ -3,10 +3,10 @@
     <mat-selection-list #shoes>
       <mat-list-option *ngFor="let shoe of responseData" [value]=shoe.userId>
         <span *ngIf="shoe.chars.length >= 1">
-          Name : {{shoe.chars[0].name}}
-          Level : {{shoe.chars[0].level}}
-          Class : {{shoe.chars[0].classOfCharacter}}
-          Clan : {{shoe.chars[0].clanName}}
+          <b>Name</b> : {{shoe.chars[0].name}}
+          <b>Level</b> : {{shoe.chars[0].level}}
+          <b>Class</b> : {{shoe.chars[0].classOfCharacter}}
+          <span fxShow fxHide.xs="true"><b>Clan</b> : {{shoe.chars[0].clanName}}</span>
         </span>
       </mat-list-option>
     </mat-selection-list>

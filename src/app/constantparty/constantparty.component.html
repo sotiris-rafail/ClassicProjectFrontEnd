@@ -5,31 +5,31 @@
     <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element2"> {{element2.name}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9, 'place-content':'stretch center'}"> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto'}"> {{element2.name}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="level">
-        <mat-header-cell *matHeaderCellDef> Level </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch center'}"> Level </mat-header-cell>
         <mat-cell *matCellDef="let element2"> {{element2.level}} </mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="classOfCharacter">
-        <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-        <mat-cell *matCellDef="let element2"> {{element2.classOfCharacter}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Class </mat-header-cell>
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto', 'place-content':'stretch flex-start'}"> {{element2.classOfCharacter}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="clanName">
-        <mat-header-cell *matHeaderCellDef> Clan </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Clan </mat-header-cell>
         <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="More">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element2">
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px': 0}"></mat-header-cell>
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'padding-right.px': 0}">
           <leader [isUserAleader]="isUserAleader" [member]="element2"></leader>
         </mat-cell>
       </ng-container>

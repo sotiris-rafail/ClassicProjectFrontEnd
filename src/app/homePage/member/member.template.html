@@ -6,8 +6,8 @@
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9}"> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto', 'padding-left.em': 0.9}"> {{element.name}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
@@ -19,7 +19,7 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="classOfCharacter">
         <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.classOfCharacter}} </mat-cell>
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto'}"> {{element.classOfCharacter}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
@@ -34,8 +34,8 @@
       </ng-container>
 
       <ng-container matColumnDef="More">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element">
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px':0}"></mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'padding-right.px':0}">
           <div fxShow fxHide.xs="true" style="display:flex;">
             <div>
               <button mat-raised-button color="accent" (click)="handleUpdate(element)">
