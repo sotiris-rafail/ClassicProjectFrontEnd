@@ -23,7 +23,7 @@ export class UpdateCharacterComponent implements OnInit {
   types: TypeOfCharacter[] = []
 
   charNameControl = new FormControl();
-  levelControl = new FormControl({ value: this.data.character.level, onlySelf: true }, [Validators.max(85), Validators.min(1)]);
+  levelControl = new FormControl([Validators.max(85), Validators.min(1)]);
   clanControl = new FormControl();
   classControl = new FormControl();
   typeControl = new FormControl();
@@ -40,8 +40,8 @@ export class UpdateCharacterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.charService.getInfoToRegisterCharacter(Number(sessionStorage.getItem("userId")), sessionStorage.getItem("access_token")).subscribe(infoResponse => {
-      this.response = infoResponse
+    this.charService.getInfoToRegisterCharacter(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(infoResponse => {
+      this.response = infoResponse;
       this.response.Clan.forEach(clan => {
         this.clans.push({ value: clan.clanId, viewValue: clan.name });
       });
@@ -52,7 +52,7 @@ export class UpdateCharacterComponent implements OnInit {
       });
       count = 0;
       this.response.HasMain.forEach(hasMain => {
-        if (this.response.HasMain.length == 1) {
+        if (this.response.HasMain.length === 1) {
           count = 1;
         }
         this.types.push({ value: count, viewValue: hasMain });
@@ -69,18 +69,18 @@ export class UpdateCharacterComponent implements OnInit {
     let updateChar: CharacterUpdate = {
       'charId': this.data.character.characterId,
       'inGameName': this.charNameControl.value,
-      'level': this.levelControl.value === undefined ? -1 : this.levelControl.value.value,
+      'level': this.levelControl.value === undefined ? -1 : this.levelControl.value,
       'clanId': this.selectedClan === undefined ? -1 : this.selectedClan,
       'classOfCharacter': this.selectedClass === undefined ? -1 : this.selectedClass,
       'typeOfCharacter': this.selectedType === undefined ? -1 : this.selectedType,
-    }
-    this.charService.updateCharacer(updateChar, sessionStorage.getItem("access_token")).subscribe(
+    };
+    this.charService.updateCharacer(updateChar, sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
             duration: 5000,
             panelClass: 'snackBarSuccess',
-            data: { message: this.data.character.name + " has been updated sucessfully", type: 'success' },
+            data: { message: this.data.character.name + ' has been updated sucessfully', type: 'success' },
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
@@ -95,7 +95,7 @@ export class UpdateCharacterComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        if (Number(error.status) == 401) {
+        if (Number(error.status) === 401) {
           this.router.navigateByUrl('/');
         }
       })
