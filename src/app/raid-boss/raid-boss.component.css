@@ -8,21 +8,21 @@
 .ALIVE {
     background-color: green;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 120%;
+    font-size: 110%;
     color: white;
 }
 
 .ONWINDOW {
     background-color: orange;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 120%;
+    font-size: 110%;
     color: black;
 }
 
 .AAUNKNOWN {
     background-color: grey;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 120%;
+    font-size: 110%;
     color: black;
 }
 
