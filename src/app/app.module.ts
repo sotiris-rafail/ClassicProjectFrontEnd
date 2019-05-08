@@ -67,6 +67,7 @@ import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-p
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DeleteUserComponent } from './homePage/member/delete-user/delete-user.component';
+import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-show.component'; 
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { DeleteUserComponent } from './homePage/member/delete-user/delete-user.c
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent,
     AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
-    ConstantPartyNumbersInfoComponent, DeleteUserComponent],
+    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
