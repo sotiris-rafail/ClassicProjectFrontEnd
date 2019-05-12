@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { UpdatableUser } from '../addition-member-panel/addition-member-panel.component';
 import { CP } from '../add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
+import { RootFolderResponse } from '../cp-photos-show/cp-photos-show.component';
 
 
 @Injectable()
@@ -16,6 +17,14 @@ export class ConstantPartyService {
       'Content-Type': 'application/json',
     });
     return this.http.get('http://83.212.102.61:8080/cp/' + cpId + "/" + userId, { headers: this.headers });
+  }
+
+  public getCpPhotos(cpId: number, access_token: string, userId: number): Observable<RootFolderResponse> {
+    this.headers = new HttpHeaders({
+      //'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<RootFolderResponse>('http://localhost:8080/cp/' + cpId + '/' + userId + '/photos', { headers: this.headers });
   }
 
   public getUsersWithoutCp(access_token: string) {

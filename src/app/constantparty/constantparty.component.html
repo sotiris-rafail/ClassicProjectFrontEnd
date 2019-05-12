@@ -1,11 +1,12 @@
 <div fxFlex fxLayout="column">
-  <topbar [whichToPrint]="whichToPrint" [cp]="cp" [cpLeader]="cpLeader" [isUserAleader]="isUserAleader" [previusUrl]="previusUrl"
-    [cpId]="cpId"></topbar>
+  <topbar [whichToPrint]="whichToPrint" [cp]="cp" [cpLeader]="cpLeader" [isUserAleader]="isUserAleader"
+    [previusUrl]="previusUrl" [cpId]="cpId"></topbar>
   <div fxFlex fxLayout="column">
     <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9, 'place-content':'stretch center'}"> Name </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9, 'place-content':'stretch center'}">
+          Name </mat-header-cell>
         <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto'}"> {{element2.name}} </mat-cell>
       </ng-container>
 
@@ -17,13 +18,16 @@
 
       <!-- Weight Column -->
       <ng-container matColumnDef="classOfCharacter">
-        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Class </mat-header-cell>
-        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto', 'place-content':'stretch flex-start'}"> {{element2.classOfCharacter}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Class
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto', 'place-content':'stretch flex-start'}">
+          {{element2.classOfCharacter}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="clanName">
-        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Clan </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Clan
+        </mat-header-cell>
         <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
       </ng-container>
 

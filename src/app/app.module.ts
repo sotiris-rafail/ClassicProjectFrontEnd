@@ -67,7 +67,8 @@ import { ConstantPartyNumbersInfoComponent } from './admin-dash-board/constant-p
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DeleteUserComponent } from './homePage/member/delete-user/delete-user.component';
-import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-show.component'; 
+import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-show.component';
+import { FullImageShowComponent } from './constantparty/cp-photos-show/full-image-show/full-image-show.component'; 
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent,
     AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
-    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent],
+    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -144,7 +145,7 @@ import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,
     RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent,
-    UpdateCharacterComponent, DeleteUserComponent],
+    UpdateCharacterComponent, DeleteUserComponent, FullImageShowComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
