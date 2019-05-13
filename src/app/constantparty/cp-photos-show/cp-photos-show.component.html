@@ -1,6 +1,6 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for leaf nodes -->
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
     <!-- use a disabled button to provide padding for tree leaf -->
     <button mat-icon-button disabled></button>
     <!-- <img *ngIf="node.type === 'IMAGE'" [src]="'https://drive.google.com/uc?export=view&id='+ node.folderId"> -->
@@ -23,6 +23,15 @@
       </mat-card-content>
     </mat-card>
   </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <input matInput #itemValue placeholder="New item...">
+    </mat-form-field>
+    <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+  </mat-tree-node>
+
   <!-- This is the tree node template for expandable nodes -->
   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
@@ -38,5 +47,8 @@
       </svg>
     </mat-icon>
     <span>{{node.name}}</span>
+    <button mat-icon-button (click)="addNewItem(node, node.level)">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-tree-node>
 </mat-tree>
