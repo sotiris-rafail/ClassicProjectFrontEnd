@@ -3,7 +3,6 @@
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
     <!-- use a disabled button to provide padding for tree leaf -->
     <button mat-icon-button disabled></button>
-    <!-- <img *ngIf="node.type === 'IMAGE'" [src]="'https://drive.google.com/uc?export=view&id='+ node.folderId"> -->
     <mat-icon *ngIf="node.type === 'FOLDER'" style="color:#f1d592">folder</mat-icon>
     <mat-icon *ngIf="node.type === 'ROOT'">
       <svg style="width:24px;height:24px" viewBox="0 0 24 24">

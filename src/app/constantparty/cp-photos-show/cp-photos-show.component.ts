@@ -16,12 +16,12 @@ import { BehaviorSubject } from 'rxjs';
 export class CpPhotosShowComponent implements OnInit {
   response: Map<String, RootFolderResponse> = new Map<String, RootFolderResponse>();
 
-    /** Map from flat node to nested node. This helps us finding the nested node to be modified */
-    flatNodeMap = new Map<string, CpFile>();
+  /** Map from flat node to nested node. This helps us finding the nested node to be modified */
+  flatNodeMap = new Map<string, CpFile>();
 
-    /** Map from nested node to flattened node. This helps us to keep the same object for selection */
-    nestedNodeMap = new Map<string, ExampleFlatNode>();
-  
+  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
+  nestedNodeMap = new Map<string, ExampleFlatNode>();
+
   dataChange = new BehaviorSubject<CpFile[]>([]);
   get data(): CpFile[] { return this.dataChange.value; }
 
@@ -29,10 +29,13 @@ export class CpPhotosShowComponent implements OnInit {
   private transformer = (node: CpFile, level: number) => {
     const existingNode = this.nestedNodeMap.get(node.folderId);
     const flatNode = existingNode && existingNode.folderId === node.folderId ? existingNode : new ExampleFlatNode();
+    flatNode.children = node.children;
+    flatNode.folderId = node.folderId;
+    flatNode.parent = node.parent;
     this.flatNodeMap.set(node.folderId, node);
     this.nestedNodeMap.set(node.folderId, flatNode);
     return {
-      expandable: !!node.children && node.children.length > 0,
+      expandable:!!node.children && node.type !== 'IMAGE',
       name: node.name,
       level: level,
       type: node.type,
@@ -47,10 +50,10 @@ export class CpPhotosShowComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   treeControl: FlatTreeControl<ExampleFlatNode>;
   // tslint:disable-next-line: member-ordering
-  treeFlattener: MatTreeFlattener<CpFile, { expandable: boolean; name: String; level: number; }>;
+  treeFlattener: MatTreeFlattener<CpFile, ExampleFlatNode>;
 
   // tslint:disable-next-line: member-ordering
-  dataSource: MatTreeFlatDataSource<{}, {}>;
+  dataSource: MatTreeFlatDataSource<CpFile, ExampleFlatNode>;
 
   ngOnInit(): void {
 
@@ -63,7 +66,7 @@ export class CpPhotosShowComponent implements OnInit {
         creationTime: response.creationTime,
         webViewLink: response.webViewLink,
         webContentLink: response.webContentLink,
-        children: this.getChildren(response.folderResponseMap)
+        children: this.getChildrenResponse(response.folderResponseMap)
       };
       this.cpFile.push(item);
       item.children.sort((a, b) => {
@@ -72,7 +75,6 @@ export class CpPhotosShowComponent implements OnInit {
       item.children.forEach(child => child.children.sort((a, b) => {
         if (a.creationTime > b.creationTime) { return 1; } else if (a.creationTime < b.creationTime) { return -1; } else { return 0; }
       }));
-      this.dataSource.data = this.cpFile;
       this.dataChange.next(this.cpFile);
     });
   }
@@ -82,34 +84,39 @@ export class CpPhotosShowComponent implements OnInit {
     this.treeControl = new FlatTreeControl<ExampleFlatNode>(
       node => node.level, node => node.expandable);
     // tslint:disable-next-line: member-ordering
-    this.treeFlattener = new MatTreeFlattener(
-      this.transformer, node => node.level, node => node.expandable, node => node.children);
+    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+      this.isExpandable, node => node.children);
 
     // tslint:disable-next-line: member-ordering
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
     this.dataChange.subscribe(data => {
       this.dataSource.data = data;
     })
   }
 
-  getChildren(map: Map<String, any>): Array<CpFile> {
+  getChildrenResponse(map: Array<any>): Array<CpFile> {
     const array: Array<CpFile> = new Array();
     // tslint:disable-next-line: forin
-    for (const key in map) {
+    map.forEach(child =>  {
       const item: CpFile = {
-        folderId: map[key].type === 'FOLDER' ? map[key].folderId : map[key].fileId,
-        name: map[key].name,
-        parent: map[key].parent,
-        type: map[key].type,
-        creationTime: map[key].creationTime,
-        webViewLink: map[key].webViewLink,
-        webContentLink: map[key].webContentLink,
-        children: (map[key].folderResponseMap && Object.keys(map[key].folderResponseMap).length > 0) ? this.getChildren(map[key].folderResponseMap) : this.getChildren(map[key].fileResponseMap)
+        folderId: child.type === 'FOLDER' ? child.folderId : child.fileId,
+        name: child.name,
+        parent: child.parent,
+        type: child.type,
+        creationTime: child.creationTime,
+        webViewLink: child.webViewLink,
+        webContentLink:child.webContentLink,
+        children: (child.folderResponseMap && child.folderResponseMap.length > 0)  ? this.getChildrenResponse(child.folderResponseMap) : (child.fileResponseMap && child.fileResponseMap.length > 0) ? this.getChildrenResponse(child.fileResponseMap) : []
       };
       array.push(item);
-    }
+    })
     return array;
   }
+
+  getChildren = (node: CpFile): CpFile[] => node.children;
+
+  isExpandable = (node: ExampleFlatNode) => node.expandable;
 
   getLevel = (node: ExampleFlatNode) => node.level;
 
@@ -122,11 +129,11 @@ export class CpPhotosShowComponent implements OnInit {
   }
 
   addNewItem(node: ExampleFlatNode, level: number) {
-    console.log(node)
     const parentNode = this.flatNodeMap.get(node.folderId);
-    console.log(this.flatNodeMap)
-    parentNode.children.push({ name: '', parent: [node.folderId], folderId : node.folderId+1 } as CpFile);
-    this.dataChange.next(this.data);
+    if (parentNode.children) {
+      parentNode.children.push({ name: '', parent: [node.folderId], folderId: node.folderId + 1 } as CpFile);
+      this.dataChange.next(this.data);
+    }
     this.treeControl.expand(node);
   }
 
@@ -150,8 +157,11 @@ export class CpPhotosShowComponent implements OnInit {
   }
 
   saveNode(node: ExampleFlatNode, itemValue: string) {
-    const nestedNode = this.nestedNodeMap.get(node.folderId);
-    nestedNode.name = name;
+    const nestedNode = this.flatNodeMap.get(node.folderId);
+    console.log(nestedNode);
+    nestedNode.name = itemValue;
+    nestedNode.type = 'FOLDER';
+    nestedNode.children = [];
     this.dataChange.next(this.data);
     this.treeControl.expand(node);
   }
@@ -166,7 +176,7 @@ export interface RootFolderResponse {
   creationTime: Date;
   webViewLink: string;
   webContentLink: string;
-  folderResponseMap: Map<string, SubFolderResponse>;
+  folderResponseMap: Array<SubFolderResponse>;
 }
 
 export interface SubFolderResponse {
@@ -177,8 +187,8 @@ export interface SubFolderResponse {
   creationTime: Date;
   webViewLink: string;
   webContentLink: string;
-  folderResponseMap: Map<string, SubFolderResponse>;
-  fileResponseMap: Map<string, FileResponse>;
+  folderResponseMap: Array<SubFolderResponse>;
+  fileResponseMap: Array<FileResponse>;
 }
 
 export interface FileResponse {
