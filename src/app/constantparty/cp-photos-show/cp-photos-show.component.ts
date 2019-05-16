@@ -2,7 +2,7 @@ import { FullImageShowComponent } from './full-image-show/full-image-show.compon
 import { MatDialog } from '@angular/material/dialog';
 import { ConstantPartyService } from './../constantPartyService/constantParty.service';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { forEach } from '@angular/router/src/utils/collection';
 import { BehaviorSubject } from 'rxjs';
@@ -14,6 +14,9 @@ import { BehaviorSubject } from 'rxjs';
   providers: [ConstantPartyService]
 })
 export class CpPhotosShowComponent implements OnInit {
+
+  @Input() cpId : number;
+
   response: Map<String, RootFolderResponse> = new Map<String, RootFolderResponse>();
 
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
@@ -57,7 +60,7 @@ export class CpPhotosShowComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.constantPartyService.getCpPhotos(1, '', 1).subscribe(response => {
+    this.constantPartyService.getCpPhotos(this.cpId, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId'))).subscribe(response => {
       const item: CpFile = {
         folderId: response.folderId,
         name: response.name,
