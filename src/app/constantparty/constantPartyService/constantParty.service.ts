@@ -21,10 +21,10 @@ export class ConstantPartyService {
 
   public getCpPhotos(cpId: number, access_token: string, userId: number): Observable<RootFolderResponse> {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<RootFolderResponse>('http://localhost:8080/cp/' + cpId + '/' + userId + '/photos', { headers: this.headers });
+    return this.http.get<RootFolderResponse>('http://83.212.102.61:8080/cp/' + cpId + '/' + userId + '/photos', { headers: this.headers });
   }
 
   public getUsersWithoutCp(access_token: string) {
