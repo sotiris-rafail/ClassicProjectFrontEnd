@@ -1,3 +1,7 @@
+<div class="example-section" *ngIf="dataSource.data.length == 0">
+  <mat-progress-bar class="example-margin" color="primary" mode="indeterminate">
+  </mat-progress-bar>
+</div>
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
