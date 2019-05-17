@@ -1,12 +1,12 @@
-<div class="example-section" *ngIf="dataSource.data.length == 0">
+<!-- <div class="example-section" *ngIf="dataSource.data.length == 0">
   <mat-progress-bar class="example-margin" color="primary" mode="indeterminate">
   </mat-progress-bar>
 </div>
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl"> -->
   <!-- This is the tree node template for leaf nodes -->
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+  <!-- <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding> -->
     <!-- use a disabled button to provide padding for tree leaf -->
-    <button mat-icon-button disabled></button>
+    <!-- <button mat-icon-button disabled></button>
     <mat-icon *ngIf="node.type === 'FOLDER'" style="color:#f1d592">folder</mat-icon>
     <mat-icon *ngIf="node.type === 'ROOT'">
       <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -33,10 +33,10 @@
       <input matInput #itemValue placeholder="New item...">
     </mat-form-field>
     <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
-  </mat-tree-node>
+  </mat-tree-node> -->
 
   <!-- This is the tree node template for expandable nodes -->
-  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+  <!-- <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
       <mat-icon class="mat-icon-rtl-mirror">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
@@ -53,5 +53,31 @@
     <button mat-icon-button (click)="addNewItem(node, node.level)">
       <mat-icon>add</mat-icon>
     </button>
+  </mat-tree-node>
+</mat-tree> -->
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+{{node.item}}
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+    <button mat-icon-button disabled></button>
+    <mat-form-field>
+      <input matInput #itemValue placeholder="New item...">
+    </mat-form-field>
+    <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+    <button mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'toggle ' + node.filename">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+{{node.item}}
+    <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
   </mat-tree-node>
 </mat-tree>

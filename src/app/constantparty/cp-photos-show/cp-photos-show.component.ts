@@ -1,236 +1,198 @@
-import { FullImageShowComponent } from './full-image-show/full-image-show.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ConstantPartyService } from './../constantPartyService/constantParty.service';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, OnInit, TemplateRef, Input } from '@angular/core';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
-import { forEach } from '@angular/router/src/utils/collection';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {SelectionModel} from '@angular/cdk/collections';
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {Component, Injectable, Input} from '@angular/core';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import {BehaviorSubject, Observable} from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
 
+/**
+ * Node for to-do item
+ */
+export class TodoItemNode {
+  folderResponseMap: TodoItemNode[];
+  name: string;
+}
+
+/** Flat to-do item node with expandable and level information */
+export class TodoItemFlatNode {
+  item: string;
+  level: number;
+  expandable: boolean;
+}
+
+/**
+ * The Json object for to-do list data.
+ */
+
+/**
+ * Checklist database, it can build a tree structured Json object.
+ * Each node in Json object represents a to-do item or a category.
+ * If a node is a category, it has children items and new items can be added under the category.
+ */
+@Injectable()
+export class ChecklistDatabase {
+  dataChange = new BehaviorSubject<TodoItemNode[]>([]);
+
+  get data(): TodoItemNode[] { return this.dataChange.value; }
+
+  constructor(private http? : HttpClient) {
+    this.initialize();
+  }
+
+  initialize() {
+    // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
+    //     file node as children.
+    let data = this.getCpPhotos(1, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId')))
+    .pipe(
+        map(response => {return response}),
+    );
+    data.subscribe(response => {
+        this.dataChange.next(this.buildFileTree(response, 0));
+    })
+    // Notify the change.
+    
+  }
+
+  public getCpPhotos(cpId: number, access_token: string, userId: number): Observable<TodoItemNode> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<TodoItemNode>('http://83.212.102.61:8080/cp/' + cpId + '/' + userId + '/photos', { headers: headers });
+  }
+
+  /**
+   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
+   * The return value is the list of `TodoItemNode`.
+   */
+  buildFileTree(obj, level: number): TodoItemNode[] {
+    return Object.keys(obj.folderResponseMap).reduce<TodoItemNode[]>((accumulator, key) => {
+      const value = obj;
+      const node = new TodoItemNode();
+      node.name = value.name;
+     
+      if (value.type === 'FOLDER' || value.type === 'ROOT') {
+        if (value.folderResponseMap.length > 0) {
+            value.folderResponseMap.forEach(element => {
+                console.log(element)
+                node.folderResponseMap = this.buildFileTree(element, level + 1);
+            });
+        } else if (value.fileResponseMap.length > 0) {
+            value.folderResponseMap.forEach(element => {
+                console.log(element)
+                node.folderResponseMap = this.buildFileTree(element, level + 1);
+            });
+        }
+    } else {
+        console.log(value)
+            node.name = value.name;
+    }
+      
+      return accumulator.concat(value);
+    }, []);
+  }
+
+  /** Add an item to to-do list */
+  insertItem(parent: TodoItemNode, name: string) {
+    if (parent.folderResponseMap) {
+      parent.folderResponseMap.push({name: name} as TodoItemNode);
+      this.dataChange.next(this.data);
+    }
+  }
+
+  updateItem(node: TodoItemNode, name: string) {
+    node.name = name;
+    this.dataChange.next(this.data);
+  }
+}
+
+/**
+ * @title Tree with checkboxes
+ */
 @Component({
   selector: 'app-cp-photos-show',
-  templateUrl: './cp-photos-show.component.html',
-  styleUrls: ['./cp-photos-show.component.css'],
-  providers: [ConstantPartyService]
+  templateUrl: 'cp-photos-show.component.html',
+  styleUrls: ['cp-photos-show.component.css'],
+  providers: [ChecklistDatabase]
 })
-export class CpPhotosShowComponent implements OnInit {
-
-  @Input() cpId : number;
-
-  response: Map<String, RootFolderResponse> = new Map<String, RootFolderResponse>();
-
+export class CpPhotosShowComponent {
+    @Input() cpId: number;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
-  flatNodeMap = new Map<string, CpFile>();
+  flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
 
   /** Map from nested node to flattened node. This helps us to keep the same object for selection */
-  nestedNodeMap = new Map<string, ExampleFlatNode>();
+  nestedNodeMap = new Map<TodoItemNode, TodoItemFlatNode>();
 
-  dataChange = new BehaviorSubject<CpFile[]>([]);
-  get data(): CpFile[] { return this.dataChange.value; }
+  /** A selected parent node to be inserted */
+  selectedParent: TodoItemFlatNode | null = null;
 
-  cpFile: CpFile[] = [];
-  private transformer = (node: CpFile, level: number) => {
-    const existingNode = this.nestedNodeMap.get(node.folderId);
-    const flatNode = existingNode && existingNode.folderId === node.folderId ? existingNode : new ExampleFlatNode();
-    flatNode.children = node.children;
-    flatNode.folderId = node.folderId;
-    flatNode.parent = node.parent;
-    this.flatNodeMap.set(node.folderId, node);
-    this.nestedNodeMap.set(node.folderId, flatNode);
-    return {
-      expandable:!!node.children && node.type !== 'IMAGE',
-      name: node.name,
-      level: level,
-      type: node.type,
-      folderId: node.folderId,
-      creationTime: node.creationTime,
-      webViewLink: node.webViewLink,
-      webContentLink: node.webContentLink,
-      parent: node.parent,
-      children: node.children,
-    };
-  }
-  // tslint:disable-next-line: member-ordering
-  treeControl: FlatTreeControl<ExampleFlatNode>;
-  // tslint:disable-next-line: member-ordering
-  treeFlattener: MatTreeFlattener<CpFile, ExampleFlatNode>;
+  /** The new item's name */
+  newItemName = '';
 
-  // tslint:disable-next-line: member-ordering
-  dataSource: MatTreeFlatDataSource<CpFile, ExampleFlatNode>;
+  treeControl: FlatTreeControl<TodoItemFlatNode>;
 
-  ngOnInit(): void {
+  treeFlattener: MatTreeFlattener<TodoItemNode, TodoItemFlatNode>;
 
-    this.constantPartyService.getCpPhotos(this.cpId, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId'))).subscribe(response => {
-      const item: CpFile = {
-        folderId: response.folderId,
-        name: response.name,
-        parent: response.parent,
-        type: response.type,
-        creationTime: response.creationTime,
-        webViewLink: response.webViewLink,
-        webContentLink: response.webContentLink,
-        children: this.getChildrenResponse(response.folderResponseMap)
-      };
-      this.cpFile.push(item);
-      item.children.sort((a, b) => {
-        if (a.creationTime > b.creationTime) { return 1; } else if (a.creationTime < b.creationTime) { return -1; } else { return 0; }
-      });
-      item.children.forEach(child => child.children.sort((a, b) => {
-        if (a.creationTime > b.creationTime) { return 1; } else if (a.creationTime < b.creationTime) { return -1; } else { return 0; }
-      }));
-      this.dataChange.next(this.cpFile);
+  dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
+
+  /** The selection for checklist */
+  checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
+
+  constructor(private database: ChecklistDatabase) {
+    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
+      this.isExpandable, this.getChildren);
+    this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+    database.dataChange.subscribe(data => {
+      this.dataSource.data = data;
+      console.log(this.treeControl.dataNodes)
     });
   }
 
-  constructor(private constantPartyService: ConstantPartyService, private dialog: MatDialog) {
-    // tslint:disable-next-line: member-ordering
-    this.treeControl = new FlatTreeControl<ExampleFlatNode>(
-      node => node.level, node => node.expandable);
-    // tslint:disable-next-line: member-ordering
-    this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
-      this.isExpandable, node => node.children);
+  getLevel = (node: TodoItemFlatNode) => node.level;
 
-    // tslint:disable-next-line: member-ordering
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  isExpandable = (node: TodoItemFlatNode) => node.expandable;
 
-    this.dataChange.subscribe(data => {
-      this.dataSource.data = data;
-    })
+  getChildren = (node: TodoItemNode): TodoItemNode[] => node.folderResponseMap;
+
+  hasChild = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.expandable;
+
+  hasNoContent = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.item === '';
+
+  /**
+   * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
+   */
+  transformer = (node: TodoItemNode, level: number) => {
+    const existingNode = this.nestedNodeMap.get(node);
+    const flatNode = existingNode && existingNode.item === node.name
+        ? existingNode
+        : new TodoItemFlatNode();
+    flatNode.item = node.name;
+    flatNode.level = level;
+    flatNode.expandable = !!node.folderResponseMap;
+    this.flatNodeMap.set(flatNode, node);
+    this.nestedNodeMap.set(node, flatNode);
+    return flatNode;
   }
 
-  getChildrenResponse(map: Array<any>): Array<CpFile> {
-    const array: Array<CpFile> = new Array();
-    // tslint:disable-next-line: forin
-    map.forEach(child =>  {
-      const item: CpFile = {
-        folderId: child.type === 'FOLDER' ? child.folderId : child.fileId,
-        name: child.name,
-        parent: child.parent,
-        type: child.type,
-        creationTime: child.creationTime,
-        webViewLink: child.webViewLink,
-        webContentLink:child.webContentLink,
-        children: (child.folderResponseMap && child.folderResponseMap.length > 0)  ? this.getChildrenResponse(child.folderResponseMap) : (child.fileResponseMap && child.fileResponseMap.length > 0) ? this.getChildrenResponse(child.fileResponseMap) : []
-      };
-      array.push(item);
-    })
-    return array;
-  }
-
-  getChildren = (node: CpFile): CpFile[] => node.children;
-
-  isExpandable = (node: ExampleFlatNode) => node.expandable;
-
-  getLevel = (node: ExampleFlatNode) => node.level;
-
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-
-  hasNoContent = (_: number, node: ExampleFlatNode) => node.name === '';
-
-  showImageInReal(url) {
-    const dialogRef = this.dialog.open(FullImageShowComponent, { data: url, maxWidth: 800, maxHeight: 800, panelClass: ['showImagePanel', 'app-full-image-show'] });
-  }
-
-  addNewItem(node: ExampleFlatNode, level: number) {
-    const parentNode = this.flatNodeMap.get(node.folderId);
-    if (parentNode.children) {
-      parentNode.children.push({ name: '', parent: [node.folderId], folderId: node.folderId + 1 } as CpFile);
-      this.dataChange.next(this.data);
-    }
+  /** Select the category so we can insert the new item. */
+  addNewItem(node: TodoItemFlatNode) {
+    const parentNode = this.flatNodeMap.get(node);
+    this.database.insertItem(parentNode!, '');
     this.treeControl.expand(node);
+     console.log(this.treeControl.isExpanded(node))
   }
 
-  getParentNode(node: ExampleFlatNode): ExampleFlatNode | null {
-    const currentLevel = this.getLevel(node);
-
-    if (currentLevel < 1) {
-      return node;
-    }
-
-    const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
-
-    for (let i = startIndex; i >= 0; i--) {
-      const currentNode = this.treeControl.dataNodes[i];
-
-      if (this.getLevel(currentNode) < currentLevel) {
-        return currentNode;
-      }
-    }
-    return null;
-  }
-
-  saveNode(node: ExampleFlatNode, itemValue: string) {
-    const nestedNode = this.flatNodeMap.get(node.folderId);
-    console.log(nestedNode);
-    nestedNode.name = itemValue;
-    nestedNode.type = 'FOLDER';
-    nestedNode.children = [];
-    this.dataChange.next(this.data);
-    this.treeControl.expand(node);
-  }
-
-}
-
-export interface RootFolderResponse {
-  folderId: string;
-  name: string;
-  parent: Array<string>;
-  type: string;
-  creationTime: Date;
-  webViewLink: string;
-  webContentLink: string;
-  folderResponseMap: Array<SubFolderResponse>;
-}
-
-export interface SubFolderResponse {
-  folderId: string;
-  name: string;
-  parent: Array<string>;
-  type: string;
-  creationTime: Date;
-  webViewLink: string;
-  webContentLink: string;
-  folderResponseMap: Array<SubFolderResponse>;
-  fileResponseMap: Array<FileResponse>;
-}
-
-export interface FileResponse {
-  fileId: string;
-  name: string;
-  parent: Array<string>;
-  type: string;
-  creationTime: Date;
-  webViewLink: string;
-  webContentLink: string;
-}
-
-export class CpFile {
-  folderId: string;
-  name: string;
-  parent: Array<string>;
-  type?: string;
-  creationTime?: Date;
-  webViewLink?: string;
-  webContentLink?: string;
-  children?: CpFile[];
-
-  constructor(name?: string, parent?: string) {
-    this.name = name;
-    this.children = [];
-    this.type = '';
-    this.parent = new Array().concat(parent);
+  /** Save the node to database */
+  saveNode(node: TodoItemFlatNode, itemValue: string) {
+    const nestedNode = this.flatNodeMap.get(node);
+    this.database.updateItem(nestedNode!, itemValue);
   }
 }
 
-class ExampleFlatNode {
-  expandable: boolean;
-  level: number;
-  folderId: string;
-  name: string;
-  parent: Array<string>;
-  type: string;
-  creationTime: Date;
-  webViewLink: string;
-  webContentLink: string;
-  children: CpFile[];
-}
+
+/**  Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license */
