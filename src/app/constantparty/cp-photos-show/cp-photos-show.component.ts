@@ -19,6 +19,7 @@ export class TodoItemNode {
   webViewLink: string;
   webContentLink: string;
   folderId: string;
+  parent: string[];
 }
 
 /** Flat to-do item node with expandable and level information */
@@ -31,6 +32,7 @@ export class TodoItemFlatNode {
   webViewLink: string;
   webContentLink: string;
   folderId: string;
+  parent: string[];
 }
 
 /**
@@ -57,6 +59,7 @@ export class ChecklistDatabase {
     //     file node as children.
     this.getCpPhotos(1, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId')))
       .subscribe(response => {
+        console.log(response)
         let cpFile: TodoItemNode[] = [];
         const item: TodoItemNode = {
           folderId: response.folderId,
@@ -65,6 +68,7 @@ export class ChecklistDatabase {
           creationTime: response.creationTime,
           webViewLink: response.webViewLink,
           webContentLink: response.webContentLink,
+          parent: response.parent,
           folderResponseMap: this.getChildrenResponse(response.folderResponseMap)
         };
         cpFile.push(item);
@@ -132,6 +136,7 @@ export class ChecklistDatabase {
         creationTime: child.creationTime,
         webViewLink: child.webViewLink,
         webContentLink: child.webContentLink,
+        parent: child.parents,
         folderResponseMap: (child.folderResponseMap && child.folderResponseMap.length > 0) ? this.getChildrenResponse(child.folderResponseMap) : (child.fileResponseMap && child.fileResponseMap.length > 0) ? this.getChildrenResponse(child.fileResponseMap) : []
       };
       array.push(item);
@@ -140,9 +145,9 @@ export class ChecklistDatabase {
   }
 
   /** Add an item to to-do list */
-  insertItem(parent: TodoItemNode, name: string) {
+  insertItem(parent: TodoItemNode, name: string, parentId : string) {
     if (parent.folderResponseMap) {
-      parent.folderResponseMap.push({ name: name, type: 'FOLDER' } as TodoItemNode);
+      parent.folderResponseMap.push({ name: name, type: 'FOLDER', parent: [parentId] } as TodoItemNode);
       this.dataChange.next(this.data);
     }
   }
@@ -184,9 +189,6 @@ export class CpPhotosShowComponent {
 
   dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
 
-  /** The selection for checklist */
-  checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
-
   constructor(private database: ChecklistDatabase, private dialog: MatDialog) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
@@ -225,6 +227,7 @@ export class CpPhotosShowComponent {
     flatNode.webContentLink = node.webContentLink;
     flatNode.folderId = node.folderId;
     flatNode.webViewLink = node.webViewLink;
+    flatNode.parent = node.parent;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
@@ -233,7 +236,7 @@ export class CpPhotosShowComponent {
   /** Select the category so we can insert the new item. */
   addNewItem(node: TodoItemFlatNode) {
     const parentNode = this.flatNodeMap.get(node);
-    this.database.insertItem(parentNode!, '');
+    this.database.insertItem(parentNode!, '', parentNode.folderId);
     this.treeControl.expand(node);
     console.log(this.treeControl.isExpanded(node))
   }
