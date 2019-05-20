@@ -1,12 +1,14 @@
+import { ConstantPartyService } from './../constantPartyService/constantParty.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { Component, Injectable, Input } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { FullImageShowComponent } from './full-image-show/full-image-show.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 
 /**
  * Node for to-do item
@@ -50,16 +52,13 @@ export class ChecklistDatabase {
 
   get data(): TodoItemNode[] { return this.dataChange.value; }
 
-  constructor(private http?: HttpClient) {
-    this.initialize();
-  }
+  constructor(private cpService?: ConstantPartyService, private snackBar?: MatSnackBar) { }
 
-  initialize() {
+  initialize(cpId: number) {
     // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
     //     file node as children.
-    this.getCpPhotos(1, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId')))
+    this.cpService.getCpPhotos(cpId, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId')))
       .subscribe(response => {
-        console.log(response)
         let cpFile: TodoItemNode[] = [];
         const item: TodoItemNode = {
           folderId: response.folderId,
@@ -85,14 +84,6 @@ export class ChecklistDatabase {
 
   }
 
-  public getCpPhotos(cpId: number, access_token: string, userId: number): Observable<TodoItemNode> {
-    let headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + access_token,
-      'Content-Type': 'application/json',
-    });
-    return this.http.get<TodoItemNode>('http://83.212.102.61:8080/cp/' + cpId + '/' + userId + '/photos', { headers: headers });
-  }
-
   /**
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `TodoItemNode`.
@@ -109,7 +100,6 @@ export class ChecklistDatabase {
             node.folderResponseMap = this.buildFileTree(element, level + 1);
           });
         }
-        console.log(value.fileResponseMap && value.fileResponseMap.length > 0)
         if (value.fileResponseMap && value.fileResponseMap.length > 0) {
           value.fileResponseMap.forEach(element => {
             node.folderResponseMap = this.buildFileTree(element, level + 1);
@@ -145,7 +135,7 @@ export class ChecklistDatabase {
   }
 
   /** Add an item to to-do list */
-  insertItem(parent: TodoItemNode, name: string, parentId : string) {
+  insertItem(parent: TodoItemNode, name: string, parentId: string) {
     if (parent.folderResponseMap) {
       parent.folderResponseMap.push({ name: name, type: 'FOLDER', parent: [parentId] } as TodoItemNode);
       this.dataChange.next(this.data);
@@ -153,9 +143,32 @@ export class ChecklistDatabase {
   }
 
   updateItem(node: TodoItemNode, name: string) {
+    let success = true;
     node.name = name;
     node.folderResponseMap = [];
     node.creationTime = new Date();
+    return this.cpService.addNewFolder(1, sessionStorage.getItem('access_token'), node)
+      .pipe(map((response) => { return response }));
+    // response => {
+    //   this.dataChange.next(this.data);
+    //   return true;
+    // },
+    // error => {
+    //   success = false;
+    //   console.log(error.message)
+    //   this.snackBar.openFromComponent(DisplayingErrorComponent, {
+    //     data: { message: error.message || error.error.message, type: 'error' },
+    //     duration: 5000,
+    //     panelClass: ['snackBarError'],
+    //     horizontalPosition: 'right',
+    //     verticalPosition: 'top'
+    //   });
+    //   return false;
+    // }
+    //)
+  }
+
+  deleteItem() {
     this.dataChange.next(this.data);
   }
 }
@@ -169,7 +182,7 @@ export class ChecklistDatabase {
   styleUrls: ['cp-photos-show.component.css'],
   providers: [ChecklistDatabase]
 })
-export class CpPhotosShowComponent {
+export class CpPhotosShowComponent implements OnInit {
   @Input() cpId: number;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
@@ -194,10 +207,12 @@ export class CpPhotosShowComponent {
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  }
 
-    database.dataChange.subscribe(data => {
+  ngOnInit(): void {
+    this.database.initialize(this.cpId);
+    this.database.dataChange.subscribe(data => {
       this.dataSource.data = data;
-      console.log(this.treeControl.dataNodes)
     });
   }
 
@@ -238,13 +253,20 @@ export class CpPhotosShowComponent {
     const parentNode = this.flatNodeMap.get(node);
     this.database.insertItem(parentNode!, '', parentNode.folderId);
     this.treeControl.expand(node);
-    console.log(this.treeControl.isExpanded(node))
   }
 
   /** Save the node to database */
   saveNode(node: TodoItemFlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
-    this.database.updateItem(nestedNode!, itemValue);
+    this.database.updateItem(nestedNode!, itemValue).subscribe(value => {
+      console.log('DASSDADS')
+      console.log(value)
+      if (!value) {
+        let dele1te = this.flatNodeMap.delete(node);
+        console.log(dele1te)
+        this.database.deleteItem();
+      }
+    });
   }
 
   showImageInReal(url) {
