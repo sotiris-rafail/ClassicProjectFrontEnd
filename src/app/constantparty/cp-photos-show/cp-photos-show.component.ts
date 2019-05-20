@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable, Input} from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { Component, Injectable, Input } from '@angular/core';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
+import { FullImageShowComponent } from './full-image-show/full-image-show.component';
+import { MatDialog } from '@angular/material';
 
 /**
  * Node for to-do item
@@ -12,6 +14,11 @@ import { map, tap, catchError } from 'rxjs/operators';
 export class TodoItemNode {
   folderResponseMap: TodoItemNode[];
   name: string;
+  type: string;
+  creationTime: Date;
+  webViewLink: string;
+  webContentLink: string;
+  folderId: string;
 }
 
 /** Flat to-do item node with expandable and level information */
@@ -19,6 +26,11 @@ export class TodoItemFlatNode {
   item: string;
   level: number;
   expandable: boolean;
+  type: string;
+  creationTime: Date;
+  webViewLink: string;
+  webContentLink: string;
+  folderId: string;
 }
 
 /**
@@ -36,22 +48,37 @@ export class ChecklistDatabase {
 
   get data(): TodoItemNode[] { return this.dataChange.value; }
 
-  constructor(private http? : HttpClient) {
+  constructor(private http?: HttpClient) {
     this.initialize();
   }
 
   initialize() {
     // Build the tree nodes from Json object. The result is a list of `TodoItemNode` with nested
     //     file node as children.
-    let data = this.getCpPhotos(1, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId')))
-    .pipe(
-        map(response => {return response}),
-    );
-    data.subscribe(response => {
-        this.dataChange.next(this.buildFileTree(response, 0));
-    })
+    this.getCpPhotos(1, sessionStorage.getItem('access_token'), Number(sessionStorage.getItem('userId')))
+      .subscribe(response => {
+        let cpFile: TodoItemNode[] = [];
+        const item: TodoItemNode = {
+          folderId: response.folderId,
+          name: response.name,
+          type: response.type,
+          creationTime: response.creationTime,
+          webViewLink: response.webViewLink,
+          webContentLink: response.webContentLink,
+          folderResponseMap: this.getChildrenResponse(response.folderResponseMap)
+        };
+        cpFile.push(item);
+        item.folderResponseMap.sort((a, b) => {
+          if (a.creationTime > b.creationTime) { return 1; } else if (a.creationTime < b.creationTime) { return -1; } else { return 0; }
+        });
+        item.folderResponseMap.forEach(child => child.folderResponseMap.sort((a, b) => {
+          if (a.creationTime > b.creationTime) { return 1; } else if (a.creationTime < b.creationTime) { return -1; } else { return 0; }
+        }));
+        this.dataChange.next(cpFile);
+      });
+
     // Notify the change.
-    
+
   }
 
   public getCpPhotos(cpId: number, access_token: string, userId: number): Observable<TodoItemNode> {
@@ -71,38 +98,59 @@ export class ChecklistDatabase {
       const value = obj;
       const node = new TodoItemNode();
       node.name = value.name;
-     
-      if (value.type === 'FOLDER' || value.type === 'ROOT') {
+      node.type = value.type
+      if (node.type === 'FOLDER' || node.type === 'ROOT') {
         if (value.folderResponseMap.length > 0) {
-            value.folderResponseMap.forEach(element => {
-                console.log(element)
-                node.folderResponseMap = this.buildFileTree(element, level + 1);
-            });
-        } else if (value.fileResponseMap.length > 0) {
-            value.folderResponseMap.forEach(element => {
-                console.log(element)
-                node.folderResponseMap = this.buildFileTree(element, level + 1);
-            });
+          value.folderResponseMap.forEach(element => {
+            node.folderResponseMap = this.buildFileTree(element, level + 1);
+          });
         }
-    } else {
-        console.log(value)
-            node.name = value.name;
-    }
-      
+        console.log(value.fileResponseMap && value.fileResponseMap.length > 0)
+        if (value.fileResponseMap && value.fileResponseMap.length > 0) {
+          value.fileResponseMap.forEach(element => {
+            node.folderResponseMap = this.buildFileTree(element, level + 1);
+          });
+        }
+      } else if (node.type === 'IMAGE') {
+        node.name = value.name;
+      } else {
+        node.name = value.name;
+      }
+
       return accumulator.concat(value);
     }, []);
+  }
+
+  getChildrenResponse(map: Array<any>): Array<TodoItemNode> {
+    const array: Array<TodoItemNode> = new Array();
+    // tslint:disable-next-line: forin
+    map.forEach(child => {
+      const item: TodoItemNode = {
+        folderId: child.type === 'FOLDER' ? child.folderId : child.fileId,
+        name: child.name,
+        type: child.type,
+        creationTime: child.creationTime,
+        webViewLink: child.webViewLink,
+        webContentLink: child.webContentLink,
+        folderResponseMap: (child.folderResponseMap && child.folderResponseMap.length > 0) ? this.getChildrenResponse(child.folderResponseMap) : (child.fileResponseMap && child.fileResponseMap.length > 0) ? this.getChildrenResponse(child.fileResponseMap) : []
+      };
+      array.push(item);
+    })
+    return array;
   }
 
   /** Add an item to to-do list */
   insertItem(parent: TodoItemNode, name: string) {
     if (parent.folderResponseMap) {
-      parent.folderResponseMap.push({name: name} as TodoItemNode);
+      parent.folderResponseMap.push({ name: name, type: 'FOLDER' } as TodoItemNode);
       this.dataChange.next(this.data);
     }
   }
 
   updateItem(node: TodoItemNode, name: string) {
     node.name = name;
+    node.folderResponseMap = [];
+    node.creationTime = new Date();
     this.dataChange.next(this.data);
   }
 }
@@ -117,7 +165,7 @@ export class ChecklistDatabase {
   providers: [ChecklistDatabase]
 })
 export class CpPhotosShowComponent {
-    @Input() cpId: number;
+  @Input() cpId: number;
   /** Map from flat node to nested node. This helps us finding the nested node to be modified */
   flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
 
@@ -139,7 +187,7 @@ export class CpPhotosShowComponent {
   /** The selection for checklist */
   checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
 
-  constructor(private database: ChecklistDatabase) {
+  constructor(private database: ChecklistDatabase, private dialog: MatDialog) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
@@ -167,11 +215,16 @@ export class CpPhotosShowComponent {
   transformer = (node: TodoItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = existingNode && existingNode.item === node.name
-        ? existingNode
-        : new TodoItemFlatNode();
+      ? existingNode
+      : new TodoItemFlatNode();
     flatNode.item = node.name;
     flatNode.level = level;
-    flatNode.expandable = !!node.folderResponseMap;
+    flatNode.expandable = !!node.folderResponseMap && (node.type === 'FOLDER' || node.type === 'ROOT');
+    flatNode.type = node.type;
+    flatNode.creationTime = node.creationTime;
+    flatNode.webContentLink = node.webContentLink;
+    flatNode.folderId = node.folderId;
+    flatNode.webViewLink = node.webViewLink;
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
     return flatNode;
@@ -182,13 +235,17 @@ export class CpPhotosShowComponent {
     const parentNode = this.flatNodeMap.get(node);
     this.database.insertItem(parentNode!, '');
     this.treeControl.expand(node);
-     console.log(this.treeControl.isExpanded(node))
+    console.log(this.treeControl.isExpanded(node))
   }
 
   /** Save the node to database */
   saveNode(node: TodoItemFlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
     this.database.updateItem(nestedNode!, itemValue);
+  }
+
+  showImageInReal(url) {
+    const dialogRef = this.dialog.open(FullImageShowComponent, { data: url, maxWidth: 800, maxHeight: 800, panelClass: ['showImagePanel', 'app-full-image-show'] });
   }
 }
 
