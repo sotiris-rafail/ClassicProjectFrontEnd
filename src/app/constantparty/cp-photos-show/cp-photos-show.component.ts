@@ -142,12 +142,12 @@ export class ChecklistDatabase {
     }
   }
 
-  updateItem(node: TodoItemNode, name: string) {
+  updateItem(node: TodoItemNode, name: string, cpId: number) {
     let success = true;
     node.name = name;
     node.folderResponseMap = [];
     node.creationTime = new Date();
-    return this.cpService.addNewFolder(1, sessionStorage.getItem('access_token'), node)
+    return this.cpService.addNewFolder(cpId, sessionStorage.getItem('access_token'), node)
       .subscribe(
         response => {
           this.dataChange.next(this.data);
@@ -256,7 +256,7 @@ export class CpPhotosShowComponent implements OnInit {
   /** Save the node to database */
   saveNode(node: TodoItemFlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
-    this.database.updateItem(nestedNode!, itemValue);
+    this.database.updateItem(nestedNode!, itemValue, this.cpId);
   }
 
   showImageInReal(url) {

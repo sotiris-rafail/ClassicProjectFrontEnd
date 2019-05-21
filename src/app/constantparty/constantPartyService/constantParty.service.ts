@@ -33,7 +33,7 @@ export class ConstantPartyService {
       //'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://localhost:8080/cp/addFolder', JSON.stringify(folder),
+    return this.http.post('http://83.212.102.61:8080/cp/addFolder', JSON.stringify(folder),
       {
         headers: headers,
         params: { cpId: String(cpId) }
