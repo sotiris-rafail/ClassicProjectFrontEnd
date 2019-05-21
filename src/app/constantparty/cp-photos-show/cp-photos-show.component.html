@@ -32,7 +32,7 @@
     <mat-form-field>
       <input matInput #itemValue placeholder="New item...">
     </mat-form-field>
-    <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+    <button mat-button [disabled]="itemValue.value === ''" (click)="saveNode(node, itemValue.value)">Save</button>
   </mat-tree-node>
 
   <!-- This is the tree node template for expandable nodes -->

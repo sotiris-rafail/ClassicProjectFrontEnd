@@ -148,24 +148,22 @@ export class ChecklistDatabase {
     node.folderResponseMap = [];
     node.creationTime = new Date();
     return this.cpService.addNewFolder(1, sessionStorage.getItem('access_token'), node)
-      .pipe(map((response) => { return response }));
-    // response => {
-    //   this.dataChange.next(this.data);
-    //   return true;
-    // },
-    // error => {
-    //   success = false;
-    //   console.log(error.message)
-    //   this.snackBar.openFromComponent(DisplayingErrorComponent, {
-    //     data: { message: error.message || error.error.message, type: 'error' },
-    //     duration: 5000,
-    //     panelClass: ['snackBarError'],
-    //     horizontalPosition: 'right',
-    //     verticalPosition: 'top'
-    //   });
-    //   return false;
-    // }
-    //)
+      .subscribe(
+        response => {
+          this.dataChange.next(this.data);
+        },
+        error => {
+          success = false;
+          console.log(error.message)
+          this.snackBar.openFromComponent(DisplayingErrorComponent, {
+            data: { message: error.message || error.error.message, type: 'error' },
+            duration: 5000,
+            panelClass: ['snackBarError'],
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        }
+      )
   }
 
   deleteItem() {
@@ -258,15 +256,7 @@ export class CpPhotosShowComponent implements OnInit {
   /** Save the node to database */
   saveNode(node: TodoItemFlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
-    this.database.updateItem(nestedNode!, itemValue).subscribe(value => {
-      console.log('DASSDADS')
-      console.log(value)
-      if (!value) {
-        let dele1te = this.flatNodeMap.delete(node);
-        console.log(dele1te)
-        this.database.deleteItem();
-      }
-    });
+    this.database.updateItem(nestedNode!, itemValue);
   }
 
   showImageInReal(url) {
