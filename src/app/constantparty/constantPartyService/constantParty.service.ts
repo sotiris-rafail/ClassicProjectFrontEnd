@@ -30,7 +30,7 @@ export class ConstantPartyService {
 
   public addNewFolder(cpId: number, access_token: string, folder: TodoItemNode){
     let headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
     return this.http.post('http://83.212.102.61:8080/cp/addFolder', JSON.stringify(folder),
