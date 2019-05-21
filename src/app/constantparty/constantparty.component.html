@@ -45,7 +45,7 @@
   <div *ngIf="responseData">
     <contastparty-epic-points [corePoints]="responseData.corePoints" [orfenPoints]="responseData.orfenPoints"  [aqPoints]="responseData.aqPoints" [cpId]="responseData.cpId"></contastparty-epic-points>
   </div>
-  <div>
+  <div *ngIf="responseData">
     <app-cp-photos-show [cpId]="cpId"></app-cp-photos-show>
   </div>
 </div>

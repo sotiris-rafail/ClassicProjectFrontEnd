@@ -69,6 +69,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DeleteUserComponent } from './homePage/member/delete-user/delete-user.component';
 import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-show.component';
 import { MatProgressBarModule } from '@angular/material';
+import { CdkTreeModule } from '@angular/cdk/tree';
 import { FullImageShowComponent } from './constantparty/cp-photos-show/full-image-show/full-image-show.component'; 
 
 @NgModule({
@@ -114,7 +115,8 @@ import { FullImageShowComponent } from './constantparty/cp-photos-show/full-imag
     DragDropModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    CdkTreeModule
   ],
   exports: [
     MatFormFieldModule,
@@ -143,7 +145,8 @@ import { FullImageShowComponent } from './constantparty/cp-photos-show/full-imag
     DragDropModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    CdkTreeModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,
