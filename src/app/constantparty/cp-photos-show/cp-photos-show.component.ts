@@ -84,37 +84,6 @@ export class ChecklistDatabase {
 
   }
 
-  /**
-   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
-   * The return value is the list of `TodoItemNode`.
-   */
-  buildFileTree(obj, level: number): TodoItemNode[] {
-    return Object.keys(obj.folderResponseMap).reduce<TodoItemNode[]>((accumulator, key) => {
-      const value = obj;
-      const node = new TodoItemNode();
-      node.name = value.name;
-      node.type = value.type
-      if (node.type === 'FOLDER' || node.type === 'ROOT') {
-        if (value.folderResponseMap.length > 0) {
-          value.folderResponseMap.forEach(element => {
-            node.folderResponseMap = this.buildFileTree(element, level + 1);
-          });
-        }
-        if (value.fileResponseMap && value.fileResponseMap.length > 0) {
-          value.fileResponseMap.forEach(element => {
-            node.folderResponseMap = this.buildFileTree(element, level + 1);
-          });
-        }
-      } else if (node.type === 'IMAGE') {
-        node.name = value.name;
-      } else {
-        node.name = value.name;
-      }
-
-      return accumulator.concat(value);
-    }, []);
-  }
-
   getChildrenResponse(map: Array<any>): Array<TodoItemNode> {
     const array: Array<TodoItemNode> = new Array();
     // tslint:disable-next-line: forin
@@ -143,7 +112,6 @@ export class ChecklistDatabase {
   }
 
   updateItem(node: TodoItemNode, name: string, cpId: number) {
-    let success = true;
     node.name = name;
     node.folderResponseMap = [];
     node.creationTime = new Date();
@@ -153,8 +121,6 @@ export class ChecklistDatabase {
           this.dataChange.next(this.data);
         },
         error => {
-          success = false;
-          console.log(error.message)
           this.snackBar.openFromComponent(DisplayingErrorComponent, {
             data: { message: error.message || error.error.message, type: 'error' },
             duration: 5000,
@@ -164,10 +130,6 @@ export class ChecklistDatabase {
           });
         }
       )
-  }
-
-  deleteItem() {
-    this.dataChange.next(this.data);
   }
 }
 
@@ -229,9 +191,7 @@ export class CpPhotosShowComponent implements OnInit {
    */
   transformer = (node: TodoItemNode, level: number) => {
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.item === node.name
-      ? existingNode
-      : new TodoItemFlatNode();
+    const flatNode = existingNode && existingNode.item === node.name ? existingNode : new TodoItemFlatNode();
     flatNode.item = node.name;
     flatNode.level = level;
     flatNode.expandable = !!node.folderResponseMap && (node.type === 'FOLDER' || node.type === 'ROOT');
