@@ -81,28 +81,6 @@ export class TopbarComponent implements OnInit {
     });
   }
 
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
-    const reader = new FileReader();
-    reader.addEventListener('load', (event: any) => {
-
-      this.cpService.uploadImage(file, sessionStorage.getItem('access_token'), this.cpId, this.cp).subscribe(
-        (res) => {
-          console.log(res)
-        },
-        (err) => {
-          this.snackBar.openFromComponent(DisplayingErrorComponent, {
-            data: { message: err.error.message, type: 'error' },
-            duration: 5000,
-            panelClass: ['snackBarError'],
-            horizontalPosition: 'right',
-            verticalPosition: 'top'
-          });
-        })
-    });
-    reader.readAsDataURL(file);
-  }
-
   navigate(url: string, extra? : number){
     if(extra > 0 ){
       url = url + String(extra);

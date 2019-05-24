@@ -53,6 +53,9 @@
     <button mat-icon-button (click)="addNewItem(node, node.level)">
       <mat-icon>add</mat-icon>
     </button>
+    <button mat-icon-button color="accent" (click)="imgFileInput.click()">
+      <mat-icon>attachment</mat-icon>
+    </button> <input hidden type="file" #imgFileInput accept="image/*" (change)="processFile(imgFileInput, node)" />
   </mat-tree-node>
 </mat-tree>
 

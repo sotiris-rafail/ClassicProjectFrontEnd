@@ -131,6 +131,28 @@ export class ChecklistDatabase {
         }
       )
   }
+
+  processFile(imageInput: any, cpId: number, node: TodoItemNode) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+
+      this.cpService.uploadImage(file, sessionStorage.getItem('access_token'), cpId, node.folderId).subscribe(
+        (res) => {
+          console.log(res)
+        },
+        (err) => {
+          this.snackBar.openFromComponent(DisplayingErrorComponent, {
+            data: { message: err.error.message, type: 'error' },
+            duration: 5000,
+            panelClass: ['snackBarError'],
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        })
+    });
+    reader.readAsDataURL(file);
+  }
 }
 
 /**
@@ -221,6 +243,11 @@ export class CpPhotosShowComponent implements OnInit {
 
   showImageInReal(url) {
     const dialogRef = this.dialog.open(FullImageShowComponent, { data: url, maxWidth: 800, maxHeight: 800, panelClass: ['showImagePanel', 'app-full-image-show'] });
+  }
+
+  processFile(imageInput: any, node: TodoItemFlatNode) {
+    const parentNode = this.flatNodeMap.get(node);
+    this.database.processFile(imageInput, this.cpId, parentNode);
   }
 }
 
