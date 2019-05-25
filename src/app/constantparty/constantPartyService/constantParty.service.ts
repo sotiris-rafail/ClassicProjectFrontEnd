@@ -85,19 +85,18 @@ export class ConstantPartyService {
     return this.http.post('http://83.212.102.61:8080/cp/add', JSON.stringify(cp), { headers: this.headers });
   }
 
-  public uploadImage(file: File, access_token: String, cpId: number, cpName: string): Observable<Boolean> {
+  public uploadImage(file: File, access_token: String, cpId: number, parentId: string): Observable<Boolean> {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
     });
     const formData = new FormData();
-
     formData.append('photo', file);
-    return this.http.post<Boolean>('http://localhost:8080/cp/upload', formData,
+    return this.http.post<Boolean>('http://83.212.102.61:8080/cp/upload', formData,
       {
         headers: this.headers,
         params: {
           'cpId': String(cpId),
-          'cpName': cpName,
+          'cpName': parentId,
         }
       });
   }

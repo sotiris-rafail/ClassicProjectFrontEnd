@@ -140,7 +140,7 @@ export class ChecklistDatabase {
   selector: 'app-cp-photos-show',
   templateUrl: 'cp-photos-show.component.html',
   styleUrls: ['cp-photos-show.component.css'],
-  providers: [ChecklistDatabase]
+  providers: [ChecklistDatabase, ConstantPartyService]
 })
 export class CpPhotosShowComponent implements OnInit {
   @Input() cpId: number;
@@ -162,7 +162,9 @@ export class CpPhotosShowComponent implements OnInit {
 
   dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
 
-  constructor(private database: ChecklistDatabase, private dialog: MatDialog) {
+  uploading = false;
+
+  constructor(private database: ChecklistDatabase, private dialog: MatDialog, private cpService: ConstantPartyService, private snackBar: MatSnackBar) {
     this.treeFlattener = new MatTreeFlattener(this.transformer, this.getLevel,
       this.isExpandable, this.getChildren);
     this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
@@ -216,11 +218,51 @@ export class CpPhotosShowComponent implements OnInit {
   /** Save the node to database */
   saveNode(node: TodoItemFlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
-    this.database.updateItem(nestedNode!, itemValue, this.cpId);
+    this.database.updateItem(nestedNode, itemValue, this.cpId);
   }
 
   showImageInReal(url) {
     const dialogRef = this.dialog.open(FullImageShowComponent, { data: url, maxWidth: 800, maxHeight: 800, panelClass: ['showImagePanel', 'app-full-image-show'] });
+  }
+
+  processFile(imageInput: any, node: TodoItemFlatNode) {
+    const parentNode = this.flatNodeMap.get(node);
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', (event: any) => {
+      this.uploading = true;
+      this.cpService.uploadImage(file, sessionStorage.getItem('access_token'), this.cpId, node.folderId).subscribe(
+        (res) => {
+          if (res) {
+            this.snackBar.openFromComponent(DisplayingErrorComponent, {
+              data: { message: 'Photo uploaded sucessfully', type: 'success' },
+              duration: 5000,
+              panelClass: ['snackBarSuccess'],
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+          } else {
+            this.snackBar.openFromComponent(DisplayingErrorComponent, {
+              data: { message: 'Upload failed. Restart the page and try again', type: 'error' },
+              duration: 5000,
+              panelClass: ['snackBarError'],
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+          }
+        },
+        (err) => {
+          this.snackBar.openFromComponent(DisplayingErrorComponent, {
+            data: { message: err.error.message, type: 'error' },
+            duration: 5000,
+            panelClass: ['snackBarError'],
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        },
+        () => { this.uploading = false; });
+    });
+    reader.readAsDataURL(file);
   }
 }
 
