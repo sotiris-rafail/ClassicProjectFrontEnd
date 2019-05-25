@@ -87,12 +87,11 @@ export class ConstantPartyService {
 
   public uploadImage(file: File, access_token: String, cpId: number, parentId: string): Observable<Boolean> {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer ' + access_token,
+      'Authorization': 'Bearer ' + access_token,
     });
     const formData = new FormData();
-    console.log('from Service')
     formData.append('photo', file);
-    return this.http.post<Boolean>('http://localhost:8080/cp/upload', formData,
+    return this.http.post<Boolean>('http://83.212.102.61:8080/cp/upload', formData,
       {
         headers: this.headers,
         params: {
