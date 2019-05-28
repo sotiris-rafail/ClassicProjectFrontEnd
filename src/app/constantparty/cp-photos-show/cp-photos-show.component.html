@@ -51,7 +51,7 @@
     </mat-icon>
     <span>{{node.item}}</span>
     <button mat-icon-button (click)="addNewItem(node, node.level)" matTooltip="Add new folder">
-      <mat-icon>add</mat-icon>
+      <mat-icon>create_new_folder</mat-icon>
     </button>
     <button *ngIf="!uploading" mat-icon-button color="accent" (click)="imgFileInput.click()"
       matTooltip="Upload new photo">
@@ -60,35 +60,12 @@
             d="M14,2L20,8V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V4A2,2 0 0,1 6,2H14M18,20V9H13V4H6V20H18M12,12L16,16H13.5V19H10.5V16H8L12,12Z" />
         </svg></mat-icon>
     </button> <input hidden type="file" #imgFileInput accept="image/*" (change)="processFile(imgFileInput, node)" />
+    <button *ngIf="!uploading" mat-icon-button color="warn" [matTooltip]="'Remove ' + node.item" (click)="removeFile(node)">
+      <mat-icon>delete</mat-icon>
+    </button>
     <div>
       <mat-spinner [diameter]="20" *ngIf="uploading">
       </mat-spinner>
     </div>
   </mat-tree-node>
 </mat-tree>
-
-<!-- <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-{{node.item}}
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
-    <button mat-icon-button disabled></button>
-    <mat-form-field>
-      <input matInput #itemValue placeholder="New item...">
-    </mat-form-field>
-    <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
-  </mat-tree-node>
-
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button mat-icon-button matTreeNodeToggle
-            [attr.aria-label]="'toggle ' + node.filename">
-      <mat-icon class="mat-icon-rtl-mirror">
-        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-      </mat-icon>
-    </button>
-{{node.item}}
-    <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
-  </mat-tree-node>
-</mat-tree> -->

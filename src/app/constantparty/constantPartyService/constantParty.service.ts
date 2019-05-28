@@ -28,7 +28,7 @@ export class ConstantPartyService {
     return this.http.get<TodoItemNode>('http://83.212.102.61:8080/cp/' + cpId + '/' + userId + '/photos', { headers: headers });
   }
 
-  public addNewFolder(cpId: number, access_token: string, folder: TodoItemNode){
+  public addNewFolder(cpId: number, access_token: string, folder: TodoItemNode) {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export class ConstantPartyService {
     return this.http.post('http://83.212.102.61:8080/cp/add', JSON.stringify(cp), { headers: this.headers });
   }
 
-  public uploadImage(file: File, access_token: String, cpId: number, parentId: string): Observable<Boolean> {
+  public uploadImage(file: File, access_token: string, cpId: number, parentId: string): Observable<Boolean> {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
     });
@@ -99,6 +99,20 @@ export class ConstantPartyService {
           'cpName': parentId,
         }
       });
+  }
+
+  public removeFile(fileId: string, access_token: string) {
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token,
+    });
+
+    return this.http.delete('http://83.212.102.61:8080/cp/file/delete',
+      {
+        headers: this.headers,
+        params: {
+          'fileId' : fileId
+        }
+      })
   }
 
 }

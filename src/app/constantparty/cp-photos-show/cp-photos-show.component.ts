@@ -225,6 +225,32 @@ export class CpPhotosShowComponent implements OnInit {
     const dialogRef = this.dialog.open(FullImageShowComponent, { data: url, maxWidth: 800, maxHeight: 800, panelClass: ['showImagePanel', 'app-full-image-show'] });
   }
 
+  removeFile(node: TodoItemFlatNode) {
+    this.cpService.removeFile(node.folderId, sessionStorage.getItem('access_token'))
+    .subscribe(response => {
+      this.uploading = true;
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: node.item +' deleted successfuly', type: 'success' },
+        duration: 5000,
+        panelClass: ['snackBarSuccess'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
+    },
+    error => {
+      this.snackBar.openFromComponent(DisplayingErrorComponent, {
+        data: { message: error.error.message | error.message, type: 'error' },
+        duration: 5000,
+        panelClass: ['snackBarError'],
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
+    },
+    () => {
+      this.uploading = false;
+    })
+  }
+
   processFile(imageInput: any, node: TodoItemFlatNode) {
     const parentNode = this.flatNodeMap.get(node);
     const file: File = imageInput.files[0];
