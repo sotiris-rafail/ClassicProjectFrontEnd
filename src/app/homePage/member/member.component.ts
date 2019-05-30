@@ -29,6 +29,8 @@ export class MemberComponent implements OnInit {
   token: OAuth2Token = new OAuth2Token();
   data: any;
   displayingView = [];
+  aqAdjPrice = 0;
+  orfenCoreAdjPrice = 0;
   constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService: ItemService, private snackBar: MatSnackBar) {
     this.displayingView['userId'] = 'ID';
     this.displayingView['email'] = 'Email';
@@ -52,6 +54,10 @@ export class MemberComponent implements OnInit {
         this.cp = this.data.responseConstantParty.cpName
         this.dataSource = this.data.chars;
         this.typeOfUser = this.data.typeOfUser
+        this.memberService.getEpicPointsPrice(this.token.getAccessToken).subscribe(response => {
+          this.aqAdjPrice = response[0][1];
+          this.orfenCoreAdjPrice = response[1][1];
+        })
       }, error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
           data: { message: error.error.message || error.error.error_description, type: 'error' },

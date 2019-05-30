@@ -31,6 +31,8 @@ export class TopbarComponent implements OnInit {
   @Input() previusUrl: String;
   @Input() isSuperUser: boolean;
   @Input() lengthOfChars: Number = 0;
+  @Input() aqAdjPrice: number = 0;
+  @Input() orfenCoreAdjPrice: number = 0;
   constructor(public dialog: MatDialog, private cpService: ConstantPartyService, private snackBar : MatSnackBar, private router : Router) { }
 
   ngOnInit() {

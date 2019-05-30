@@ -1,7 +1,7 @@
 <div>
   <div *ngIf="whichToPrint === 'MEMBER'" fxFlex fxLayout="row">
     <mat-toolbar color="primary" fxShow fxHide.xs="true">
-      <div fxLayoutAlign="flex-start" style="padding: 0 1em 0 0;">
+      <div fxLayoutAlign="flex-start" style="padding: 0 0.5em 0 0;">
         <span><b>User: </b>{{email}} </span>
       </div>
       <div fxLayoutAlign="flex-start" style="padding: 0 0.5em 0 0.5em;">
@@ -12,12 +12,15 @@
       <div fxLayoutAlign="flex-start" style="padding: 0 0.1em 0 0.5em;">
         <span><b>Type Of User:</b> {{typeOfUser}} </span>
       </div>
-      <div *ngIf="lengthOfChars != 0 && cpId != -1" fxLayoutAlign="center" style="margin-left: 1em;">
+      <div *ngIf="lengthOfChars != 0 && cpId != -1" fxLayoutAlign="center" style="margin-left: 0.5em;">
         <a [matBadge]="itemsOnSale" matBadgeOverlap="false" [matBadgeColor]="itemsOnSale == 0 ? 'warn' : 'accent'"
           matBadgePosition="after" routerLink="/auction">Auction</a>
       </div>
-      <div *ngIf="cpId != -1" fxLayoutAlign="center" style="margin-left: 2em;padding: 0 0.1em 0 0.5em">
+      <div *ngIf="cpId != -1" fxLayoutAlign="center" style="margin-left: 2em;padding: 0 0.0.5em 0 0.5em">
         <a routerLink="/raidboss">Raid Tracker</a>
+      </div>
+      <div *ngIf="aqAdjPrice != 0 && orfenCoreAdjPrice != 0" fxLayoutAlign="center" style="margin-left: 0.5em;font-size: 80%">
+        Today prices: AQ: {{aqAdjPrice}}, Core/Orfen: {{orfenCoreAdjPrice}}
       </div>
       <div fxFlex fxLayout fxLayoutAlign="flex-end">
         <button mat-raised-button color="accent" (click)="openDialogCharacter()">
@@ -57,6 +60,10 @@
             <button mat-menu-item style="background-color:#00E676" (click)="openDialogCharacter()">
               <mat-icon>add</mat-icon>Add a character
             </button>
+            <mat-divider style="background-color:#212121"></mat-divider>
+            <div *ngIf="aqAdjPrice != 0 && orfenCoreAdjPrice != 0" fxLayoutAlign="center">
+              Today prices: <br>AQ: {{aqAdjPrice}} <br> Core/Orfen: {{orfenCoreAdjPrice}}
+            </div>
           </mat-menu>
         </div>
         <div fxFlex>

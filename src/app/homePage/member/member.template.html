@@ -1,13 +1,14 @@
 <div fxFlex fxLayout="column">
   <topbar [itemsOnSale]="itemsOnSale" [cp]="cp" [email]="email" [typeOfUser]="displayingView[typeOfUser]" [cpId]="cpId"
-    [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [lengthOfChars]=dataSource.length>
+    [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [lengthOfChars]=dataSource.length [aqAdjPrice]=aqAdjPrice [orfenCoreAdjPrice]=orfenCoreAdjPrice>
   </topbar>
   <div fxFlex fxLayout="column">
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9}"> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto', 'padding-left.em': 0.9}"> {{element.name}} </mat-cell>
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto', 'padding-left.em': 0.9}"> {{element.name}}
+        </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
