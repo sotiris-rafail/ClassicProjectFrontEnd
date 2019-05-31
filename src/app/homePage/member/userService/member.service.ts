@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -65,7 +66,7 @@ export class MemberService {
     });
     return this.http.delete('http:///83.212.102.61:8080/user/deleteUser', {
       headers: this.headers,
-      params: { userId: String(user_id)}
+      params: { userId: String(user_id) }
     });
   }
 
@@ -75,5 +76,25 @@ export class MemberService {
       'Content-Type': 'application/json',
     });
     return this.http.get('http:///83.212.102.61:8080/user/epic/points', { headers: this.headers });
+  }
+
+  verifyUser(email: any, mainChar: any): Observable<boolean> {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<boolean>('http:///83.212.102.61:8080/user/verification', {
+      headers: this.headers,
+      params: {
+        'email': email,
+        'mainChar': mainChar
+      }
+    });
+  }
+
+  updatePassword(params : string[]) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.post('http:///83.212.102.61:8080/user/update/password', JSON.stringify(params), { headers: this.headers});
   }
 }

@@ -80,10 +80,10 @@ export interface CP {
 }
 
 export interface User {
-  'userId': number,
-  'email': string,
-  'typeOfUser': string,
-  'chars': Character[],
+  'userId': number;
+  'email': string;
+  'typeOfUser': string;
+  'chars': Character[];
   'cpName': CP;
 }
 

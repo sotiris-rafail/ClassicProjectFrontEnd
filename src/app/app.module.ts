@@ -70,7 +70,9 @@ import { DeleteUserComponent } from './homePage/member/delete-user/delete-user.c
 import { CpPhotosShowComponent } from './constantparty/cp-photos-show/cp-photos-show.component';
 import { MatProgressBarModule } from '@angular/material';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { FullImageShowComponent } from './constantparty/cp-photos-show/full-image-show/full-image-show.component'; 
+import { FullImageShowComponent } from './constantparty/cp-photos-show/full-image-show/full-image-show.component';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,7 @@ import { FullImageShowComponent } from './constantparty/cp-photos-show/full-imag
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent,
     AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
-    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent],
+    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent, RecoveryPasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -116,7 +118,8 @@ import { FullImageShowComponent } from './constantparty/cp-photos-show/full-imag
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatProgressBarModule,
-    CdkTreeModule
+    CdkTreeModule,
+    MatStepperModule
   ],
   exports: [
     MatFormFieldModule,
@@ -146,12 +149,13 @@ import { FullImageShowComponent } from './constantparty/cp-photos-show/full-imag
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatProgressBarModule,
-    CdkTreeModule
+    CdkTreeModule,
+    MatStepperModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,
     RegisterRaidBossComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, DeletePanelComponent, DeleteMemberComponent,
-    UpdateCharacterComponent, DeleteUserComponent, FullImageShowComponent],
+    UpdateCharacterComponent, DeleteUserComponent, FullImageShowComponent, RecoveryPasswordComponent],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })

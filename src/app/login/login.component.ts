@@ -1,5 +1,6 @@
+import { RecoveryPasswordComponent } from './../recovery-password/recovery-password.component';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { MemberService } from './../homePage/member/userService/member.service';
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-    constructor(private registerUserService: MemberService, private router: Router, private snackBar: MatSnackBar) { }
+    constructor(private registerUserService: MemberService, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
     private token: OAuth2Token;
     enterEmail = globals.enterEmail;
@@ -53,5 +54,9 @@ export class LoginComponent {
                         verticalPosition: 'top'
                     });
             })
+    }
+
+    changePassword() {
+       const dialogRef = this.dialog.open(RecoveryPasswordComponent);
     }
 }
