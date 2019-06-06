@@ -21,7 +21,7 @@ export class RaidBossComponent implements OnInit {
   whichToPrint: String = "RAIDS"
   token: OAuth2Token = new OAuth2Token();
   dataSource: any;
-  previusUrl: String;
+  previusUrl: string;
   displayedColumns = ['name', 'level', 'windowStart', 'windowEnd', 'state', 'more', 'unknown'];
   actualDisplay: MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
   typeOfUser: any;
@@ -38,45 +38,61 @@ export class RaidBossComponent implements OnInit {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
     this.token.getTokensFromStorage();
     if (this.token.isAccessTokenValid()) {
-      this.memberService.getRoleOfUser(Number(this.token.getUser), this.token.getAccessToken).subscribe(
-        roleOfUser => {
-          this.typeOfUser = roleOfUser;
-          this.showButton();
-        },
-        error => {
-          this.snackBar.openFromComponent(DisplayingErrorComponent,
-            {
+      this.memberService.isCpMember(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
+        isCpMember => {
+          if (isCpMember) {
+            this.memberService.getRoleOfUser(Number(this.token.getUser), this.token.getAccessToken).subscribe(
+              roleOfUser => {
+                this.typeOfUser = roleOfUser;
+                this.showButton();
+              },
+              error => {
+                this.snackBar.openFromComponent(DisplayingErrorComponent,
+                  {
+                    duration: 5000,
+                    panelClass: 'snackBarError',
+                    data: { message: error.error.message || error.error.error_description, type: 'error' },
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top'
+                  });
+                if (Number(error.status) == 401) {
+                  this.router.navigateByUrl('/');
+                }
+              }
+            )
+            this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
+              response => {
+                this.dataSource = response;
+                this.actualDisplay.data = this.fixOutput(this.dataSource);
+                this.actualDisplay.sort = this.sort;
+              },
+              error => {
+                this.snackBar.openFromComponent(DisplayingErrorComponent,
+                  {
+                    duration: 5000,
+                    panelClass: 'snackBarError',
+                    data: { message: error.error.message || error.error.error_description, type: 'error' },
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top'
+                  });
+                if (Number(error.status) == 401) {
+                  this.router.navigateByUrl('/');
+                }
+              });
+          } else {
+            this.snackBar.openFromComponent(DisplayingErrorComponent, {
+              data: { message: 'You are not a CP member.', type: 'alert' },
               duration: 5000,
-              panelClass: 'snackBarError',
-              data: { message: error.error.message || error.error.error_description, type: 'error' },
+              panelClass: ['snackBarAlert'],
               horizontalPosition: 'right',
               verticalPosition: 'top'
             });
-            if(Number(error.status) == 401 ){
-              this.router.navigateByUrl('/');
-            }
-        }
-      )
-      this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
-        response => {
-          this.dataSource = response;
-          this.actualDisplay.data = this.fixOutput(this.dataSource);
-          this.actualDisplay.sort = this.sort;
+            this.router.navigateByUrl(this.previusUrl);
+          }
         },
         error => {
-          this.snackBar.openFromComponent(DisplayingErrorComponent,
-            {
-              duration: 5000,
-              panelClass: 'snackBarError',
-              data: { message: error.error.message || error.error.error_description, type: 'error' },
-              horizontalPosition: 'right',
-              verticalPosition: 'top'
-            });
-            if(Number(error.status) == 401 ){
-              this.router.navigateByUrl('/');
-            }
-        }
-      );
+
+        });
     } else {
       this.snackBar.openFromComponent(DisplayingErrorComponent, {
         data: { message: 'Your token has expired. Please login again', type: 'alert' },

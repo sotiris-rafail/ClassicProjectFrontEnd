@@ -1,5 +1,5 @@
 <topbar [previusUrl]='previusUrl' [whichToPrint]='whichToPrint' [isSuperUser]='isSuperUser'></topbar>
-<div>
+<div *ngIf="isCpMember">
     <div [ngStyle]="{'padding.em': 3}" [ngStyle.xs]="{'padding.em': 0}">
         <mat-accordion>
             <mat-expansion-panel expanded='true' (opened)='handleOpenOrCloseUnSold(true)' (closed)='handleOpenOrCloseUnSold(false)'>

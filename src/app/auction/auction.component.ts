@@ -14,27 +14,46 @@ import { OAuth2Token } from '../tokens';
 export class AuctionComponent implements OnInit {
   isSuperUser: boolean = false;
   token: OAuth2Token = new OAuth2Token();
-  previusUrl: String;
+  previusUrl: string;
   whichToPrint: String = 'AUCTION';
   panelOpenStateUnSold = true;
   panelOpenStateSold = false;
+  isCpMember;
   constructor(private router: Router, private memberService: MemberService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.previusUrl = '/user/' + sessionStorage.getItem('userId');
     this.token.getTokensFromStorage();
     if (this.token.isAccessTokenValid()) {
-      this.memberService.getRoleOfUser(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
-        response => {
-          this.isSuperUser = String(response) === 'SUPERUSER';
+      this.memberService.isCpMember(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
+        isCpMember => {
+          this.isCpMember = isCpMember;
+          if (isCpMember) {
+            this.memberService.getRoleOfUser(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
+              response => {
+                this.isSuperUser = String(response) === 'SUPERUSER';
+              },
+              error => {
+                this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
+              }
+            )
+          } else {
+            this.snackBar.openFromComponent(DisplayingErrorComponent, {
+              data: { message: 'You are not a CP member.', type: 'alert' },
+              duration: 5000,
+              panelClass: ['snackBarAlert'],
+              horizontalPosition: 'right',
+              verticalPosition: 'top'
+            });
+            this.router.navigateByUrl(this.previusUrl);
+          }
         },
         error => {
           this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
-        }
-      );
+        });
     } else {
       this.snackBar.openFromComponent(DisplayingErrorComponent, {
-        data: { message: 'Your token has expired. Please login again', type : 'alert' },
+        data: { message: 'Your token has expired. Please login again', type: 'alert' },
         duration: 5000,
         panelClass: ['snackBarAlert'],
         horizontalPosition: 'right',

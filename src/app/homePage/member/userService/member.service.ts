@@ -91,10 +91,22 @@ export class MemberService {
     });
   }
 
-  updatePassword(params : string[]) {
+  updatePassword(params: string[]) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post('http:///83.212.102.61:8080/user/update/password', JSON.stringify(params), { headers: this.headers});
+    return this.http.post('http:///83.212.102.61:8080/user/update/password', JSON.stringify(params), { headers: this.headers });
+  }
+
+  isCpMember(userId: number, token: string) : Observable<Boolean> {
+    this.headers = new HttpHeaders({
+      //'Authorization': 'Bearer  ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<Boolean>('http:///localhost:8080/user/isCpMember',
+      {
+        headers: this.headers,
+        params: { 'userId': String(userId) }
+      });
   }
 }
