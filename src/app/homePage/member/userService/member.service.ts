@@ -100,7 +100,7 @@ export class MemberService {
 
   isCpMember(userId: number, token: string) : Observable<Boolean> {
     this.headers = new HttpHeaders({
-      //'Authorization': 'Bearer  ' + token,
+      'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
     return this.http.get<Boolean>('http:///localhost:8080/user/isCpMember',
