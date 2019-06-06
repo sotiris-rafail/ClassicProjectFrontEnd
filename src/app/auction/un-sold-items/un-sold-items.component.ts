@@ -68,15 +68,11 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
         this.dataSource.paginator = this.paginator;
       },
       error => {
-        console.log(error)
-        const panelClass = error.status === 404 ? 'snackBarAlert' : 'snackBarError'
-        const type = error.status === 404 ? 'alert' : 'error'
-        const message = error.status === 404 ? 'There are not items for sale at the moment' : 'Contact Administration imidiatelly'
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
-            data: { message: message, type: type },
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
             duration: 5000,
-            panelClass: [panelClass],
+            panelClass: ['snackBarError'],
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
