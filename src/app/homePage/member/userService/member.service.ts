@@ -103,7 +103,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<Boolean>('http:///localhost:8080/user/isCpMember',
+    return this.http.get<Boolean>('http:///83.212.102.61:8080/user/isCpMember',
       {
         headers: this.headers,
         params: { 'userId': String(userId) }
