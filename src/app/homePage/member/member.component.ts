@@ -93,6 +93,17 @@ export class MemberComponent implements OnInit {
         'character': character
       },
       disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(updatedCharacher => {
+      if(updatedCharacher) {
+        let updatedCharIndex = this.dataSource.findIndex((character) => character.characterId === updatedCharacher.charId)
+        this.dataSource[updatedCharIndex].name = updatedCharacher.inGameName !== null ? updatedCharacher.inGameName : this.dataSource[updatedCharIndex].name;
+        this.dataSource[updatedCharIndex].level = updatedCharacher.level !== -1 ? updatedCharacher.level : this.dataSource[updatedCharIndex].level;
+        this.dataSource[updatedCharIndex].clanName = updatedCharacher.clanId !== "-1" ? updatedCharacher.clanId : this.dataSource[updatedCharIndex].clanName;
+        this.dataSource[updatedCharIndex].classOfCharacter = updatedCharacher.classOfCharacter !== "-1" ? updatedCharacher.classOfCharacter : this.dataSource[updatedCharIndex].classOfCharacter;
+        this.dataSource[updatedCharIndex].typeOfCharacter = updatedCharacher.typeOfCharacter !== "-1" ? updatedCharacher.typeOfCharacter : this.dataSource[updatedCharIndex].typeOfCharacter;
+      }
     })
   }
 
@@ -102,6 +113,14 @@ export class MemberComponent implements OnInit {
         'character': character
       },
       disableClose: true
-    })
+    });
+
+    dialogRef.afterClosed().subscribe(deletedChar => {
+      if(deletedChar) {
+        let deletedCharIndex = this.dataSource.findIndex((character) => character.characterId === deletedChar.characterId);
+        this.dataSource.splice(deletedCharIndex, 1);
+        this.dataSource = this.dataSource.slice(0, this.dataSource.length);
+      }
+    });
   }
 }

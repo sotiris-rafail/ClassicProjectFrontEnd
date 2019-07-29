@@ -17,7 +17,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://83.212.102.61:8080/cp/' + cpId + "/" + userId, { headers: this.headers });
+    return this.http.get('http://localhost:8080/cp/' + cpId + "/" + userId, { headers: this.headers });
   }
 
   public getCpPhotos(cpId: number, access_token: string, userId: number): Observable<TodoItemNode> {
@@ -25,7 +25,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<TodoItemNode>('http://83.212.102.61:8080/cp/' + cpId + '/' + userId + '/photos', { headers: headers });
+    return this.http.get<TodoItemNode>('http://localhost:8080/cp/' + cpId + '/' + userId + '/photos', { headers: headers });
   }
 
   public addNewFolder(cpId: number, access_token: string, folder: TodoItemNode) {
@@ -33,7 +33,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://83.212.102.61:8080/cp/addFolder', JSON.stringify(folder),
+    return this.http.post('http://localhost:8080/cp/addFolder', JSON.stringify(folder),
       {
         headers: headers,
         params: { cpId: String(cpId) }
@@ -45,7 +45,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://83.212.102.61:8080/user/noCpPeople', { headers: this.headers });
+    return this.http.get('http://localhost:8080/user/noCpPeople', { headers: this.headers });
   }
 
   public addUsersToCP(access_token: string, updateObject: UpdatableUser) {
@@ -53,7 +53,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http://83.212.102.61:8080/user/addPeopleToCp', updateObject, { headers: this.headers });
+    return this.http.put('http://localhost:8080/user/addPeopleToCp', updateObject, { headers: this.headers });
   }
 
   public deleteMember(access_token: string, characterId: number) {
@@ -61,7 +61,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.delete('http://83.212.102.61:8080/cp/delete', {
+    return this.http.delete('http://localhost:8080/cp/delete', {
       headers: this.headers,
       params: {
         'characterId': String(characterId)
@@ -74,7 +74,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<CP[]>('http://83.212.102.61:8080/cp/getCPIdName', { headers: this.headers });
+    return this.http.get<CP[]>('http://localhost:8080/cp/getCPIdName', { headers: this.headers });
   }
 
   public addNewCP(access_token: string, cp: import("../add-new-constant-party/add-new-constant-party.component").CP) {
@@ -82,7 +82,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://83.212.102.61:8080/cp/add', JSON.stringify(cp), { headers: this.headers });
+    return this.http.post('http://localhost:8080/cp/add', JSON.stringify(cp), { headers: this.headers });
   }
 
   public uploadImage(file: File, access_token: string, cpId: number, parentId: string): Observable<Boolean> {
@@ -91,7 +91,7 @@ export class ConstantPartyService {
     });
     const formData = new FormData();
     formData.append('photo', file);
-    return this.http.post<Boolean>('http://83.212.102.61:8080/cp/upload', formData,
+    return this.http.post<Boolean>('http://localhost:8080/cp/upload', formData,
       {
         headers: this.headers,
         params: {
@@ -106,7 +106,7 @@ export class ConstantPartyService {
       'Authorization': 'Bearer ' + access_token,
     });
 
-    return this.http.delete('http://83.212.102.61:8080/cp/file/delete',
+    return this.http.delete('http://localhost:8080/cp/file/delete',
       {
         headers: this.headers,
         params: {

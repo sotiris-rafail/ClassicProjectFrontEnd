@@ -59,6 +59,7 @@ export class UpdateCharacterComponent implements OnInit {
         count++;
       });
     })
+    this.levelControl.setValue(this.data.character.level)
   }
 
   closeDialog() {
@@ -69,12 +70,21 @@ export class UpdateCharacterComponent implements OnInit {
     let updateChar: CharacterUpdate = {
       'charId': this.data.character.characterId,
       'inGameName': this.charNameControl.value,
-      'level': this.levelControl.value === undefined ? -1 : this.levelControl.value,
-      'clanId': this.selectedClan === undefined ? -1 : this.selectedClan,
-      'classOfCharacter': this.selectedClass === undefined ? -1 : this.selectedClass,
-      'typeOfCharacter': this.selectedType === undefined ? -1 : this.selectedType,
+      'level': this.levelControl.value === this.data.character.level ? -1 : this.levelControl.value,
+      'clanId': this.selectedClan === undefined ? "-1" : this.clans[this.selectedClan - 1].viewValue,
+      'classOfCharacter': this.selectedClass === undefined ? "-1" : this.classess[this.selectedClass].viewValue,
+      'typeOfCharacter': this.selectedType === undefined ? "-1" : this.types[this.selectedType === 0 ? this.selectedType : this.selectedType - 1].viewValue,
     };
-    this.charService.updateCharacer(updateChar, sessionStorage.getItem('access_token')).subscribe(
+
+    let onUpdateCar : CharacterUpdate = {
+      'charId': this.data.character.characterId,
+      'inGameName': this.charNameControl.value,
+      'level': this.levelControl.value === this.data.character.level ? -1 : this.levelControl.value,
+      'clanId': this.selectedClan === undefined ? "-1" : this.selectedClan,
+      'classOfCharacter': this.selectedClass === undefined ? "-1" : this.selectedClass,
+      'typeOfCharacter': this.selectedType === undefined ? "-1" : this.selectedType,
+    };
+    this.charService.updateCharacer(onUpdateCar, sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
@@ -84,7 +94,7 @@ export class UpdateCharacterComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.location.reload();
+          this.dialogRef.close(updateChar);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -106,8 +116,8 @@ export interface CharacterUpdate {
   'charId': number,
   'inGameName': string,
   'level': number,
-  'clanId': number,
-  'classOfCharacter': number,
-  'typeOfCharacter': number,
+  'clanId': String,
+  'classOfCharacter': String,
+  'typeOfCharacter': String,
 }
 

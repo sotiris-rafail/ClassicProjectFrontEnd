@@ -29,7 +29,7 @@ export class DeleteMemberComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.location.reload();
+          this.dialogRef.close(this.data.member);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -43,8 +43,7 @@ export class DeleteMemberComponent implements OnInit {
           if(Number(error.status) == 401 ){
             this.router.navigateByUrl('/');
           }
-      }
-    )
+      })
   }
 
   handleCancel() {

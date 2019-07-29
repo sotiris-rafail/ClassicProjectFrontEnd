@@ -30,7 +30,7 @@ export class DeletePanelComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.location.reload();
+          this.dialogRef.close(this.data.character);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -44,8 +44,7 @@ export class DeletePanelComponent implements OnInit {
         if (Number(error.status) == 401) {
           this.router.navigateByUrl('/');
         }
-      }
-    )
+      })
   }
 
   handleCancel() {

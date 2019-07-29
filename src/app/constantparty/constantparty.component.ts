@@ -101,6 +101,21 @@ export class ConstantpartyComponent implements OnInit {
     });
   }
 
-  
+  handleDelete(member : any) {
+    const dialogRef = this.dialog.open(DeleteMemberComponent, {
+      data : {
+        'member' : member
+      },
+      disableClose : true
+    });
+
+    dialogRef.afterClosed().subscribe(deletedMember => {
+      if(deletedMember) {
+        let deletedMemberIndex = this.dataSource2.findIndex((member) => member.characterId === deletedMember.characterId)
+        this.dataSource2.splice(deletedMemberIndex, 1);
+        this.dataSource2 = this.dataSource2.slice(0, this.dataSource2.length);
+      }
+    });
+  }
 
 }
