@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import { NotFoundPageComponent } from './notFoundPage/notFoundPage.component';
 import { MemberComponent } from './homePage/member/member.component';
-import { SuperuserComponent } from './homePage/superuser/superuser.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -75,7 +74,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, MemberComponent, SuperuserComponent, ClanComponent,
+    AppComponent, LoginComponent, RegisterComponent, NotFoundPageComponent, MemberComponent, ClanComponent,
     WelcomePageComponent, AdditionCharacterPanelComponent, AdditionMemberPanelComponent, RaidBossComponent, RegisterRaidBossComponent,
     DeletePanelComponent, ConstantpartyComponent, TopbarComponent, UpdateTODComponent, ChangeMemberRoleComponent, AddClanComponent,
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,

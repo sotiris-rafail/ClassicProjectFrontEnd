@@ -41,20 +41,6 @@ export class TopbarComponent implements OnInit {
     }
   }
 
-  openDialogCharacter() {
-    const dialogRef = this.dialog.open(AdditionCharacterPanelComponent, { width: "530px", height: "530px", disableClose: true });
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
-
-  openDialogMember() {
-    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, { width: "630px", height: "530px", data: { cpId: this.cpId }, disableClose: true });
-
-    dialogRef.afterClosed().subscribe(result => {
-    });
-  }
-
   openRaidDialog() {
     const dialogRef = this.dialog.open(RegisterRaidBossComponent, { width: "330px", height: "430px", disableClose: true });
 

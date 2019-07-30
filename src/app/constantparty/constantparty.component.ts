@@ -101,6 +101,13 @@ export class ConstantpartyComponent implements OnInit {
     });
   }
 
+  openDialogMember() {
+    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, { width: "630px", height: "530px", data: { cpId: this.cpId }, disableClose: true });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
   handleDelete(member : any) {
     const dialogRef = this.dialog.open(DeleteMemberComponent, {
       data : {
