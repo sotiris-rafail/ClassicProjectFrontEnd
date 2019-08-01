@@ -63,3 +63,7 @@ button.mat-menu-item {
 .app-full-image-show .mat-dialog-container{
   padding: inherit;
 }
+
+mat-toolbar {
+  background-color: #24292e !important;
+}
