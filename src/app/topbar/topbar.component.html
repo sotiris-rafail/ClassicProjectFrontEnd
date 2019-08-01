@@ -145,47 +145,25 @@
   </div>
   <div *ngIf="whichToPrint === 'RAIDS'">
     <mat-toolbar color="primary" fxFlex fxLayout="row">
-      <div fxFlex fxLayoutAlign="flex-start">
+      <div fxLayoutAlign="flex-start">
         <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
-      <div fxFlex fxLayoutAlign="center" style="padding: 5%">
+      <div fxFlex fxLayoutAlign="center center" style="padding: 5%">
         <span><b>Raid Boss Tracker</b></span>
-      </div>
-      <div fxShow fxHide.xs="true" fxFlex fxLayoutAlign="flex-end">
-        <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="openRaidDialog()">
-          <mat-icon>add</mat-icon>
-          Add Raid Bosss
-        </button>
-      </div>
-      <div fxHide fxShow.xs="true" fxFlex fxLayoutAlign="flex-end">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button [disabled]="!isSuperUser" style="background-color:#00E676" mat-menu-item color="accent" (click)="openRaidDialog()">
-            <mat-icon>add</mat-icon>
-            Add Raid Bosss
-          </button>
-        </mat-menu>
       </div>
     </mat-toolbar>
   </div>
   <div *ngIf="whichToPrint === 'AUCTION'" fxFlex fxLayout="row">
     <mat-toolbar color="primary">
-      <div fxFlex fxLayoutAlign="flex-start">
+      <div fxLayoutAlign="flex-start">
         <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
       <div fxFlex fxLayoutAlign="center" style="padding: 5%">
         <span><b>Auction</b></span>
-      </div>
-      <div fxFlex fxLayoutAlign="flex-end">
-        <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="addNewItem()">
-          <mat-icon>add</mat-icon>Add Item
-        </button>
       </div>
     </mat-toolbar>
   </div>

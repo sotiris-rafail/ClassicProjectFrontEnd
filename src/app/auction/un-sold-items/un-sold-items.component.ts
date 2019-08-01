@@ -7,6 +7,7 @@ import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
 import { UnSoldItem } from '../auction.component';
+import { AddNewItemPanelComponent } from '../add-new-item-panel/add-new-item-panel.component';
 
 @Component({
   selector: 'app-un-sold-items',
@@ -26,6 +27,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   set panelState(value: Boolean) {
     this._panelState = value;
   }
+  @Input() isSuperUser = true;
   isFirstTime: Boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: MatTableDataSource<UnSoldItemDisplay>;
@@ -141,6 +143,13 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  addNewItem() {
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: "550px", height: "600px", disableClose: true });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }
 

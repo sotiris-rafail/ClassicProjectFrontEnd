@@ -1,4 +1,6 @@
-<mat-form-field appearance="outline">
+
+<div>
+  <mat-form-field appearance="outline" fxLayoutAlign="flex-start">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event.target.value)" [disabled]="dataSource.data.length == 0">
   <mat-icon matSuffix>
@@ -8,6 +10,12 @@
     </svg>
   </mat-icon>
 </mat-form-field>
+<div fxFlex class="fixButtonPosition">
+  <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="addNewItem()">
+    <mat-icon>add</mat-icon>Add Item
+  </button>
+</div>
+</div>
 <table mat-table [(dataSource)]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef>

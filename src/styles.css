@@ -11,18 +11,18 @@ body {
 }
 
 .snackBarAlert {
-  background-color: #C4C15E;
-  color: black;
+  background-color: #C4C15E !important;
+  color: black !important;
 }
 
 .snackBarError {
-  background-color: #FF6464;
-  color: black;
+  background-color: #FF6464 !important;
+  color: black !important;
 }
 
 .snackBarSuccess {
-  background-color: lightgreen;
-  color: black;
+  background-color: lightgreen !important;
+  color: black !important;
 }
 
 a {

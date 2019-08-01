@@ -76,7 +76,14 @@
       </ng-container>
 
       <ng-container matColumnDef="more">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>
+          <div fxShow fxHide.xs="true" fxFlex fxLayoutAlign="flex-end">
+            <button [disabled]="!raidBosser" mat-raised-button color="accent" (click)="openRaidDialog()">
+              <mat-icon>add</mat-icon>
+              Add Raid Bosss
+            </button>
+          </div>
+        </mat-header-cell>
         <mat-cell *matCellDef="let element;">
           <div fxShow fxHide.sm="true" fxHide.xs="true">
             <button [disabled]="!raidBosser" mat-raised-button color="accent"

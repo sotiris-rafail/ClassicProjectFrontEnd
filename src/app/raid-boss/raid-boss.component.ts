@@ -8,6 +8,7 @@ import { RaidBossService } from './raidBossService/raidBoss.service';
 import { MatSort, MatSnackBar } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
+import { RegisterRaidBossComponent } from './register-raid-boss/register-raid-boss.component';
 
 
 @Component({
@@ -183,6 +184,13 @@ export class RaidBossComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.actualDisplay.filter = filterValue.trim().toLowerCase();
+  }
+
+  openRaidDialog() {
+    const dialogRef = this.dialog.open(RegisterRaidBossComponent, { width: "330px", height: "430px", disableClose: true });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }
 

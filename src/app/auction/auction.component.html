@@ -8,7 +8,7 @@
                         <h2>UnSold Items</h2>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <app-un-sold-items [panelState]='panelOpenStateUnSold'></app-un-sold-items>
+                <app-un-sold-items [panelState]='panelOpenStateUnSold'  [isSuperUser]='isSuperUser'></app-un-sold-items>
             </mat-expansion-panel>
             <mat-expansion-panel (opened)='handleOpenOrCloseSold(true)' (closed)='handleOpenOrCloseSold(false)'>
                 <mat-expansion-panel-header>
