@@ -45,10 +45,11 @@ export class AdditionMemberPanelComponent implements OnInit {
           {
             duration: 5000,
             panelClass: 'snackBarSuccess',
-            data: { message: usersToUpdate.length + "added to CP successfully.", type: 'success' },
+            data: { message: usersToUpdate.length + " char(s) added to CP successfully.", type: 'success' },
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
+          this.dialogRef.close(response);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -62,9 +63,6 @@ export class AdditionMemberPanelComponent implements OnInit {
         if (Number(error.status) == 401) {
           this.router.navigateByUrl('/');
         }
-      },
-      () => {
-        window.setTimeout(function () { this.close(); location.reload(); }, 1000);
       });
   }
 

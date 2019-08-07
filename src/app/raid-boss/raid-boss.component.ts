@@ -189,7 +189,20 @@ export class RaidBossComponent implements OnInit {
   openRaidDialog() {
     const dialogRef = this.dialog.open(RegisterRaidBossComponent, { width: "330px", height: "430px", disableClose: true });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(addRaidbosses => {
+      if(addRaidbosses) {
+        console.log(addRaidbosses)
+        this.actualDisplay.data.push({
+            raidBossId: addRaidbosses.raidBossId,
+            level: addRaidbosses.level,
+            name: addRaidbosses.name,
+            isAlive: addRaidbosses.raidBossState,
+            whereItLives: addRaidbosses.whereItLives,
+            windowStarts: new Date(addRaidbosses.windowStarts),
+            windowEnds: new Date(addRaidbosses.windowEnds)
+        });
+        this.actualDisplay._updateChangeSubscription();
+      }
     });
   }
 }

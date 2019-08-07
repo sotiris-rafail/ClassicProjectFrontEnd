@@ -55,4 +55,5 @@ tr.example-element-row:not(.example-expanded-row):active {
     flex-direction: row;
     box-sizing: border-box;
     flex: 1 1 0%;
+    padding-bottom: 1.34375em;
 }

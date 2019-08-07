@@ -45,6 +45,8 @@ export class RegisterRaidBossComponent implements OnInit {
       this.windowStart.setErrors({ max : true});
     } else if (this.windowEnd.value > this.windowStart.value) {
       this.windowStart.updateValueAndValidity({onlySelf : false, emitEvent : false });
+    } else if (this.windowEnd.value === this.windowStart.value) {
+      this.windowStart.updateValueAndValidity({onlySelf : false, emitEvent : false });
     }
   }
 
@@ -65,7 +67,7 @@ export class RegisterRaidBossComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.location.reload();
+        this.dialog.close(response);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,

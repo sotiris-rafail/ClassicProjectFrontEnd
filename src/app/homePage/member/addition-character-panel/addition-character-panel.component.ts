@@ -88,6 +88,7 @@ export class AdditionCharacterPanelComponent implements OnInit {
     }
     this.registerCharacterService.registerCharacter(character, this.token.getAccessToken).subscribe(
       response => {
+        console.log(response)
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
             duration: 5000,
@@ -96,7 +97,7 @@ export class AdditionCharacterPanelComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.location.reload();
+        this.dialogRef.close(response);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,

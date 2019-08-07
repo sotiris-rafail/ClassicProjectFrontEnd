@@ -128,7 +128,11 @@ export class MemberComponent implements OnInit {
   openDialogCharacter() {
     const dialogRef = this.dialog.open(AdditionCharacterPanelComponent, { width: "530px", height: "530px", disableClose: true });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(addedChar => {
+      if(addedChar) {
+        this.dataSource.push(addedChar);
+        this.dataSource = this.dataSource.slice(0, this.dataSource.length);
+      }
     });
   }
 }
