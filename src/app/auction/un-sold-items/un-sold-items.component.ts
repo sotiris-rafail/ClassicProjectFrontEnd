@@ -149,6 +149,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: "550px", height: "600px", disableClose: true });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.openUnSoldPanel();
     });
   }
 }
