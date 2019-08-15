@@ -13,7 +13,7 @@ export class RaidBossService{
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get('http://localhost:8080/raidboss/getInfo', {headers : this.headers});
+        return this.http.get('http://83.212.102.61:8080/raidboss/getInfo', {headers : this.headers});
     }
 
     public updateTOD(access_token : string, raidId : string, time : string) {
@@ -21,7 +21,7 @@ export class RaidBossService{
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.put('http://localhost:8080/raidboss/updateDeathTimer', '', {headers : this.headers, params : {
+        return this.http.put('http://83.212.102.61:8080/raidboss/updateDeathTimer', '', {headers : this.headers, params : {
             'raidId' : raidId , 'timer' : time
         }});
     }
@@ -31,7 +31,7 @@ export class RaidBossService{
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.put('http://localhost:8080/raidboss/setToUnknown', '', {headers : this.headers, params : {
+        return this.http.put('http://83.212.102.61:8080/raidboss/setToUnknown', '', {headers : this.headers, params : {
             'raidId' : raidId 
         }});
     }
@@ -41,6 +41,6 @@ export class RaidBossService{
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.post('http:///localhost:8080/raidboss/add', raidBoss, {headers : this.headers});
+        return this.http.post('http:///83.212.102.61:8080/raidboss/add', raidBoss, {headers : this.headers});
     }
 }
