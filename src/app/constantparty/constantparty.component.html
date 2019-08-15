@@ -32,12 +32,20 @@
       </ng-container>
 
       <ng-container matColumnDef="More">
-        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px': 0}"></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px': 0}">
+            <button fxShow fxHide.xs="true" [disabled]="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()">
+              <mat-icon>add</mat-icon>
+              Add a member
+            </button>
+            <button fxHide fxShow.xs="true" [disabled]="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()" [matTooltip]="'Add a member'">
+              <mat-icon>add</mat-icon>
+            </button>
+        </mat-header-cell>
         <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'padding-right.px': 0}">
-          <button mat-icon-button (click)="handleDelete(element2)" [matTooltip]="'Delete'" [disabled]="!isUserAleader">
+          <button mat-raised-button color="warn" (click)="handleDelete(element2)" [matTooltip]="'Delete'" [disabled]="!isUserAleader">
             <mat-icon>
               <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                <path fill="#000000"
+                <path fill="#FFFFFF"
                   d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
               </svg>
             </mat-icon>

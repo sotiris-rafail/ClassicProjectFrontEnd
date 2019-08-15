@@ -7,6 +7,7 @@ import { ConstantPartyService } from './constantPartyService/constantParty.servi
 import { DeleteMemberComponent } from './delete-member/delete-member.component';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { MatSnackBar } from '@angular/material';
+import { element } from '@angular/core/src/render3';
 
 const photo_path = "../../assets/upload/photos/";
 @Component({
@@ -97,6 +98,20 @@ export class ConstantpartyComponent implements OnInit {
         if (!this.isUserAleader) {
           this.isUserAleader = sessionStorage.getItem("userId") == member.userId;
         }
+      }
+    });
+  }
+
+  openDialogMember() {
+    const dialogRef = this.dialog.open(AdditionMemberPanelComponent, { width: "630px", height: "530px", data: { cpId: this.cpId }, disableClose: true });
+
+    dialogRef.afterClosed().subscribe(addedMembers => {
+      if(addedMembers) {
+        let newChars = ConstantpartyComponent.getCPChars(addedMembers);
+        newChars.forEach(element => {
+          this.dataSource2.push(element);
+        })
+        this.dataSource2 = this.dataSource2.slice(0, this.dataSource2.length);
       }
     });
   }

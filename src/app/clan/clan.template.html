@@ -7,9 +7,9 @@
     </span>
   </div>
   <div>
-    <mat-list>
+    <mat-list >
       <mat-list-item *ngFor="let member of clan.members">
-        <div matLine style="vertical-align: middle">
+        <div style="color: black" matLine style="vertical-align: middle">
           <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'CPLEADER'"
             class="fas fa-crown"></i>
           <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'SUPERUSER'"
@@ -22,7 +22,7 @@
             class="material-icons">
             <img src="https://img.icons8.com/color/24/000000/approve-and-update.png">
           </i>
-          <span>
+          <span style="color: black">
             <b>Name:</b> {{member.name}} <b>Level:</b> {{ member.level }} <b>Class:</b> {{ member.classOfCharacter}}
             <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{displayingView[member.typeOfCharacter]}} <b>Type Of Member:</b>
             {{displayingView[member.typeOfUser]}}
@@ -30,10 +30,10 @@
           <div style="display: inline-flex">
             <div *ngIf="isSuperUser">
               <button matTooltip="Change the role" mat-icon-button (click)="showInfo(member)">
-                <mat-icon matListIcon>update</mat-icon>
+                <mat-icon matListIcon color="primary">update</mat-icon>
               </button>
             </div>
-            <div *ngIf="isSuperUser && member.cpName === 'Not a CP member' && member.typeOfUser === 'CPLEADER'">
+            <div *ngIf="isSuperUser && member.cpName === 'Not a CP member' && (member.typeOfUser === 'CPLEADER' || isSuperUser)">
               <button matTooltip="Add user to CP" mat-icon-button (click)="addToCp(member)">
                 <mat-icon matListIcon color="accent">add_circle</mat-icon>
               </button>

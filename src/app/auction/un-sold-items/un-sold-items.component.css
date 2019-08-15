@@ -47,3 +47,13 @@ tr.example-element-row:not(.example-expanded-row):active {
     background-color: black;
     font-size: 110%;
 }
+
+.fixButtonPosition {
+    display: inline-grid !important;
+    place-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row;
+    box-sizing: border-box;
+    flex: 1 1 0%;
+    padding-bottom: 1.34375em;
+}

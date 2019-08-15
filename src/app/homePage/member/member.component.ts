@@ -1,3 +1,4 @@
+import { AdditionCharacterPanelComponent } from './addition-character-panel/addition-character-panel.component';
 import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { UpdateCharacterComponent } from './update-character/update-character.component';
 
@@ -119,6 +120,17 @@ export class MemberComponent implements OnInit {
       if(deletedChar) {
         let deletedCharIndex = this.dataSource.findIndex((character) => character.characterId === deletedChar.characterId);
         this.dataSource.splice(deletedCharIndex, 1);
+        this.dataSource = this.dataSource.slice(0, this.dataSource.length);
+      }
+    });
+  }
+
+  openDialogCharacter() {
+    const dialogRef = this.dialog.open(AdditionCharacterPanelComponent, { width: "530px", height: "530px", disableClose: true });
+
+    dialogRef.afterClosed().subscribe(addedChar => {
+      if(addedChar) {
+        this.dataSource.push(addedChar);
         this.dataSource = this.dataSource.slice(0, this.dataSource.length);
       }
     });

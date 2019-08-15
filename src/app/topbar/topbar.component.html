@@ -22,11 +22,6 @@
       <div *ngIf="cpId != -1 && aqAdjPrice != 0 && orfenCoreAdjPrice != 0" fxLayoutAlign="center" style="margin-left: 0.5em;font-size: 80%">
         Today prices: AQ: {{aqAdjPrice}}, Core/Orfen: {{orfenCoreAdjPrice}}
       </div>
-      <div fxFlex fxLayout fxLayoutAlign="flex-end">
-        <button mat-raised-button color="accent" (click)="openDialogCharacter()">
-          <mat-icon>add</mat-icon>Add a character
-        </button>
-      </div>
     </mat-toolbar>
     <mat-toolbar color="primary" fxFlex fxHide fxShow.xs="true">
       <mat-toolbar-row>
@@ -55,10 +50,6 @@
               <div *ngIf="cpId != -1">
                 <a routerLink="/raidboss">Raid Tracker</a>
               </div>
-            </button>
-            <mat-divider style="background-color:#212121"></mat-divider>
-            <button mat-menu-item style="background-color:#00E676" (click)="openDialogCharacter()">
-              <mat-icon>add</mat-icon>Add a character
             </button>
             <mat-divider style="background-color:#212121"></mat-divider>
             <div *ngIf="cpId != -1 && aqAdjPrice != 0 && orfenCoreAdjPrice != 0" fxLayoutAlign="center">
@@ -90,12 +81,6 @@
       <div fxFlex fxLayoutAlign="flex-start" style="padding: 0 0.5em 0 0.5em;">
         <span><b>CP Leader:</b> {{cpLeader}} </span>
       </div>
-      <div fxFlex fxLayout fxLayoutAlign="flex-end">
-        <button [disabled]="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()">
-          <mat-icon>add</mat-icon>
-          Add a member
-        </button>
-      </div>
     </mat-toolbar>
     <mat-toolbar color="primary" fxHide fxShow.xs="true" fxFlex>
       <div fxLayoutAlign="flex-start">
@@ -110,18 +95,6 @@
         <div fxLayoutAlign="center">
           <span><b>CP Leader:</b> {{cpLeader}} </span>
         </div>
-      </div>
-      <div fxLayoutAlign="flex-end" fxHide fxShow.xs="true">
-        <button mat-icon-button [matMenuTriggerFor]="addMember">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #addMember="matMenu">
-          <button [disabled]="!isUserAleader" style="background-color:#00E676" mat-menu-item
-            (click)="openDialogMember()">
-            <mat-icon>add</mat-icon>
-            Add a member
-          </button>
-        </mat-menu>
       </div>
     </mat-toolbar>
   </div>
@@ -172,47 +145,25 @@
   </div>
   <div *ngIf="whichToPrint === 'RAIDS'">
     <mat-toolbar color="primary" fxFlex fxLayout="row">
-      <div fxFlex fxLayoutAlign="flex-start">
+      <div fxLayoutAlign="flex-start">
         <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
-      <div fxFlex fxLayoutAlign="center" style="padding: 5%">
+      <div fxFlex fxLayoutAlign="center center" style="padding: 5%">
         <span><b>Raid Boss Tracker</b></span>
-      </div>
-      <div fxShow fxHide.xs="true" fxFlex fxLayoutAlign="flex-end">
-        <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="openRaidDialog()">
-          <mat-icon>add</mat-icon>
-          Add Raid Bosss
-        </button>
-      </div>
-      <div fxHide fxShow.xs="true" fxFlex fxLayoutAlign="flex-end">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button [disabled]="!isSuperUser" style="background-color:#00E676" mat-menu-item color="accent" (click)="openRaidDialog()">
-            <mat-icon>add</mat-icon>
-            Add Raid Bosss
-          </button>
-        </mat-menu>
       </div>
     </mat-toolbar>
   </div>
   <div *ngIf="whichToPrint === 'AUCTION'" fxFlex fxLayout="row">
     <mat-toolbar color="primary">
-      <div fxFlex fxLayoutAlign="flex-start">
+      <div fxLayoutAlign="flex-start">
         <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
           <mat-icon>home</mat-icon>
         </a>
       </div>
       <div fxFlex fxLayoutAlign="center" style="padding: 5%">
         <span><b>Auction</b></span>
-      </div>
-      <div fxFlex fxLayoutAlign="flex-end">
-        <button [disabled]="!isSuperUser" mat-raised-button color="accent" (click)="addNewItem()">
-          <mat-icon>add</mat-icon>Add Item
-        </button>
       </div>
     </mat-toolbar>
   </div>
