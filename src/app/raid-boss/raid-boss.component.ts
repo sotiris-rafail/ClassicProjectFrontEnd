@@ -132,13 +132,23 @@ export class RaidBossComponent implements OnInit {
           clickedRaid = raid;
         }
       })
-    this.dialog.open(UpdateTODComponent, {
+    const dialogref = this.dialog.open(UpdateTODComponent, {
       width: "300px", height: "630px",
       data: {
         raidBoss: clickedRaid,
         acces_tokken: this.token.getAccessToken
       },
       disableClose: true
+    });
+
+    dialogref.afterClosed().subscribe(updatedBoss => {
+      if(updatedBoss) {
+        let updatedBossIndex = this.actualDisplay.data.findIndex(raidboss => raidboss.raidBossId === updatedBoss.raidBossId);
+        this.actualDisplay.data[updatedBossIndex].windowStarts = new Date(updatedBoss.windowStarts);
+        this.actualDisplay.data[updatedBossIndex].windowEnds = new Date(updatedBoss.windowEnds);
+        this.actualDisplay.data[updatedBossIndex].isAlive = updatedBoss.raidBossState;
+        this.actualDisplay._updateChangeSubscription();
+      }
     });
   }
 

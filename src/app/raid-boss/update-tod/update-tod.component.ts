@@ -66,7 +66,7 @@ export class UpdateTODComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        window.setTimeout(function () { location.reload() }, 5000)
+        this.dialogRef.close(response);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
