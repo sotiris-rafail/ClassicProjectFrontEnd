@@ -35,8 +35,7 @@ export class AuctionComponent implements OnInit {
               },
               error => {
                 this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
-              }
-            )
+              })
           } else {
             this.snackBar.openFromComponent(DisplayingErrorComponent, {
               data: { message: 'You are not a CP member.', type: 'alert' },

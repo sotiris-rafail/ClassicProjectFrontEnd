@@ -3,12 +3,16 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AdminDashbordService } from './adminDashboard.service';
 import { CpPoints } from './epic-points-dashboard-display/epic-points-dashboard-display.component';
+import { MemberService } from '../homePage/member/userService/member.service';
+import { MatSnackBar } from '@angular/material';
+import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dash-board',
   templateUrl: './admin-dash-board.component.html',
   styleUrls: ['./admin-dash-board.component.css'],
-  providers: [AdminDashbordService]
+  providers: [AdminDashbordService, MemberService]
 })
 export class AdminDashBoardComponent implements OnInit {
   previusUrl: string = "";
@@ -19,8 +23,26 @@ export class AdminDashBoardComponent implements OnInit {
   whatToFilter = "Email";
   checked = false;
   cols : number = 0;
+  isSuperUser: boolean = false;
   ngOnInit(): void {
     this.previusUrl = "/user/" + sessionStorage.getItem("userId");
+    this.memberService.getRoleOfUser(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
+      response => {
+        this.isSuperUser = String(response) === 'SUPERUSER';
+        if(!this.isSuperUser) {
+          this.snackBar.openFromComponent(DisplayingErrorComponent, {
+            data: { message: 'Your role is not the expected', type: 'error' },
+            duration: 5000,
+            panelClass: ['snackBarError'],
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+          this.router.navigateByUrl(this.previusUrl);
+        }
+      },
+      error => {
+        this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
+      })
     this.adminService.getEpicPoints(sessionStorage.getItem("access_token")).subscribe(
       response => {
         response.forEach(cp => {
@@ -56,7 +78,8 @@ export class AdminDashBoardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService) {}
+  constructor(private breakpointObserver: BreakpointObserver, private adminService: AdminDashbordService, 
+    private memberService : MemberService, private snackBar : MatSnackBar, private router: Router) {}
 
   applyFilter(value : string){
     this.filter = value;
