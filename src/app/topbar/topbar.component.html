@@ -30,28 +30,28 @@
             <mat-icon>menu</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item color="accent" (click)="navigate('/cp/',cpId)">
+            <button mat-menu-item color="primary" (click)="navigate('/cp/',cpId)" style="background-color:#212121">
               <div fxLayoutAlign="flex-start">
-                <span><b> CP: </b>
+                <span>
                   <a routerLink="/cp/{{cpId}}"> {{cp}}</a>
                 </span>
               </div>
             </button>
-            <mat-divider style="background-color:#212121"></mat-divider>
-            <button mat-menu-item (click)="navigate('/auction', 0)">
+            <mat-divider style="background-color:#FFFFFF"></mat-divider>
+            <button mat-menu-item (click)="navigate('/auction', 0)" style="background-color:#212121">
               <div *ngIf="lengthOfChars != 0 && cpId != -1">
                 <a [matBadge]="itemsOnSale" matBadgeOverlap="false"
                   [matBadgeColor]="itemsOnSale == 0 ? 'warn' : 'accent'" matBadgePosition="after"
                   routerLink="/auction">Auction</a>
               </div>
             </button>
-            <mat-divider style="background-color:#212121"></mat-divider>
-            <button mat-menu-item (click)="navigate('/raidboss', 0)">
+            <mat-divider style="background-color:#FFFFFF"></mat-divider>
+            <button mat-menu-item (click)="navigate('/raidboss', 0)" style="background-color:#212121">
               <div *ngIf="cpId != -1">
                 <a routerLink="/raidboss">Raid Tracker</a>
               </div>
             </button>
-            <mat-divider style="background-color:#212121"></mat-divider>
+            <mat-divider style="background-color:#FFFFFF"></mat-divider>
             <div *ngIf="cpId != -1 && aqAdjPrice != 0 && orfenCoreAdjPrice != 0" fxLayoutAlign="center">
               Today prices: <br>AQ: {{aqAdjPrice}} <br> Core/Orfen: {{orfenCoreAdjPrice}}
             </div>
