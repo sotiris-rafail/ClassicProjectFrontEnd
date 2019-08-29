@@ -27,23 +27,6 @@
             <b>CP:</b> {{member.cpName}} <b>Type Of Character:</b> {{displayingView[member.typeOfCharacter]}} <b>Type Of Member:</b>
             {{displayingView[member.typeOfUser]}}
           </span>
-          <div style="display: inline-flex">
-            <div *ngIf="isSuperUser">
-              <button matTooltip="Change the role" mat-icon-button (click)="showInfo(member)">
-                <mat-icon matListIcon color="primary">update</mat-icon>
-              </button>
-            </div>
-            <div *ngIf="isSuperUser && member.cpName === 'Not a CP member' && (member.typeOfUser === 'CPLEADER' || isSuperUser)">
-              <button matTooltip="Add user to CP" mat-icon-button (click)="addToCp(member)">
-                <mat-icon matListIcon color="accent">add_circle</mat-icon>
-              </button>
-            </div>
-            <div *ngIf="isSuperUser">
-              <button matTooltip="Delete Character"  mat-icon-button (click)="removeFromClan(member)">
-                <mat-icon matListIcon color="warn">remove_circle</mat-icon>
-              </button>
-            </div>
-          </div>
         </div>
       </mat-list-item>
     </mat-list>

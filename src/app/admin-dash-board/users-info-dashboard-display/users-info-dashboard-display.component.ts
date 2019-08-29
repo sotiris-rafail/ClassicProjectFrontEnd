@@ -8,6 +8,10 @@ import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-er
 import { Router } from '@angular/router';
 import { User } from '../admin-dash-board.component';
 import { filter } from 'rxjs/operators';
+import { ChangeMemberRoleComponent } from 'src/app/homePage/member/change-member-role/change-member-role.component';
+import { AddUserToCpFromClanPageComponent } from 'src/app/constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
+import { RemoveClanMemberComponent } from 'src/app/clan/remove-clan-member/remove-clan-member.component';
+import { DeleteMemberComponent } from 'src/app/constantparty/delete-member/delete-member.component';
 
 @Component({
   selector: 'app-users-info-dashboard-display',
@@ -29,6 +33,7 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   displayingView = [];
   @Input() filter = "";
   @Input() searchByCharacter = false;
+  @Input() isSuperUser;
   actualData = [];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName', 'more'];
@@ -95,6 +100,48 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
         this.ngOnChanges();
       }
     });
+  }
+
+  showInfo(member: any) {
+    let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
+      {
+        data: { member: member },
+        disableClose: true
+      });
+  }
+
+  addToCp(member: any) {
+    let dialogRef = this.dialog.open(AddUserToCpFromClanPageComponent,
+      {
+        data: { member: member },
+        disableClose: true
+      });
+  }
+
+  removeFromClan(member: any) {
+    let dialogRef = this.dialog.open(RemoveClanMemberComponent,
+      {
+        data: { member: member },
+        disableClose: true
+      });
+  }
+
+  handleDeleteCpMember(member: any, cpName: string) {
+    member.cpName = cpName;
+    const dialogRef = this.dialog.open(DeleteMemberComponent, {
+      data : {
+        'member' : member
+      },
+      disableClose : true
+    });
+
+    // dialogRef.afterClosed().subscribe(deletedMember => {
+    //   if(deletedMember) {
+    //     let deletedMemberIndex = this.dataSource2.findIndex((member) => member.characterId === deletedMember.characterId)
+    //     this.dataSource2.splice(deletedMemberIndex, 1);
+    //     this.dataSource2 = this.dataSource2.slice(0, this.dataSource2.length);
+    //   }
+    // });
   }
 
 }

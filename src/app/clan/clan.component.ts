@@ -91,28 +91,4 @@ export class ClanComponent implements OnInit {
       this.isSuperUser = true;
     }
   }
-
-  showInfo(member: any) {
-    let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
-      {
-        data: { member: member },
-        disableClose: true
-      });
-  }
-
-  addToCp(member: any) {
-    let dialogRef = this.dialog.open(AddUserToCpFromClanPageComponent,
-      {
-        data: { member: member },
-        disableClose: true
-      });
-  }
-
-  removeFromClan(member: any) {
-    let dialogRef = this.dialog.open(RemoveClanMemberComponent,
-      {
-        data: { member: member },
-        disableClose: true
-      });
-  }
 }

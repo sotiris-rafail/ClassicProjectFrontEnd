@@ -26,7 +26,7 @@
           </mat-card-header>
           <mat-card-content *ngIf="card.number == 1" class="dashboard-card-content">
             <div fxFlex style="height:250px;">
-              <app-users-info-dashboard-display [filter]="filter" [searchByCharacter]="checked">
+              <app-users-info-dashboard-display [filter]="filter" [searchByCharacter]="checked" [isSuperUser]="isSuperUser">
               </app-users-info-dashboard-display>
             </div>
           </mat-card-content>

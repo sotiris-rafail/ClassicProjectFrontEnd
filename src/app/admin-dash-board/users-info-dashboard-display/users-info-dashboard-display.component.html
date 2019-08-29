@@ -2,9 +2,9 @@
   <div>
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="" matSort>
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-        <th mat-header-cell *matHeaderCellDef> 
-          <span fxShow fxHide.xs="true">{{displayingView[column]}}</span> 
-          <span fxHide fxShow.xs="true" *ngIf="column != 'userId' ">{{displayingView[column]}}</span> 
+        <th mat-header-cell *matHeaderCellDef>
+          <span fxShow fxHide.xs="true">{{displayingView[column]}}</span>
+          <span fxHide fxShow.xs="true" *ngIf="column != 'userId' ">{{displayingView[column]}}</span>
         </th>
         <td mat-cell *matCellDef="let element">
           <span *ngIf="column === 'cpName'">
@@ -27,17 +27,32 @@
             {{element[column]}}
           </span>
           <span fxHide fxShow.xs="true" *ngIf="column !== 'typeOfUser' && column !== 'userId'">
-              {{element[column]}}
-            </span>
+            {{element[column]}}
+          </span>
           <span *ngIf="column === 'more'">
-            <div *ngIf="element['chars'].length === 0">
-              <button mat-raised-button color="warn" (click)="handleDelete(element['userId'], element['email'])">
+            <div>
+              <button *ngIf="isSuperUser && element['responseConstantParty'].cpName === '' && element['chars'].length !== 0" 
+                matTooltip="Add {{element['email']}} to CP"
+                mat-icon-button (click)="addToCp(element['chars'][0])">
+                <mat-icon matListIcon color="accent">add_circle</mat-icon>
+              </button>
+              <button *ngIf="isSuperUser && element['chars'].length !== 0" matTooltip="Change the role" mat-icon-button
+                (click)="showInfo(element['chars'][0])">
+                <mat-icon matListIcon color="primary">update</mat-icon>
+              </button>
+              <button *ngIf="isSuperUser && element['chars'].length === 0" mat-icon-button color="warn"
+                matTooltip="Delete {{element['email']}}" (click)="handleDelete(element['userId'], element['email'])">
                 <mat-icon>
                   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                    <path fill="#FFFFFF"
+                    <path fill="red"
                       d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
                   </svg>
-                </mat-icon>Delete User
+                </mat-icon>
+              </button>
+              <button *ngIf="isSuperUser && element['responseConstantParty'].cpName !== '' && element['chars'].length !== 0"
+                matTooltip="Remove {{element['email']}} from {{element['responseConstantParty'].cpName}}"
+                mat-icon-button (click)="handleDeleteCpMember(element['chars'][0], element['responseConstantParty'].cpName)">
+                <mat-icon matListIcon color="warn">remove_circle</mat-icon>
               </button>
             </div>
           </span>
@@ -56,6 +71,15 @@
                 <b>Clan: </b>{{chars.clanName}},
                 <b>Class: </b>{{chars.classOfCharacter}},
                 <b>Type Of Character: </b>{{displayingView[chars.typeOfCharacter]}}
+                <div *ngIf="isSuperUser" style="display: inline-flex">
+                  <button matTooltip="Delete {{chars.name}}" mat-icon-button (click)="removeFromClan(chars)">
+                    <mat-icon matListIcon color="warn">
+                      <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                        <path fill="red"
+                          d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                      </svg></mat-icon>
+                  </button>
+                </div>
               </li>
             </ul>
           </div>
