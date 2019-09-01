@@ -71,6 +71,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { FullImageShowComponent } from './constantparty/cp-photos-show/full-image-show/full-image-show.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatCheckboxModule,
     MatProgressBarModule,
     CdkTreeModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatFormFieldModule,
@@ -148,7 +150,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatCheckboxModule,
     MatProgressBarModule,
     CdkTreeModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSlideToggleModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromClanPageComponent, RemoveClanMemberComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,
