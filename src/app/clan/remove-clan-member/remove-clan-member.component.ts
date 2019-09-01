@@ -21,30 +21,29 @@ export class RemoveClanMemberComponent implements OnInit {
   }
 
   removeCharacterFromClan(member) {
-    this.characterService.deleteCharacter(sessionStorage.getItem("access_token"), member.characterId).subscribe(
+    this.characterService.deleteCharacter(sessionStorage.getItem('access_token'), member.characterId).subscribe(
       response => {
         this.snackbar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: member.name + " removed successfully", type: "success" },
+          data: { message: member.name + ' removed successfully', type: 'success' },
           duration: 5000,
           panelClass: ['snackBarSuccess'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
-        })
-        setTimeout(function(){ location.reload(); }, 5000);
+        });
       },
       error => {
         this.snackbar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: error.error.message || error.error.error_description, type: "alert" },
+          data: { message: error.error.message || error.error.error_description, type: 'alert' },
           duration: 5000,
           panelClass: ['snackBarAlert'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        if(Number(error.status) == 401 ){
+        if (Number(error.status) === 401 ) {
           this.router.navigateByUrl('/');
         }
       }
-    )
+    );
   }
 
   handleCancel() {

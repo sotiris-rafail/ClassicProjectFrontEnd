@@ -72,7 +72,7 @@ export class MemberComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        if (Number(error.status) == 401 ) {
+        if (Number(error.status) === 401 ) {
           this.router.navigateByUrl('/');
         }
       });

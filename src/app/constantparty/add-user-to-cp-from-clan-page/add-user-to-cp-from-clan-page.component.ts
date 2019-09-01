@@ -17,27 +17,27 @@ export class AddUserToCpFromClanPageComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<AddUserToCpFromClanPageComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cpService: ConstantPartyService,
     private snackBar: MatSnackBar, private memberService: MemberService, private router: Router) { }
 
-  @ViewChild(MatSelect) matSelect: MatSelect
+  @ViewChild(MatSelect) matSelect: MatSelect;
   cps: CP[] = [];
-  selectedValue = "";
+  selectedValue = '';
   ngOnInit() {
-    this.cpService.getCPIdName(sessionStorage.getItem("access_token")).subscribe(
+    this.cpService.getCPIdName(sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.cps = response;
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: error.error.message || error.error.error_description, type: "alert" },
+          data: { message: error.error.message || error.error.error_description, type: 'alert' },
           duration: 5000,
           panelClass: ['snackBarAlert'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        if(Number(error.status) == 401 ){
+        if (Number(error.status) === 401 ) {
           this.router.navigateByUrl('/');
         }
       }
-    )
+    );
     this.cps = [];
   }
 
@@ -46,31 +46,30 @@ export class AddUserToCpFromClanPageComponent implements OnInit {
   }
 
   addSingleUserToCP(member) {
-    let cpId = this.cps.find((cp) => cp.cpName.toLowerCase() == this.selectedValue.toLowerCase()).cpId;
-    this.memberService.addSingleUserToCP(member.characterId, cpId, sessionStorage.getItem("access_token")).subscribe(
+    const cpId = this.cps.find((cp) => cp.cpName.toLowerCase() === this.selectedValue.toLowerCase()).cpId;
+    this.memberService.addSingleUserToCP(member.characterId, cpId, sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: member.name +" was successfully added to " + this.selectedValue + " CP", type: "success" },
+          data: { message: member.name + ' was successfully added to ' + this.selectedValue + ' CP', type: 'success' },
           duration: 5000,
           panelClass: ['snackBarSuccess'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
-        })
-        setTimeout(function(){ location.reload(); }, 5000);
+        });
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
-          data: { message: error.error.message || error.error.error_description, type: "alert" },
+          data: { message: error.error.message || error.error.error_description, type: 'alert' },
           duration: 5000,
           panelClass: ['snackBarAlert'],
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        if(Number(error.status) == 401 ){
+        if (Number(error.status) === 401 ) {
           this.router.navigateByUrl('/');
         }
       }
-    )
+    );
   }
 
   handleCancel() {
