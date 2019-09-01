@@ -98,7 +98,7 @@ export class MemberService {
     return this.http.post('http:///83.212.102.61:8080/user/update/password', JSON.stringify(params), { headers: this.headers });
   }
 
-  isCpMember(userId: number, token: string) : Observable<Boolean> {
+  isCpMember(userId: number, token: string): Observable<Boolean> {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
@@ -107,6 +107,22 @@ export class MemberService {
       {
         headers: this.headers,
         params: { 'userId': String(userId) }
+      });
+  }
+
+  userOptions(userId: number, token: string, option?: string, optionValue?: boolean) {
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer  ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post('http:///83.212.102.61:8080/user/options',
+      {
+        headers: this.headers,
+        params: {
+          'userId': String(userId),
+          'options': option,
+          'optionValue': String(optionValue)
+        }
       });
   }
 }

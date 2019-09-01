@@ -83,23 +83,26 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
-  <mat-card class="user-options">
+  <mat-card class="user-options" *ngIf="option">
     <mat-card-content>
       <h2 class="example-h2">User Options  NOT READY YET!</h2>
-     
+     <div>
+        <button mat-raised-button color="accent" (click)="activate()">Activate All</button>
+        <button mat-raised-button color="warn" (click)="deactivate()">Deactivate All</button>
+     </div>
       <section class="example-section">
         Bosses on window notification
-        <mat-slide-toggle class="example-margin" color="primary" [checked]=false [disabled]=true>
+        <mat-slide-toggle #boss class="example-margin" color="accent" [checked]="option.bossesNotification" (toggleChange)="optionChange('bosses', !bossesNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section">
         New items on action
-        <mat-slide-toggle class="example-margin" color="primary" [checked]=false [disabled]=true>
+        <mat-slide-toggle #newItem class="example-margin" color="accent" [checked]="option.newItemNotification" (change)="optionChange('newitem', !newItemNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section">
         Sold items on auction
-        <mat-slide-toggle class="example-margin" color="primary" [checked]=false [disabled]=true>
+        <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification" (change)="optionChange('solditem', !soldItemNotification)">
         </mat-slide-toggle>
       </section>
     </mat-card-content>
