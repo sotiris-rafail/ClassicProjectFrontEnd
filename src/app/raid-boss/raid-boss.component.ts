@@ -19,14 +19,14 @@ import { RegisterRaidBossComponent } from './register-raid-boss/register-raid-bo
 })
 export class RaidBossComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  whichToPrint: String = "RAIDS"
+  whichToPrint: String = 'RAIDS';
   token: OAuth2Token = new OAuth2Token();
   dataSource: any;
   previusUrl: string;
   displayedColumns = ['name', 'level', 'windowStart', 'windowEnd', 'state', 'more', 'unknown'];
   actualDisplay: MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
   typeOfUser: any;
-  raidBosser: boolean = false;
+  raidBosser = false;
   displayingView = [];
   constructor(private dialog: MatDialog, private router: Router, private raidBossService: RaidBossService, private memberService: MemberService, private snackBar: MatSnackBar) {
     this.displayingView['ALIVE'] = 'Alive';
@@ -36,7 +36,7 @@ export class RaidBossComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.previusUrl = "/user/" + sessionStorage.getItem("userId");
+    this.previusUrl = '/user/' + sessionStorage.getItem('userId');
     this.token.getTokensFromStorage();
     if (this.token.isAccessTokenValid()) {
       this.memberService.isCpMember(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
@@ -56,11 +56,11 @@ export class RaidBossComponent implements OnInit {
                     horizontalPosition: 'right',
                     verticalPosition: 'top'
                   });
-                if (Number(error.status) == 401) {
+                if (Number(error.status) === 401) {
                   this.router.navigateByUrl('/');
                 }
               }
-            )
+            );
             this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
               response => {
                 this.dataSource = response;
@@ -76,7 +76,7 @@ export class RaidBossComponent implements OnInit {
                     horizontalPosition: 'right',
                     verticalPosition: 'top'
                   });
-                if (Number(error.status) == 401) {
+                if (Number(error.status) === 401) {
                   this.router.navigateByUrl('/');
                 }
               });
@@ -102,15 +102,15 @@ export class RaidBossComponent implements OnInit {
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl('/');
     }
   }
 
   private fixOutput(datasource) {
-    let raidBosses = new Array<RaidBoss>();
+    const raidBosses = new Array<RaidBoss>();
     datasource.forEach(
       raidboss => {
-        let raid: RaidBoss = {
+        const raid: RaidBoss = {
           raidBossId: raidboss.raidBossId,
           level: raidboss.level,
           name: raidboss.name,
@@ -118,9 +118,9 @@ export class RaidBossComponent implements OnInit {
           whereItLives: raidboss.whereItLives,
           windowStarts: new Date(raidboss.windowStarts),
           windowEnds: new Date(raidboss.windowEnds)
-        }
+        };
         raidBosses.push(raid);
-      })
+      });
     return raidBosses;
   }
 
@@ -128,12 +128,12 @@ export class RaidBossComponent implements OnInit {
     let clickedRaid: RaidBoss;
     this.actualDisplay.data.forEach(
       raid => {
-        if (raid.raidBossId == id) {
+        if (raid.raidBossId === id) {
           clickedRaid = raid;
         }
-      })
+      });
     const dialogref = this.dialog.open(UpdateTODComponent, {
-      width: "300px", height: "630px",
+      width: '300px', height: '630px',
       data: {
         raidBoss: clickedRaid,
         acces_tokken: this.token.getAccessToken
@@ -142,11 +142,12 @@ export class RaidBossComponent implements OnInit {
     });
 
     dialogref.afterClosed().subscribe(updatedBoss => {
-      if(updatedBoss) {
-        let updatedBossIndex = this.actualDisplay.data.findIndex(raidboss => raidboss.raidBossId === updatedBoss.raidBossId);
+      if (updatedBoss) {
+        const updatedBossIndex = this.actualDisplay.data.findIndex(raidboss => raidboss.raidBossId === updatedBoss.raidBossId);
         this.actualDisplay.data[updatedBossIndex].windowStarts = new Date(updatedBoss.windowStarts);
         this.actualDisplay.data[updatedBossIndex].windowEnds = new Date(updatedBoss.windowEnds);
         this.actualDisplay.data[updatedBossIndex].isAlive = updatedBoss.raidBossState;
+        this.actualDisplay.data.sort((rb1, rb2) => rb1.isAlive > rb2.isAlive ? -1 : rb1.isAlive > rb2.isAlive ? 1 : 0);
         this.actualDisplay._updateChangeSubscription();
       }
     });
@@ -156,21 +157,22 @@ export class RaidBossComponent implements OnInit {
     let clickedRaid: RaidBoss;
     this.actualDisplay.data.forEach(
       raid => {
-        if (raid.raidBossId == id) {
+        if (raid.raidBossId === id) {
           clickedRaid = raid;
           clickedRaid.isAlive = 'AAUNKNOWN';
         }
-      })
+      });
     this.raidBossService.setToUnknown(sessionStorage.getItem('access_token'), String(clickedRaid.raidBossId)).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
             duration: 5000,
             panelClass: 'snackBarSuccess',
-            data: { message: clickedRaid.name + " has been set to Unknown successfully.", type: 'success' },
+            data: { message: clickedRaid.name + ' has been set to Unknown successfully.', type: 'success' },
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
+        this.actualDisplay.data.sort((rb1, rb2) => rb1.isAlive > rb2.isAlive ? -1 : rb1.isAlive > rb2.isAlive ? 1 : 0);
         this.actualDisplay._updateChangeSubscription();
       },
       error => {
@@ -183,11 +185,11 @@ export class RaidBossComponent implements OnInit {
             verticalPosition: 'top'
           });
       }
-    )
+    );
   }
 
   showButton() {
-    if (this.typeOfUser === "SUPERUSER" || this.typeOfUser === "RAIDBOSSER") {
+    if (this.typeOfUser === 'SUPERUSER' || this.typeOfUser === 'RAIDBOSSER') {
       this.raidBosser = true;
     }
   }
@@ -197,11 +199,11 @@ export class RaidBossComponent implements OnInit {
   }
 
   openRaidDialog() {
-    const dialogRef = this.dialog.open(RegisterRaidBossComponent, { width: "330px", height: "430px", disableClose: true });
+    const dialogRef = this.dialog.open(RegisterRaidBossComponent, { width: '330px', height: '430px', disableClose: true });
 
     dialogRef.afterClosed().subscribe(addRaidbosses => {
-      if(addRaidbosses) {
-        console.log(addRaidbosses)
+      if (addRaidbosses) {
+        console.log(addRaidbosses);
         this.actualDisplay.data.push({
             raidBossId: addRaidbosses.raidBossId,
             level: addRaidbosses.level,
@@ -218,11 +220,11 @@ export class RaidBossComponent implements OnInit {
 }
 
 export interface RaidBoss {
-  raidBossId: number,
-  level: number,
+  raidBossId: number;
+  level: number;
   name: string;
-  isAlive: string,
-  whereItLives: string,
-  windowStarts: Date,
-  windowEnds: Date
+  isAlive: string;
+  whereItLives: string;
+  windowStarts: Date;
+  windowEnds: Date;
 }
