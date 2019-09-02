@@ -60,10 +60,10 @@ export class MemberComponent implements OnInit {
         this.dataSource = this.data.chars;
         this.typeOfUser = this.data.typeOfUser;
         this.option = this.data.responseOptions;
-        this.memberService.getEpicPointsPrice(this.token.getAccessToken).subscribe(response => {
-          this.aqAdjPrice = response[0][1];
-          this.orfenCoreAdjPrice = response[1][1];
-        });
+        // this.memberService.getEpicPointsPrice(this.token.getAccessToken).subscribe(response => {
+        //   this.aqAdjPrice = response[0][1];
+        //   this.orfenCoreAdjPrice = response[1][1];
+        // });
       }, error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
           data: { message: error.error.message || error.error.error_description, type: 'error' },

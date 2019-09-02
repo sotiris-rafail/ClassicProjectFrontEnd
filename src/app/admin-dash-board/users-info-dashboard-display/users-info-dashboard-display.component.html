@@ -95,7 +95,7 @@
     </table>
     <div class="footer">
       <mat-paginator fixed #paginator [length]="dataSource !== undefined ? dataSource.data.length : 0" [pageIndex]="0"
-        [pageSize]="5" [pageSizeOptions]="[5]">
+        [pageSize]="3" [pageSizeOptions]="[3,5,10,20,30,40,50]" showFirstLastButtons>
       </mat-paginator>
     </div>
   </div>

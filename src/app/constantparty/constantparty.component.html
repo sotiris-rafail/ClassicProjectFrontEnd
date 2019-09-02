@@ -57,10 +57,10 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
-  <div *ngIf="responseData">
+  <div *ngIf="responseData && false">
     <contastparty-epic-points [corePoints]="responseData.corePoints" [orfenPoints]="responseData.orfenPoints"  [aqPoints]="responseData.aqPoints" [cpId]="responseData.cpId"></contastparty-epic-points>
   </div>
-  <div *ngIf="responseData">
+  <div *ngIf="responseData && false">
     <app-cp-photos-show [cpId]="cpId"></app-cp-photos-show>
   </div>
 </div>
