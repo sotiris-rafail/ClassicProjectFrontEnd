@@ -4,7 +4,7 @@
     <div>
       <div>
         <mat-form-field>
-          <input matInput placeholder="Clan Name" [formControl]="cpName" required>
+          <input matInput placeholder="CP Name" [formControl]="cpName" required>
           <mat-error *ngIf="cpName.hasError('required')">
             The field can not be empty
           </mat-error>
@@ -14,7 +14,7 @@
   </form>
   <div>
     <button mat-raised-button [disabled]="!addCPGroup.valid" color="accent" (click)="addNewCP()">
-      <mat-icon>add</mat-icon><b>Add Clan</b>
+      <mat-icon>add</mat-icon><b>Add CP</b>
     </button>
     <button mat-raised-button color="warn" (click)="handleCancel()" style="margin-left: 0.5em;">Cancel</button>
   </div>
