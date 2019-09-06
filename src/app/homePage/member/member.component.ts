@@ -59,7 +59,7 @@ export class MemberComponent implements OnInit {
         this.cp = this.data.responseConstantParty.cpName;
         this.dataSource = this.data.chars;
         this.typeOfUser = this.data.typeOfUser;
-        this.option = this.data.responseOptions;
+        this.option = this.data.option;
         // this.memberService.getEpicPointsPrice(this.token.getAccessToken).subscribe(response => {
         //   this.aqAdjPrice = response[0][1];
         //   this.orfenCoreAdjPrice = response[1][1];
@@ -205,5 +205,9 @@ export class MemberComponent implements OnInit {
           verticalPosition: 'top'
         });
       });
+  }
+
+  validate(email, userId) {
+    
   }
 }

@@ -83,7 +83,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
-  <mat-card class="user-options" *ngIf="option">
+  <mat-card class="user-options" *ngIf="false">
     <mat-card-content>
       <h2 class="example-h2">User Options  NOT READY YET!</h2>
      <div>
@@ -104,6 +104,9 @@
         Sold items on auction
         <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification" (change)="optionChange('solditem', !soldItemNotification)">
         </mat-slide-toggle>
+      </section>
+      <section>
+        Validate my email address. <button mat-raised-button color="accent" (click)="validate(email, data.userId)"></button>
       </section>
     </mat-card-content>
   </mat-card>
