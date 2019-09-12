@@ -112,7 +112,7 @@
         <span *ngIf="data.responseVerification.verificationStatus !== 'VERIFIED'">Verify my email address</span>
         <span *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">Email Verified</span>
         <button *ngIf=" data.responseVerification.verificationStatus==='ZERO' && !data.expired" mat-raised-button
-          color="accent" (click)="validate(email)">Verification</button>
+          style="margin-left: 1em;" color="accent" (click)="validate(email)">Verification</button>
         <span *ngIf="data.responseVerification.verificationStatus === 'PENDING' && !data.expired"
           style="vertical-align: middle; margin-left: 1em;">
           <mat-icon>
