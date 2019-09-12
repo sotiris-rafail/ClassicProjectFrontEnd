@@ -1,0 +1,22 @@
+<topbar [previusUrl]="''" [whichToPrint]="'Verification'"></topbar>
+<div style="text-align: center; margin-top: 2em;">
+  <span *ngIf="!beforeVerify && !alreadyVerified">
+    Your email has been verified.
+    <div>
+      <mat-icon color='accent'>
+        check_circle
+      </mat-icon>
+    </div>
+  </span>
+  <span *ngIf="beforeVerify">
+    <b>Wait a second for your email to be verified!!</b>
+  </span>
+  <span *ngIf="!beforeVerify && alreadyVerified">
+    <b>Your email is already verified!!</b>
+    <div>
+      <mat-icon color='accent'>
+        check_circle
+      </mat-icon>
+    </div>
+  </span>
+</div>

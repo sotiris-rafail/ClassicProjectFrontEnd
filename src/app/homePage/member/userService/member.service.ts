@@ -125,4 +125,25 @@ export class MemberService {
         }
       });
   }
+
+  verifyEmail(email: any, token: string) {
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer  ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get('http:///83.212.102.61:8080/user/verify',
+      {
+        headers: this.headers,
+        params: {
+          'email': email
+        }
+      });
+  }
+
+  verification(code: string) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this.http.get('http:///83.212.102.61:8080/user/verify/' + code);
+  };
 }

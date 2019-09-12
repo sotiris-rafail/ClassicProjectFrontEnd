@@ -207,7 +207,20 @@ export class MemberComponent implements OnInit {
       });
   }
 
-  validate(email, userId) {
-    
+  validate(email) {
+    this.memberService.verifyEmail(email, sessionStorage.getItem('access_token')).subscribe(
+      response => {
+        this.data.responseVerification.verificationStatus = response;
+      },
+      error => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent, {
+          data: { message: error.error.message || error.error.error_description, type: 'error' },
+          duration: 5000,
+          panelClass: ['snackBarError'],
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+      }
+    )
   }
 }

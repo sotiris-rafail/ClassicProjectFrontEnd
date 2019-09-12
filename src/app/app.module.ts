@@ -72,6 +72,7 @@ import { FullImageShowComponent } from './constantparty/cp-photos-show/full-imag
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { VerificationEmailPageComponent } from './homePage/member/verification-email-page/verification-email-page.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, RemoveClanMemberComponent,
     AddUserToCpFromClanPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
-    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent, RecoveryPasswordComponent],
+    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent, RecoveryPasswordComponent, VerificationEmailPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

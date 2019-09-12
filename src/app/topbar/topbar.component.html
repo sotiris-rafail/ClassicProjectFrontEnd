@@ -182,4 +182,16 @@
       </div>
     </mat-toolbar>
   </div>
+  <div *ngIf="whichToPrint === 'Verification'" fxLayout>
+    <mat-toolbar color="primary">
+      <div fxLayoutAlign="flex-start">
+        <a [routerLink]="previusUrl" mat-icon-button matTooltip="Home Page">
+          <mat-icon>home</mat-icon>
+        </a>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+        <span><b>Email Verification System</b></span>
+      </div>
+    </mat-toolbar>
+  </div>
 </div>
