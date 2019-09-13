@@ -34,7 +34,6 @@ export class VerificationEmailPageComponent implements AfterContentInit {
         },
         error => {
           this.isError = true;
-          console.log(error)
           this.error = error;
           this.beforeVerify = false;
         });
