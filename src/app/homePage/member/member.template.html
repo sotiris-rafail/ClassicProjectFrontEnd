@@ -83,7 +83,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
-  <mat-card class="user-options" *ngIf="option">
+  <mat-card class="user-options" *ngIf="cpId !== -1 && option">
     <mat-card-content>
       <h2 class="example-h2">User Options NOT READY YET!</h2>
       <div style="text-align: center;" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
