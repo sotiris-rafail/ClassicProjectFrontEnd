@@ -12,6 +12,8 @@ export class VerificationEmailPageComponent implements AfterContentInit {
   beforeVerify = true;
   code = "";
   alreadyVerified = false;
+  error;
+  isError = false;
   constructor(private memberService: MemberService, private router: ActivatedRoute) { }
 
   ngAfterContentInit() {
@@ -23,7 +25,6 @@ export class VerificationEmailPageComponent implements AfterContentInit {
     if (this.beforeVerify && this.code !== "") {
       this.memberService.verification(this.code).subscribe(
         response => {
-          console.log(response)
           if (response === 'VERIFIED') {
             this.beforeVerify = false;
           } else if(response === 'ALREADY_VERIFIED') {
@@ -32,7 +33,10 @@ export class VerificationEmailPageComponent implements AfterContentInit {
           }
         },
         error => {
+          this.isError = true;
           console.log(error)
+          this.error = error;
+          this.beforeVerify = false;
         });
     }
   }
