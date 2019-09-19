@@ -56,6 +56,7 @@ export class AddUserToCpFromClanPageComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
+        this.dialogRef.close();
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {

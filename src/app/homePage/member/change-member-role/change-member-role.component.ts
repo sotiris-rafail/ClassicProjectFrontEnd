@@ -39,7 +39,7 @@ export class ChangeMemberRoleComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         })
-        setTimeout(function () { location.reload(); }, 5000);
+        this.dialogRef.close();
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {
