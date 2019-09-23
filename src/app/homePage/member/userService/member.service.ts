@@ -110,17 +110,17 @@ export class MemberService {
       });
   }
 
-  userOptions(userId: number, token: string, option?: string, optionValue?: boolean) {
+  userOptions(userId: number, token: string, option: string, optionValue: boolean) {
     this.headers = new HttpHeaders({
-      'Authorization': 'Bearer  ' + token,
+      //'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http:///83.212.102.61:8080/user/options',
+    return this.http.put('http:///localhost:8080/user/options', "",
       {
         headers: this.headers,
         params: {
           'userId': String(userId),
-          'options': option,
+          'options': option.toUpperCase(),
           'optionValue': String(optionValue)
         }
       });

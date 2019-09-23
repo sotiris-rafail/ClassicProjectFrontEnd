@@ -93,19 +93,19 @@
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
         Bosses on window notification
         <mat-slide-toggle #boss class="example-margin" color="accent" [checked]="option.bossesNotification"
-          (toggleChange)="optionChange('bosses', !bossesNotification)">
+          (toggleChange)="optionChange('bosses', !option.bossesNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
         New items on action
         <mat-slide-toggle #newItem class="example-margin" color="accent" [checked]="option.newItemNotification"
-          (change)="optionChange('newitem', !newItemNotification)">
+          (change)="optionChange('newitem', !option.newItemNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
         Sold items on auction
         <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification"
-          (change)="optionChange('solditem', !soldItemNotification)">
+          (change)="optionChange('solditem', !option.soldItemNotification)">
         </mat-slide-toggle>
       </section>
       <section>

@@ -172,7 +172,7 @@ export class MemberComponent implements OnInit {
   }
 
   activate() {
-    this.memberService.userOptions(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
+    this.memberService.userOptions(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token'), 'all', true).subscribe(
       responce => {
         this.option.bossesNotification = true;
         this.option.newItemNotification = true;
@@ -190,7 +190,7 @@ export class MemberComponent implements OnInit {
   }
 
   deactivate() {
-    this.memberService.userOptions(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token')).subscribe(
+    this.memberService.userOptions(Number(sessionStorage.getItem('userId')), sessionStorage.getItem('access_token'), 'all', false).subscribe(
       responce => {
         this.option.bossesNotification = false;
         this.option.newItemNotification = false;
