@@ -115,7 +115,7 @@ export class MemberService {
       //'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http:///localhost:8080/user/options', "",
+    return this.http.put('http:///83.212.102.61:8080/user/options', "",
       {
         headers: this.headers,
         params: {
