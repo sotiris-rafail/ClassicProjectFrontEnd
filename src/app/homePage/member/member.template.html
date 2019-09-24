@@ -91,19 +91,22 @@
         <button style=" margin-left: 1em;" mat-raised-button color="warn" (click)="deactivate()">Deactivate All</button>
       </div>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-        Bosses on window notification NOT READY YET!
+        Bosses on window notification 
+        <br/> <b>NOT READY YET!</b>
         <mat-slide-toggle #boss class="example-margin" color="accent" [checked]="option.bossesNotification"
           (toggleChange)="optionChange('bosses', !option.bossesNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-        New items on action NOT READY YET!
+        New items on action
+        <br/> <b>NOT READY YET!</b>
         <mat-slide-toggle #newItem class="example-margin" color="accent" [checked]="option.newItemNotification"
           (change)="optionChange('newitem', !option.newItemNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-        Sold items on auction WORKS
+        Sold items on auction
+        <br/> <b>WORKS</b>
         <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification"
           (change)="optionChange('solditem', !option.soldItemNotification)">
         </mat-slide-toggle>
