@@ -85,25 +85,25 @@
   </div>
   <mat-card class="user-options" *ngIf="cpId !== -1 && option">
     <mat-card-content>
-      <h2 class="example-h2">User Options NOT READY YET!</h2>
+      <h2 class="example-h2">User Options</h2>
       <div style="text-align: center;" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
         <button mat-raised-button color="accent" (click)="activate()">Activate All</button>
         <button style=" margin-left: 1em;" mat-raised-button color="warn" (click)="deactivate()">Deactivate All</button>
       </div>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-        Bosses on window notification
+        Bosses on window notification NOT READY YET!
         <mat-slide-toggle #boss class="example-margin" color="accent" [checked]="option.bossesNotification"
           (toggleChange)="optionChange('bosses', !option.bossesNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-        New items on action
+        New items on action NOT READY YET!
         <mat-slide-toggle #newItem class="example-margin" color="accent" [checked]="option.newItemNotification"
           (change)="optionChange('newitem', !option.newItemNotification)">
         </mat-slide-toggle>
       </section>
       <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-        Sold items on auction
+        Sold items on auction WORKS
         <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification"
           (change)="optionChange('solditem', !option.soldItemNotification)">
         </mat-slide-toggle>
