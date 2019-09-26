@@ -52,7 +52,7 @@
   </div>
 </form>
 <div class="buttonDiv">
-  <button mat-raised-button color="accent" [disabled]="!registerGroup.valid" (click)="register()">
+  <button *ngIf="!registering" mat-raised-button color="accent" [disabled]="!registerGroup.valid" (click)="register()">
     <mat-icon>
       <svg style="width:24px;height:24px" viewBox="0 0 24 24">
         <path fill="#FFFFFF"
@@ -61,4 +61,5 @@
     </mat-icon>
     Register
   </button>
+  <mat-spinner class="spinner" *ngIf="registering"></mat-spinner>
 </div>

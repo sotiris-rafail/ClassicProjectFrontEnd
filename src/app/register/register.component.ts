@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private registerUserService: MemberService, private router: Router, private snackBar: MatSnackBar) { }
 
+  registering = false;
   token: OAuth2Token;
   enterEmail = globals.enterEmail;
   emptyFieldError = globals.emptyFieldError;
@@ -56,6 +57,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.registering = true;
     const user = {
       'email' : this.registerGroup.getRawValue().userNameControl,
       'password' : this.registerGroup.getRawValue().passwordFormControl,
@@ -71,6 +73,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigateByUrl(response);
       }, 1000);
     }, error  => {
+      this.registering = false;
       const errorMEssage = JSON.parse(error.error);
       this.snackBar.openFromComponent(DisplayingErrorComponent,
         {

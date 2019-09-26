@@ -1,27 +1,32 @@
 .material-icons {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
-    font-size: 125%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  font-size: 125%;
 }
 
 .container {
-    width: 100%;
-    position: relative;
-    display: contents;
+  width: 100%;
+  position: relative;
+  display: contents;
 }
 
 .passwordDiv {
-    position: relative;
-    top: 0.9em;
+  position: relative;
+  top: 0.9em;
 }
 
 .repasswordDiv {
-    position: relative;
-    top: 3em;
+  position: relative;
+  top: 3em;
 }
 
 .buttonDiv {
-    position: relative;
-    top: 5em;
+  position: relative;
+  top: 5em;
+}
+
+.spinner {
+  margin: 0 auto;
+  position: relative;
 }
