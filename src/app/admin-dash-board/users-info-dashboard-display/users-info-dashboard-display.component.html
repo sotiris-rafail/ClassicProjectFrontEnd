@@ -37,7 +37,7 @@
                 <mat-icon matListIcon color="accent">add_circle</mat-icon>
               </button>
               <button *ngIf="isSuperUser && element['chars'].length !== 0" matTooltip="Change the role" mat-icon-button
-                (click)="showInfo(element['chars'][0])">
+                (click)="showInfo(element['chars'][0], element['typeOfUser'])">
                 <mat-icon matListIcon color="primary">update</mat-icon>
               </button>
               <button *ngIf="isSuperUser && element['chars'].length === 0" mat-icon-button color="warn"

@@ -23,11 +23,9 @@ export class ChangeMemberRoleComponent implements OnInit {
   ];
 
   constructor(public dialogRef: MatDialogRef<ChangeMemberRoleComponent>, @Inject(MAT_DIALOG_DATA) public data, private memberService: MemberService,
-    private snackBar: MatSnackBar, private router: Router) {
-  }
+    private snackBar: MatSnackBar, private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   updateUser() {
     this.memberService.updateUserRole(this.data.member.characterId, this.selectedValue, sessionStorage.getItem("access_token")).subscribe(

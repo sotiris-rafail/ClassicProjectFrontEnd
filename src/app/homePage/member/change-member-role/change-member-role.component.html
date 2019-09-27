@@ -1,8 +1,10 @@
 <div>
     <h3>Change Role Panel</h3>
     <p style="text-align: center">
-        You are about to change the role of <b>{{this.data.member.name}}</b>. <br/>
-        The currect role of that user is <b>{{this.data.member.typeOfUser}}</b>.
+        You are about to change the role of <b>{{data.member.name}}</b>. <br />
+        The currect role of that user is <b>{{data.member.typeOfUser}}</b>. <br />
+        <span style="color: red" *ngIf="roles[selectedValue]">The new role of that user is
+            <b>{{roles[selectedValue].viewValue}}</b>.</span>
     </p>
     <div style="text-align: center">
         <mat-form-field>
@@ -14,8 +16,8 @@
         </mat-form-field>
     </div>
     <div style="text-align: center">
-        <button [disabled]="!selectedValue" mat-raised-button color="accent" (click)="updateUser()">Update user's role</button>
+        <button [disabled]="!selectedValue" mat-raised-button color="accent" (click)="updateUser()">Update user's
+            role</button>
         <button mat-raised-button color="warn" (click)="handleCancel()" style="margin-left: 0.5em;">Cancel</button>
     </div>
-    <span><b>Note:</b> Window will autorefresh after 5 seconds.</span>
 </div>

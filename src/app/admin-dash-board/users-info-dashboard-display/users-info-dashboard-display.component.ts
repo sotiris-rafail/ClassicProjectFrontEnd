@@ -102,7 +102,8 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
     });
   }
 
-  showInfo(member: any) {
+  showInfo(member: any, typeOfUser: string) {
+    member.typeOfUser = typeOfUser;
     let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
       {
         data: { member: member },
