@@ -86,4 +86,12 @@ export class ItemService {
     return this.http.get<number>('http://83.212.102.61:8080/unsold/getNumberOfUnsoldItems',
       { headers: this.headers });
   }
+
+  renewItemsWithoutBuyer(selected: number[], access_token: string) {
+    this.headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post('http://83.212.102.61:8080/sold/renewItems', JSON.stringify(selected), { headers: this.headers });
+  }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } 
 import { SoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-sold-items',
@@ -20,6 +21,7 @@ export class SoldItemsComponent implements OnInit, OnChanges {
   @Input() isSuperUser: Boolean;
   dataSource: MatTableDataSource<SoldItem>;
   displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfItem', 'price', 'whoBoughtIt', 'boughtPrice', 'delivered', 'more'];
+  selection = new SelectionModel<SoldItem>(true, []);
   constructor(private itemService: ItemService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class SoldItemsComponent implements OnInit, OnChanges {
           this.dataSource.paginator = this.paginator;
         },
         error => {
-          this.snackBar.open(error.error.message, 'OK', { duration : 5000, panelClass : 'alternate-theme'});
+          this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
         }
       );
     } else {
@@ -48,18 +50,62 @@ export class SoldItemsComponent implements OnInit, OnChanges {
   deliveryIt(item: SoldItem) {
     const index = this.dataSource.data.indexOf(item, 0);
     this.itemService.deliverSoldItem(this.dataSource.data[index].itemId, true, sessionStorage.getItem('access_token')).subscribe(
-      respnse => {
+      response => {
         this.dataSource.data[index].delivered = true;
         this.dataSource._updateChangeSubscription();
       },
       error => {
         this.dataSource.data[index].delivered = false;
         this.dataSource._updateChangeSubscription();
-        this.snackBar.open(error.error.message, 'OK', {duration : 5000, panelClass : 'alternate-theme'});
+        this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
       });
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.filter(item => !item.delivered && item.whoBoughtIt === '').length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(
+        row => {
+          if (!row.delivered && row.whoBoughtIt === '') {
+            this.selection.select(row)
+          }
+        });
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: SoldItem): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.itemId + 1}`;
+  }
+
+  renewItemsWithoutBuyer() {
+    const renewItemsWithoutBuyer = [];
+    this.selection.selected.forEach(row => {
+      renewItemsWithoutBuyer.push(row.itemId);
+    })
+    this.itemService.renewItemsWithoutBuyer(renewItemsWithoutBuyer, sessionStorage.getItem('access_token')).subscribe(
+      response => {
+        this.selection.selected.forEach(row => {
+          this.dataSource.data.splice(this.dataSource.data.indexOf(row, 0), 1);
+          this.selection.deselect(row);
+        });
+        this.dataSource._updateChangeSubscription();
+      },
+      error => {
+
+      });
   }
 }

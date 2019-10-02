@@ -47,3 +47,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   align-items: center;
   place-content: stretch flex-start;
 }
+
+.last-column {
+  place-content: center center;
+}

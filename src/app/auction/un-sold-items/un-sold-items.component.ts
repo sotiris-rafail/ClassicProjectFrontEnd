@@ -69,7 +69,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
         this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
       },
-      error => {
+      error => {;
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
             data: { message: error.error.message || error.error.error_description, type: 'error' },

@@ -64,6 +64,12 @@ button.mat-menu-item {
   padding: inherit;
 }
 
+.mat-checkbox-layout {
+  background-color: white !important;
+  border-radius: 3px !important;
+  
+}
+
 mat-toolbar {
   background-color: #24292e !important;
 }
