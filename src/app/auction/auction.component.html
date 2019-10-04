@@ -2,7 +2,7 @@
 <div *ngIf="isCpMember">
     <div [ngStyle]="{'padding.em': 3}" [ngStyle.xs]="{'padding.em': 0}">
         <mat-accordion>
-            <mat-expansion-panel expanded='true' (opened)='handleOpenOrCloseUnSold(true)' (closed)='handleOpenOrCloseUnSold(false)'>
+            <mat-expansion-panel [expanded]=panelOpenStateUnSold (opened)='handleOpenOrCloseUnSold(true)' (closed)='handleOpenOrCloseUnSold(false)'>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <h2>UnSold Items</h2>

@@ -13,9 +13,7 @@ import { Router } from '@angular/router';
 export class DeleteMemberComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<DeleteMemberComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cpService: ConstantPartyService,
-    private snackBar: MatSnackBar, private router: Router) {
-      console.log(data)
-     }
+    private snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit() {
   }

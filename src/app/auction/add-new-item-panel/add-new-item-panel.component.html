@@ -1,5 +1,6 @@
 <div>
-    <h2>Add a new item for sale</h2>
+    <h2 *ngIf="!data">Add a new item for sale</h2>
+    <h2 *ngIf="data">Edit of {{data.item.name}}</h2>
     <form [formGroup]="addItemForm">
         <div style="display: inline-flex;">
             <div style="padding: 0.5em 0.7em;">
@@ -57,7 +58,7 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Number of days</mat-label>
                     <input matInput type="number" [formControl]="numberOfDayControl" required>
-                    <mat-hint>The number of days item will remain unsold</mat-hint>
+                    <mat-hint>The number of days before expiration starting from today.</mat-hint>
                 </mat-form-field>
             </div>
         </div>
@@ -87,7 +88,8 @@
         </div>
     </form>
     <div style="padding: 0.7em;text-align: center;">
-        <button mat-raised-button color="accent" (click)="addItem()" [disabled]="!addItemForm.valid">Add Item</button>
+        <button *ngIf="!data" mat-raised-button color="accent" (click)="addItem()" [disabled]="!addItemForm.valid">Add Item</button>
+        <button *ngIf="data" mat-raised-button color="accent" (click)="editItem()" [disabled]="!addItemForm.valid">Edit Item</button>
         <button style="margin-left:0.5em;" mat-raised-button color="warn" (click)="handleCancel()">Cancel</button>
     </div>
     <mat-error *ngIf="startingPriceControl.hasError('max')">

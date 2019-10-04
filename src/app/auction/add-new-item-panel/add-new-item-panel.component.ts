@@ -1,8 +1,8 @@
 import { ValidationErrors } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { UnSoldItem } from './../auction.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UnSoldItem, UnSoldItemEdit } from './../auction.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Inject } from '@angular/core';
 import { ItemService } from '../item-service.service';
 import { MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
@@ -36,7 +36,12 @@ export class AddNewItemPanelComponent implements OnInit {
     typeOfItemControl: this.typeOfItemControl
   }, { updateOn: 'change' });
   errors = [];
-  constructor(private itemsService: ItemService, private dialogRef: MatDialogRef<AddNewItemPanelComponent>, private snackBar: MatSnackBar, private router: Router) { }
+  constructor(private itemsService: ItemService, private dialogRef: MatDialogRef<AddNewItemPanelComponent>, private snackBar: MatSnackBar, private router: Router,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    if (data != null) {
+      this.setUpEditableItem(data);
+    } 
+  }
 
   ngOnInit() {
     this.addItemForm.controls['typeOfItemControl'].valueChanges.subscribe(response => {
@@ -106,14 +111,63 @@ export class AddNewItemPanelComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-          if(Number(error.status) == 401 ){
-            this.router.navigateByUrl('/');
-          }
+        if (Number(error.status) == 401) {
+          this.router.navigateByUrl('/');
+        }
+      }
+    )
+  }
+
+  editItem() {
+    let unsoldItemEdit: UnSoldItemEdit = {
+      'name': String(this.nameControl.value),
+      'startingPrice': Number(this.startingPriceControl.value),
+      'maxPrice': Number(this.maxPriceControl.value),
+      'bidStep': Number(this.bidPriceControl.value),
+      'numberOfDays': Number(this.numberOfDayControl.value),
+      'itemId': this.data.item.itemId
+    }
+    this.itemsService.editReSaleItem(unsoldItemEdit, sessionStorage.getItem("access_token")).subscribe(
+      response => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarSuccess',
+            data: { message: unsoldItemEdit.name + " edited successfully " + this.amoundOfItemControl.value + "time(s).", type: 'success' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+          this.dialogRef.close();
+      },
+      error => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        if (Number(error.status) == 401) {
+          this.router.navigateByUrl('/');
+        }
       }
     )
   }
 
   handleCancel() {
     this.dialogRef.close();
+  }
+
+  private setUpEditableItem(data : any) {
+    this.nameControl.setValue(data.item.name);
+    this.startingPriceControl.setValue(data.item.startingPrice / 1000000);
+    this.maxPriceControl.setValue(data.item.maxPrice / 1000000);
+    this.bidPriceControl.setValue(data.item.bidStep / 1000000);
+    this.typeOfItemControl.setValue(String(data.item.typeOfItem).toLowerCase());
+    this.gradeControl.setValue(data.item.grade);
+    this.amoundOfItemControl.disable();
+    this.typeOfItemControl.disable();
+    this.gradeControl.disable();
   }
 }

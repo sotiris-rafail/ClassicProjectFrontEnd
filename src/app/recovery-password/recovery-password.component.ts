@@ -31,7 +31,6 @@ export class RecoveryPasswordComponent {
     this.notFoundMEssage = '';
     this.memberService.verifyUser(this.firstFormGroup.getRawValue().email, this.firstFormGroup.getRawValue().mainChar).subscribe(
       response => {
-        console.log(response)
         if (response) {
           this.stepper.next();
         }

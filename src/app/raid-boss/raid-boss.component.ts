@@ -203,7 +203,6 @@ export class RaidBossComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(addRaidbosses => {
       if (addRaidbosses) {
-        console.log(addRaidbosses);
         this.actualDisplay.data.push({
             raidBossId: addRaidbosses.raidBossId,
             level: addRaidbosses.level,

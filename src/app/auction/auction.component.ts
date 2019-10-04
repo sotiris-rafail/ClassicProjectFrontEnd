@@ -86,6 +86,15 @@ export interface UnSoldItem {
   'photoPath': String;
 }
 
+export interface UnSoldItemEdit {
+  'itemId': number;
+  'maxPrice': number;
+  'startingPrice': number;
+  'name': String;
+  'numberOfDays': number;
+  'bidStep': number;
+}
+
 export interface SoldItem {
   'itemId': number;
   'grade': String;

@@ -34,7 +34,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   data: UnSoldItemDisplay[] = [];
   columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
   displayingView = [];
-
+  displayItems : UnSoldItemDisplay[] = [];
   constructor(private dialog: MatDialog, private itemService: ItemService, private snackBar: MatSnackBar, private router: Router) {
     this.displayingView['itemId'] = 'ID';
     this.displayingView['name'] = 'Name';
@@ -53,10 +53,10 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (this._panelState && !this.isFirstTime) {
+    if (this._panelState && !this.isFirstTime && this.displayItems.length > 0) {
       this.openUnSoldPanel();
     } else {
-      this.dataSource = new MatTableDataSource<UnSoldItemDisplay>([]);
+      this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(this.displayItems);
     }
   }
 
@@ -66,6 +66,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
         response.forEach(unsoldItem => {
           unsoldItem.expirationDate = new Date(unsoldItem.expirationDate);
         });
+        this.displayItems = response;
         this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
       },
@@ -147,6 +148,14 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
 
   addNewItem() {
     const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: "550px", height: "600px", disableClose: true });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.openUnSoldPanel();
+    });
+  }
+
+  editAuctionItem(item: UnSoldItem) {
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: "550px", height: "600px", disableClose: true, data : {'item' : item} });
 
     dialogRef.afterClosed().subscribe(result => {
       this.openUnSoldPanel();
