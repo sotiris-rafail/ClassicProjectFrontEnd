@@ -23,7 +23,9 @@ export class ChangeMemberRoleComponent implements OnInit {
   ];
 
   constructor(public dialogRef: MatDialogRef<ChangeMemberRoleComponent>, @Inject(MAT_DIALOG_DATA) public data, private memberService: MemberService,
-    private snackBar: MatSnackBar, private router: Router) {}
+    private snackBar: MatSnackBar, private router: Router) {
+      console.log(data)
+    }
 
   ngOnInit() {}
 
@@ -37,7 +39,7 @@ export class ChangeMemberRoleComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         })
-        this.dialogRef.close();
+        this.dialogRef.close(this.roles[this.selectedValue].value);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {

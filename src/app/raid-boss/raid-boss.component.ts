@@ -102,7 +102,7 @@ export class RaidBossComponent implements OnInit {
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
-      this.router.navigateByUrl('/');
+      this.router.navigate(['/'], { queryParams : { redirectPage : 'raidboss'}});
     }
   }
 

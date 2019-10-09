@@ -1,5 +1,3 @@
-import { AddUserToCpFromClanPageComponent } from './../constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
-import { ChangeMemberRoleComponent } from './../homePage/member/change-member-role/change-member-role.component';
 import { MemberService } from './../homePage/member/userService/member.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -7,7 +5,6 @@ import { OAuth2Token } from '../tokens';
 import { ClanService } from './clanService/clan.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
-import { RemoveClanMemberComponent } from './remove-clan-member/remove-clan-member.component';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 
 @Component({
@@ -24,7 +21,7 @@ export class ClanComponent implements OnInit {
   typeOfUser: any;
   isSuperUser: boolean = false;
   displayingView = []
-  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private dialog: MatDialog, private snackBar: MatSnackBar) { 
+  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private snackBar: MatSnackBar) { 
     this.displayingView['MAIN'] = 'Main';
     this.displayingView['BOX'] = 'Box';
     this.displayingView['SUPERUSER'] = 'Super User';

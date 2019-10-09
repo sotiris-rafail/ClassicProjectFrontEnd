@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { User } from '../admin-dash-board.component';
 import { filter } from 'rxjs/operators';
 import { ChangeMemberRoleComponent } from 'src/app/homePage/member/change-member-role/change-member-role.component';
-import { AddUserToCpFromClanPageComponent } from 'src/app/constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
-import { RemoveClanMemberComponent } from 'src/app/clan/remove-clan-member/remove-clan-member.component';
+import { AddUserToCpFromAdminPageComponent } from 'src/app/constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
+import { DeleteCharacterComponent } from 'src/app/clan/remove-clan-member/remove-clan-member.component';
 import { DeleteMemberComponent } from 'src/app/constantparty/delete-member/delete-member.component';
 
 @Component({
@@ -37,6 +37,13 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   actualData = [];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   columnsToDisplay = ['userId', 'email', 'typeOfUser', 'cpName', 'more'];
+
+  roles = [
+    { value: '0', viewValue: 'CPLEADER' },
+    { value: '1', viewValue: 'CPMEMBER' },
+    { value: '2', viewValue: 'RAIDBOSSER' },
+    { value: '3', viewValue: 'CPLEADER' }
+  ];
 
   ngOnInit() {
     this.adminService.getUsersForDashboard(sessionStorage.getItem('access_token')).subscribe(
@@ -102,32 +109,53 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
     });
   }
 
-  showInfo(member: any, typeOfUser: string) {
+  showInfo(member: any, typeOfUser: string, userId: number) {
     member.typeOfUser = typeOfUser;
     let dialogRef = this.dialog.open(ChangeMemberRoleComponent,
       {
         data: { member: member },
         disableClose: true
       });
+
+    dialogRef.afterClosed().subscribe(typeOfUser => {
+      if(typeOfUser) {
+        let indexOfUpdatedUser = this.actualData.findIndex((member) => member.userId == userId);
+        this.actualData[indexOfUpdatedUser].typeOfUser = this.roles[typeOfUser].viewValue;
+      }
+    })
   }
 
-  addToCp(member: any) {
-    let dialogRef = this.dialog.open(AddUserToCpFromClanPageComponent,
+  addToCp(member: any, userId: number) {
+    let dialogRef = this.dialog.open(AddUserToCpFromAdminPageComponent,
       {
         data: { member: member },
         disableClose: true
       });
+    dialogRef.afterClosed().subscribe(response => {
+      if(response) {
+        let indexOfUpdatedUser = this.actualData.findIndex((member) => member.userId == userId);
+        this.actualData[indexOfUpdatedUser].responseConstantParty.cpName = response;
+      }
+    })
   }
 
-  removeFromClan(member: any) {
-    let dialogRef = this.dialog.open(RemoveClanMemberComponent,
+  deleteCharFromAdminPage(member: any, userId: number) {
+    let dialogRef = this.dialog.open(DeleteCharacterComponent,
       {
         data: { member: member },
         disableClose: true
       });
+      dialogRef.afterClosed().subscribe(response => {
+        if(response) {
+          let indexOfUpdatedUser = this.actualData.findIndex((member) => member.userId == userId);
+          let deletedCharIndex = this.actualData[indexOfUpdatedUser].chars.findIndex((char) => char.characterId == response);
+          this.actualData[indexOfUpdatedUser].chars.splice(deletedCharIndex, 1);
+          this.ngOnChanges();
+        }
+      })
   }
 
-  handleDeleteCpMember(member: any, cpName: string) {
+  handleDeleteCpMember(member: any, cpName: string, userId: number) {
     member.cpName = cpName;
     const dialogRef = this.dialog.open(DeleteMemberComponent, {
       data : {
@@ -136,13 +164,12 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
       disableClose : true
     });
 
-    // dialogRef.afterClosed().subscribe(deletedMember => {
-    //   if(deletedMember) {
-    //     let deletedMemberIndex = this.dataSource2.findIndex((member) => member.characterId === deletedMember.characterId)
-    //     this.dataSource2.splice(deletedMemberIndex, 1);
-    //     this.dataSource2 = this.dataSource2.slice(0, this.dataSource2.length);
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(response => {
+      if(response) {
+        let indexOfUpdatedUser = this.actualData.findIndex((member) => member.userId == userId);
+        this.actualData[indexOfUpdatedUser].responseConstantParty.cpName = "";
+      }
+    })
   }
 
 }

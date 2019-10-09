@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-user-to-cp-from-clan-page.component.css'],
   providers: [ConstantPartyService, DisplayingErrorComponent, MemberService]
 })
-export class AddUserToCpFromClanPageComponent implements OnInit {
+export class AddUserToCpFromAdminPageComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<AddUserToCpFromClanPageComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cpService: ConstantPartyService,
+  constructor(private dialogRef: MatDialogRef<AddUserToCpFromAdminPageComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cpService: ConstantPartyService,
     private snackBar: MatSnackBar, private memberService: MemberService, private router: Router) { }
 
   @ViewChild(MatSelect) matSelect: MatSelect;
@@ -56,7 +56,7 @@ export class AddUserToCpFromClanPageComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        this.dialogRef.close();
+        this.dialogRef.close(this.cps.find((cp) => cp.cpName.toLowerCase() === this.selectedValue.toLowerCase()).cpName);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent, {

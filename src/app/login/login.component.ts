@@ -2,12 +2,14 @@ import { RecoveryPasswordComponent } from './../recovery-password/recovery-passw
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { MemberService } from './../homePage/member/userService/member.service';
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 import * as globals from "../utils/globals"
 import { OAuth2Token } from '../tokens';
-import { Router } from '@angular/router';
+import { Router, RoutesRecognized, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
     selector: 'login',
@@ -15,9 +17,20 @@ import { Router } from '@angular/router';
     styleUrls: ['./login.style.css'],
     providers: [MemberService, DisplayingErrorComponent]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-    constructor(private registerUserService: MemberService, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog) { }
+    previousUrl: string = null;
+    constructor(private registerUserService: MemberService, private router: Router, private snackBar: MatSnackBar, private dialog: MatDialog, private activeRouter: ActivatedRoute) {
+        this.activeRouter.queryParams.subscribe(params => {
+            if(params) {
+                this.previousUrl = params.redirectPage;
+            }
+        })
+     }
+    
+    ngOnInit() {
+        
+    }
 
     private token: OAuth2Token;
     enterEmail = globals.enterEmail;
@@ -43,7 +56,11 @@ export class LoginComponent {
             .subscribe(loginResponse => {
                 this.token = new OAuth2Token(loginResponse as OAuth2Token);
                 this.token.setTokenToStorage();
-                this.router.navigateByUrl("/user/" + this.token.getUser)
+                if(this.previousUrl == null) {
+                    this.router.navigateByUrl("/user/" + this.token.getUser)
+                } else {
+                    this.router.navigateByUrl(this.previousUrl);
+                }
             }, loginError => {
                 this.snackBar.openFromComponent(DisplayingErrorComponent,
                     {
@@ -57,6 +74,6 @@ export class LoginComponent {
     }
 
     changePassword() {
-       const dialogRef = this.dialog.open(RecoveryPasswordComponent);
+        const dialogRef = this.dialog.open(RecoveryPasswordComponent);
     }
 }

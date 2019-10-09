@@ -33,11 +33,11 @@
             <div>
               <button *ngIf="isSuperUser && element['responseConstantParty'].cpName === '' && element['chars'].length !== 0" 
                 matTooltip="Add {{element['email']}} to CP"
-                mat-icon-button (click)="addToCp(element['chars'][0])">
+                mat-icon-button (click)="addToCp(element['chars'][0], element['userId'])">
                 <mat-icon matListIcon color="accent">add_circle</mat-icon>
               </button>
               <button *ngIf="isSuperUser && element['chars'].length !== 0" matTooltip="Change the role" mat-icon-button
-                (click)="showInfo(element['chars'][0], element['typeOfUser'])">
+                (click)="showInfo(element['chars'][0], element['typeOfUser'], element['userId'])">
                 <mat-icon matListIcon color="primary">update</mat-icon>
               </button>
               <button *ngIf="isSuperUser && element['chars'].length === 0" mat-icon-button color="warn"
@@ -51,7 +51,7 @@
               </button>
               <button *ngIf="isSuperUser && element['responseConstantParty'].cpName !== '' && element['chars'].length !== 0"
                 matTooltip="Remove {{element['email']}} from {{element['responseConstantParty'].cpName}}"
-                mat-icon-button (click)="handleDeleteCpMember(element['chars'][0], element['responseConstantParty'].cpName)">
+                mat-icon-button (click)="handleDeleteCpMember(element['chars'][0], element['responseConstantParty'].cpName, element['userId'])">
                 <mat-icon matListIcon color="warn">remove_circle</mat-icon>
               </button>
             </div>
@@ -72,7 +72,7 @@
                 <b>Class: </b>{{chars.classOfCharacter}},
                 <b>Type Of Character: </b>{{displayingView[chars.typeOfCharacter]}}
                 <div *ngIf="isSuperUser" style="display: inline-flex">
-                  <button matTooltip="Delete {{chars.name}}" mat-icon-button (click)="removeFromClan(chars)">
+                  <button matTooltip="Delete {{chars.name}}" mat-icon-button (click)="deleteCharFromAdminPage(chars, element['userId'])">
                     <mat-icon matListIcon color="warn">
                       <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                         <path fill="red"

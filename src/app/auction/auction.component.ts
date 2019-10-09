@@ -58,7 +58,7 @@ export class AuctionComponent implements OnInit {
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
-      this.router.navigateByUrl('/');
+      this.router.navigate(['/'], { queryParams : { redirectPage : 'auction'}});
     }
   }
 
