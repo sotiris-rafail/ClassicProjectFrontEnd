@@ -3,21 +3,24 @@ import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { UpdateCharacterComponent } from './update-character/update-character.component';
 
 import { MemberService } from './userService/member.service';
-import { Component, OnInit, Input, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, HostBinding } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { OAuth2Token } from 'src/app/tokens';
 import { ItemService } from 'src/app/auction/item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { MatSnackBar, MatSlideToggle } from '@angular/material';
+import { routeFadeStateTrigger, routeSlideStateTrigger } from 'src/app/shared/route-animation';
 
 @Component({
   selector: 'member',
   templateUrl: './member.template.html',
   styleUrls: ['./member.style.css'],
-  providers: [MemberService, ItemService, DisplayingErrorComponent]
+  providers: [MemberService, ItemService, DisplayingErrorComponent],
+  animations: [routeFadeStateTrigger, routeSlideStateTrigger]
 })
 export class MemberComponent implements OnInit {
+  @HostBinding('@routeSlideState') routeAnimation = true;
   @ViewChild('boss') boss: MatSlideToggle;
   @ViewChild('newItem') newItem: MatSlideToggle;
   @ViewChild('soldItem') soldItem: MatSlideToggle;
