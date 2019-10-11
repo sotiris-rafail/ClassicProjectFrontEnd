@@ -78,13 +78,13 @@
       <ng-container matColumnDef="more">
         <mat-header-cell *matHeaderCellDef>
           <div fxShow fxHide.sm="true" fxHide.xs="true" fxFlex fxLayoutAlign="flex-end">
-            <button [disabled]="!raidBosser" mat-raised-button color="accent" (click)="openRaidDialog()">
+            <button *ngIf="raidBosser" mat-raised-button color="accent" (click)="openRaidDialog()">
               <mat-icon>add</mat-icon>
               Add Raid Boss
             </button>
           </div>
           <div fxHide fxShow.sm="true" fxShow.xs="true" fxFlex fxLayoutAlign="center center">
-            <button [disabled]="!raidBosser" mat-mini-fab color="accent" (click)="openRaidDialog()"
+            <button *ngIf="raidBosser" mat-mini-fab color="accent" (click)="openRaidDialog()"
               [matTooltip]="'Add Raid Boss'">
               <mat-icon>add</mat-icon>
             </button>
@@ -92,7 +92,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let element;">
           <div fxShow fxHide.sm="true" fxHide.xs="true">
-            <button [disabled]="!raidBosser" mat-raised-button color="accent"
+            <button *ngIf="raidBosser" mat-raised-button color="accent"
               (click)="handleRowClick(element.raidBossId)">
               <mat-icon>
                 <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@
             </button>
           </div>
           <div fxHide fxShow.sm="true" fxShow.xs="true" fxLayoutAlign="center center">
-            <button [disabled]="!raidBosser" mat-mini-fab color color="accent"
+            <button *ngIf="raidBosser" mat-mini-fab color color="accent"
               (click)="handleRowClick(element.raidBossId)" [matTooltip]="'Update TOD'">
               <mat-icon>
                 <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@
                 </svg>
               </mat-icon>
             </button>
-            <button [fxShow]="element.isAlive != 'AAUNKNOWN'" mat-mini-fab color [disabled]="!raidBosser"
+            <button [fxShow]="element.isAlive != 'AAUNKNOWN'" mat-mini-fab color *ngIf="raidBosser"
              color="accent" (click)="handleUnknowClick(element.raidBossId)" [matTooltip]="'Unknown TOD'">
              <mat-icon>
                 <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -128,7 +128,7 @@
         <mat-header-cell *matHeaderCellDef fxShow fxHide.sm="true" fxHide.xs="true"></mat-header-cell>
         <mat-cell *matCellDef="let element" fxShow fxHide.sm="true" fxHide.xs="true">
           <div *ngIf="element.isAlive != 'AAUNKNOWN'">
-            <button [disabled]="!raidBosser" mat-raised-button color="accent"
+            <button *ngIf="raidBosser" mat-raised-button color="accent"
               (click)="handleUnknowClick(element.raidBossId)">
               <mat-icon>
                   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -141,7 +141,9 @@
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row [ngClass]="row.isAlive" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-header-row *matHeaderRowDef="raidbosser ? displayedColumnsRaidBosser : displayedColumns"></mat-header-row>
+      <mat-row [ngClass]="row.isAlive" *matRowDef="let row; columns: raidbosser ? displayedColumnsRaidBosser : displayedColumns;
+      let i = index" 
+      @routeSlideLeftToRightState (@routeSlideLeftToRightState.done)="onAnimationDone($event, i)"></mat-row>
     </mat-table>
   </div>

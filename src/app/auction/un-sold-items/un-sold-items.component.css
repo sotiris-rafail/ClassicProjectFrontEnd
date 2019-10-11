@@ -57,3 +57,7 @@ tr.example-element-row:not(.example-expanded-row):active {
     flex: 1 1 0%;
     padding-bottom: 1.34375em;
 }
+
+:host {
+    display: block;
+  }

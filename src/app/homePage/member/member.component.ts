@@ -1,3 +1,4 @@
+import { routeSlideLeftToRightStateTrigger } from './../../shared/route-animation';
 import { AdditionCharacterPanelComponent } from './addition-character-panel/addition-character-panel.component';
 import { DeletePanelComponent } from './delete-panel/delete-panel.component';
 import { UpdateCharacterComponent } from './update-character/update-character.component';
@@ -10,17 +11,17 @@ import { OAuth2Token } from 'src/app/tokens';
 import { ItemService } from 'src/app/auction/item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { MatSnackBar, MatSlideToggle } from '@angular/material';
-import { routeFadeStateTrigger, routeSlideStateTrigger } from 'src/app/shared/route-animation';
+import { routeFadeStateTrigger, routeSlideUpToBottomStateTrigger } from 'src/app/shared/route-animation';
 
 @Component({
   selector: 'member',
   templateUrl: './member.template.html',
   styleUrls: ['./member.style.css'],
   providers: [MemberService, ItemService, DisplayingErrorComponent],
-  animations: [routeFadeStateTrigger, routeSlideStateTrigger]
+  animations: [routeFadeStateTrigger, routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger]
 })
 export class MemberComponent implements OnInit {
-  @HostBinding('@routeSlideState') routeAnimation = true;
+  @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
   @ViewChild('boss') boss: MatSlideToggle;
   @ViewChild('newItem') newItem: MatSlideToggle;
   @ViewChild('soldItem') soldItem: MatSlideToggle;

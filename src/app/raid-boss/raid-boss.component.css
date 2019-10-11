@@ -35,3 +35,7 @@ mat-cell {
 .example-container {
     overflow: auto;
   }
+
+ :host {
+     display: block;
+ }

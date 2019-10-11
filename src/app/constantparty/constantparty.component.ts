@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterContentInit, HostBinding } from '@angular/core';
 import { AdditionMemberPanelComponent } from './addition-member-panel/addition-member-panel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OAuth2Token } from '../tokens';
@@ -7,17 +7,18 @@ import { ConstantPartyService } from './constantPartyService/constantParty.servi
 import { DeleteMemberComponent } from './delete-member/delete-member.component';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { MatSnackBar } from '@angular/material';
-import { element } from '@angular/core/src/render3';
+import { routeFadeStateTrigger, routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger, routeSlideBottomToUpStateTrigger } from '../shared/route-animation';
 
 const photo_path = "../../assets/upload/photos/";
 @Component({
   selector: 'app-constantparty',
   templateUrl: './constantparty.component.html',
   styleUrls: ['./constantparty.component.css'],
-  providers: [ConstantPartyService, DisplayingErrorComponent]
+  providers: [ConstantPartyService, DisplayingErrorComponent],
+  animations: [routeFadeStateTrigger, routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger, routeSlideBottomToUpStateTrigger]
 })
 export class ConstantpartyComponent implements OnInit {
-
+  @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
   private isMember: boolean;
   responseData: any;
   cpId: number;

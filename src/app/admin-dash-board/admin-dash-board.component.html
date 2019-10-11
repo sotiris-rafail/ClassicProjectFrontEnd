@@ -3,7 +3,7 @@
   <div class="grid-container">
     <mat-grid-list [cols]="cols" rowHeight="400px">
       <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-        <mat-card class="dashboard-card">
+        <mat-card class="dashboard-card" @routeSlideLeftToRightState>
           <mat-card-header>
             <mat-card-title style="height: 3.5em;" *ngIf="card.title ==='User\'s Info'">
               {{card.title}}

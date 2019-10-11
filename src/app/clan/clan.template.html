@@ -1,5 +1,6 @@
 <topbar [previusUrl]="previusUrl" [whichToPrint]="whichToPrint" [isSuperUser]="isSuperUser"></topbar>
-<div *ngFor="let clan of clans" class="clan">
+<div @routeSlideLeftToRightState *ngFor="let clan of clans;let clanIndex = index" class="clan"
+(@routeSlideLeftToRightState.done)="onAnimationDone($event, clanIndex)">
   <div matLine>
     <span>
       <b>Clan Name:</b> {{clan.name}} <br />
@@ -8,7 +9,7 @@
   </div>
   <div>
     <mat-list>
-      <mat-list-item *ngFor="let member of clan.members">
+      <mat-list-item @routeSlideLeftToRightState *ngFor="let member of clan.members">
         <div style="color: black" matLine style="vertical-align: middle">
           <i matListAvatar *ngIf="member.typeOfCharacter == 'MAIN' && member.typeOfUser == 'CPLEADER'"
             class="fas fa-crown"></i>
@@ -34,6 +35,6 @@
       </mat-list-item>
     </mat-list>
   </div>
-  <mat-divider *ngIf="clans.length > 1" [vertical]="false" style="border: 2px solid grey;"></mat-divider>
+  <mat-divider *ngIf="clans.length > 0" [vertical]="false" style="border: 2px solid grey;"></mat-divider>
 </div>
-<mat-spinner style="margin:0 auto;z-index: 1;position: relative;" *ngIf="clans.length < 1"></mat-spinner>
+<mat-spinner style="margin:0 auto;z-index: 1;position: relative;" *ngIf="clans.length < 0"></mat-spinner>

@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { routeSlideBottomToUpStateTrigger } from './../shared/route-animation';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AdminDashbordService } from './adminDashboard.service';
-import { CpPoints } from './epic-points-dashboard-display/epic-points-dashboard-display.component';
 import { MemberService } from '../homePage/member/userService/member.service';
 import { MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
+import { routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger, routeSlideRightToLeftStateTrigger } from '../shared/route-animation';
 
 @Component({
   selector: 'app-admin-dash-board',
   templateUrl: './admin-dash-board.component.html',
   styleUrls: ['./admin-dash-board.component.css'],
-  providers: [AdminDashbordService, MemberService]
+  providers: [AdminDashbordService, MemberService],
+  animations: [routeSlideLeftToRightStateTrigger]
 })
 export class AdminDashBoardComponent implements OnInit {
+  @HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
   previusUrl: string = "";
   coreInfoPoints = [];
   orfenInfoPoints = [];

@@ -9,3 +9,7 @@
 .fa-crown {
     color: goldenrod;
 }
+
+:host {
+    display: block;
+}

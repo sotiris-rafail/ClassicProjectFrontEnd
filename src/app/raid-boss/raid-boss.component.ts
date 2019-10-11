@@ -1,6 +1,6 @@
 import { MemberService } from './../homePage/member/userService/member.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { UpdateTODComponent } from './update-tod/update-tod.component';
@@ -9,22 +9,28 @@ import { MatSort, MatSnackBar } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { RegisterRaidBossComponent } from './register-raid-boss/register-raid-boss.component';
+import { routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger } from '../shared/route-animation';
+import { AnimationEvent } from '@angular/animations'
 
 
 @Component({
   selector: 'app-raid-boss',
   templateUrl: './raid-boss.component.html',
   styleUrls: ['./raid-boss.component.css'],
-  providers: [RaidBossService, MemberService, DisplayingErrorComponent]
+  providers: [RaidBossService, MemberService, DisplayingErrorComponent],
+  animations: [routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger]
 })
 export class RaidBossComponent implements OnInit {
+  @HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
   @ViewChild(MatSort) sort: MatSort;
   whichToPrint: String = 'RAIDS';
   token: OAuth2Token = new OAuth2Token();
   dataSource: any;
   previusUrl: string;
-  displayedColumns = ['name', 'level', 'windowStart', 'windowEnd', 'state', 'more', 'unknown'];
+  displayedColumnsRaidBosser = ['name', 'level', 'windowStart', 'windowEnd', 'state', 'more', 'unknown'];
+  displayedColumns = ['name', 'level', 'windowStart', 'windowEnd', 'state'];
   actualDisplay: MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
+  display: MatTableDataSource<RaidBoss> = new MatTableDataSource<RaidBoss>();
   typeOfUser: any;
   raidBosser = false;
   displayingView = [];
@@ -64,8 +70,12 @@ export class RaidBossComponent implements OnInit {
             this.raidBossService.getALlBosses(this.token.getAccessToken).subscribe(
               response => {
                 this.dataSource = response;
-                this.actualDisplay.data = this.fixOutput(this.dataSource);
-                this.actualDisplay.sort = this.sort;
+                this.display.data = this.fixOutput(this.dataSource);
+                this.display.sort = this.sort;
+                if (this.display.data.length >= 1) {
+                  this.actualDisplay.data.push(this.display.data[0]);
+                  this.actualDisplay.sort = this.sort;
+                }
               },
               error => {
                 this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -102,7 +112,7 @@ export class RaidBossComponent implements OnInit {
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
-      this.router.navigate(['/'], { queryParams : { redirectPage : 'raidboss'}});
+      this.router.navigate(['/'], { queryParams: { redirectPage: 'raidboss' } });
     }
   }
 
@@ -198,19 +208,33 @@ export class RaidBossComponent implements OnInit {
     this.actualDisplay.filter = filterValue.trim().toLowerCase();
   }
 
+  onAnimationDone(event: AnimationEvent, lastIndex: number) {
+    if (event.fromState != 'void') {
+      return;
+    }
+    if (this.display.data.length > lastIndex + 1) {
+      this.actualDisplay.data.push(this.display.data[lastIndex + 1])
+      this.actualDisplay._updateChangeSubscription();
+    } else {
+      this.actualDisplay = this.display;
+      this.actualDisplay._updateChangeSubscription();
+    }
+
+  }
+
   openRaidDialog() {
     const dialogRef = this.dialog.open(RegisterRaidBossComponent, { width: '330px', height: '430px', disableClose: true });
 
     dialogRef.afterClosed().subscribe(addRaidbosses => {
       if (addRaidbosses) {
         this.actualDisplay.data.push({
-            raidBossId: addRaidbosses.raidBossId,
-            level: addRaidbosses.level,
-            name: addRaidbosses.name,
-            isAlive: addRaidbosses.raidBossState,
-            whereItLives: addRaidbosses.whereItLives,
-            windowStarts: new Date(addRaidbosses.windowStarts),
-            windowEnds: new Date(addRaidbosses.windowEnds)
+          raidBossId: addRaidbosses.raidBossId,
+          level: addRaidbosses.level,
+          name: addRaidbosses.name,
+          isAlive: addRaidbosses.raidBossState,
+          whereItLives: addRaidbosses.whereItLives,
+          windowStarts: new Date(addRaidbosses.windowStarts),
+          windowEnds: new Date(addRaidbosses.windowEnds)
         });
         this.actualDisplay._updateChangeSubscription();
       }

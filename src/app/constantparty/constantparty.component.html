@@ -33,16 +33,16 @@
 
       <ng-container matColumnDef="More">
         <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px': 0}">
-            <button fxShow fxHide.xs="true" [disabled]="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()">
+            <button fxShow fxHide.xs="true" *ngIf="isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()">
               <mat-icon>add</mat-icon>
               Add a member
             </button>
-            <button fxHide fxShow.xs="true" [disabled]="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()" [matTooltip]="'Add a member'">
+            <button fxHide fxShow.xs="true" *ngIf="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()" [matTooltip]="'Add a member'">
               <mat-icon>add</mat-icon>
             </button>
         </mat-header-cell>
         <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'padding-right.px': 0}">
-          <button mat-raised-button color="warn" (click)="handleDelete(element2)" [matTooltip]="'Delete'" [disabled]="!isUserAleader">
+          <button mat-raised-button color="warn" (click)="handleDelete(element2)" [matTooltip]="'Delete'" *ngIf="isUserAleader">
             <mat-icon>
               <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                 <path fill="#FFFFFF"
@@ -54,7 +54,7 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" @routeSlideBottomToUpState></mat-row>
     </mat-table>
   </div>
   <div *ngIf="responseData && false">

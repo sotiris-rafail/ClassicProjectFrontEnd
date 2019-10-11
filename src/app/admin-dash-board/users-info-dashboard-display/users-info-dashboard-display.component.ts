@@ -1,5 +1,5 @@
 import { DeleteUserComponent } from './../../homePage/member/delete-user/delete-user.component';
-import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectorRef, HostBinding } from '@angular/core';
 import { MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
 import { UsersInfoDashboardDiaplyDataSource as UsersInfoDashboardDisplayDataSource } from './users-info-dashboard-display-datasource';
 import { trigger, state, transition, style, animate } from '@angular/animations';
@@ -12,6 +12,7 @@ import { ChangeMemberRoleComponent } from 'src/app/homePage/member/change-member
 import { AddUserToCpFromAdminPageComponent } from 'src/app/constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
 import { DeleteCharacterComponent } from 'src/app/clan/remove-clan-member/remove-clan-member.component';
 import { DeleteMemberComponent } from 'src/app/constantparty/delete-member/delete-member.component';
+import { routeSlideLeftToRightStateTrigger } from 'src/app/shared/route-animation';
 
 @Component({
   selector: 'app-users-info-dashboard-display',
@@ -23,10 +24,11 @@ import { DeleteMemberComponent } from 'src/app/constantparty/delete-member/delet
       state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
-  ],
+    routeSlideLeftToRightStateTrigger],
   providers: [AdminDashbordService, DisplayingErrorComponent]
 })
 export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
+  //@HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: UsersInfoDashboardDisplayDataSource;

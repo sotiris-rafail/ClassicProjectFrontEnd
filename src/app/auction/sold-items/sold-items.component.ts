@@ -1,17 +1,22 @@
+import { routeSlideUpToBottomStateForInnerUseTrigger } from './../../shared/route-animation';
+import { AnimationEvent } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, HostBinding } from '@angular/core';
 import { SoldItem } from '../auction.component';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { routeSlideUpToBottomStateTrigger } from 'src/app/shared/route-animation';
 
 @Component({
   selector: 'app-sold-items',
   templateUrl: './sold-items.component.html',
   styleUrls: ['./sold-items.component.css'],
-  providers: [ItemService]
+  providers: [ItemService],
+  animations: [routeSlideUpToBottomStateTrigger, routeSlideUpToBottomStateForInnerUseTrigger]
 })
 export class SoldItemsComponent implements OnInit, OnChanges {
+  @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
   private _panelState: Boolean = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input()
@@ -19,7 +24,8 @@ export class SoldItemsComponent implements OnInit, OnChanges {
     this._panelState = value;
   }
   @Input() isSuperUser: Boolean;
-  dataSource: MatTableDataSource<SoldItem>;
+  dataSource: MatTableDataSource<SoldItem> = new MatTableDataSource<SoldItem>();
+  data: MatTableDataSource<SoldItem>;
   displayedColumns = ['itemId', 'photoPath', 'name', 'typeOfItem', 'grade', 'stateOfItem', 'price', 'whoBoughtIt', 'boughtPrice', 'delivered', 'more'];
   selection = new SelectionModel<SoldItem>(true, []);
   constructor(private itemService: ItemService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
@@ -35,8 +41,12 @@ export class SoldItemsComponent implements OnInit, OnChanges {
     if (this._panelState) {
       this.itemService.getSoldItems(sessionStorage.getItem('access_token')).subscribe(
         response => {
-          this.dataSource = new MatTableDataSource<SoldItem>(response);
+          this.data = new MatTableDataSource<SoldItem>(response);
           this.dataSource.paginator = this.paginator;
+          if (this.data.data.length >= 1) {
+            this.dataSource.data.push(this.data.data[0]);
+            this.dataSource._updateChangeSubscription();
+          }
         },
         error => {
           this.snackBar.open(error.error.message, 'OK', { duration: 5000, panelClass: 'alternate-theme' });
@@ -107,5 +117,22 @@ export class SoldItemsComponent implements OnInit, OnChanges {
       error => {
 
       });
+  }
+
+  onAnimationDone(event: AnimationEvent, lastIndex: number) {
+    if (event.fromState != 'void') {
+      return;
+    }
+    if (this.data.data.length == this.dataSource.data.length) {
+      return;
+    }
+    console.log("Hello")
+    if (this.data.data.length > lastIndex + 1) {
+      this.dataSource.data.push(this.data.data[lastIndex + 1]);
+      this.dataSource._updateChangeSubscription();
+      this.data._updatePaginator(this.dataSource.data.length);
+    } else {
+      this.dataSource.data = this.data.data;
+    }
   }
 }

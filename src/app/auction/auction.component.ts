@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
+import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { MemberService } from '../homePage/member/userService/member.service';
 import { OAuth2Token } from '../tokens';
+import { routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger } from '../shared/route-animation';
 
 @Component({
   selector: 'app-auction',
   templateUrl: './auction.component.html',
   styleUrls: ['./auction.component.css'],
-  providers: [MemberService]
+  providers: [MemberService],
+  animations: [routeSlideUpToBottomStateTrigger]
 })
 export class AuctionComponent implements OnInit {
+  @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
   isSuperUser: boolean = false;
   token: OAuth2Token = new OAuth2Token();
   previusUrl: string;
   whichToPrint: String = 'AUCTION';
-  panelOpenStateUnSold = true;
+  panelOpenStateUnSold = false;
   panelOpenStateSold = false;
   isCpMember;
   constructor(private router: Router, private memberService: MemberService, private snackBar: MatSnackBar) { }
@@ -68,6 +72,11 @@ export class AuctionComponent implements OnInit {
 
   handleOpenOrCloseSold(panelOpenState: boolean) {
     this.panelOpenStateSold = panelOpenState;
+  }
+
+  @HostListener('@routeSlideUpToBottomState.done', ["$event"])
+  animationDone(event: AnimationEvent){
+    this.panelOpenStateUnSold = true;
   }
 }
 

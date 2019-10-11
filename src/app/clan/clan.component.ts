@@ -1,27 +1,31 @@
+import { AnimationEvent } from '@angular/animations';
 import { MemberService } from './../homePage/member/userService/member.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuth2Token } from '../tokens';
 import { ClanService } from './clanService/clan.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
+import { routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger } from '../shared/route-animation';
 
 @Component({
   selector: 'app-clan',
   templateUrl: './clan.template.html',
   styleUrls: ['./clan.style.css'],
-  providers: [ClanService, MemberService, DisplayingErrorComponent]
+  providers: [ClanService, MemberService, DisplayingErrorComponent],
+  animations: [routeSlideLeftToRightStateTrigger]
 })
 export class ClanComponent implements OnInit {
+  @HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
   previusUrl: String;
   whichToPrint: String = "CLAN"
   token: OAuth2Token = new OAuth2Token();
   clans: any = [];
+  beforeDisplay: any = [];
   typeOfUser: any;
   isSuperUser: boolean = false;
   displayingView = []
-  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private snackBar: MatSnackBar) { 
+  constructor(private router: Router, private clanService: ClanService, private memberService: MemberService, private snackBar: MatSnackBar) {
     this.displayingView['MAIN'] = 'Main';
     this.displayingView['BOX'] = 'Box';
     this.displayingView['SUPERUSER'] = 'Super User';
@@ -55,7 +59,10 @@ export class ClanComponent implements OnInit {
       )
       this.clanService.getAllClansInfo(this.token.getAccessToken).subscribe(
         response => {
-          this.clans = response;
+          this.beforeDisplay = response;
+          if (this.beforeDisplay.length >= 1) {
+            this.clans.push(this.beforeDisplay[0]);
+          }
         },
         error => {
           this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -86,6 +93,17 @@ export class ClanComponent implements OnInit {
   showButton() {
     if (this.typeOfUser === "SUPERUSER") {
       this.isSuperUser = true;
+    }
+  }
+
+  onAnimationDone(event: AnimationEvent, lastIndex: number) {
+    if (event.fromState != 'void') {
+      return;
+    }
+    if (this.beforeDisplay.length > lastIndex + 1) {
+      this.clans.push(this.beforeDisplay[lastIndex + 1]);
+    } else {
+      this.clans = this.beforeDisplay;
     }
   }
 }

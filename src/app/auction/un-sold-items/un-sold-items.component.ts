@@ -1,13 +1,14 @@
 import { AuctionBidConfirmationPanelComponent } from './../auction-bid-confirmation-panel/auction-bid-confirmation-panel.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit, ViewChild, OnChanges, Input } from '@angular/core';
-import { trigger, style, state, transition, animate } from '@angular/animations';
+import { Component, OnInit, ViewChild, OnChanges, Input, HostBinding, HostListener } from '@angular/core';
+import { trigger, style, state, transition, animate, AnimationEvent } from '@angular/animations';
 import { MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
 import { ItemService } from '../item-service.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
 import { UnSoldItem } from '../auction.component';
 import { AddNewItemPanelComponent } from '../add-new-item-panel/add-new-item-panel.component';
+import { routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger, routeSlideUpToBottomStateForInnerUseTrigger } from 'src/app/shared/route-animation';
 
 @Component({
   selector: 'app-un-sold-items',
@@ -18,10 +19,11 @@ import { AddNewItemPanelComponent } from '../add-new-item-panel/add-new-item-pan
       state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
       state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
+    ]), routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger, routeSlideUpToBottomStateForInnerUseTrigger
   ], providers: [ItemService],
 })
 export class UnSoldItemsComponent implements OnInit, OnChanges {
+  @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
   private _panelState: Boolean = true;
   @Input()
   set panelState(value: Boolean) {
@@ -30,8 +32,8 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   @Input() isSuperUser = true;
   isFirstTime: Boolean = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  dataSource: MatTableDataSource<UnSoldItemDisplay>;
-  data: UnSoldItemDisplay[] = [];
+  dataSource: MatTableDataSource<UnSoldItemDisplay> = new MatTableDataSource<UnSoldItemDisplay>();
+  data: MatTableDataSource<UnSoldItemDisplay> = new MatTableDataSource<UnSoldItemDisplay>();
   columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
   displayingView = [];
   displayItems : UnSoldItemDisplay[] = [];
@@ -48,7 +50,6 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.openUnSoldPanel();
     this.isFirstTime = false;
   }
 
@@ -56,7 +57,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
     if (this._panelState && !this.isFirstTime && this.displayItems.length > 0) {
       this.openUnSoldPanel();
     } else {
-      this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(this.displayItems);
+      this.dataSource = new MatTableDataSource<UnSoldItemDisplay>();
     }
   }
 
@@ -67,8 +68,12 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
           unsoldItem.expirationDate = new Date(unsoldItem.expirationDate);
         });
         this.displayItems = response;
-        this.dataSource = new MatTableDataSource<UnSoldItemDisplay>(response);
+        this.data = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
+        if(this.data.data.length >= 1) {
+          this.dataSource.data.push(this.data.data[0]);
+          this.dataSource._updateChangeSubscription();
+        }
       },
       error => {;
         this.snackBar.openFromComponent(DisplayingErrorComponent,
@@ -160,6 +165,27 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
     dialogRef.afterClosed().subscribe(result => {
       this.openUnSoldPanel();
     });
+  }
+
+  @HostListener('@routeSlideUpToBottomState.done', ["$event"])
+  animationDone(event: AnimationEvent){
+    this.openUnSoldPanel();
+  }
+
+  onAnimationDone(event: AnimationEvent, lastIndex: any) {
+    if(event.fromState != 'void') {
+      return;
+    }
+    if(this.data.data.length == this.dataSource.data.length) {
+      return;
+    }
+    if(this.data.data.length > this.data.data.findIndex(item => item.itemId == lastIndex.itemId) + 1) {
+      this.dataSource.data.push(this.data.data[this.data.data.findIndex(item => item.itemId == lastIndex.itemId) + 1]);
+      this.dataSource._updateChangeSubscription();
+      this.data._updatePaginator(this.dataSource.data.length);
+    } else {
+      this.dataSource.data = this.data.data;
+    }
   }
 }
 
