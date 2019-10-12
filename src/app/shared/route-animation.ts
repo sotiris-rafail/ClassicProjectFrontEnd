@@ -74,9 +74,9 @@ export const routeSlideLeftToRightStateRaidBossTrigger = trigger('routeSlideLeft
             transform: 'translateX(-100%)',
             opacity: 0
         }),
-        animate(400)
+        animate(300)
     ]),
-    transition(':leave', animate(400, style({
+    transition(':leave', animate(300, style({
         transform: 'translateX(100%)',
         opacity: 0
     })))
