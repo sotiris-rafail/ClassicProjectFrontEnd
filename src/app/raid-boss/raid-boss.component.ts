@@ -9,7 +9,7 @@ import { MatSort, MatSnackBar } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { DisplayingErrorComponent } from '../displaying-error/displaying-error.component';
 import { RegisterRaidBossComponent } from './register-raid-boss/register-raid-boss.component';
-import { routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger } from '../shared/route-animation';
+import { routeSlideLeftToRightStateRaidBossTrigger, routeSlideLeftToRightStateTrigger } from '../shared/route-animation';
 import { AnimationEvent } from '@angular/animations'
 
 
@@ -18,7 +18,7 @@ import { AnimationEvent } from '@angular/animations'
   templateUrl: './raid-boss.component.html',
   styleUrls: ['./raid-boss.component.css'],
   providers: [RaidBossService, MemberService, DisplayingErrorComponent],
-  animations: [routeSlideUpToBottomStateTrigger, routeSlideLeftToRightStateTrigger]
+  animations: [routeSlideLeftToRightStateRaidBossTrigger, routeSlideLeftToRightStateTrigger]
 })
 export class RaidBossComponent implements OnInit {
   @HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
@@ -209,11 +209,11 @@ export class RaidBossComponent implements OnInit {
   }
 
   onAnimationDone(event: AnimationEvent, lastIndex: number) {
-    if (event.fromState != 'void') {
+    if (event.fromState !== 'void') {
       return;
     }
     if (this.display.data.length > lastIndex + 1) {
-      this.actualDisplay.data.push(this.display.data[lastIndex + 1])
+      this.actualDisplay.data.push(this.display.data[lastIndex + 1]);
       this.actualDisplay._updateChangeSubscription();
     } else {
       this.actualDisplay = this.display;

@@ -78,7 +78,7 @@
             </span>
           </div>
           <div [ngStyle.xs]="{'display': 'inline-grid'}" [ngStyle]="{'display': 'inline-flex'}"
-            *ngIf="element.lastBidder !== '' && element.editable && element.saleState === 'RESALE'">
+            *ngIf="element.lastBidder != null && element.editable && element.saleState === 'RESALE'">
             <button style="margin-left: 3em;" mat-icon-button (click)="editAuctionItem(element)">
               <mat-icon>
                 edit

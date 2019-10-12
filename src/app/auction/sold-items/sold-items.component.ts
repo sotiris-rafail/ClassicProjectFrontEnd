@@ -120,19 +120,18 @@ export class SoldItemsComponent implements OnInit, OnChanges {
   }
 
   onAnimationDone(event: AnimationEvent, lastIndex: number) {
-    if (event.fromState != 'void') {
+    if (event.fromState !== 'void') {
       return;
     }
     if (this.data.data.length == this.dataSource.data.length) {
       return;
     }
-    console.log("Hello")
     if (this.data.data.length > lastIndex + 1) {
+      if (this.dataSource.paginator.pageIndex >= 1) {
+        lastIndex = lastIndex + (15 * this.dataSource.paginator.pageIndex);
+      }
       this.dataSource.data.push(this.data.data[lastIndex + 1]);
       this.dataSource._updateChangeSubscription();
-      this.data._updatePaginator(this.dataSource.data.length);
-    } else {
-      this.dataSource.data = this.data.data;
     }
   }
 }

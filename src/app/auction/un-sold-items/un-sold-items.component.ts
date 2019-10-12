@@ -84,7 +84,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-        if (Number(error.status) == 401) {
+        if (Number(error.status) === 401) {
           this.router.navigateByUrl('/');
         }
       }
@@ -152,7 +152,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   addNewItem() {
-    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: "550px", height: "600px", disableClose: true });
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: '550px', height: '600px', disableClose: true });
 
     dialogRef.afterClosed().subscribe(result => {
       this.openUnSoldPanel();
@@ -160,20 +160,24 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   editAuctionItem(item: UnSoldItem) {
-    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: "550px", height: "600px", disableClose: true, data : {'item' : item} });
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: '550px', height: '600px', disableClose: true, data : {'item' : item} });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.data.data = [];
+      this.dataSource.data = [];
+      this.data._updateChangeSubscription();
+      this.dataSource._updateChangeSubscription();
       this.openUnSoldPanel();
     });
   }
 
-  @HostListener('@routeSlideUpToBottomState.done', ["$event"])
+  @HostListener('@routeSlideUpToBottomState.done', ['$event'])
   animationDone(event: AnimationEvent){
     this.openUnSoldPanel();
   }
 
   onAnimationDone(event: AnimationEvent, lastIndex: any) {
-    if(event.fromState != 'void') {
+    if(event.fromState !== 'void') {
       return;
     }
     if(this.data.data.length == this.dataSource.data.length) {
