@@ -43,8 +43,8 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   roles = [
     { value: '0', viewValue: 'CPLEADER' },
     { value: '1', viewValue: 'CPMEMBER' },
-    { value: '2', viewValue: 'RAIDBOSSER' },
-    { value: '3', viewValue: 'CPLEADER' }
+    { value: '2', viewValue: 'SUPERUSER' },
+    { value: '3', viewValue: 'RAIDBOSSER' }
   ];
 
   ngOnInit() {

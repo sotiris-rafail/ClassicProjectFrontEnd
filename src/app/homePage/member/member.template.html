@@ -85,7 +85,7 @@
   </div>
   <div class="user-options-div">
     <mat-accordion *ngIf="cpId !== -1 && option">
-      <mat-expansion-panel>
+      <mat-expansion-panel (opened)="getOptionsConfig()">
         <mat-expansion-panel-header>
           <h2 class="example-h2">User Options
             <span *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'"
@@ -105,33 +105,38 @@
             </span>
           </h2>
         </mat-expansion-panel-header>
-        <div style="text-align: center;" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-          <button mat-raised-button color="accent" (click)="activate()">Activate All</button>
-          <button style=" margin-left: 1em;" mat-raised-button color="warn" (click)="deactivate()">Deactivate
-            All</button>
+        <div *ngIf="optionConfig">
+          <div style="text-align: center;" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
+            <button mat-raised-button color="accent" (click)="activate()">Activate All</button>
+            <button style=" margin-left: 1em;" mat-raised-button color="warn" (click)="deactivate()">Deactivate
+              All</button>
+          </div>
+          <section class="example-section"
+            *ngIf="optionConfig.bossesNotification && data.responseVerification.verificationStatus === 'VERIFIED'">
+            Bosses on window notification
+            <mat-slide-toggle #boss class="example-margin" color="accent" [checked]="option.bossesNotification"
+              (toggleChange)="optionChange('bosses', !option.bossesNotification)">
+            </mat-slide-toggle>
+          </section>
+          <section class="example-section"
+            *ngIf="optionConfig.newItemNotification && data.responseVerification.verificationStatus === 'VERIFIED'">
+            New items on action
+            <mat-slide-toggle #newItem class="example-margin" color="accent" [checked]="option.newItemNotification"
+              (change)="optionChange('newitem', !option.newItemNotification)">
+            </mat-slide-toggle>
+          </section>
+          <section class="example-section"
+            *ngIf="optionConfig.soldItemNotification && data.responseVerification.verificationStatus === 'VERIFIED'">
+            Sold items on auction
+            <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification"
+              (change)="optionChange('solditem', !option.soldItemNotification)">
+            </mat-slide-toggle>
+          </section>
+          <section style="display: grid;">
+            <button *ngIf=" data.responseVerification.verificationStatus==='ZERO' && !data.expired" mat-raised-button
+              style="margin-left: 1em;" color="accent" (click)="validate(email)">Verify my email address</button>
+          </section>
         </div>
-        <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-          Bosses on window notification
-          <mat-slide-toggle #boss class="example-margin" color="accent" [checked]="option.bossesNotification"
-            (toggleChange)="optionChange('bosses', !option.bossesNotification)">
-          </mat-slide-toggle>
-        </section>
-        <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-          New items on action
-          <mat-slide-toggle #newItem class="example-margin" color="accent" [checked]="option.newItemNotification"
-            (change)="optionChange('newitem', !option.newItemNotification)">
-          </mat-slide-toggle>
-        </section>
-        <section class="example-section" *ngIf="data.responseVerification.verificationStatus === 'VERIFIED'">
-          Sold items on auction
-          <mat-slide-toggle #soldItem class="example-margin" color="accent" [checked]="option.soldItemNotification"
-            (change)="optionChange('solditem', !option.soldItemNotification)">
-          </mat-slide-toggle>
-        </section>
-        <section style="display: grid;">
-          <button *ngIf=" data.responseVerification.verificationStatus==='ZERO' && !data.expired" mat-raised-button
-            style="margin-left: 1em;" color="accent" (click)="validate(email)">Verify my email address</button>
-        </section>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

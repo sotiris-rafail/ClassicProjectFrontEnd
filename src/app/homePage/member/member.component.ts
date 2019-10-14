@@ -39,6 +39,7 @@ export class MemberComponent implements OnInit {
   displayingView = [];
   aqAdjPrice = 0;
   orfenCoreAdjPrice = 0;
+  optionConfig: { bossesNotification: boolean; newItemNotification: boolean; soldItemNotification: boolean; };
   option: { bossesNotification: boolean; newItemNotification: boolean; soldItemNotification: boolean; };
   constructor(private memberService: MemberService, public dialog: MatDialog, private router: Router, private itemService: ItemService, private snackBar: MatSnackBar) {
     this.displayingView['userId'] = 'ID';
@@ -51,7 +52,7 @@ export class MemberComponent implements OnInit {
     this.displayingView['CPMEMBER'] = 'CP Member';
     this.displayingView['RAIDBOSSER'] = 'Raid Bosser';
     this.displayingView['CPLEADER'] = 'CP Leader';
-   }
+  }
 
   ngOnInit(): void {
     this.token.getTokensFromStorage();
@@ -76,7 +77,7 @@ export class MemberComponent implements OnInit {
           horizontalPosition: 'right',
           verticalPosition: 'top'
         });
-        if (Number(error.status) === 401 ) {
+        if (Number(error.status) === 401) {
           this.router.navigateByUrl('/');
         }
       });
@@ -226,5 +227,12 @@ export class MemberComponent implements OnInit {
         });
       }
     )
+  }
+
+  getOptionsConfig() {
+    this.memberService.getOptionsConfiguration(this.token.getAccessToken).subscribe(optionsCOnfig => {
+      let data: any = optionsCOnfig;
+      this.optionConfig = data;
+    });
   }
 }

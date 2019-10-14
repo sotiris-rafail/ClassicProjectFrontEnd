@@ -146,4 +146,15 @@ export class MemberService {
     });
     return this.http.get('http:///83.212.102.61:8080/user/verify/' + code);
   };
+
+  getOptionsConfiguration(token: string) {
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer  ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get('http:///83.212.102.61:8080/user/option/getConfigOptions',
+      {
+        headers: this.headers
+      })
+  }
 }
