@@ -1,101 +1,182 @@
 <div>
     <h2 *ngIf="!data">Add a new item for sale</h2>
     <h2 *ngIf="data">Edit of {{data.item.name}}</h2>
-    <form [formGroup]="addItemForm">
-        <div style="display: inline-flex;">
-            <div style="padding: 0.5em 0.7em;">
-                <mat-form-field appearance="outline">
-                    <mat-label>Item Name</mat-label>
-                    <input matInput type="text" [formControl]="nameControl" required>
-                </mat-form-field>
-            </div>
-            <div style="padding: 0.5em 0.7em 0.5em 2em;">
-                <mat-form-field appearance="outline">
-                    <mat-label>Amount of item(s)</mat-label>
-                    <input matInput type="number" [formControl]="amoundOfItemControl" required>
-                </mat-form-field>
-            </div>
-        </div>
-        <div style="display: inline-flex;">
-            <div style="padding: 0.1em 0.7em;">
-                <mat-form-field appearance="outline">
-                    <mat-label>Starting Price</mat-label>
-                    <input matInput type="number" [formControl]="startingPriceControl" required>
-                    <mat-icon matSuffix>
-                        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                            <path fill="#000000"
-                                d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
-                        </svg>
-                    </mat-icon>
-                    <mat-hint>Minimum value starts from 100k. <b>(0.1 is equals to 100k. 1 is equals to 1kk)</b>
-                    </mat-hint>
-                </mat-form-field>
-            </div>
-            <div style="padding: 0.1em 0.7em;">
-                <mat-form-field appearance="outline">
-                    <mat-label>Max Price</mat-label>
-                    <input matInput type="number" [formControl]="maxPriceControl" required>
-                    <mat-icon matSuffix>
-                        <svg style=" width:24px;height:24px" viewBox="0 0 24 24">
-                            <path fill="#000000"
-                                d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
-                        </svg>
-                    </mat-icon>
-                    <mat-hint>Maximum value should be equals or greater than the starting value. <b>(0.1 is equals to
-                            100k. 1 is equals to 1kk)</b></mat-hint>
-                </mat-form-field>
-            </div>
-        </div>
-        <div style="display: inline-flex;">
-            <div style="padding: 2em 0.7em 1em 0.7em;">
-                <mat-form-field appearance="outline">
-                    <mat-label>Bid Step</mat-label>
-                    <input matInput type="number" [formControl]="bidPriceControl" required>
-                    <mat-hint>Bid Step starts for 100k</mat-hint>
-                </mat-form-field>
-            </div>
-            <div style="padding: 2em 0.7em 1em 2.4em; ">
-                <mat-form-field appearance="outline">
-                    <mat-label>Number of days</mat-label>
-                    <input matInput type="number" [formControl]="numberOfDayControl" required>
-                    <mat-hint>The number of days before expiration starting from today.</mat-hint>
-                </mat-form-field>
-            </div>
-        </div>
-        <div style="display: inline-flex;">
-            <div style="padding: 0em 0.7em;">
-                <mat-form-field>
-                    <mat-select [(value)]="typeOfItem" placeholder="Type Of Item" [formControl]="typeOfItemControl"
-                        required>
-                        <mat-option value="weapon">Weapon</mat-option>
-                        <mat-option value="armor">Armor</mat-option>
-                        <mat-option value="jewell">Jewell</mat-option>
-                        <mat-option value="book">Book</mat-option>
-                        <mat-option value="enchant">Enchant</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div style="padding: 0em 0.7em 0em 4em;">
-                <mat-form-field>
-                    <mat-select [(value)]="grade" placeholder="Grade" [formControl]="gradeControl" required>
-                        <mat-option value="A">A</mat-option>
-                        <mat-option value="B">B</mat-option>
-                        <mat-option value="C">C</mat-option>
-                        <mat-option value="D">D</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-        </div>
-    </form>
-    <div style="padding: 0.7em;text-align: center;">
-        <button *ngIf="!data" mat-raised-button color="accent" (click)="addItem()" [disabled]="!addItemForm.valid">Add Item</button>
-        <button *ngIf="data" mat-raised-button color="accent" (click)="editItem()" [disabled]="!addItemForm.valid">Edit Item</button>
-        <button style="margin-left:0.5em;" mat-raised-button color="warn" (click)="handleCancel()">Cancel</button>
+    <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Item Information
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="addItemForm">
+                <div style="display: inline-flex;">
+                    <div style="padding: 0.5em 0.7em;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Item Name</mat-label>
+                            <input matInput type="text" [formControl]="nameControl" required>
+                        </mat-form-field>
+                    </div>
+                    <div style="padding: 0.5em 0.7em 0.5em 2em;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Amount of item(s)</mat-label>
+                            <input matInput type="number" [formControl]="amoundOfItemControl" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div style="display: inline-flex;">
+                    <div style="padding: 0em 0.7em;">
+                        <mat-form-field>
+                            <mat-select [(value)]="typeOfItem" placeholder="Type Of Item"
+                                [formControl]="typeOfItemControl" required>
+                                <mat-option value="weapon">Weapon</mat-option>
+                                <mat-option value="armor">Armor</mat-option>
+                                <mat-option value="jewell">Jewell</mat-option>
+                                <mat-option value="book">Book</mat-option>
+                                <mat-option value="enchant">Enchant</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div style="padding: 0em 0.7em 0em 4em;">
+                        <mat-form-field>
+                            <mat-select [(value)]="grade" placeholder="Grade" [formControl]="gradeControl" required>
+                                <mat-option value="A">A</mat-option>
+                                <mat-option value="B">B</mat-option>
+                                <mat-option value="C">C</mat-option>
+                                <mat-option value="D">D</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <mat-error *ngIf="startingPriceControl.hasError('max')">
+                <div class="error" fxFlex fxLayoutAlign="center center">
+                    <mat-icon>error</mat-icon>
+                    <span><b>Starting price must be less or equal to the Max Price</b></span>
+                </div>
+            </mat-error>
+            <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel class="zero-padding" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Prices and Duration
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form [formGroup]="addItemForm">
+                <div style="display: inline-flex;">
+                    <div style="padding: 0.1em 0.7em;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Starting Price</mat-label>
+                            <input matInput type="number" [formControl]="startingPriceControl" required>
+                            <mat-icon matSuffix>
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="#000000"
+                                        d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
+                                </svg>
+                            </mat-icon>
+                            <mat-hint>Minimum value starts from 100k. <b>(0.1 is equals to 100k. 1 is equals to1kk)</b>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div style="padding: 0.1em 0.7em;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Max Price</mat-label>
+                            <input matInput type="number" [formControl]="maxPriceControl" required>
+                            <mat-icon matSuffix>
+                                <svg style=" width:24px;height:24px" viewBox="0 0 24 24">
+                                    <path fill="#000000"
+                                        d="M3,6H21V18H3V6M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M7,8A2,2 0 0,1 5,10V14A2,2 0 0,1 7,16H17A2,2 0 0,1 19,14V10A2,2 0 0,1 17,8H7Z" />
+                                </svg>
+                            </mat-icon>
+                            <mat-hint>Maximum value should be equals or greater than the starting value. <b>(0.1 is
+                                    equals to100k. 1 is equals to 1kk)</b></mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="display: inline-flex;">
+                    <div style="padding: 2em 0.7em 1em 0.7em;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Bid Step</mat-label>
+                            <input matInput type="number" [formControl]="bidPriceControl" required>
+                            <mat-hint>Bid Step starts for 100k</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div style="padding: 2em 0.7em 1em 2.4em; ">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Number of days</mat-label>
+                            <input matInput type="number" [formControl]="numberOfDayControl" required>
+                            <mat-hint>The number of days before expiration starting from today.</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{nameControl.value}} Overview
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span>
+                <b>Item:</b>{{nameControl.value}}
+                <b>Amount:</b> {{amoundOfItemControl.value}}<br />
+                <span *ngIf="!data">
+                    <b>Type:</b> {{typeOfItem}}
+                    <b>Grade:</b> {{grade}} <br />
+                </span>
+                <span *ngIf="data">
+                    <b>Type:</b> {{typeOfItemControl.value}}
+                    <b>Grade:</b> {{gradeControl.value}} <br />
+                </span>
+                <b>Starting Price:</b> {{startingPriceControl.value * 1000000 | number:'1.0-0'}}
+                <b>Max Price:</b> {{maxPriceControl.value * 1000000 | number:'1.0-0'}}<br />
+                <b>Bid Step:</b> {{bidPriceControl.value * 1000000 | number:'1.0-0'}}
+                <b>Duration:</b> {{numberOfDayControl.value}} day(s)
+            </span>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button *ngIf="!data" [disabled]="items.length == 0" mat-button color="primary"
+                    (click)="nextStep()">Check items</button>
+                <button *ngIf="!data" mat-button color="primary" (click)="addItemToTheFinalList()" mat-raised-button
+                    color="accent" [disabled]="!addItemForm.valid">Add item</button>
+                <button *ngIf="data" mat-raised-button color="accent" (click)="editItem()"
+                    [disabled]="!addItemForm.valid">Edit
+                    Item</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="!data" [expanded]="step===3" (opened)="setStep(3)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Final list Of items
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list style="height:115px;overflow-y: scroll;">
+                <mat-list-item *ngFor="let item of items">
+                    <span>
+                        <b>{{item.amount}}x </b>{{item.name}}
+                    </span>
+                </mat-list-item>
+            </mat-list>
+            <mat-action-row>
+                <button mat-button color="warn" (click)="setStep(0)">Start</button>
+                <button mat-button color="primary" (click)="setStep(2)">Item Overview</button>
+                <div style="padding: 0.7em;text-align: center;">
+                    <button *ngIf="!data" mat-raised-button color="accent" (click)="addItem()"
+                        [disabled]="!(items.length >= 1)">AddItems</button>
+                </div>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div style="text-align: center;margin-top: 0.5em;">
+        <button style="margin-left:0.5em;" mat-raised-button color="warn" (click)="handleCancel()">
+            <mat-icon>cancel</mat-icon> Cancel
+        </button>
     </div>
-    <mat-error *ngIf="startingPriceControl.hasError('max')">
-        <div class="error" fxFlex fxLayoutAlign="center center">
-            <mat-icon>error</mat-icon>
-            <span><b>Starting price must be less or equal to the Max Price</b></span>
-        </div>
-    </mat-error>
 </div>

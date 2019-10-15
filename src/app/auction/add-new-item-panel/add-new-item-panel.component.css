@@ -1,3 +1,7 @@
 .error {
     text-align: center;
 }
+
+::ng-deep .zero-padding .mat-expansion-panel-body {
+    padding: 0;
+}

@@ -36,7 +36,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   data: MatTableDataSource<UnSoldItemDisplay> = new MatTableDataSource<UnSoldItemDisplay>();
   columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];
   displayingView = [];
-  displayItems : UnSoldItemDisplay[] = [];
+  displayItems: UnSoldItemDisplay[] = [];
   constructor(private dialog: MatDialog, private itemService: ItemService, private snackBar: MatSnackBar, private router: Router) {
     this.displayingView['itemId'] = 'ID';
     this.displayingView['name'] = 'Name';
@@ -70,12 +70,13 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
         this.displayItems = response;
         this.data = new MatTableDataSource<UnSoldItemDisplay>(response);
         this.dataSource.paginator = this.paginator;
-        if(this.data.data.length >= 1) {
+        if (this.data.data.length >= 1) {
           this.dataSource.data.push(this.data.data[0]);
           this.dataSource._updateChangeSubscription();
         }
       },
-      error => {;
+      error => {
+        ;
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
             data: { message: error.error.message || error.error.error_description, type: 'error' },
@@ -152,15 +153,17 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   addNewItem() {
-    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: '550px', height: '600px', disableClose: true });
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: '550px', height: '620px', disableClose: true });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.openUnSoldPanel();
+      if (result) {
+        this.openUnSoldPanel();
+      }
     });
   }
 
   editAuctionItem(item: UnSoldItem) {
-    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: '550px', height: '600px', disableClose: true, data : {'item' : item} });
+    const dialogRef = this.dialog.open(AddNewItemPanelComponent, { width: '550px', height: '620px', disableClose: true, data: { 'item': item } });
 
     dialogRef.afterClosed().subscribe(result => {
       this.data.data = [];
@@ -172,18 +175,21 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
 
   @HostListener('@routeSlideUpToBottomState.done', ['$event'])
-  animationDone(event: AnimationEvent){
+  animationDone(event: AnimationEvent) {
+    if (event.fromState !== 'void') {
+      return;
+    }
     this.openUnSoldPanel();
   }
 
   onAnimationDone(event: AnimationEvent, lastIndex: any) {
-    if(event.fromState !== 'void') {
+    if (event.fromState !== 'void') {
       return;
     }
-    if(this.data.data.length == this.dataSource.data.length) {
+    if (this.data.data.length == this.dataSource.data.length) {
       return;
     }
-    if(this.data.data.length > this.data.data.findIndex(item => item.itemId == lastIndex.itemId) + 1) {
+    if (this.data.data.length > this.data.data.findIndex(item => item.itemId == lastIndex.itemId) + 1) {
       this.dataSource.data.push(this.data.data[this.data.data.findIndex(item => item.itemId == lastIndex.itemId) + 1]);
       this.dataSource._updateChangeSubscription();
       this.data._updatePaginator(this.dataSource.data.length);

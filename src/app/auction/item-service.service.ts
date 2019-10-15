@@ -10,15 +10,14 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
-  public addNewItemForSale(item: UnSoldItem, amountOfItem: number, access_token: string) {
+  public addNewItemForSale(item: UnSoldItem[], access_token: string) {
     this.headers = new HttpHeaders({
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
     return this.http.post('http://83.212.102.61:8080/unsold/add', JSON.stringify(item),
       {
-        headers: this.headers,
-        params: { amountOfItem: String(amountOfItem) }
+        headers: this.headers
       });
   }
 

@@ -93,6 +93,7 @@ export interface UnSoldItem {
   'currentValue': number;
   'lastBidder': String;
   'photoPath': String;
+  'amount': number;
 }
 
 export interface UnSoldItemEdit {
