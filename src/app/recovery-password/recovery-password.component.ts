@@ -12,7 +12,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 })
 export class RecoveryPasswordComponent {
 
-  @ViewChild('stepper') stepper : MatHorizontalStepper;
+  @ViewChild('stepper', {static: false}) stepper : MatHorizontalStepper;
   isLinear = true;
   email : FormControl = new FormControl('', [Validators.required, Validators.email]);
   mainChar : FormControl = new FormControl('', [Validators.required]);

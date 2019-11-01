@@ -22,7 +22,7 @@ import { AnimationEvent } from '@angular/animations'
 })
 export class RaidBossComponent implements OnInit {
   @HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   whichToPrint: String = 'RAIDS';
   token: OAuth2Token = new OAuth2Token();
   dataSource: any;

@@ -29,8 +29,8 @@ import { routeSlideLeftToRightStateTrigger } from 'src/app/shared/route-animatio
 })
 export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   //@HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   dataSource: UsersInfoDashboardDisplayDataSource;
   displayingView = [];
   @Input() filter = "";

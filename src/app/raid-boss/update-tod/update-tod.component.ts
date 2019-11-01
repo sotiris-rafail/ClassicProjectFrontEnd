@@ -34,7 +34,7 @@ const moment = _rollupMoment || _moment;
   ],
 })
 export class UpdateTODComponent implements OnInit {
-  @ViewChild('datePicker') datePicker: ElementRef;
+  @ViewChild('datePicker', {static: false}) datePicker: ElementRef;
   maxDate = new Date();
   minDate = new Date(2019, 0, 1);
   date = new FormControl(moment());

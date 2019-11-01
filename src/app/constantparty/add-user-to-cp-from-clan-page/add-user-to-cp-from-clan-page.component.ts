@@ -17,7 +17,7 @@ export class AddUserToCpFromAdminPageComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<AddUserToCpFromAdminPageComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private cpService: ConstantPartyService,
     private snackBar: MatSnackBar, private memberService: MemberService, private router: Router) { }
 
-  @ViewChild(MatSelect) matSelect: MatSelect;
+  @ViewChild(MatSelect, {static: false}) matSelect: MatSelect;
   cps: CP[] = [];
   selectedValue = '';
   ngOnInit() {

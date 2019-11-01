@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   providers: [AdminDashbordService, DisplayingErrorComponent]
 })
 export class ConstantPartyNumbersInfoComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   dataSource: ConstantPartyNumbersInfoDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
