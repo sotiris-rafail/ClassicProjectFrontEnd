@@ -64,12 +64,12 @@
           </div>
           <mat-divider fxHide fxShow.xs="true"></mat-divider>
           <span>{{element.bidStep | number:'1.0-0'}} <b>adena each bid step </b></span>
-          <div [ngStyle.xs]="{'display': 'flex'}" [ngStyle]="{'display': 'inline-flex'}">
+          <div [style.xs]="{'display': 'flex'}" [style]="{'display': 'inline-flex'}">
             <button style="margin-left: 0.5em;" mat-stroked-button (click)="simpleBid(element)">Bid</button>
             <button style="margin-left: 0.5em;" mat-stroked-button color="primary" (click)="maxBid(element)">Buy
               Now</button>
           </div>
-          <div [ngStyle.xs]="{'display': 'inline-grid'}" [ngStyle]="{'display': 'inline-flex'}">
+          <div [style.xs]="{'display': 'inline-grid'}" [style]="{'display': 'inline-flex'}">
             <span style="margin-left: 1em;display: inline-flex;">
               <h4>The Current Value is <i>{{element.currentValue | number:'1.0-0'}} </i>adena</h4>
             </span>
@@ -77,7 +77,7 @@
               <h4>The last bidder is <i>{{element.lastBidder}}</i></h4>
             </span>
           </div>
-          <div [ngStyle.xs]="{'display': 'inline-grid'}" [ngStyle]="{'display': 'inline-flex'}"
+          <div [style.xs]="{'display': 'inline-grid'}" [style]="{'display': 'inline-flex'}"
             *ngIf="element.lastBidder != null && element.editable && element.saleState === 'RESALE'">
             <button style="margin-left: 3em;" mat-icon-button (click)="editAuctionItem(element)">
               <mat-icon>

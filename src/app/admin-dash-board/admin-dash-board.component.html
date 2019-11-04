@@ -7,7 +7,7 @@
           <mat-card-header>
             <mat-card-title style="height: 3.5em;" *ngIf="card.title ==='User\'s Info'">
               {{card.title}}
-              <mat-form-field appearance="" [ngStyle.xs]="{'margin-left.em':0,'margin-right.em':0}" [ngStyle]="{'margin-left.em':2,'margin-right.em':2}">
+              <mat-form-field appearance="" [style.xs]="{'margin-left.em':0,'margin-right.em':0}" [style]="{'margin-left.em':2,'margin-right.em':2}">
                 <mat-label>Filter By {{whatToFilter}}</mat-label>
                 <input matInput (keyup)="applyFilter($event.target.value)">
                 <mat-icon matSuffix>

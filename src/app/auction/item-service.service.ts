@@ -102,4 +102,13 @@ export class ItemService {
     return this.http.put('http://83.212.102.61:8080/unsold/edit', JSON.stringify(unsoldItemEdit),
       { headers: this.headers });
   }
+
+  getDistinctPreviewItems(access_token: string): Observable<any[]>{
+    this.headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<any[]>('http://83.212.102.61:8080/item/distinctNames',
+      { headers: this.headers });
+  }
 }

@@ -11,9 +11,19 @@
             <form [formGroup]="addItemForm">
                 <div style="display: inline-flex;">
                     <div style="padding: 0.5em 0.7em;">
-                        <mat-form-field appearance="outline">
+                        <mat-form-field appearance="outline" *ngIf="previewItems.length == 0">
                             <mat-label>Item Name</mat-label>
                             <input matInput type="text" [formControl]="nameControl" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" *ngIf="previewItems.length > 0">
+                            <input matInput placeholder="Item Name" aria-label="State" [matAutocomplete]="auto"
+                                [formControl]="nameControl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let item of filterItems | async" [value]="item.itemName">
+                                    <img class="example-option-img" aria-hidden [src]="item.photoPath" height="25">
+                                    <span>{{item.itemName}}</span>
+                                </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </div>
                     <div style="padding: 0.5em 0.7em 0.5em 2em;">

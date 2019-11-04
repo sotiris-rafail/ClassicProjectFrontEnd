@@ -1,12 +1,13 @@
-import { ValidationErrors } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UnSoldItem, UnSoldItemEdit } from './../auction.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, OnChanges, SimpleChanges, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ItemService } from '../item-service.service';
 import { MatSnackBar } from '@angular/material';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-new-item-panel',
@@ -15,6 +16,8 @@ import { Router } from '@angular/router';
   providers: [ItemService, DisplayingErrorComponent]
 })
 export class AddNewItemPanelComponent implements OnInit {
+  previewItems: any[] = [];
+  filterItems : Observable<any[]>;
   maxPrice: number;
   grade: string;
   typeOfItem: string;
@@ -66,6 +69,20 @@ export class AddNewItemPanelComponent implements OnInit {
     this.maxPriceControl.valueChanges.subscribe(() => {
       this.validateStartingAndMaxPrice();
     });
+    this.itemsService.getDistinctPreviewItems(sessionStorage.getItem("access_token")).subscribe(response => {
+      this.previewItems = response;
+    });
+    this.filterItems = this.nameControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(state => state ? this._filterStates(state) : this.previewItems.slice())
+      );
+  }
+
+  private _filterStates(value: string): any[] {
+    console.log(value)
+    const filterValue = value.toLowerCase();
+    return this.previewItems.filter(state => state.itemName.toLowerCase().indexOf(filterValue) === 0);
   }
 
   private onBookSelect(response: string) {
@@ -123,7 +140,7 @@ export class AddNewItemPanelComponent implements OnInit {
   }
 
   addItem() {
-    this.itemsService.addNewItemForSale(this.items ,sessionStorage.getItem("access_token")).subscribe(
+    this.itemsService.addNewItemForSale(this.items, sessionStorage.getItem("access_token")).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {

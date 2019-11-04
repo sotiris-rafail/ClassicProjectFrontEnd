@@ -73,6 +73,7 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { VerificationEmailPageComponent } from './homePage/member/verification-email-page/verification-email-page.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -120,7 +121,8 @@ import { VerificationEmailPageComponent } from './homePage/member/verification-e
     MatProgressBarModule,
     CdkTreeModule,
     MatStepperModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatAutocompleteModule
   ],
   exports: [
     MatFormFieldModule,
@@ -152,7 +154,8 @@ import { VerificationEmailPageComponent } from './homePage/member/verification-e
     MatProgressBarModule,
     CdkTreeModule,
     MatStepperModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatAutocompleteModule
   ],
   entryComponents: [AddNewConstantPartyComponent, AddUserToCpFromAdminPageComponent, DeleteCharacterComponent, DisplayingErrorComponent,
     AuctionBidConfirmationPanelComponent, AddNewItemPanelComponent, AddClanComponent, ChangeMemberRoleComponent, UpdateTODComponent,
