@@ -1,7 +1,7 @@
 <div fxFlex fxLayout="column">
   <topbar [whichToPrint]="whichToPrint" [previusUrl]="previusUrl" [isSuperUser]="raidBosser"></topbar>
   <div fxFlex fxLayout="column">
-    <mat-form-field [style]="{'padding':'0em 1em', 'width': '20%'}"
+    <mat-form-field [ngStyle]="{'padding':'0em 1em', 'width': '20%'}"
       [style.sm]="{'padding':'0em 1em', 'width': '30%'}" [ngStyle.xs]="{'padding':'0em 1em'}">
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by name or level">
     </mat-form-field>
