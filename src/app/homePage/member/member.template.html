@@ -7,8 +7,8 @@
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'padding-left.em': 0.9}"> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element" [style.xs]="{'overflow':'auto', 'padding-left.em': 0.9}"> {{element.name}}
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9}"> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto', 'padding-left.em': 0.9}"> {{element.name}}
         </mat-cell>
       </ng-container>
 
@@ -21,7 +21,7 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="classOfCharacter">
         <mat-header-cell *matHeaderCellDef> Class </mat-header-cell>
-        <mat-cell *matCellDef="let element" [style.xs]="{'overflow':'auto'}"> {{element.classOfCharacter}} </mat-cell>
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'overflow':'auto'}"> {{element.classOfCharacter}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
@@ -36,7 +36,7 @@
       </ng-container>
 
       <ng-container matColumnDef="More">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'padding-right.px':0}">
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px':0}">
           <button fxShow fxHide.xs="true" mat-raised-button color="accent" (click)="openDialogCharacter()">
             <mat-icon>add</mat-icon>Add a character
           </button>
@@ -45,7 +45,7 @@
             <mat-icon>add</mat-icon>
           </button>
         </mat-header-cell>
-        <mat-cell *matCellDef="let element" [style.xs]="{'padding-right.px':0}">
+        <mat-cell *matCellDef="let element" [ngStyle.xs]="{'padding-right.px':0}">
           <div fxShow fxHide.xs="true" style="display:flex;">
             <div>
               <button mat-raised-button color="accent" (click)="handleUpdate(element)" [matTooltip]="'Edit'">

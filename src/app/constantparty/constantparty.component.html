@@ -5,34 +5,34 @@
     <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'padding-left.em': 0.9, 'place-content':'stretch center'}">
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-left.em': 0.9, 'place-content':'stretch center'}">
           Name </mat-header-cell>
-        <mat-cell *matCellDef="let element2" [style.xs]="{'overflow':'auto'}"> {{element2.name}} </mat-cell>
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto'}"> {{element2.name}} </mat-cell>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="level">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'place-content':'stretch center'}"> Level </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch center'}"> Level </mat-header-cell>
         <mat-cell *matCellDef="let element2"> {{element2.level}} </mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="classOfCharacter">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'place-content':'stretch flex-start'}"> Class
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Class
         </mat-header-cell>
-        <mat-cell *matCellDef="let element2" [style.xs]="{'overflow':'auto', 'place-content':'stretch flex-start'}">
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'overflow':'auto', 'place-content':'stretch flex-start'}">
           {{element2.classOfCharacter}} </mat-cell>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="clanName">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'place-content':'stretch flex-start'}"> Clan
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'place-content':'stretch flex-start'}"> Clan
         </mat-header-cell>
         <mat-cell *matCellDef="let element2"> {{element2.clanName}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="More">
-        <mat-header-cell *matHeaderCellDef [style.xs]="{'padding-right.px': 0}">
+        <mat-header-cell *matHeaderCellDef [ngStyle.xs]="{'padding-right.px': 0}">
             <button fxShow fxHide.xs="true" *ngIf="isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()">
               <mat-icon>add</mat-icon>
               Add a member
@@ -41,7 +41,7 @@
               <mat-icon>add</mat-icon>
             </button>
         </mat-header-cell>
-        <mat-cell *matCellDef="let element2" [style.xs]="{'padding-right.px': 0}">
+        <mat-cell *matCellDef="let element2" [ngStyle.xs]="{'padding-right.px': 0}">
           <button mat-raised-button color="warn" (click)="handleDelete(element2)" [matTooltip]="'Delete'" *ngIf="isUserAleader">
             <mat-icon>
               <svg style="width:24px;height:24px" viewBox="0 0 24 24">

@@ -1,3 +1,4 @@
+import { User } from './../admin-dash-board.component';
 import { DeleteUserComponent } from './../../homePage/member/delete-user/delete-user.component';
 import { Component, OnInit, ViewChild, Input, OnChanges, ChangeDetectorRef, HostBinding } from '@angular/core';
 import { MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
@@ -6,8 +7,7 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
 import { AdminDashbordService } from '../adminDashboard.service';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { Router } from '@angular/router';
-import { User } from '../admin-dash-board.component';
-import { filter } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
 import { ChangeMemberRoleComponent } from 'src/app/homePage/member/change-member-role/change-member-role.component';
 import { AddUserToCpFromAdminPageComponent } from 'src/app/constantparty/add-user-to-cp-from-clan-page/add-user-to-cp-from-clan-page.component';
 import { DeleteCharacterComponent } from 'src/app/clan/remove-clan-member/remove-clan-member.component';
@@ -29,9 +29,9 @@ import { routeSlideLeftToRightStateTrigger } from 'src/app/shared/route-animatio
 })
 export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
   //@HostBinding('@routeSlideLeftToRightState') routeAnimation = true;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  dataSource: UsersInfoDashboardDisplayDataSource;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  dataSource: MatTableDataSource<User>;
   displayingView = [];
   @Input() filter = "";
   @Input() searchByCharacter = false;
@@ -51,7 +51,9 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
     this.adminService.getUsersForDashboard(sessionStorage.getItem('access_token')).subscribe(
       response => {
         this.actualData = response;
-        this.dataSource = new UsersInfoDashboardDisplayDataSource(response, this.paginator, this.sort);
+        this.dataSource = new MatTableDataSource<User>(this.actualData);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }, error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {
@@ -70,14 +72,13 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.filter !== "") {
-      this.dataSource = new UsersInfoDashboardDisplayDataSource(this.actualData, this.paginator, this.sort);
       if (this.searchByCharacter) {
-        this.dataSource = new UsersInfoDashboardDisplayDataSource(this.dataSource.filterByCharacterName(this.filter), this.paginator, this.sort);
+        this.dataSource = new MatTableDataSource(this.filterByCharacterName(this.filter));
       } else {
-        this.dataSource = new UsersInfoDashboardDisplayDataSource(this.dataSource.filterByEmail(this.filter), this.paginator, this.sort);
+        this.dataSource = new MatTableDataSource(this.filterByEmail(this.filter));
       }
     } else {
-      this.dataSource = new UsersInfoDashboardDisplayDataSource(this.actualData, this.paginator, this.sort);
+      this.dataSource = new MatTableDataSource(this.actualData);
     }
   }
 
@@ -95,6 +96,29 @@ export class UsersInfoDashboardDisplayComponent implements OnInit, OnChanges {
     this.displayingView['RAIDBOSSER'] = 'Raid Bosser';
     this.displayingView['CPLEADER'] = 'CP Leader';
   }
+
+  private filterByEmail(filter: string) {
+    return this.actualData.filter(user => {
+      return user.email.trim().toLowerCase().includes(filter.trim().toLowerCase())
+    })
+  }
+
+  private filterByCharacterName(filter: string): User[] {
+    let filterData = [];
+    this.actualData.forEach(user => {
+      user.chars.forEach(char => {
+        if (char.name.trim().toLowerCase().includes(filter.trim().toLowerCase())) {
+          filterData.push(user);
+        }
+      });
+    });
+    return filterData;
+}
+
+/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
+private compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
 
   handleDelete(user_id: number, email: string) {
     const dialogRef = this.dialog.open(DeleteUserComponent, {
