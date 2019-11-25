@@ -9,7 +9,7 @@ import { routeFadeStateTrigger } from 'src/app/shared/route-animation';
 })
 export class WelcomePageComponent implements OnInit {
   @HostBinding('@routeFadeState') routeAnimation = true;
-  welcomeMessage = 'Welcome to Crusaders Alliance Web Site';
+  welcomeMessage = 'Welcome to HiddenPandas Alliance Web Site';
   constructor() { }
 
   ngOnInit() {
