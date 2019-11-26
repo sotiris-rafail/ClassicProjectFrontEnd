@@ -67,11 +67,11 @@ export class UpdateCharacterComponent implements OnInit {
   }
 
   updateCharacter() {
-    let updateChar: CharacterUpdate = {
+    let updateCharForDisplay: CharacterUpdate = {
       'charId': this.data.character.characterId,
       'inGameName': this.charNameControl.value,
       'level': this.levelControl.value === this.data.character.level ? -1 : this.levelControl.value,
-      'clanId': this.selectedClan === undefined ? "-1" : this.clans[this.selectedClan - 1].viewValue,
+      'clanId': this.selectedClan === undefined ? "-1" : this.clans.find(clan => clan.value === this.selectedClan).viewValue,
       'classOfCharacter': this.selectedClass === undefined ? "-1" : this.classess[this.selectedClass].viewValue,
       'typeOfCharacter': this.selectedType === undefined ? "-1" : this.types[this.selectedType === 0 ? this.selectedType : this.selectedType - 1].viewValue,
     };
@@ -94,7 +94,7 @@ export class UpdateCharacterComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top'
           });
-          this.dialogRef.close(updateChar);
+          this.dialogRef.close(updateCharForDisplay);
       },
       error => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,

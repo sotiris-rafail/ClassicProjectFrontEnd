@@ -5,13 +5,13 @@
       <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
         <mat-card class="dashboard-card" @routeSlideLeftToRightState>
           <mat-card-header>
-            <mat-card-title style="height: 3.5em;" *ngIf="card.title ==='User\'s Info'">
+            <mat-card-title [ngStyle]="{'height' : '3.5em'}" *ngIf="card.title ==='User\'s Info'">
               {{card.title}}
               <mat-form-field appearance="" [ngStyle.xs]="{'margin-left.em':0,'margin-right.em':0}" [ngStyle]="{'margin-left.em':2,'margin-right.em':2}">
                 <mat-label>Filter By {{whatToFilter}}</mat-label>
                 <input matInput (keyup)="applyFilter($event.target.value)">
                 <mat-icon matSuffix>
-                  <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                  <svg [ngStyle]="{'width' : '24px', 'height' : '24px'}" viewBox="0 0 24 24">
                     <path fill="#000000"
                       d="M14,12V19.88C14.04,20.18 13.94,20.5 13.71,20.71C13.32,21.1 12.69,21.1 12.3,20.71L10.29,18.7C10.06,18.47 9.96,18.16 10,17.87V12H9.97L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L14.03,12H14Z" />
                   </svg>
@@ -25,28 +25,28 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content *ngIf="card.number == 1" class="dashboard-card-content">
-            <div fxFlex style="height:250px;">
+            <div fxFlex [ngStyle]="{'height' : '250px'}">
               <app-users-info-dashboard-display [filter]="filter" [searchByCharacter]="checked" [isSuperUser]="isSuperUser">
               </app-users-info-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 2" class="dashboard-card-content">
-            <div fxFlex style="height:300px;" *ngIf="coreInfoPoints.length != 0">
+            <div fxFlex [ngStyle]="{'height' : '300px'}" *ngIf="coreInfoPoints.length != 0">
               <app-epic-points-dashboard-display [data]="coreInfoPoints"></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 3" class="dashboard-card-content">
-            <div fxFlex style="height:300px;" *ngIf="orfenInfoPoints.length != 0">
+            <div fxFlex [ngStyle]="{'height' : '300px'}" *ngIf="orfenInfoPoints.length != 0">
               <app-epic-points-dashboard-display [data]="orfenInfoPoints"></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 4" class="dashboard-card-content">
-            <div fxFlex style="height:300px;" *ngIf="aqInfoPoints.length != 0">
+            <div fxFlex [ngStyle]="{'height' : '300px'}" *ngIf="aqInfoPoints.length != 0">
               <app-epic-points-dashboard-display [data]="aqInfoPoints"></app-epic-points-dashboard-display>
             </div>
           </mat-card-content>
           <mat-card-content *ngIf="card.number == 5" class="dashboard-card-content">
-            <div fxFlex style="height:300px;">
+            <div fxFlex [ngStyle]="{'height' : '300px'}">
               <app-constant-party-numbers-info></app-constant-party-numbers-info>
             </div>
           </mat-card-content>
