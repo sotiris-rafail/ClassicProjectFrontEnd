@@ -6,7 +6,6 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { RaidBoss } from '../raid-boss.component';
 import { DisplayingErrorComponent } from 'src/app/displaying-error/displaying-error.component';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
@@ -34,7 +33,7 @@ const moment = _rollupMoment || _moment;
   ],
 })
 export class UpdateTODComponent implements OnInit {
-  @ViewChild('datePicker', {static: false}) datePicker: ElementRef;
+  @ViewChild('datePicker', {static: true}) datePicker: ElementRef;
   maxDate = new Date();
   minDate = new Date(2019, 0, 1);
   date = new FormControl(moment());
@@ -49,14 +48,17 @@ export class UpdateTODComponent implements OnInit {
     hour: this.hour,
     mins: this.mins
   });
-  finalDate: string;
+  finalDate: Date;
   ngOnInit() { }
 
   updateTOD() {
-    let dateString: string = new Date(this.datePicker.nativeElement.value).toISOString().split('T')[0];
+    console.log()
+    let dateString = new Date(this.datePicker.nativeElement.value).toISOString().split('T')[0];
     let splitDate = dateString.split('-');
-    this.finalDate = new Date(Number(splitDate[0]), Number(splitDate[1]) - 1, Number(splitDate[2]) + 1, this.formGroup.getRawValue().hour, this.formGroup.getRawValue().mins).toISOString();
-    this.raidBossService.updateTOD(this.data.acces_tokken, this.data.raidBoss.raidBossId, this.finalDate).subscribe(
+    this.finalDate = new Date(Number(splitDate[0]), Number(splitDate[1]) - 1);
+    this.finalDate.setDate(Number(splitDate[2]));
+    this.finalDate.setHours(Number(this.formGroup.getRawValue().hour), Number(this.formGroup.getRawValue().mins));
+    this.raidBossService.updateTOD(this.data.acces_tokken, this.data.raidBoss.raidBossId, this.finalDate.toISOString()).subscribe(
       response => {
         this.snackBar.openFromComponent(DisplayingErrorComponent,
           {

@@ -18,7 +18,7 @@ import { routeSlideUpToBottomStateTrigger } from 'src/app/shared/route-animation
 export class SoldItemsComponent implements OnInit, OnChanges {
   @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
   private _panelState: Boolean = false;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Input()
   set panelState(value: Boolean) {
     this._panelState = value;

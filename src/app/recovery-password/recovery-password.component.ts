@@ -11,7 +11,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
   providers: [MemberService]
 })
 export class RecoveryPasswordComponent {
-  @ViewChild('stepper', {static: false}) stepper : MatHorizontalStepper;
+  @ViewChild('stepper', {static: true}) stepper : MatHorizontalStepper;
   isLinear = true;
   email : FormControl = new FormControl('', [Validators.required, Validators.email]);
   mainChar : FormControl = new FormControl('', [Validators.required]);

@@ -31,7 +31,7 @@ export class UnSoldItemsComponent implements OnInit, OnChanges {
   }
   @Input() isSuperUser = true;
   isFirstTime: Boolean = true;
-  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   dataSource: MatTableDataSource<UnSoldItemDisplay> = new MatTableDataSource<UnSoldItemDisplay>();
   data: MatTableDataSource<UnSoldItemDisplay> = new MatTableDataSource<UnSoldItemDisplay>();
   columnsToDisplay = ['itemId', 'name', 'photoPath', 'grade', 'typeOfItem', 'startingPrice', 'maxPrice', 'expirationDate'];

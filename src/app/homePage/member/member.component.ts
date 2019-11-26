@@ -22,9 +22,9 @@ import { routeFadeStateTrigger, routeSlideUpToBottomStateTrigger } from 'src/app
 })
 export class MemberComponent implements OnInit {
   @HostBinding('@routeSlideUpToBottomState') routeAnimation = true;
-  @ViewChild('boss', {static: false}) boss: MatSlideToggle;
-  @ViewChild('newItem', {static: false}) newItem: MatSlideToggle;
-  @ViewChild('soldItem', {static: false}) soldItem: MatSlideToggle;
+  @ViewChild('boss', {static: true}) boss: MatSlideToggle;
+  @ViewChild('newItem', {static: true}) newItem: MatSlideToggle;
+  @ViewChild('soldItem', {static: true}) soldItem: MatSlideToggle;
   itemsOnSale = 0;
   previusUrl: String = this.router.url;
   whichToPrint: String = 'MEMBER';

@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class AdditionMemberPanelComponent implements OnInit {
   responseData: any;
   tokken: OAuth2Token = new OAuth2Token();
-  @ViewChild("shoes", {static: false}) shoes: MatSelectionList;
+  @ViewChild("shoes", {static: true}) shoes: MatSelectionList;
 
   constructor(private cpService: ConstantPartyService, private dialogRef: MatDialogRef<AdditionMemberPanelComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     private snackBar: MatSnackBar, private router: Router) { }
