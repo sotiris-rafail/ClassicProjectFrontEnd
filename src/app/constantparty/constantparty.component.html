@@ -37,7 +37,7 @@
               <mat-icon>add</mat-icon>
               Add a member
             </button>
-            <button fxHide fxShow.xs="true" *ngIf="!isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()" [matTooltip]="'Add a member'">
+            <button fxHide fxShow.xs="true" *ngIf="isUserAleader" mat-raised-button color="accent" (click)="openDialogMember()" [matTooltip]="'Add a member'">
               <mat-icon>add</mat-icon>
             </button>
         </mat-header-cell>
