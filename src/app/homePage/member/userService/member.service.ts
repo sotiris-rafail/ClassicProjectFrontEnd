@@ -34,7 +34,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http:///83.212.102.61:8080/user/role/' + userId, { headers: this.headers });
+    return this.http.get('http://83.212.113.1:8080/user/role/' + userId, { headers: this.headers });
   }
 
   public updateUserRole(characterId: string, typeOfuser: string, token: string) {
@@ -42,7 +42,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http:///83.212.102.61:8080/user/updateRole', "", {
+    return this.http.put('http://83.212.113.1:8080/user/updateRole', "", {
       headers: this.headers,
       params: { characterId: characterId, typeOfUser: typeOfuser }
     });
@@ -53,7 +53,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http:///83.212.102.61:8080/user/addUserToCp', "", {
+    return this.http.put('http://83.212.113.1:8080/user/addUserToCp', "", {
       headers: this.headers,
       params: { characterId: String(characterId), cpId: String(cpId) }
     });
@@ -64,7 +64,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.delete('http:///83.212.102.61:8080/user/deleteUser', {
+    return this.http.delete('http://83.212.113.1:8080/user/deleteUser', {
       headers: this.headers,
       params: { userId: String(user_id) }
     });
@@ -75,14 +75,14 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http:///83.212.102.61:8080/user/epic/points', { headers: this.headers });
+    return this.http.get('http://83.212.113.1:8080/user/epic/points', { headers: this.headers });
   }
 
   verifyUser(email: any, mainChar: any): Observable<boolean> {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get<boolean>('http:///83.212.102.61:8080/user/verification', {
+    return this.http.get<boolean>('http://83.212.113.1:8080/user/verification', {
       headers: this.headers,
       params: {
         'email': email,
@@ -95,7 +95,7 @@ export class MemberService {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post('http:///83.212.102.61:8080/user/update/password', JSON.stringify(params), { headers: this.headers });
+    return this.http.post('http://83.212.113.1:8080/user/update/password', JSON.stringify(params), { headers: this.headers });
   }
 
   isCpMember(userId: number, token: string): Observable<Boolean> {
@@ -103,7 +103,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<Boolean>('http:///83.212.102.61:8080/user/isCpMember',
+    return this.http.get<Boolean>('http://83.212.113.1:8080/user/isCpMember',
       {
         headers: this.headers,
         params: { 'userId': String(userId) }
@@ -115,7 +115,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http:///83.212.102.61:8080/user/options', "",
+    return this.http.put('http://83.212.113.1:8080/user/options', "",
       {
         headers: this.headers,
         params: {
@@ -131,7 +131,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http:///83.212.102.61:8080/user/verify',
+    return this.http.get('http://83.212.113.1:8080/user/verify',
       {
         headers: this.headers,
         params: {
@@ -144,7 +144,7 @@ export class MemberService {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.get('http:///83.212.102.61:8080/user/verify/' + code);
+    return this.http.get('http://83.212.113.1:8080/user/verify/' + code);
   };
 
   getOptionsConfiguration(token: string) {
@@ -152,7 +152,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http:///83.212.102.61:8080/user/option/getConfigOptions',
+    return this.http.get('http://83.212.113.1:8080/user/option/getConfigOptions',
       {
         headers: this.headers
       })

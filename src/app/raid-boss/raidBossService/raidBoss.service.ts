@@ -41,6 +41,6 @@ export class RaidBossService{
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.post('http:///83.212.102.61:8080/raidboss/add', raidBoss, {headers : this.headers});
+        return this.http.post('http://83.212.113.1:8080/raidboss/add', raidBoss, {headers : this.headers});
     }
 }
