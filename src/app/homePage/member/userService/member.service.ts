@@ -9,7 +9,7 @@ export class MemberService {
   private headers: HttpHeaders;
   public registeUserService(user) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post('http://83.212.102.61:8080/user/register', JSON.stringify(user), { headers: this.headers, responseType: "text" });
+    return this.http.post('http://83.212.113.1:8080/user/register', JSON.stringify(user), { headers: this.headers, responseType: "text" });
   }
 
   public loginUserService(email: string, password: string) {
@@ -18,7 +18,7 @@ export class MemberService {
       'Authorization': 'Basic ' + encoded,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://83.212.102.61:8080/oauth/token', "", { headers: this.headers, params: { 'grant_type': 'password', 'username': email, 'password': password } });
+    return this.http.post('http://83.212.113.1:8080/oauth/token', "", { headers: this.headers, params: { 'grant_type': 'password', 'username': email, 'password': password } });
   }
 
   public fetchloggedUser(userId: number, token: string) {
@@ -26,7 +26,7 @@ export class MemberService {
       'Authorization': 'Bearer  ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get('http://83.212.102.61:8080/user/' + userId, { headers: this.headers });
+    return this.http.get('http://83.212.113.1:8080/user/' + userId, { headers: this.headers });
   }
 
   public getRoleOfUser(userId: number, token: string) {

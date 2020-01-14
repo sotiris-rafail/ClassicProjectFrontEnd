@@ -15,7 +15,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://83.212.102.61:8080/unsold/add', JSON.stringify(item),
+    return this.http.post('http://83.212.113.1:8080/unsold/add', JSON.stringify(item),
       {
         headers: this.headers
       });
@@ -26,7 +26,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http://83.212.102.61:8080/sold/delivery', '',
+    return this.http.put('http://83.212.113.1:8080/sold/delivery', '',
       {
         headers: this.headers,
         params: { itemId: String(itemId), isDelivered: String(isDelivered) }
@@ -38,7 +38,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'text/plain, */*',
     });
-    return this.http.put('http://83.212.102.61:8080/unsold/bidForItem', '',
+    return this.http.put('http://83.212.113.1:8080/unsold/bidForItem', '',
       {
         headers: this.headers,
         params: { itemId: String(itemId), bidStep: String(bidStep), userId: userId },
@@ -52,7 +52,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http://83.212.102.61:8080/unsold/buyNow', '',
+    return this.http.put('http://83.212.113.1:8080/unsold/buyNow', '',
       {
         headers: this.headers,
         params: { itemId: String(itemId), userId: userId }
@@ -64,7 +64,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<SoldItem[]>('http://83.212.102.61:8080/sold/getSoldItems',
+    return this.http.get<SoldItem[]>('http://83.212.113.1:8080/sold/getSoldItems',
       { headers: this.headers });
   }
 
@@ -73,7 +73,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<UnSoldItemDisplay[]>('http://83.212.102.61:8080/unsold/getUnSoldItems',
+    return this.http.get<UnSoldItemDisplay[]>('http://83.212.113.1:8080/unsold/getUnSoldItems',
       { headers: this.headers });
   }
 
@@ -82,7 +82,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<number>('http://83.212.102.61:8080/unsold/getNumberOfUnsoldItems',
+    return this.http.get<number>('http://83.212.113.1:8080/unsold/getNumberOfUnsoldItems',
       { headers: this.headers });
   }
 
@@ -91,7 +91,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://83.212.102.61:8080/sold/renewItems', JSON.stringify(selected), { headers: this.headers });
+    return this.http.post('http://83.212.113.1:8080/sold/renewItems', JSON.stringify(selected), { headers: this.headers });
   }
 
   editReSaleItem(unsoldItemEdit: UnSoldItemEdit, access_token: string) {
@@ -99,7 +99,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.put('http://83.212.102.61:8080/unsold/edit', JSON.stringify(unsoldItemEdit),
+    return this.http.put('http://83.212.113.1:8080/unsold/edit', JSON.stringify(unsoldItemEdit),
       { headers: this.headers });
   }
 
@@ -108,7 +108,7 @@ export class ItemService {
       'Authorization': 'Bearer ' + access_token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<any[]>('http://83.212.102.61:8080/item/distinctNames',
+    return this.http.get<any[]>('http://83.212.113.1:8080/item/distinctNames',
       { headers: this.headers });
   }
 }
