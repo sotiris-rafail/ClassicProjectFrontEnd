@@ -74,6 +74,13 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { VerificationEmailPageComponent } from './homePage/member/verification-email-page/verification-email-page.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { RaidBossHistoryComponent } from './raid-boss/raid-boss-history/raid-boss-history.component';
+import { BaiumHistoryTableComponent } from './raid-boss/raid-boss-history/baium-history-table/baium-history-table.component';
+import { ZakenHistoryTableComponent } from './raid-boss/raid-boss-history/zaken-history-table/zaken-history-table.component';
+import { CoreHistoryTableComponent } from './raid-boss/raid-boss-history/core-history-table/core-history-table.component';
+import { OrfenHistoryTableComponent } from './raid-boss/raid-boss-history/orfen-history-table/orfen-history-table.component';
+import { AqHistoryTableComponent } from './raid-boss/raid-boss-history/aq-history-table/aq-history-table.component';
+//import { RaidBossHistoryTableComponent } from './raid-boss/raid-boss-history/baium-history-table/baium-history-table.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +90,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ContastpartyEpicPointsComponent, DeleteMemberComponent, UpdateCharacterComponent, AuctionComponent, SoldItemsComponent,
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, DeleteCharacterComponent,
     AddUserToCpFromAdminPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
-    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent, RecoveryPasswordComponent, VerificationEmailPageComponent],
+    ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent, RecoveryPasswordComponent, VerificationEmailPageComponent, RaidBossHistoryComponent, BaiumHistoryTableComponent, ZakenHistoryTableComponent, CoreHistoryTableComponent, OrfenHistoryTableComponent, AqHistoryTableComponent,
+    // RaidBossHistoryTableComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

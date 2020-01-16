@@ -1,3 +1,4 @@
+import { RaidBossHistoryComponent } from './raid-boss/raid-boss-history/raid-boss-history.component';
 import { VerificationEmailPageComponent } from './homePage/member/verification-email-page/verification-email-page.component';
 import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
 import { AuctionComponent } from './auction/auction.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'clan' ,component: ClanComponent },
   { path: 'cp/:cpId', component : ConstantpartyComponent},
   { path: 'raidboss', component: RaidBossComponent},
+  { path: 'raidboss/history', component: RaidBossHistoryComponent},
   { path: 'auction', component : AuctionComponent},
   { path: 'adminDashboard', component : AdminDashBoardComponent},
   { path: '**', component : NotFoundPageComponent }

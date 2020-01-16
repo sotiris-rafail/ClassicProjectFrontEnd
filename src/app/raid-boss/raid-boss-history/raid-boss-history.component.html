@@ -1,0 +1,39 @@
+<topbar [whichToPrint]="whichToPrint" [isSuperUser]="raidBosser"></topbar>
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="500px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.title}}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content *ngIf="card.id == 1" class="dashboard-card-content">
+          <div fxFlex [ngStyle]="{'height' : '400px'}">
+            <app-baium-history-table [data]="baiumData"></app-baium-history-table>
+          </div>
+        </mat-card-content>
+        <mat-card-content *ngIf="card.id == 2" class="dashboard-card-content">
+          <div fxFlex [ngStyle]="{'height' : '400px'}">
+            <app-zaken-history-table [data]="exampledata"></app-zaken-history-table>
+          </div>
+        </mat-card-content>
+        <mat-card-content *ngIf="card.id == 3" class="dashboard-card-content">
+          <div fxFlex [ngStyle]="{'height' : '400px'}">
+            <app-orfen-history-table [data]="exampledata"></app-orfen-history-table>
+          </div>
+        </mat-card-content>
+        <mat-card-content *ngIf="card.id == 4" class="dashboard-card-content">
+          <div fxFlex [ngStyle]="{'height' : '400px'}">
+            <app-core-history-table [data]="exampledata"></app-core-history-table>
+          </div>
+        </mat-card-content>
+        <mat-card-content *ngIf="card.id == 5" class="dashboard-card-content">
+          <div fxFlex [ngStyle]="{'height' : '400px'}">
+            <app-aq-history-table [data]="exampledata"></app-aq-history-table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
