@@ -1,4 +1,5 @@
 <topbar [whichToPrint]="whichToPrint" [isSuperUser]="raidBosser"></topbar>
+<add-raid-boss-history-record></add-raid-boss-history-record>
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="500px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
@@ -8,29 +9,29 @@
             {{card.title}}
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content *ngIf="card.id == 1" class="dashboard-card-content">
+        <mat-card-content *ngIf="card.id == 1 && baiumData" class="dashboard-card-content">
           <div fxFlex [ngStyle]="{'height' : '400px'}">
             <app-baium-history-table [data]="baiumData"></app-baium-history-table>
           </div>
         </mat-card-content>
-        <mat-card-content *ngIf="card.id == 2" class="dashboard-card-content">
+        <mat-card-content *ngIf="card.id == 2 && zakenData" class="dashboard-card-content">
           <div fxFlex [ngStyle]="{'height' : '400px'}">
-            <app-zaken-history-table [data]="exampledata"></app-zaken-history-table>
+            <app-zaken-history-table [data]="zakenData"></app-zaken-history-table>
           </div>
         </mat-card-content>
-        <mat-card-content *ngIf="card.id == 3" class="dashboard-card-content">
+        <mat-card-content *ngIf="card.id == 3 && orfenData" class="dashboard-card-content">
           <div fxFlex [ngStyle]="{'height' : '400px'}">
-            <app-orfen-history-table [data]="exampledata"></app-orfen-history-table>
+            <app-orfen-history-table [data]="orfenData"></app-orfen-history-table>
           </div>
         </mat-card-content>
-        <mat-card-content *ngIf="card.id == 4" class="dashboard-card-content">
+        <mat-card-content *ngIf="card.id == 4 && coreData" class="dashboard-card-content">
           <div fxFlex [ngStyle]="{'height' : '400px'}">
-            <app-core-history-table [data]="exampledata"></app-core-history-table>
+            <app-core-history-table [data]="coreData"></app-core-history-table>
           </div>
         </mat-card-content>
-        <mat-card-content *ngIf="card.id == 5" class="dashboard-card-content">
+        <mat-card-content *ngIf="card.id == 5 && aqData" class="dashboard-card-content">
           <div fxFlex [ngStyle]="{'height' : '400px'}">
-            <app-aq-history-table [data]="exampledata"></app-aq-history-table>
+            <app-aq-history-table [data]="aqData"></app-aq-history-table>
           </div>
         </mat-card-content>
       </mat-card>

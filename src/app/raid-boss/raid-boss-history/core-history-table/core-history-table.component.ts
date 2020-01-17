@@ -16,10 +16,11 @@ export class CoreHistoryTableComponent implements AfterViewInit, OnInit {
   dataSource: CoreHistoryTableDataSource;
   @Input() data;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['deathTimer', 'windowTimer', 'aliveTimer'];
 
   ngOnInit() {
     this.dataSource = new CoreHistoryTableDataSource();
+    this.dataSource.data = this.data;
   }
 
   ngAfterViewInit() {

@@ -1,0 +1,31 @@
+<div style="padding: 1em 1em 0em 1em;">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            style="border: 1px solid grey;">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Add History Record
+                </mat-panel-title>
+                <mat-panel-description>
+                    {{selected}}
+                  </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <mat-form-field style="padding: 0em 1em 0em 0em;">
+                    <mat-label>Select Raid Boss</mat-label>
+                    <mat-select [(value)]="selected">
+                        <mat-option>None</mat-option>
+                        <mat-option value="Baium">Baium</mat-option>
+                        <mat-option value="Zaken">Zaken</mat-option>
+                        <mat-option value="Orfen">Orfen</mat-option>
+                        <mat-option value="Core">Core</mat-option>
+                        <mat-option value="Queen Ant">Queen Ant</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-action-row>
+                <button mat-raised-button color='accent'>Add Record</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

@@ -16,10 +16,11 @@ export class OrfenHistoryTableComponent implements AfterViewInit, OnInit {
   dataSource: OrfenHistoryTableDataSource;
   @Input() data;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['deathTimer', 'windowTimer', 'aliveTimer'];
 
   ngOnInit() {
     this.dataSource = new OrfenHistoryTableDataSource();
+    this.dataSource.data = this.data;
   }
 
   ngAfterViewInit() {

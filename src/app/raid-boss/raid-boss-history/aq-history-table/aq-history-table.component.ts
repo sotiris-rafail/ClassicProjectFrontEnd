@@ -16,10 +16,11 @@ export class AqHistoryTableComponent implements AfterViewInit, OnInit {
   dataSource: AqHistoryTableDataSource;
   @Input() data;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['deathTimer', 'windowTimer', 'aliveTimer'];
 
   ngOnInit() {
     this.dataSource = new AqHistoryTableDataSource();
+    this.dataSource.data = this.data;
   }
 
   ngAfterViewInit() {

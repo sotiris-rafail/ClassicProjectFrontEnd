@@ -1,6 +1,8 @@
+import { Observable } from 'rxjs';
 import { RaidBoss } from './../register-raid-boss/register-raid-boss.component';
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RaidBossHistoryTableItem } from '../raid-boss-history/raid-boss-history.component';
 
 
 @Injectable()
@@ -43,4 +45,12 @@ export class RaidBossService{
           });
         return this.http.post('http://83.212.113.1:8080/raidboss/add', raidBoss, {headers : this.headers});
     }
+
+    getRaidBossHistory(access_token: string) : Observable<RaidBossHistoryTableItem[]> {
+        this.headers = new HttpHeaders({
+            'Authorization' : 'Bearer ' + access_token,
+            'Content-Type' : 'application/json',
+          });
+        return this.http.get<RaidBossHistoryTableItem[]>('http://83.212.113.1:8080/raidboss/getRaidBossHistory', {headers : this.headers});
+      }
 }

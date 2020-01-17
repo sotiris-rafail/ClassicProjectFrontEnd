@@ -1,15 +1,20 @@
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    <ng-container matColumnDef="deathTimer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Death Timer</th>
+      <td mat-cell *matCellDef="let row">{{row.deathTimer | date : 'MMM d, y, HH:mm:ss'}}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    <ng-container matColumnDef="windowTimer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Window Timer</th>
+      <td mat-cell *matCellDef="let row">{{row.windowTimer | date : 'MMM d, y, HH:mm:ss'}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="aliveTimer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Alive Timer</th>
+      <td mat-cell *matCellDef="let row">{{row.aliveTimer | date : 'MMM d, y, HH:mm:ss'}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -80,7 +80,8 @@ import { ZakenHistoryTableComponent } from './raid-boss/raid-boss-history/zaken-
 import { CoreHistoryTableComponent } from './raid-boss/raid-boss-history/core-history-table/core-history-table.component';
 import { OrfenHistoryTableComponent } from './raid-boss/raid-boss-history/orfen-history-table/orfen-history-table.component';
 import { AqHistoryTableComponent } from './raid-boss/raid-boss-history/aq-history-table/aq-history-table.component';
-//import { RaidBossHistoryTableComponent } from './raid-boss/raid-boss-history/baium-history-table/baium-history-table.component';
+import { AddRaidBossHistoryRecord } from './raid-boss/raid-boss-history/add-raidboss-history-record/add-raidboss-history-record.component';
+
 
 @NgModule({
   declarations: [
@@ -91,7 +92,7 @@ import { AqHistoryTableComponent } from './raid-boss/raid-boss-history/aq-histor
     UnSoldItemsComponent, AddNewItemPanelComponent, AuctionBidConfirmationPanelComponent, DisplayingErrorComponent, DeleteCharacterComponent,
     AddUserToCpFromAdminPageComponent, AddNewConstantPartyComponent, AdminDashBoardComponent, UsersInfoDashboardDisplayComponent, EpicPointsDashboardDisplayComponent,
     ConstantPartyNumbersInfoComponent, DeleteUserComponent, CpPhotosShowComponent, FullImageShowComponent, RecoveryPasswordComponent, VerificationEmailPageComponent, RaidBossHistoryComponent, BaiumHistoryTableComponent, ZakenHistoryTableComponent, CoreHistoryTableComponent, OrfenHistoryTableComponent, AqHistoryTableComponent,
-    // RaidBossHistoryTableComponent
+    AddRaidBossHistoryRecord
   ],
   imports: [
     BrowserModule,

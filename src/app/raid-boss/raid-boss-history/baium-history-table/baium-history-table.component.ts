@@ -17,10 +17,11 @@ export class BaiumHistoryTableComponent implements AfterViewInit, OnInit {
   @Input() data;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['deathTimer', 'windowTimer', 'aliveTimer'];
 
   ngOnInit() {
     this.dataSource = new BaiumHistoryTableDataSource();
+    this.dataSource.data = this.data;
   }
 
   ngAfterViewInit() {

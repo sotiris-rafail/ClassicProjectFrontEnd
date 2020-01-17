@@ -14,12 +14,13 @@ export class ZakenHistoryTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatTable, {static: false}) table: MatTable<ZakenHistoryTableItem>;
   dataSource: ZakenHistoryTableDataSource;
-  @Input() data;
+  @Input() data :ZakenHistoryTableItem[] ;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['deathTimer', 'windowTimer', 'aliveTimer'];
 
   ngOnInit() {
     this.dataSource = new ZakenHistoryTableDataSource();
+    this.dataSource.data = this.data;
   }
 
   ngAfterViewInit() {

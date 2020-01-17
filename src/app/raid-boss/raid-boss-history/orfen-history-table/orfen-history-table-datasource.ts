@@ -3,36 +3,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { RaidBossHistoryTableItem } from '../raid-boss-history.component';
 
 // TODO: Replace this with your own data model type
-export interface OrfenHistoryTableItem {
-  name: string;
-  id: number;
-}
+export interface OrfenHistoryTableItem extends RaidBossHistoryTableItem {}
+
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: OrfenHistoryTableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
-];
+
 
 /**
  * Data source for the OrfenHistoryTable view. This class should
@@ -40,7 +18,7 @@ const EXAMPLE_DATA: OrfenHistoryTableItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class OrfenHistoryTableDataSource extends DataSource<OrfenHistoryTableItem> {
-  data: OrfenHistoryTableItem[] = EXAMPLE_DATA;
+  data: OrfenHistoryTableItem[];
   paginator: MatPaginator;
   sort: MatSort;
 
@@ -92,10 +70,9 @@ export class OrfenHistoryTableDataSource extends DataSource<OrfenHistoryTableIte
     }
 
     return data.sort((a, b) => {
-      const isAsc = this.sort.direction === 'asc';
+      const isAsc = this.sort.direction === 'desc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'deathTimer': return compare(a.deathTimer, b.deathTimer, isAsc);
         default: return 0;
       }
     });
