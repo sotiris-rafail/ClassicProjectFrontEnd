@@ -51,6 +51,6 @@ export class RaidBossService{
             'Authorization' : 'Bearer ' + access_token,
             'Content-Type' : 'application/json',
           });
-        return this.http.get<RaidBossHistoryTableItem[]>('http://83.212.113.1:8080/raidboss/getRaidBossHistory', {headers : this.headers});
+        return this.http.get<RaidBossHistoryTableItem[]>('http://83.212.113.1:8080/raidboss/history/getRaidBossHistory', {headers : this.headers});
       }
 }
