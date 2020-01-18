@@ -48,27 +48,27 @@ export class RaidBossHistoryComponent implements OnInit {
         this.showButton();
       }
     )
-    // this.raidbossService.getRaidBossHistory(sessionStorage.getItem('access_token')).subscribe(
-    //   results => {
-    //     this.baiumData = results.filter((item) => item.raidbossName === 'Baium');
-    //     this.zakenData = results.filter((item) => item.raidbossName === 'Zaken');
-    //     this.orfenData = results.filter((item) => item.raidbossName === 'Orfen');
-    //     this.coreData = results.filter((item) => item.raidbossName === 'Core');
-    //     this.aqData = results.filter((item) => item.raidbossName === 'Queen Ant');
-    //   },
-    //   error => {
-    //     this.snackBar.openFromComponent(DisplayingErrorComponent,
-    //       {
-    //         duration: 5000,
-    //         panelClass: 'snackBarError',
-    //         data: { message: error.error.message || error.error.error_description, type: 'error' },
-    //         horizontalPosition: 'right',
-    //         verticalPosition: 'top'
-    //       });
-    //     if (Number(error.status) === 401) {
-    //       this.router.navigateByUrl('/');
-    //     }
-    //   })
+    this.raidbossService.getRaidBossHistory(sessionStorage.getItem('access_token')).subscribe(
+      results => {
+        this.baiumData = results.filter((item) => item.raidbossName === 'Baium');
+        this.zakenData = results.filter((item) => item.raidbossName === 'Zaken');
+        this.orfenData = results.filter((item) => item.raidbossName === 'Orfen');
+        this.coreData = results.filter((item) => item.raidbossName === 'Core');
+        this.aqData = results.filter((item) => item.raidbossName === 'Queen Ant');
+      },
+      error => {
+        this.snackBar.openFromComponent(DisplayingErrorComponent,
+          {
+            duration: 5000,
+            panelClass: 'snackBarError',
+            data: { message: error.error.message || error.error.error_description, type: 'error' },
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          });
+        if (Number(error.status) === 401) {
+          this.router.navigateByUrl('/');
+        }
+      })
   }
 
   showButton() {
